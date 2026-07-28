@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CompareHub — Nigeria's No. 1 Price Comparison Marketplace</title>
+  <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            work:  ['"Work Sans"', 'sans-serif'],
+            inter: ['Inter',       'sans-serif'],
+          },
+          colors: {
+            brand: {
+              primary: 'var(--color-primary)',
+              hover:   'var(--color-primary-hover)',
+              dark:    'var(--color-dark)',
+              body:    'var(--color-body)',
+              subtle:  'var(--color-subtle)',
+              muted:   'var(--color-muted)',
+              border:  'var(--color-border)',
+              surface: 'var(--color-surface)',
+              light:   'var(--color-light)',
+              success: 'var(--color-success)',
+              danger:  'var(--color-danger)',
+            },
+          },
+          borderRadius: {
+            btn:    'var(--radius-btn)',
+            card:   'var(--radius-card)',
+            panel:  'var(--radius-panel)',
+            drawer: 'var(--radius-drawer)',
+            pill:   'var(--radius-pill)',
+          },
+          fontSize: {
+            'label':      ['var(--text-label)',      { lineHeight: '1.5' }],
+            'caption':    ['var(--text-caption)',    { lineHeight: '1.5' }],
+            'body-sm':    ['var(--text-body-sm)',    { lineHeight: '1.5' }],
+            'body':       ['var(--text-body)',       { lineHeight: '1.5' }],
+            'body-md':    ['var(--text-body-md)',    { lineHeight: '1.5' }],
+            'heading-sm': ['var(--text-heading-sm)', { lineHeight: '1.5' }],
+            'heading':    ['var(--text-heading)',    { lineHeight: '1.5' }],
+            'heading-lg': ['var(--text-heading-lg)', { lineHeight: '1.2' }],
+            'hero':       ['var(--text-hero)',        { lineHeight: '1.1' }],
+          },
+          boxShadow: {
+            card:      'var(--shadow-card)',
+            'card-hover': 'var(--shadow-card-hover)',
+            header:    'var(--shadow-header)',
+            drawer:    'var(--shadow-drawer)',
+            dropdown:  'var(--shadow-dropdown)',
+          },
+          spacing: {
+            'section': 'var(--spacing-section)',
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons — pinned version for reliability -->
+  <script src="https://unpkg.com/lucide@0.441.0/dist/umd/lucide.min.js"></script>
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="font-work bg-[#f9fafb]">
+
+  <div id="app-header"></div>
+
+  <!-- Mobile header — logo + search bar + menu -->
+  <div class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#f3f4f6]" style="height:65px;box-shadow:0 1px 8px rgba(0,0,0,0.07)">
+    <div class="flex items-center gap-2 px-4 h-full">
+      <a href="index.html" class="shrink-0">
+        <img src="images/logos/logo-dark.svg" alt="CompareHub" class="h-5 w-auto">
+      </a>
+      <div class="flex-1 relative">
+        <i data-lucide="search" class="w-4 h-4 text-[#99a1af] absolute left-3 top-1/2 -translate-y-1/2"></i>
+        <input type="text" placeholder="Search..." class="w-full pl-9 pr-4 py-2 border border-[#e5e7eb] rounded-[8px] font-work text-[12px] text-[#364153] outline-none focus:border-[#155dfc] transition-colors" style="background:#fafafa">
+      </div>
+      <button id="mobile-menu-btn" class="w-9 h-9 border border-[#e5e7eb] rounded-[8px] flex items-center justify-center hover:bg-[#f9fafb] transition-colors shrink-0">
+        <i data-lucide="menu" class="w-4 h-4 text-[#6a7282]"></i>
+      </button>
+    </div>
+    <!-- Mobile Menu Dropdown -->
+    <div id="mobile-menu-dropdown" class="hidden absolute top-[65px] left-0 right-0 bg-white border-b border-[#f3f4f6] z-40">
+      <nav class="flex flex-col p-4 gap-2">
+        <a href="how-it-works.html" class="font-work font-medium text-[13px] text-[#364153] hover:text-[#155dfc] transition-colors py-2">How it works</a>
+        <a href="become-vendor.html" class="font-work font-medium text-[13px] text-[#364153] hover:text-[#155dfc] transition-colors py-2">Become Vendor</a>
+        <a href="events.html" class="font-work font-medium text-[13px] text-[#364153] hover:text-[#155dfc] transition-colors py-2">Events</a>
+        <hr class="border-[#f3f4f6] my-1">
+        <button onclick="window.authShow('login')" class="font-work font-medium text-[13px] text-[#155dfc] hover:text-[#1447e6] transition-colors py-2 text-left">Sign In</button>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Mobile menu toggle script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      const menuDropdown = document.getElementById('mobile-menu-dropdown');
+      if (menuBtn && menuDropdown) {
+        menuBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          menuDropdown.classList.toggle('hidden');
+        });
+        document.addEventListener('click', function() {
+          menuDropdown.classList.add('hidden');
+        });
+      }
+    });
+  </script>
+
+  <!-- Add top padding on mobile to account for fixed header -->
+  <div class="sm:hidden" style="height:2px"></div>
+
+  <!-- ===================================================
+       MOBILE HERO BANNER — shown only on mobile
+       =================================================== -->
+  <section class="sm:hidden px-4" style="padding-top:2px">
+    <div id="mobile-hero" class="relative overflow-hidden rounded-[16px]" style="background:linear-gradient(130deg,#155dfc 0%,#1244d4 60%,#0b3ac7 100%); height:148px">
+
+      <!-- Decorative radial blobs -->
+      <div class="absolute rounded-full pointer-events-none" style="width:180px;height:180px;right:-20px;top:-50px;background:radial-gradient(circle,rgba(255,255,255,0.18) 0%,rgba(255,255,255,0) 70%)"></div>
+      <div class="absolute rounded-full pointer-events-none" style="width:100px;height:100px;left:35%;bottom:-20px;background:radial-gradient(circle,rgba(255,255,255,0.1) 0%,rgba(255,255,255,0) 70%)"></div>
+
+      <!-- Content row -->
+      <div class="relative flex items-stretch h-full">
+
+        <!-- Left: text content -->
+        <div class="flex flex-col justify-center gap-2.5 pl-5 pr-2" style="flex:1; max-width:210px">
+          <h2 class="font-work font-bold text-white leading-[1.2]" style="font-size:20px">
+            Find the Best Price.
+            <span style="color:#ffd234">Every Time.</span>
+          </h2>
+          <button class="bg-white font-work font-semibold text-[#155dfc] text-[12px] rounded-[20px] self-start" style="padding:7px 18px">
+            Get Started
+          </button>
+        </div>
+
+        <!-- Right: woman with shopping bags — drop image at images/mobile-hero-woman.png -->
+        <div class="absolute bottom-0 right-0 pointer-events-none" style="width:145px; height:148px">
+          <img src="images/mobile-hero-woman.png" alt="" class="w-full h-full object-cover object-top"
+            onerror="this.style.display='none'">
+        </div>
+
+      </div>
+
+      <!-- Slider dots -->
+      <div class="absolute bottom-2.5 left-5 flex items-center gap-1.5">
+        <span class="block rounded-full bg-white" style="width:16px;height:4px"></span>
+        <span class="block rounded-full" style="width:4px;height:4px;background:rgba(255,255,255,0.45)"></span>
+        <span class="block rounded-full" style="width:4px;height:4px;background:rgba(255,255,255,0.45)"></span>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===================================================
+       MOBILE CATEGORY PILLS — right after hero, mobile only
+       =================================================== -->
+  <section class="sm:hidden px-4 pt-3 pb-1">
+    <div id="mobile-category-tabs" class="flex items-center gap-2 overflow-x-auto pb-1" style="scrollbar-width:none;-ms-overflow-style:none">
+      <a href="category.html#cat=all"         class="mobile-cat-tab flex-shrink-0 font-work font-semibold text-[13px] rounded-[20px] px-4 py-2 text-white" style="background:var(--color-primary)">All</a>
+      <a href="category.html#cat=phones"      class="mobile-cat-tab flex-shrink-0 font-work font-medium text-[13px] rounded-[20px] px-4 py-2 bg-white border border-[#e5e7eb] text-[#364153]">Phones</a>
+      <a href="category.html#cat=gaming"      class="mobile-cat-tab flex-shrink-0 font-work font-medium text-[13px] rounded-[20px] px-4 py-2 bg-white border border-[#e5e7eb] text-[#364153]">Gaming</a>
+      <a href="category.html#cat=electronics" class="mobile-cat-tab flex-shrink-0 font-work font-medium text-[13px] rounded-[20px] px-4 py-2 bg-white border border-[#e5e7eb] text-[#364153]">Cameras</a>
+      <a href="category.html#cat=electronics" class="mobile-cat-tab flex-shrink-0 font-work font-medium text-[13px] rounded-[20px] px-4 py-2 bg-white border border-[#e5e7eb] text-[#364153]">Laptops</a>
+      <a href="category.html#cat=food"        class="mobile-cat-tab flex-shrink-0 font-work font-medium text-[13px] rounded-[20px] px-4 py-2 bg-white border border-[#e5e7eb] text-[#364153]">Food</a>
+    </div>
+  </section>
+
+
+  <!-- ===================================================
+       HERO SLIDER — desktop only
+       =================================================== -->
+  <section id="hero" class="hidden sm:block relative overflow-hidden" style="height:680px">
+    <div id="slider-track">
+
+      <!-- Slide 1 — background only -->
+      <div class="slide">
+        <img src="images/sliders/Slider 1.png" alt="" class="absolute inset-0 w-full h-full object-cover">
+      </div>
+
+      <!-- Slide 2 — background only -->
+      <div class="slide">
+        <img src="images/sliders/Slider 2.png" alt="" class="absolute inset-0 w-full h-full object-cover">
+      </div>
+
+    </div><!-- /slider-track -->
+
+    <!-- Static content overlay — does NOT slide -->
+    <div class="absolute inset-x-0 bottom-0 flex flex-col items-center pb-[70px] z-10" style="top:45%">
+      <div class="flex flex-col items-center gap-[30px] text-center" style="width:min(790px,100%);padding:0 24px">
+        <div class="flex flex-col items-center gap-2" style="width:min(563px,100%)">
+          <h1 class="font-work font-bold text-white text-center leading-tight" style="font-size:45px;width:min(401px,100%)">
+            Find the Best Price.Every Time.
+          </h1>
+          <p class="font-work font-medium text-white/90 leading-[28px] tracking-[-0.44px]" style="font-size:18px;width:min(563px,100%)">
+            CompareHub lets you search products and compare prices from multiple brands near you — so you always buy at the lowest price.
+          </p>
+        </div>
+        <!-- Search bar -->
+        <div class="bg-white/10 backdrop-blur-sm rounded-[30px] flex items-center gap-3 relative" style="height:66px;padding:15px 20px;width:min(760px,100%)">
+          <div class="relative shrink-0" style="flex:1 1 313px;min-width:0">
+            <input type="text" id="hero-search" placeholder="Search product name.."
+              class="bg-[#f9fafb] w-full rounded-[14px] px-4 font-inter text-[#364153] placeholder-[#808793] outline-none border-none" style="height:32px;font-size:14px" autocomplete="off">
+            <!-- Desktop search dropdown -->
+            <div id="desktop-search-dropdown" class="hidden absolute left-0 right-0 bg-white rounded-[14px] shadow-lg z-50 overflow-hidden" style="top:40px; box-shadow:0 8px 24px rgba(0,0,0,0.14); min-width:320px"></div>
+          </div>
+          <div class="relative shrink-0" style="width:131px">
+            <select id="brand-filter" class="bg-white rounded-[14px] pl-3 pr-8 font-work text-[#808793] outline-none cursor-pointer w-full" style="height:32px;font-size:14px">
+              <option value="">By Brands</option>
+              <option>Apple</option><option>Samsung</option><option>Sony</option>
+              <option>JBL</option><option>Canon</option>
+            </select>
+            <i data-lucide="chevron-down" class="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none w-3 h-3 text-[#808793]"></i>
+          </div>
+          <div class="relative shrink-0" style="width:131px">
+            <select id="location-filter" class="bg-white rounded-[14px] pl-3 pr-8 font-work text-[#808793] outline-none cursor-pointer w-full" style="height:32px;font-size:14px">
+              <option value="">By Location</option>
+              <option>Abia</option><option>Adamawa</option><option>Akwa Ibom</option>
+              <option>Anambra</option><option>Bauchi</option><option>Bayelsa</option>
+              <option>Benue</option><option>Borno</option><option>Cross River</option>
+              <option>Delta</option><option>Ebonyi</option><option>Edo</option>
+              <option>Ekiti</option><option>Enugu</option><option>FCT — Abuja</option>
+              <option>Gombe</option><option>Imo</option><option>Jigawa</option>
+              <option>Kaduna</option><option>Kano</option><option>Katsina</option>
+              <option>Kebbi</option><option>Kogi</option><option>Kwara</option>
+              <option>Lagos</option><option>Nasarawa</option><option>Niger</option>
+              <option>Ogun</option><option>Ondo</option><option>Osun</option>
+              <option>Oyo</option><option>Plateau</option><option>Rivers</option>
+              <option>Sokoto</option><option>Taraba</option><option>Yobe</option>
+              <option>Zamfara</option>
+            </select>
+            <i data-lucide="chevron-down" class="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none w-3 h-3 text-[#808793]"></i>
+          </div>
+          <button id="hero-search-btn" class="bg-[#155dfc] rounded-[14px] font-work font-medium text-white hover:bg-[#1447e6] transition-colors shrink-0" style="width:141px;height:32px;font-size:12px">
+            Show Result
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slider Dots -->
+    <div class="absolute bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20" aria-label="Slide indicators">
+      <button class="slider-dot active" data-slide="0" aria-label="Slide 1"></button>
+      <button class="slider-dot" data-slide="1" style="width:6px;height:6px;background:rgba(255,255,255,0.4)" aria-label="Slide 2"></button>
+    </div>
+
+
+  </section>
+
+
+  <!-- ===================================================
+       MOBILE FLASH DEALS STRIP — mobile only (after categories)
+       =================================================== -->
+  <section class="sm:hidden px-4 pt-3">
+    <div class="flash-deals-strip">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+          <span class="text-[16px] leading-none">⚡</span>
+        </div>
+        <div>
+          <p class="font-work font-bold text-[14px] text-white leading-tight">Flash Deals</p>
+          <p class="font-work text-[12px] leading-tight" style="color:rgba(255,255,255,0.75)">Best prices, time-limited</p>
+        </div>
+      </div>
+      <a href="category.html#cat=all" class="bg-white font-work font-semibold text-[12px] text-[#155dfc] rounded-full px-4 py-2 flex items-center gap-1 shrink-0">
+        Shop now
+        <i data-lucide="chevron-right" class="w-3 h-3 text-[#155dfc]"></i>
+      </a>
+    </div>
+  </section>
+
+
+  <!-- ===================================================
+       FEATURES BAR — desktop only
+       =================================================== -->
+  <section class="hidden sm:block bg-[#f9fafb] px-[111px] pt-8 pb-4">
+    <div class="max-w-[1290px] mx-auto">
+      <div class="features-bar bg-white rounded-[20px] px-10 py-5 flex flex-wrap items-center justify-between gap-6 shadow-sm">
+
+        <!-- Free Shipping -->
+        <div class="flex items-center gap-4 shrink-0">
+          <div class="w-[35px] h-[35px] shrink-0 flex items-center justify-center bg-[#e5edff] rounded-full">
+            <i data-lucide="truck" class="w-5 h-5 text-[#155dfc]"></i>
+          </div>
+          <div>
+            <p class="font-work font-semibold text-[15px] text-[#364153] leading-normal">Free Shipping</p>
+            <p class="font-work text-[14px] text-[#5a6372] leading-normal">On order over ₦50k+</p>
+          </div>
+        </div>
+
+        <!-- Verified Nigerian -->
+        <div class="flex items-center gap-4 shrink-0">
+          <div class="w-[35px] h-[35px] shrink-0 flex items-center justify-center bg-[#e5edff] rounded-full">
+            <i data-lucide="badge-check" class="w-5 h-5 text-[#155dfc]"></i>
+          </div>
+          <div>
+            <p class="font-work font-semibold text-[15px] text-[#364153] leading-normal">Verified Nigerian</p>
+            <p class="font-work text-[14px] text-[#5a6372] leading-normal">Vendors only</p>
+          </div>
+        </div>
+
+        <!-- Compare Prices -->
+        <div class="flex items-center gap-4 shrink-0">
+          <div class="w-[35px] h-[35px] shrink-0 flex items-center justify-center bg-[#e5edff] rounded-full">
+            <i data-lucide="bar-chart-2" class="w-5 h-5 text-[#155dfc]"></i>
+          </div>
+          <div>
+            <p class="font-work font-semibold text-[15px] text-[#364153] leading-normal">Compare Prices</p>
+            <p class="font-work text-[14px] text-[#5a6372] leading-normal">Save up to 40%</p>
+          </div>
+        </div>
+
+        <!-- Secure Payment -->
+        <div class="flex items-center gap-4 shrink-0">
+          <div class="w-[35px] h-[35px] shrink-0 flex items-center justify-center bg-[#e5edff] rounded-full">
+            <i data-lucide="shield-check" class="w-5 h-5 text-[#155dfc]"></i>
+          </div>
+          <div>
+            <p class="font-work font-semibold text-[15px] text-[#364153] leading-normal">Secure Payment</p>
+            <p class="font-work text-[14px] text-[#5a6372] leading-normal">100% Fast &amp; Secure Payment</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===================================================
+       MAIN CONTENT
+       =================================================== -->
+  <main class="main-container bg-[#f9fafb] px-[111px] pt-8 pb-16">
+    <div class="max-w-[1290px] mx-auto space-y-12">
+
+      <!-- ---- Browse Category — desktop only ---- -->
+      <section class="hidden sm:block">
+        <div class="flex flex-col items-center gap-3 mb-10">
+          <h2 class="font-work font-semibold text-[18px] text-[#364153] text-center">Browse Category</h2>
+          <div class="flex flex-wrap items-center justify-center gap-2" id="category-tabs">
+            <a href="category.html#cat=all"         class="category-tab active-tab px-4 py-2 rounded-full border border-[#d1d5db] bg-white font-work font-medium text-[14px] text-[#364153] cursor-pointer">All</a>
+            <a href="category.html#cat=electronics" class="category-tab px-4 py-2 rounded-full border border-[#d1d5db] bg-white font-work font-medium text-[14px] text-[#364153] cursor-pointer">Mobile Phones</a>
+            <a href="category.html#cat=electronics" class="category-tab px-4 py-2 rounded-full border border-[#d1d5db] bg-white font-work font-medium text-[14px] text-[#364153] cursor-pointer">Laptop</a>
+            <a href="category.html#cat=food"        class="category-tab px-4 py-2 rounded-full border border-[#d1d5db] bg-white font-work font-medium text-[14px] text-[#364153] cursor-pointer">Foods &amp; Drinks</a>
+            <a href="category.html#cat=home"        class="category-tab px-4 py-2 rounded-full border border-[#d1d5db] bg-white font-work font-medium text-[14px] text-[#364153] cursor-pointer">Home &amp; Kitchen</a>
+            <a href="category.html#cat=all"         class="category-tab px-4 py-2 rounded-full border border-[#d1d5db] bg-white font-work font-medium text-[14px] text-[#364153] cursor-pointer">Fashions</a>
+            <a href="category.html#cat=all"         class="category-tab px-4 py-2 rounded-full border border-[#d1d5db] bg-white font-work font-medium text-[14px] text-[#364153] cursor-pointer">Gaming</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---- Electronics Section ---- -->
+      <section id="section-electronics" class="product-section">
+        <div class="flex items-center justify-between mb-5">
+          <h3 class="font-work font-semibold text-[20px] text-[#181d25] leading-[30px]">Electronics</h3>
+          <a href="category.html#cat=electronics" class="flex items-center gap-1 font-work font-medium text-[14px] text-[#155dfc] hover:underline">
+            View all
+            <i data-lucide="chevron-right" class="w-4 h-4 text-[#155dfc]"></i>
+          </a>
+        </div>
+        <div id="electronics-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8"></div>
+      </section>
+
+      <!-- ---- Food & Drinks Section ---- -->
+      <section id="section-food" class="product-section">
+        <div class="flex items-center justify-between mb-5">
+          <h3 class="font-work font-semibold text-[20px] text-[#181d25] leading-[30px]">Food &amp; Drinks</h3>
+          <a href="category.html#cat=food" class="flex items-center gap-1 font-work font-medium text-[14px] text-[#155dfc] hover:underline">
+            View all
+            <i data-lucide="chevron-right" class="w-4 h-4 text-[#155dfc]"></i>
+          </a>
+        </div>
+        <div id="food-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8"></div>
+      </section>
+
+      <!-- ---- Promotional Banners — desktop only ---- -->
+      <section class="hidden sm:grid grid-cols-1 lg:grid-cols-2 gap-[29px]">
+
+        <!-- Electronics Banner -->
+        <div class="relative h-[220px] rounded-[16px] overflow-hidden">
+          <img src="images/electronics-banner.jpg" alt="Electronics deals" class="absolute inset-0 w-full h-full object-cover">
+          <div class="absolute inset-0" style="background:linear-gradient(90deg,rgba(15,40,130,0.92) 0%,rgba(21,93,252,0.72) 55%,rgba(0,0,0,0) 100%)"></div>
+          <div class="absolute left-10 flex flex-col gap-4" style="top:33.77px">
+            <div class="inline-flex items-center bg-[rgba(99,179,254,0.18)] border border-[rgba(99,179,254,0.35)] rounded-full px-3 py-1 self-start">
+              <span class="font-inter font-semibold text-[11px] text-[#bedbff] tracking-[0.06px]">⚡ Top Tech Deals</span>
+            </div>
+            <div>
+              <p class="font-inter font-bold text-[24px] text-white leading-[30px] tracking-[0.07px]">Phones, Laptops</p>
+              <p class="font-inter font-bold text-[24px] text-white leading-[30px] tracking-[0.07px]">at Lowest Prices</p>
+            </div>
+            <a href="category.html?cat=electronics" class="bg-white text-[#1447e6] font-inter font-semibold text-[13px] tracking-[-0.08px] px-4 h-[38px] rounded-[12px] inline-flex items-center justify-center self-start hover:bg-blue-50 transition-colors">
+              Shop Electronics
+            </a>
+          </div>
+        </div>
+
+        <!-- Fresh Food Banner -->
+        <div class="relative h-[220px] rounded-[16px] overflow-hidden">
+          <img src="images/fresh-food-banner.jpg" alt="Fresh food" class="absolute inset-0 w-full h-full object-cover">
+          <div class="absolute inset-0" style="background:linear-gradient(90deg,rgba(13,84,43,0.88) 0%,rgba(1,102,48,0.65) 55%,rgba(0,0,0,0) 100%)"></div>
+          <div class="absolute left-10 flex flex-col gap-4" style="top:33.88px">
+            <div class="inline-flex items-center bg-[rgba(5,223,114,0.2)] border border-[rgba(5,223,114,0.4)] rounded-full px-3 py-1 self-start">
+              <span class="font-inter font-semibold text-[11px] text-[#b9f8cf] tracking-[0.06px]">🥘 Fresh Naija Groceries</span>
+            </div>
+            <div>
+              <p class="font-work font-bold text-[24px] text-white leading-[30px] tracking-[0.07px]" style="max-width:244px">Rice, Yam, Catfish at Market Prices</p>
+            </div>
+            <a href="category.html?cat=food" class="bg-white text-[#016630] font-inter font-semibold text-[13px] tracking-[-0.08px] px-4 h-[38px] rounded-[12px] inline-flex items-center justify-center self-start hover:bg-green-50 transition-colors">
+              Shop Fresh Food
+            </a>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ---- Browse Brands ---- -->
+      <section>
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="font-work font-semibold text-[18px] text-[#181d25]">Browse Brands</h3>
+        </div>
+        <div class="relative">
+          <div id="brands-list" class="flex gap-2.5 overflow-x-auto pb-2" style="scrollbar-width:none;-ms-overflow-style:none">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ---- Home & Kitchen Section ---- -->
+      <section id="section-home" class="product-section">
+        <div class="flex items-center justify-between mb-5">
+          <h3 class="font-work font-semibold text-[20px] text-[#181d25] leading-[30px]">Home &amp; Kitchen</h3>
+          <a href="category.html#cat=home" class="flex items-center gap-1 font-work font-medium text-[14px] text-[#155dfc] hover:underline">
+            View all
+            <i data-lucide="chevron-right" class="w-4 h-4 text-[#155dfc]"></i>
+          </a>
+        </div>
+        <div id="home-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8"></div>
+      </section>
+
+      <!-- ---- SEO Text Section — desktop only ---- -->
+      <section class="hidden sm:block bg-white border border-[#f3f4f6] rounded-[16px]" style="padding:56px 70px">
+        <h2 class="font-work font-semibold text-[#181d25] leading-[36px] tracking-[0.4px] mb-4" style="font-size:30px">
+          CompareHub Nigeria — Nigeria's No. 1 Price Comparison Marketplace
+        </h2>
+        <div class="space-y-3">
+          <h3 class="font-work font-semibold text-[18px] text-[#181d25] leading-[28px] tracking-[-0.45px]">Compare Prices on Everything You Need</h3>
+          <p class="font-work text-[14px] text-[#364153] leading-[22.75px] tracking-[-0.15px]" style="max-width:1128px">
+            CompareHub is Nigeria's largest price comparison platform. We help everyday Nigerians find the best deals on products from verified vendors across the country — all in one place. Whether you're shopping from the comfort of your home in Lagos, Abuja, Port Harcourt or anywhere in between, CompareHub lets you compare prices side-by-side and buy at the cheapest price without stress. Shop for smartphones, laptops, headphones, tablets, gaming consoles, or everyday food & groceries - and get the best price from our network of verified Nigerian vendors.  
+          </p>
+        </div>
+        <hr class="border-[#f3f4f6] my-8">
+        <div class="space-y-3">
+          <h3 class="font-work font-semibold text-[18px] text-[#364153] leading-[28px] tracking-[-0.45px]">Shop for Original Products at the Best Prices</h3>
+          <p class="font-work text-[14px] text-[#364153] leading-[22.75px] tracking-[-0.15px]" style="max-width:1128px">
+            CompareHub prides itself on listing only genuine, verified products from trusted Nigerian vendors — guaranteed lowest prices on original products with exclusive access to Flash Deals.
+          </p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+
+  <!-- ===================================================
+       LOCATION MODAL — mobile only (slides up from bottom)
+       =================================================== -->
+  <div id="location-modal-backdrop" class="sm:hidden fixed inset-0 bg-black/40 z-[80] hidden" style="backdrop-filter:blur(2px)"></div>
+  <div id="location-modal" class="sm:hidden fixed bottom-0 left-0 right-0 z-[90] bg-white rounded-t-[24px] translate-y-full" style="transition:transform 0.35s cubic-bezier(0.4,0,0.2,1); max-height:85vh; display:flex; flex-direction:column">
+
+    <!-- Handle -->
+    <div class="flex justify-center pt-3 pb-1 shrink-0">
+      <div class="w-10 h-1 rounded-full bg-[#e5e7eb]"></div>
+    </div>
+
+    <!-- Header -->
+    <div class="flex items-center justify-between px-5 py-3 border-b border-[#f3f4f6] shrink-0">
+      <h3 class="font-work font-bold text-[16px] text-[#181d25]">Select your location</h3>
+      <button id="location-modal-close" class="w-8 h-8 rounded-full bg-[#f3f4f6] flex items-center justify-center">
+        <i data-lucide="x" class="w-4 h-4 text-[#364153]"></i>
+      </button>
+    </div>
+
+    <!-- Search -->
+    <div class="px-5 pt-3 pb-2 shrink-0">
+      <div class="relative">
+        <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#808793]"></i>
+        <input id="location-search" type="text" placeholder="Search state..."
+          class="w-full bg-[#f3f4f6] rounded-[12px] pl-9 pr-4 font-work text-[14px] text-[#364153] placeholder-[#808793] outline-none border-none" style="height:40px">
+      </div>
+    </div>
+
+    <!-- States list -->
+    <div id="states-list" class="overflow-y-auto flex-1 px-5 pb-6" style="scrollbar-width:none;-ms-overflow-style:none">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+
+
+
+
+  <!-- ===================================================
+       COMPARE DRAWER  (slides up from bottom)
+       =================================================== -->
+  <div id="compare-drawer" role="dialog" aria-label="Compare list">
+    <div class="flex items-center justify-between mb-5">
+      <div>
+        <h3 class="font-work font-bold text-[18px] text-[#181d25]">Compare Products</h3>
+        <p class="font-work text-[13px] text-[#5a6372] mt-0.5">Select up to 4 products to compare side-by-side</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="compare-clear-btn" class="font-work font-medium text-[13px] text-[#5a6372] hover:text-red-500 transition-colors">
+          Clear all
+        </button>
+        <button id="compare-now-btn" class="bg-[#155dfc] text-white font-work font-semibold text-[14px] px-6 py-2.5 rounded-[12px] hover:bg-[#1447e6] transition-colors disabled:opacity-40 disabled:cursor-not-allowed">
+          Compare Now
+        </button>
+        <button id="close-compare-drawer" class="text-[#5a6372] hover:text-[#181d25] transition-colors p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+    <div id="compare-items-row" class="flex items-start gap-4">
+      <!-- Compare item slots rendered by JS -->
+    </div>
+  </div>
+
+  <!-- ===================================================
+  <!-- Toast notification -->
+  <div id="toast"></div>
+
+  <div id="app-footer"></div>
+  <div id="app-mobile-nav"></div>
+
+  <script src="js/components.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

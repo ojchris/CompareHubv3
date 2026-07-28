@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Security Settings — CompareHub</title>
+  <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { work: ['Work Sans','sans-serif'], inter: ['Inter','sans-serif'] },
+        },
+      },
+    };
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@0.441.0/dist/umd/lucide.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script>window.PAGE_CONFIG = { activePage: 'account' };</script>
+  <style>
+    .hidden-when-logged-in { display: none; }
+    .shown-when-logged-in { display: block; }
+  </style>
+</head>
+<body class="font-work bg-[#f9fafb]">
+
+  <div id="app-header"></div>
+
+  <!-- Mobile header -->
+  <div class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#f3f4f6]" style="height:65px;box-shadow:0 1px 8px rgba(0,0,0,0.07)">
+    <div class="flex items-center gap-3 px-4 h-full">
+      <a href="index.html" class="w-9 h-9 rounded-full bg-[#f3f4f6] flex items-center justify-center shrink-0">
+        <i data-lucide="arrow-left" class="w-4 h-4 text-[#364153]"></i>
+      </a>
+      <div class="flex-1 min-w-0">
+        <p class="font-work font-bold text-[15px] text-[#101828] leading-tight" id="page-title">Security Settings</p>
+        <p class="font-inter text-[11px] text-[#99a1af] leading-tight" id="page-subtitle">Manage your account security</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Login Form - shown when not logged in -->
+  <div id="login-section" class="hidden-when-logged-in sm:pt-[70px] pb-[71px] sm:pb-0">
+    <div class="max-w-[1290px] mx-auto px-4 sm:px-8 py-10">
+      <div class="flex items-center justify-center min-h-[60vh]">
+        <div class="w-full max-w-md">
+          <div class="text-center mb-8">
+            <h1 class="font-work font-bold text-[28px] sm:text-[32px] text-[#101828] mb-2">Sign In</h1>
+            <p class="font-work text-[14px] text-[#99a1af]">Access your account to manage settings</p>
+          </div>
+
+          <div class="space-y-4">
+            <!-- Google Sign In -->
+            <button onclick="window.authShow('login')" class="w-full flex items-center justify-center gap-3 bg-white border border-[#e5e7eb] rounded-[12px] px-4 py-3 hover:bg-[#f9fafb] transition-colors">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+              </svg>
+              <span class="font-work font-semibold text-[14px] text-[#364153]">Continue with Google</span>
+            </button>
+
+            <!-- Divider -->
+            <div class="flex items-center gap-3">
+              <div class="flex-1 h-[1px] bg-[#e5e7eb]"></div>
+              <span class="font-work text-[12px] text-[#99a1af]">or</span>
+              <div class="flex-1 h-[1px] bg-[#e5e7eb]"></div>
+            </div>
+
+            <!-- Email Sign In -->
+            <button onclick="window.authShow('login')" class="w-full flex items-center justify-center gap-2 bg-white border border-[#e5e7eb] rounded-[12px] px-4 py-3 hover:bg-[#f9fafb] transition-colors">
+              <i data-lucide="mail" class="w-5 h-5 text-[#155dfc]"></i>
+              <span class="font-work font-semibold text-[14px] text-[#364153]">Sign in with Email</span>
+            </button>
+          </div>
+
+          <!-- Sign Up Link -->
+          <div class="mt-8 text-center">
+            <p class="font-work text-[14px] text-[#99a1af]">Don't have an account? <button onclick="window.authShow('signup')" class="font-semibold text-[#155dfc] hover:underline">Sign up</button></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="account-content" class="shown-when-logged-in pt-[65px] sm:pt-[70px] pb-[71px] sm:pb-0">
+    <div class="max-w-[1290px] mx-auto px-4 sm:px-8 py-6 sm:py-10">
+      <div class="flex gap-6 items-start">
+
+        <!-- ── Sidebar ── -->
+        <aside class="hidden sm:block w-[220px] shrink-0 bg-white rounded-[16px] border border-[#f3f4f6] p-5 space-y-5" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+          <div class="flex flex-col items-center gap-3 pb-5 border-b border-[#f3f4f6]">
+            <div class="w-12 h-12 rounded-full flex items-center justify-center shrink-0" style="background:#032d71">
+              <span class="font-work font-bold text-[16px] text-white">CO</span>
+            </div>
+            <div class="text-center">
+              <p class="font-work font-semibold text-[14px] text-[#101828]">Chidi Okafor</p>
+              <p class="font-work text-[12px] text-[#99a1af]">chidi.okafor@gmail.com</p>
+            </div>
+          </div>
+          <nav class="flex flex-col gap-1">
+            <a href="dashboard.html" class="flex items-center gap-2.5 px-3 py-2 rounded-[10px] hover:bg-[#f9fafb] transition-colors">
+              <i data-lucide="layout-dashboard" class="w-4 h-4 text-[#6a7282] shrink-0"></i>
+              <span class="font-work font-medium text-[13px] text-[#364153]">Overview</span>
+            </a>
+            <a href="wishlist.html" class="flex items-center gap-2.5 px-3 py-2 rounded-[10px] hover:bg-[#f9fafb] transition-colors">
+              <i data-lucide="heart" class="w-4 h-4 text-[#6a7282] shrink-0"></i>
+              <span class="font-work font-medium text-[13px] text-[#364153] flex-1">Wishlist</span>
+              <span class="bg-[#eff6ff] text-[#155dfc] font-work font-semibold text-[11px] px-1.5 py-0.5 rounded-full">4</span>
+            </a>
+            <a href="compare-history.html" class="flex items-center gap-2.5 px-3 py-2 rounded-[10px] hover:bg-[#f9fafb] transition-colors">
+              <i data-lucide="history" class="w-4 h-4 text-[#6a7282] shrink-0"></i>
+              <span class="font-work font-medium text-[13px] text-[#364153] flex-1">Compare History</span>
+              <span class="bg-[#eff6ff] text-[#155dfc] font-work font-semibold text-[11px] px-1.5 py-0.5 rounded-full">4</span>
+            </a>
+            <a href="account-settings.html" class="flex items-center gap-2.5 px-3 py-2 rounded-[10px] bg-[#eff6ff]">
+              <i data-lucide="shield" class="w-4 h-4 text-[#155dfc] shrink-0"></i>
+              <span class="font-work font-medium text-[13px] text-[#155dfc]">Security</span>
+            </a>
+            <hr class="border-[#f3f4f6] my-1">
+            <button class="flex items-center gap-2.5 px-3 py-2 rounded-[10px] hover:bg-[#fff5f5] transition-colors w-full text-left">
+              <i data-lucide="log-out" class="w-4 h-4 text-[#ef4444] shrink-0"></i>
+              <span class="font-work font-medium text-[13px] text-[#ef4444]">Sign Out</span>
+            </button>
+          </nav>
+        </aside>
+
+        <!-- ── Main content ── -->
+        <div class="flex-1 min-w-0 space-y-5">
+
+          <div>
+            <h1 class="font-work font-bold text-[22px] sm:text-[26px] text-[#101828]">Security Settings</h1>
+            <p class="font-work text-[13px] text-[#99a1af] mt-0.5">Manage your password, two-factor authentication, and active sessions.</p>
+          </div>
+
+          <!-- Change Password -->
+          <div class="bg-white rounded-[16px] border border-[#f3f4f6] p-5 sm:p-6" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="w-9 h-9 rounded-[10px] bg-[#eff6ff] flex items-center justify-center shrink-0">
+                <i data-lucide="lock" class="w-4 h-4 text-[#155dfc]"></i>
+              </div>
+              <div>
+                <p class="font-work font-semibold text-[15px] text-[#101828]">Change Password</p>
+                <p class="font-work text-[12px] text-[#99a1af]">Use a strong password you don't use elsewhere</p>
+              </div>
+            </div>
+            <form onsubmit="handlePasswordChange(event)" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div>
+                  <label class="block font-work font-medium text-[12px] text-[#364153] mb-1.5">Current Password</label>
+                  <div class="relative">
+                    <input type="password" id="current-pwd" value="••••••••" class="w-full border border-[#e5e7eb] rounded-[10px] px-3 py-2.5 font-work text-[13px] text-[#364153] outline-none focus:border-[#155dfc] pr-10 transition-colors">
+                    <button type="button" onclick="togglePwd('current-pwd',this)" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#99a1af] hover:text-[#6a7282]">
+                      <i data-lucide="eye" class="w-4 h-4"></i>
+                    </button>
+                  </div>
+                </div>
+                <div>
+                  <label class="block font-work font-medium text-[12px] text-[#364153] mb-1.5">New Password</label>
+                  <div class="relative">
+                    <input type="password" id="new-pwd" value="••••••••" class="w-full border border-[#e5e7eb] rounded-[10px] px-3 py-2.5 font-work text-[13px] text-[#364153] outline-none focus:border-[#155dfc] pr-10 transition-colors">
+                    <button type="button" onclick="togglePwd('new-pwd',this)" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#99a1af] hover:text-[#6a7282]">
+                      <i data-lucide="eye" class="w-4 h-4"></i>
+                    </button>
+                  </div>
+                </div>
+                <div>
+                  <label class="block font-work font-medium text-[12px] text-[#364153] mb-1.5">Confirm New Password</label>
+                  <div class="relative">
+                    <input type="password" id="confirm-pwd" value="••••••••" class="w-full border border-[#e5e7eb] rounded-[10px] px-3 py-2.5 font-work text-[13px] text-[#364153] outline-none focus:border-[#155dfc] pr-10 transition-colors">
+                    <button type="button" onclick="togglePwd('confirm-pwd',this)" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#99a1af] hover:text-[#6a7282]">
+                      <i data-lucide="eye" class="w-4 h-4"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div id="pwd-msg" class="hidden text-[12px] font-work font-medium"></div>
+              <button type="submit" class="bg-[#f3f4f6] text-[#6a7282] font-work font-semibold text-[13px] px-5 py-2.5 rounded-[10px] hover:bg-[#e5e7eb] transition-colors">Update Password</button>
+            </form>
+          </div>
+
+          <!-- Active Sessions -->
+          <div class="bg-white rounded-[16px] border border-[#f3f4f6] p-5 sm:p-6" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+            <div class="flex items-start justify-between mb-5">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-[10px] bg-[#fef3c7] flex items-center justify-center shrink-0">
+                  <i data-lucide="monitor" class="w-4 h-4 text-[#d97706]"></i>
+                </div>
+                <div>
+                  <p class="font-work font-semibold text-[15px] text-[#101828]">Active Sessions</p>
+                  <p class="font-work text-[12px] text-[#99a1af]">Devices currently signed into your account</p>
+                </div>
+              </div>
+              <button onclick="signOutAll()" class="font-work font-semibold text-[13px] text-[#ef4444] hover:underline shrink-0">Sign out all</button>
+            </div>
+
+            <div class="space-y-3" id="sessions-list">
+
+              <!-- Session 1 — this device -->
+              <div class="session-item flex items-center gap-3 p-3 rounded-[12px] bg-[#f9fafb]">
+                <div class="w-9 h-9 rounded-[10px] bg-white border border-[#e5e7eb] flex items-center justify-center shrink-0">
+                  <i data-lucide="monitor" class="w-4 h-4 text-[#364153]"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <p class="font-work font-medium text-[13px] text-[#101828]">Chrome · Windows 11</p>
+                    <span class="bg-[#dcfce7] text-[#16a34a] font-work font-semibold text-[10px] px-2 py-0.5 rounded-full">This device</span>
+                  </div>
+                  <p class="font-work text-[11px] text-[#99a1af]">Lagos, Nigeria · <span class="text-[#16a34a]">Active now</span></p>
+                </div>
+              </div>
+
+              <!-- Session 2 -->
+              <div class="session-item flex items-center gap-3 p-3 rounded-[12px] bg-[#f9fafb]">
+                <div class="w-9 h-9 rounded-[10px] bg-white border border-[#e5e7eb] flex items-center justify-center shrink-0">
+                  <i data-lucide="smartphone" class="w-4 h-4 text-[#364153]"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="font-work font-medium text-[13px] text-[#101828]">Safari · iPhone 15 Pro</p>
+                  <p class="font-work text-[11px] text-[#99a1af]">Lagos, Nigeria · 2 hours ago</p>
+                </div>
+                <button onclick="removeSession(this)" class="w-6 h-6 flex items-center justify-center text-[#99a1af] hover:text-[#ef4444] shrink-0 transition-colors">
+                  <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+              </div>
+
+              <!-- Session 3 -->
+              <div class="session-item flex items-center gap-3 p-3 rounded-[12px] bg-[#f9fafb]">
+                <div class="w-9 h-9 rounded-[10px] bg-white border border-[#e5e7eb] flex items-center justify-center shrink-0">
+                  <i data-lucide="laptop" class="w-4 h-4 text-[#364153]"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="font-work font-medium text-[13px] text-[#101828]">Chrome · MacBook Air</p>
+                  <p class="font-work text-[11px] text-[#99a1af]">Abuja, Nigeria · Yesterday, 3:42 PM</p>
+                </div>
+                <button onclick="removeSession(this)" class="w-6 h-6 flex items-center justify-center text-[#99a1af] hover:text-[#ef4444] shrink-0 transition-colors">
+                  <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+              </div>
+
+            </div>
+
+            <!-- Warning -->
+            <div class="flex items-start gap-2 mt-4 p-3 rounded-[10px] bg-[#fffbeb] border border-[#fde68a]">
+              <i data-lucide="alert-circle" class="w-4 h-4 text-[#d97706] mt-0.5 shrink-0"></i>
+              <p class="font-work text-[12px] text-[#92400e]">If you see a device you don't recognise, sign it out immediately and <button onclick="document.getElementById('current-pwd').focus()" class="underline font-semibold">change your password</button>.</p>
+            </div>
+          </div>
+
+          <!-- Danger Zone -->
+          <div class="bg-white rounded-[16px] border border-[#fecaca] p-5 sm:p-6" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-9 h-9 rounded-[10px] bg-[#fef2f2] flex items-center justify-center shrink-0">
+                <i data-lucide="alert-triangle" class="w-4 h-4 text-[#ef4444]"></i>
+              </div>
+              <div>
+                <p class="font-work font-semibold text-[15px] text-[#101828]">Danger Zone</p>
+                <p class="font-work text-[12px] text-[#99a1af]">Irreversible account actions</p>
+              </div>
+            </div>
+            <div class="flex items-center justify-between gap-4 p-4 rounded-[12px] bg-[#f9fafb] border border-[#f3f4f6]">
+              <div>
+                <p class="font-work font-semibold text-[13px] text-[#101828]">Delete Account</p>
+                <p class="font-work text-[12px] text-[#99a1af]">Permanently delete your account and all data. This cannot be undone.</p>
+              </div>
+              <button onclick="confirmDelete()" class="shrink-0 flex items-center gap-1.5 bg-[#fef2f2] border border-[#fecaca] text-[#ef4444] font-work font-semibold text-[13px] px-4 py-2 rounded-[10px] hover:bg-[#fee2e2] transition-colors">
+                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                Delete Account
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete confirm modal -->
+  <div id="delete-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center px-4" style="background:rgba(0,0,0,0.45)">
+    <div class="bg-white rounded-[20px] p-6 w-full max-w-[380px]" style="box-shadow:0 20px 60px rgba(0,0,0,0.2)">
+      <div class="w-12 h-12 rounded-full bg-[#fef2f2] flex items-center justify-center mx-auto mb-4">
+        <i data-lucide="trash-2" class="w-6 h-6 text-[#ef4444]"></i>
+      </div>
+      <h3 class="font-work font-bold text-[18px] text-[#101828] text-center mb-1">Delete Account?</h3>
+      <p class="font-work text-[13px] text-[#99a1af] text-center mb-6">This will permanently delete your account and all data. This action cannot be undone.</p>
+      <div class="flex gap-3">
+        <button onclick="document.getElementById('delete-modal').classList.add('hidden')" class="flex-1 border border-[#e5e7eb] text-[#364153] font-work font-semibold text-[13px] py-2.5 rounded-[12px] hover:bg-[#f9fafb] transition-colors">Cancel</button>
+        <button class="flex-1 bg-[#ef4444] text-white font-work font-semibold text-[13px] py-2.5 rounded-[12px] hover:bg-[#dc2626] transition-colors">Yes, Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="app-footer"></div>
+  <div id="app-mobile-nav"></div>
+
+  <script src="js/components.js"></script>
+  <script>
+    lucide.createIcons({ attrs: { 'stroke-width': 1.8 } });
+
+    function togglePwd(id, btn) {
+      const input = document.getElementById(id);
+      const isText = input.type === 'text';
+      input.type = isText ? 'password' : 'text';
+      btn.querySelector('i').setAttribute('data-lucide', isText ? 'eye' : 'eye-off');
+      lucide.createIcons({ attrs: { 'stroke-width': 1.8 } });
+    }
+
+    function handlePasswordChange(e) {
+      e.preventDefault();
+      const msg = document.getElementById('pwd-msg');
+      const newPwd = document.getElementById('new-pwd').value;
+      const confirmPwd = document.getElementById('confirm-pwd').value;
+      if (newPwd !== confirmPwd) {
+        msg.textContent = 'New passwords do not match.';
+        msg.className = 'text-[12px] font-work font-medium text-[#ef4444]';
+      } else {
+        msg.textContent = 'Password updated successfully.';
+        msg.className = 'text-[12px] font-work font-medium text-[#16a34a]';
+      }
+      msg.classList.remove('hidden');
+    }
+
+    function removeSession(btn) {
+      const item = btn.closest('.session-item');
+      if (item) {
+        item.style.transition = 'opacity 0.2s, transform 0.2s';
+        item.style.opacity = '0';
+        item.style.transform = 'translateX(10px)';
+        setTimeout(() => item.remove(), 200);
+      }
+    }
+
+    function signOutAll() {
+      document.querySelectorAll('.session-item:not(:first-child)').forEach(item => {
+        item.style.transition = 'opacity 0.2s';
+        item.style.opacity = '0';
+        setTimeout(() => item.remove(), 200);
+      });
+    }
+
+    function confirmDelete() {
+      document.getElementById('delete-modal').classList.remove('hidden');
+    }
+
+    // Check if user is logged in
+    (function() {
+      let user = null;
+      try { user = JSON.parse(localStorage.getItem('ch_user') || 'null'); } catch(e) {}
+
+      const loginSection = document.getElementById('login-section');
+      const accountContent = document.getElementById('account-content');
+      const pageTitle = document.getElementById('page-title');
+      const pageSubtitle = document.getElementById('page-subtitle');
+
+      if (!user || !user.name) {
+        // Not logged in - show login form
+        loginSection.classList.remove('hidden-when-logged-in');
+        loginSection.classList.add('shown-when-logged-in');
+        accountContent.classList.remove('shown-when-logged-in');
+        accountContent.classList.add('hidden-when-logged-in');
+        pageTitle.textContent = 'Sign In';
+        pageSubtitle.textContent = 'Access your account';
+      } else {
+        // Logged in - show account settings
+        accountContent.classList.remove('hidden-when-logged-in');
+        accountContent.classList.add('shown-when-logged-in');
+        loginSection.classList.remove('shown-when-logged-in');
+        loginSection.classList.add('hidden-when-logged-in');
+        pageTitle.textContent = 'Security Settings';
+        pageSubtitle.textContent = 'Manage your account security';
+      }
+    })();
+  </script>
+</body>
+</html>

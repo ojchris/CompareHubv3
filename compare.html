@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compare Cart — CompareHub</title>
+  <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { work: ['Work Sans','sans-serif'], inter: ['Inter','sans-serif'] },
+          colors: {
+            primary: 'var(--color-primary)',
+            dark:    'var(--color-dark)',
+          },
+        },
+      },
+    };
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@0.441.0/dist/umd/lucide.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    @media (max-width: 639px) {
+      html, body { overflow-x: hidden; }
+      body { padding-top: 0 !important; padding-bottom: 0 !important; }
+    }
+    .vendor-avatar {
+      width: 36px; height: 36px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Inter', sans-serif; font-weight: 700; font-size: 13px;
+      flex-shrink: 0;
+    }
+    .mobile-vendor-avatar {
+      width: 36px; height: 36px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Inter', sans-serif; font-weight: 700; font-size: 13px;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body class="font-work bg-[#f9fafb]">
+
+  <!-- =====================================================
+       MOBILE HEADER  (sm:hidden, fixed top)
+       ===================================================== -->
+  <div class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#f3f4f6]" style="height:65px;box-shadow:0 1px 8px rgba(0,0,0,0.07)">
+    <div class="flex items-center gap-3 px-4 h-full">
+      <!-- Back -->
+      <a href="javascript:history.back()" class="w-9 h-9 rounded-full bg-[#f3f4f6] flex items-center justify-center shrink-0">
+        <i data-lucide="arrow-left" class="w-4 h-4 text-[#364153]"></i>
+      </a>
+      <!-- Icon + title + subtitle -->
+      <div class="flex items-center gap-2.5 flex-1 min-w-0">
+        <div class="w-8 h-8 rounded-[14px] bg-[#155dfc] flex items-center justify-center shrink-0">
+          <i data-lucide="git-compare" class="w-[15px] h-[15px] text-white"></i>
+        </div>
+        <div class="min-w-0">
+          <p class="font-inter font-bold text-[15px] text-[#101828] leading-tight">Compare Cart</p>
+          <p id="mobile-header-subtitle" class="font-inter text-[11px] text-[#99a1af] leading-tight">0 listings across 0 products</p>
+        </div>
+      </div>
+      <!-- Trash -->
+      <button id="mobile-clear-all" class="w-9 h-9 rounded-full bg-[#fef2f2] flex items-center justify-center shrink-0">
+        <i data-lucide="trash-2" class="w-4 h-4 text-[#fb2c36]"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Desktop header (rendered by components.js) -->
+  <div id="app-header"></div>
+
+  <!-- =====================================================
+       DESKTOP COMPARE SUBHEADER
+       ===================================================== -->
+  <div class="hidden sm:flex fixed top-[70px] left-0 right-0 z-40 h-[49px] items-center justify-between bg-white border-b border-[#f3f4f6] px-[120px]">
+    <div class="flex items-center gap-3">
+      <i data-lucide="git-compare" class="w-5 h-5 text-[#364153]"></i>
+      <span class="font-work font-medium text-[18px] text-[#101828] tracking-[-0.4px]">Compare Cart</span>
+    </div>
+    <button id="desktop-clear-all" class="flex items-center gap-1.5 font-work font-medium text-[14px] text-[#fb2c36] hover:text-[#e0102a] transition-colors px-3 py-1.5 rounded-[14px] hover:bg-[#fff1f2]">
+      <i data-lucide="trash-2" class="w-4 h-4"></i> Clear all
+    </button>
+  </div>
+
+  <!-- =====================================================
+       MOBILE CONTENT
+       ===================================================== -->
+  <div class="sm:hidden" style="padding-top:65px;padding-bottom:calc(67px + 71px)">
+
+    <!-- Mobile empty state -->
+    <div id="mobile-empty" class="hidden flex-col items-center justify-center py-24 text-center px-4">
+      <div class="w-20 h-20 rounded-full bg-[#f3f4f6] flex items-center justify-center mb-5 mx-auto">
+        <i data-lucide="git-compare" class="w-9 h-9 text-[#808793]"></i>
+      </div>
+      <h2 class="font-inter font-bold text-[20px] text-[#181d25] mb-2">Compare cart is empty</h2>
+      <p class="font-inter text-[14px] text-[#808793] mb-6 max-w-[280px] mx-auto">Add products from the homepage or category pages to compare prices across vendors.</p>
+      <a href="index.html" class="inline-flex items-center gap-2 bg-[#155dfc] text-white font-inter font-semibold text-[14px] px-6 py-3 rounded-[14px]">
+        <i data-lucide="arrow-left" class="w-4 h-4"></i> Browse products
+      </a>
+    </div>
+
+    <!-- Mobile compare content -->
+    <div id="mobile-content" class="hidden">
+
+      <!-- Savings banner -->
+      <div class="mx-4 mt-5 rounded-[16px] px-4 py-4 flex items-center gap-3" style="background:linear-gradient(170deg,#155dfc 0%,#1447e6 100%)">
+        <div class="w-9 h-9 rounded-[14px] flex items-center justify-center shrink-0" style="background:rgba(255,255,255,0.2)">
+          <i data-lucide="trending-down" class="w-4 h-4 text-white"></i>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="font-inter font-semibold text-[10px] text-white/80 tracking-[0.37px] uppercase">You're saving</p>
+          <p id="mobile-savings-amount" class="font-inter font-bold text-[16px] text-white leading-tight tracking-[-0.3px]">₦0</p>
+        </div>
+        <div class="text-right shrink-0">
+          <p class="font-inter text-[10px] text-[#bedbff] leading-tight">Cart total</p>
+          <p id="mobile-cart-total" class="font-inter font-bold text-[13px] text-white leading-tight tracking-[-0.08px]">₦0</p>
+        </div>
+      </div>
+
+      <!-- Mobile product cards -->
+      <div id="mobile-cards" class="px-4 mt-3 flex flex-col gap-3"></div>
+
+      <!-- Disclaimer -->
+      <p class="font-inter text-[11px] text-[#99a1af] text-center mt-4 pb-2 px-4">
+        Prices are vendor-listed. Delivery fees may vary by location.
+      </p>
+    </div>
+  </div>
+
+  <!-- =====================================================
+       MOBILE BOTTOM STICKY BAR (above bottom nav)
+       ===================================================== -->
+  <div id="mobile-bottom-bar" class="sm:hidden fixed left-0 right-0 bg-white border-t border-[#e5e7eb] hidden" style="bottom:71px;z-index:40;box-shadow:0 -4px 20px rgba(0,0,0,0.06);padding:12px 16px 13px">
+    <div class="flex items-center gap-3">
+      <div class="flex-1 min-w-0">
+        <p class="font-inter text-[11px] text-[#99a1af] leading-tight">Est. total</p>
+        <p id="mobile-est-total" class="font-inter font-bold text-[17px] text-[#101828] tracking-[-0.43px] leading-tight">₦0</p>
+      </div>
+      <a href="category.html#cat=all" class="flex items-center gap-2 border border-[#e5e7eb] rounded-[14px] h-[41px] px-4 font-inter font-medium text-[13px] text-[#4a5565] shrink-0 hover:bg-[#f9fafb] transition-colors">
+        <i data-lucide="plus" class="w-3.5 h-3.5"></i> Add more
+      </a>
+    </div>
+  </div>
+
+  <!-- Mobile nav (rendered by components.js) -->
+  <div id="app-mobile-nav"></div>
+
+  <!-- =====================================================
+       DESKTOP MAIN CONTENT
+       ===================================================== -->
+  <div class="hidden sm:block" style="padding-top:119px">
+  <main>
+
+    <!-- Desktop empty state -->
+    <div id="desktop-empty" class="hidden flex-col items-center justify-center py-24 text-center px-4">
+      <div class="w-20 h-20 rounded-full bg-[#f3f4f6] flex items-center justify-center mb-5 mx-auto">
+        <i data-lucide="git-compare" class="w-9 h-9 text-[#808793]"></i>
+      </div>
+      <h2 class="font-work font-bold text-[20px] text-[#181d25] mb-2">Your compare cart is empty</h2>
+      <p class="font-work text-[14px] text-[#808793] mb-6 max-w-[280px] mx-auto">Add products from the homepage or category pages to compare prices across vendors.</p>
+      <a href="index.html" class="inline-flex items-center gap-2 bg-[#155dfc] text-white font-work font-semibold text-[14px] px-6 py-3 rounded-[14px] hover:bg-[#1447e6] transition-colors">
+        <i data-lucide="arrow-left" class="w-4 h-4"></i> Browse products
+      </a>
+    </div>
+
+    <!-- Desktop compare content -->
+    <div id="desktop-content" class="hidden max-w-[1290px] mx-auto px-4 sm:px-8 py-6 sm:py-8">
+      <div class="flex flex-col lg:flex-row gap-6 items-start">
+
+        <!-- LEFT: tables -->
+        <div id="compare-tables" class="flex-1 min-w-0 flex flex-col gap-5"></div>
+
+        <!-- RIGHT: Savings sidebar -->
+        <div class="lg:w-[320px] shrink-0 flex flex-col gap-4 lg:sticky lg:top-[132px]">
+
+          <!-- Savings box -->
+          <div class="rounded-[16px] overflow-hidden" style="background:linear-gradient(135deg,#155dfc 0%,#1447e6 100%)">
+            <div class="px-5 pt-5 pb-4">
+              <p class="font-inter font-semibold text-[11px] text-[#dbeafe] tracking-[0.8px] uppercase mb-2">You're saving with CompareHub</p>
+              <p id="total-savings" class="font-inter font-bold text-[30px] text-white leading-none mb-1">₦0</p>
+              <p class="font-inter text-[13px] text-[#bedbff] mb-4">vs. the most expensive listings</p>
+              <div class="border-t border-[#2b7fff] pt-3 flex items-center justify-between">
+                <span class="font-inter text-[13px] text-[#bedbff]">Your cart total</span>
+                <span id="cart-total" class="font-inter font-bold text-[14px] text-white">₦0</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cart summary -->
+          <div class="bg-white rounded-[16px] border border-[#f3f4f6] overflow-hidden" style="box-shadow:0 1px 3px rgba(0,0,0,0.1)">
+            <div class="px-5 pt-5 pb-4">
+              <p class="font-inter font-bold text-[14px] text-[#1e2939] mb-4">Cart Summary</p>
+              <div id="cart-summary-items" class="flex flex-col gap-3 mb-4"></div>
+              <div class="border-t border-[#f3f4f6] pt-3 flex items-center justify-between">
+                <span class="font-inter text-[14px] text-[#6a7282]">Est. total</span>
+                <span id="cart-summary-total" class="font-inter font-bold text-[16px] text-[#101828]">₦0</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Continue browsing -->
+          <a href="index.html" class="flex items-center justify-center gap-2 bg-white border border-[#e5e7eb] text-[#4a5565] font-inter font-medium text-[14px] rounded-[14px] h-[46px] hover:bg-[#f9fafb] transition-colors">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i> Continue browsing
+          </a>
+
+        </div>
+      </div>
+
+      <!-- Disclaimer -->
+      <p class="font-inter text-[12px] text-[#99a1af] text-center mt-6">
+        Prices shown are vendor-listed. Delivery fees may vary by location. Orders fulfilled directly by vendors.
+      </p>
+    </div>
+  </main>
+  </div>
+
+  <!-- Footer (rendered by components.js) -->
+  <div id="app-footer"></div>
+
+  <div id="toast"></div>
+
+  <!-- Vendor Contact Modal -->
+  <div id="vendor-contact-modal" class="hidden fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 px-4">
+    <div class="bg-white rounded-[16px] border border-[#e5e7eb] p-6 w-full max-w-[480px]" style="box-shadow:0 4px 16px rgba(0,0,0,0.1)">
+      <!-- Header -->
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h2 id="modal-vendor-name" class="font-work font-bold text-[24px] text-[#101828]">Vendor Name</h2>
+          <p id="modal-vendor-location" class="font-work text-[13px] text-[#99a1af] mt-1">Location</p>
+        </div>
+        <button onclick="closeVendorModal()" class="text-[#99a1af] hover:text-[#364153] transition-colors">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Contact Links -->
+      <div class="space-y-3 mb-6">
+        <!-- Website -->
+        <div id="link-website-row" class="hidden">
+          <a id="link-website-btn" href="#" target="_blank" class="flex items-center gap-3 p-3 rounded-[12px] border border-[#f3f4f6] hover:border-[#155dfc] hover:bg-[#eff6ff] transition-colors">
+            <i data-lucide="globe" class="w-5 h-5 text-[#155dfc] shrink-0"></i>
+            <div class="flex-1 min-w-0">
+              <p class="font-work font-medium text-[13px] text-[#101828]">Visit Website</p>
+              <p id="link-website-url" class="font-work text-[11px] text-[#99a1af] truncate">website.com</p>
+            </div>
+            <i data-lucide="arrow-right" class="w-4 h-4 text-[#99a1af] shrink-0"></i>
+          </a>
+        </div>
+
+        <!-- WhatsApp -->
+        <div id="link-whatsapp-row" class="hidden">
+          <a id="link-whatsapp-btn" href="#" target="_blank" class="flex items-center gap-3 p-3 rounded-[12px] border border-[#f3f4f6] hover:border-[#25d366] hover:bg-[#f0fdf4] transition-colors">
+            <i data-lucide="message-circle" class="w-5 h-5 text-[#25d366] shrink-0"></i>
+            <div class="flex-1 min-w-0">
+              <p class="font-work font-medium text-[13px] text-[#101828]">Chat on WhatsApp</p>
+              <p id="link-whatsapp-url" class="font-work text-[11px] text-[#99a1af] truncate">+234...</p>
+            </div>
+            <i data-lucide="arrow-right" class="w-4 h-4 text-[#99a1af] shrink-0"></i>
+          </a>
+        </div>
+
+        <!-- Phone -->
+        <div id="link-phone-row" class="hidden">
+          <a id="link-phone-btn" href="tel:" class="flex items-center gap-3 p-3 rounded-[12px] border border-[#f3f4f6] hover:border-[#155dfc] hover:bg-[#eff6ff] transition-colors">
+            <i data-lucide="phone" class="w-5 h-5 text-[#155dfc] shrink-0"></i>
+            <div class="flex-1 min-w-0">
+              <p class="font-work font-medium text-[13px] text-[#101828]">Call</p>
+              <p id="link-phone-url" class="font-work text-[11px] text-[#99a1af] truncate">+234...</p>
+            </div>
+            <i data-lucide="arrow-right" class="w-4 h-4 text-[#99a1af] shrink-0"></i>
+          </a>
+        </div>
+
+        <!-- Facebook -->
+        <div id="link-facebook-row" class="hidden">
+          <a id="link-facebook-btn" href="#" target="_blank" class="flex items-center gap-3 p-3 rounded-[12px] border border-[#f3f4f6] hover:border-[#1877f2] hover:bg-[#eff6ff] transition-colors">
+            <i data-lucide="facebook" class="w-5 h-5 text-[#1877f2] shrink-0"></i>
+            <div class="flex-1 min-w-0">
+              <p class="font-work font-medium text-[13px] text-[#101828]">Follow on Facebook</p>
+              <p id="link-facebook-url" class="font-work text-[11px] text-[#99a1af] truncate">facebook.com/...</p>
+            </div>
+            <i data-lucide="arrow-right" class="w-4 h-4 text-[#99a1af] shrink-0"></i>
+          </a>
+        </div>
+
+        <!-- Instagram -->
+        <div id="link-instagram-row" class="hidden">
+          <a id="link-instagram-btn" href="#" target="_blank" class="flex items-center gap-3 p-3 rounded-[12px] border border-[#f3f4f6] hover:border-[#e4405f] hover:bg-[#fdf5ff] transition-colors">
+            <i data-lucide="instagram" class="w-5 h-5 text-[#e4405f] shrink-0"></i>
+            <div class="flex-1 min-w-0">
+              <p class="font-work font-medium text-[13px] text-[#101828]">Follow on Instagram</p>
+              <p id="link-instagram-url" class="font-work text-[11px] text-[#99a1af] truncate">instagram.com/...</p>
+            </div>
+            <i data-lucide="arrow-right" class="w-4 h-4 text-[#99a1af] shrink-0"></i>
+          </a>
+        </div>
+
+        <!-- Twitter -->
+        <div id="link-twitter-row" class="hidden">
+          <a id="link-twitter-btn" href="#" target="_blank" class="flex items-center gap-3 p-3 rounded-[12px] border border-[#f3f4f6] hover:border-[#000000] hover:bg-[#f9fafb] transition-colors">
+            <i data-lucide="twitter" class="w-5 h-5 text-[#000000] shrink-0"></i>
+            <div class="flex-1 min-w-0">
+              <p class="font-work font-medium text-[13px] text-[#101828]">Follow on Twitter</p>
+              <p id="link-twitter-url" class="font-work text-[11px] text-[#99a1af] truncate">twitter.com/...</p>
+            </div>
+            <i data-lucide="arrow-right" class="w-4 h-4 text-[#99a1af] shrink-0"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- No links message -->
+      <div id="no-links-message" class="text-center py-8">
+        <i data-lucide="info" class="w-8 h-8 text-[#d1d5dc] mx-auto mb-2"></i>
+        <p class="font-work text-[13px] text-[#99a1af]">This vendor hasn't added contact links yet</p>
+      </div>
+
+      <!-- Close button -->
+      <button onclick="closeVendorModal()" class="w-full bg-[#f3f4f6] text-[#364153] font-work font-semibold text-[14px] py-3 rounded-[12px] hover:bg-[#e5e7eb] transition-colors">
+        Close
+      </button>
+    </div>
+  </div>
+
+  <script>window.PAGE_CONFIG = { activePage: 'compare' };</script>
+  <script src="js/components.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+  // ── Compare Page ──────────────────────────────────────────────────────────
+
+  const AVATAR_COLORS = [
+    { bg: '#ffe4e6', text: '#c70036' },
+    { bg: '#fef3c6', text: '#bb4d00' },
+    { bg: '#ecfcca', text: '#497d00' },
+    { bg: '#dbeafe', text: '#1447e6' },
+    { bg: '#ede9fe', text: '#6d28d9' },
+    { bg: '#d1fae5', text: '#065f46' },
+  ];
+
+  // Per-vendor consistent colors (matching Figma)
+  const VENDOR_COLORS = {
+    'ELECTROMART': { bg: '#dcfce7', text: '#008236' },
+    'GADGETPRO':   { bg: '#ffedd4', text: '#ca3500' },
+    'TECHSTORE':   { bg: '#dbeafe', text: '#1447e6' },
+    'SMARTBUY':    { bg: '#ede9fe', text: '#6d28d9' },
+    'DIGIZONE':    { bg: '#fef3c6', text: '#bb4d00' },
+    'NAIJAFOODS':  { bg: '#d1fae5', text: '#065f46' },
+    'FOODHUB':     { bg: '#ffe4e6', text: '#c70036' },
+    'GREENFARM':   { bg: '#ecfcca', text: '#497d00' },
+  };
+
+  // Vendor delivery & rating metadata
+  const VENDOR_META = {
+    'ELECTROMART': { delivery: '₦1,500', rating: '4.6' },
+    'GADGETPRO':   { delivery: '₦2,500', rating: '4.7' },
+    'TECHSTORE':   { delivery: '₦2,000', rating: '4.5' },
+    'SMARTBUY':    { delivery: '₦1,800', rating: '4.4' },
+    'DIGIZONE':    { delivery: '₦1,200', rating: '4.3' },
+    'NAIJAFOODS':  { delivery: '₦800',   rating: '4.8' },
+    'FOODHUB':     { delivery: '₦1,000', rating: '4.6' },
+    'GREENFARM':   { delivery: '₦600',   rating: '4.5' },
+  };
+
+  function vendorColor(name) {
+    return VENDOR_COLORS[name.toUpperCase()] || AVATAR_COLORS[0];
+  }
+
+  function avatarColor(index) {
+    return AVATAR_COLORS[index % AVATAR_COLORS.length];
+  }
+
+  function formatPrice(num) {
+    return '₦' + num.toLocaleString('en-NG');
+  }
+
+  function getInitials(name) {
+    return name.split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase();
+  }
+
+  function getCompareIds() {
+    const hash = window.location.hash.slice(1);
+    const params = new URLSearchParams(hash);
+    const raw = params.get('ids') || '';
+    return raw.split(',').map(Number).filter(n => n > 0);
+  }
+
+  // ── Mobile card builder ────────────────────────────────────────────────
+  function buildMobileProductCard(product, vendors) {
+    if (!vendors || !vendors.length) return '';
+    const sortedVendors = [...vendors].sort((a, b) => a.price - b.price);
+    const best = sortedVendors[0];
+    const col = vendorColor(best.name);
+    const meta = VENDOR_META[best.name.toUpperCase()] || { delivery: '₦1,500', rating: '4.5' };
+
+    const catMap = {
+      electronics: 'Smartphones', food: 'Food & Groceries',
+      home: 'Home & Living', gaming: 'Gaming', cameras: 'Cameras', phones: 'Smartphones',
+    };
+    const catLabel = catMap[product.category] || product.category || 'Products';
+    const locationCity = best.location.split(',')[0].trim();
+    const vendorCount = sortedVendors.length;
+
+    return `
+      <div class="bg-white rounded-[16px] overflow-hidden" style="box-shadow:0 1px 8px rgba(0,0,0,0.07)">
+        <!-- Product header row -->
+        <div class="flex items-center gap-3 px-4 py-[18px]">
+          <a href="product.html#id=${product.id}" class="w-11 h-11 rounded-[14px] bg-[#f3f4f6] overflow-hidden shrink-0 block">
+            <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover" onerror="this.src='images/placeholder.jpg'">
+          </a>
+          <div class="flex-1 min-w-0">
+            <p class="font-inter font-medium text-[10px] text-[#99a1af] tracking-[0.37px] uppercase leading-tight">${catLabel}</p>
+            <p class="font-inter font-bold text-[14px] text-[#101828] leading-tight truncate tracking-[-0.15px]">${product.name}</p>
+          </div>
+          <div class="flex items-center gap-1.5 shrink-0">
+            <div class="bg-[#f3f4f6] rounded-full px-3 h-[21px] flex items-center">
+              <span class="font-inter font-semibold text-[11px] text-[#6a7282] tracking-[0.06px]">${vendorCount} vendor${vendorCount !== 1 ? 's' : ''}</span>
+            </div>
+            <i data-lucide="chevron-down" class="w-4 h-4 text-[#6a7282]"></i>
+          </div>
+        </div>
+
+        <!-- Vendor + details section -->
+        <div class="border-t border-[#e5e7eb]">
+          <!-- Best vendor row -->
+          <div class="flex items-center gap-3 px-4 py-[15px]" style="background:rgba(239,246,255,0.5)">
+            <div class="mobile-vendor-avatar" style="background:${col.bg};color:${col.text}">${getInitials(best.name)}</div>
+            <div class="flex items-center gap-2 flex-1 min-w-0">
+              <span class="font-inter font-semibold text-[13px] text-[#101828] whitespace-nowrap tracking-[-0.08px]">${best.name.charAt(0) + best.name.slice(1).toLowerCase()}</span>
+              <span class="bg-[#d0fae5] font-inter font-bold text-[10px] text-[#007a55] px-2 py-0.5 rounded-full whitespace-nowrap tracking-[0.12px]">✦ Best</span>
+            </div>
+            <span class="font-inter font-bold text-[15px] text-[#155dfc] whitespace-nowrap tracking-[-0.23px]">${formatPrice(best.price)}</span>
+            <button class="remove-product-btn w-7 h-7 rounded-full bg-[#f3f4f6] flex items-center justify-center shrink-0 hover:bg-[#fee2e2] transition-colors" data-product-id="${product.id}">
+              <i data-lucide="x" class="w-3 h-3 text-[#808793]"></i>
+            </button>
+          </div>
+
+          <!-- Info row: delivery / rating / location -->
+          <div class="flex items-center gap-4 px-4 py-[10px]">
+            <div class="flex items-center gap-1">
+              <i data-lucide="truck" class="w-3 h-3 text-[#6a7282]"></i>
+              <span class="font-inter text-[11px] text-[#6a7282] tracking-[0.06px]">${meta.delivery}</span>
+            </div>
+            <div class="flex items-center gap-1">
+              <i data-lucide="star" class="w-3 h-3 text-[#f59e0b]" style="fill:#f59e0b"></i>
+              <span class="font-inter font-medium text-[11px] text-[#4a5565] tracking-[0.06px]">${meta.rating}</span>
+            </div>
+            <div class="flex items-center gap-1">
+              <i data-lucide="map-pin" class="w-3 h-3 text-[#6a7282]"></i>
+              <span class="font-inter text-[11px] text-[#6a7282] tracking-[0.06px]">${locationCity}</span>
+            </div>
+          </div>
+
+          <!-- Buy button -->
+          <div class="px-4 pb-4">
+            <button onclick="openVendorModal('${best.name}', '${best.location}')" class="w-full bg-[#155dfc] text-white font-inter font-bold text-[13px] rounded-[14px] h-[44px] flex items-center justify-center gap-2 hover:bg-[#1447e6] transition-colors tracking-[-0.08px]">
+              Buy from ${best.name.charAt(0) + best.name.slice(1).toLowerCase()}
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  // ── Desktop table builder ──────────────────────────────────────────────
+  function buildProductTable(product, vendors, productIndex) {
+    if (!vendors || !vendors.length) return '';
+    const sortedVendors = [...vendors].sort((a, b) => a.price - b.price);
+    const cheapest = sortedVendors[0];
+    const mostExpensive = sortedVendors[sortedVendors.length - 1];
+    const savings = mostExpensive.price - cheapest.price;
+    const catLabel = { electronics: 'Electronics', food: 'Food', home: 'Home', gaming: 'Gaming' };
+    const cat = catLabel[product.category] || product.category;
+
+    const vendorRows = sortedVendors.map((v, i) => {
+      const isBest = i === 0;
+      const col = vendorColor(v.name);
+      const diff = isBest ? null : v.price - cheapest.price;
+      const buyBg = isBest ? '#155dfc' : '#f3f4f6';
+      const buyText = isBest ? 'text-white' : 'text-[#364153]';
+      return `
+        <tr class="border-b border-[#f9fafb] ${isBest ? 'bg-[rgba(239,246,255,0.5)]' : ''}">
+          <td class="px-5 py-4">
+            <div class="flex items-center gap-3">
+              <div class="vendor-avatar shrink-0" style="background:${col.bg};color:${col.text}">${getInitials(v.name)}</div>
+              <div>
+                <p class="font-work font-medium text-[14px] text-[#364153] whitespace-nowrap">${v.name}</p>
+                ${isBest
+                  ? `<div class="flex items-center gap-1 mt-0.5">
+                       <i data-lucide="star" class="w-3 h-3 text-[#155dfc]" style="fill:#155dfc"></i>
+                       <span class="font-inter font-medium text-[12px] text-[#155dfc]">Best price</span>
+                     </div>`
+                  : `<p class="font-inter text-[12px] text-[#99a1af]">+${formatPrice(diff)} more</p>`}
+              </div>
+            </div>
+          </td>
+          <td class="px-4 py-4">
+            <p class="font-inter font-bold text-[14px] ${isBest ? 'text-[#1447e6]' : 'text-[#364153]'} whitespace-nowrap">${formatPrice(v.price)}</p>
+            ${product.unit ? `<p class="font-inter text-[12px] text-[#99a1af] mt-0.5">${product.unit}</p>` : ''}
+          </td>
+          <td class="px-4 py-4">
+            <p class="font-work text-[14px] text-[#6a7282] whitespace-nowrap">${v.location}</p>
+          </td>
+          <td class="px-4 py-4">
+            <div class="flex items-center gap-2 justify-end">
+              <button onclick="openVendorModal('${v.name}', '${v.location}')" class="font-inter font-semibold text-[13px] ${buyText} h-[36px] px-4 rounded-[14px] transition-colors whitespace-nowrap hover:opacity-90"
+                style="background:${buyBg}">Buy now</button>
+              <button class="remove-product-btn w-8 h-8 rounded-[10px] bg-[#f3f4f6] flex items-center justify-center hover:bg-[#fee2e2] transition-colors shrink-0"
+                data-product-id="${product.id}" title="Remove">
+                <i data-lucide="x" class="w-3.5 h-3.5 text-[#808793]"></i>
+              </button>
+            </div>
+          </td>
+        </tr>`;
+    }).join('');
+
+    return `
+      <div class="bg-white rounded-[16px] border border-[#f3f4f6] overflow-hidden" style="box-shadow:0 1px 3px rgba(0,0,0,0.1)">
+        <div class="flex items-center gap-4 px-5 py-4 border-b border-[#f3f4f6]">
+          <a href="product.html#id=${product.id}" class="w-14 h-14 rounded-[14px] overflow-hidden bg-[#f3f4f6] shrink-0">
+            <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover" onerror="this.src='images/placeholder.jpg'">
+          </a>
+          <div class="flex-1 min-w-0">
+            <p class="font-inter text-[12px] text-[#99a1af]">${cat}</p>
+            <a href="product.html#id=${product.id}" class="font-inter font-bold text-[18px] text-[#101828] leading-tight hover:text-[#155dfc] transition-colors block">${product.name}</a>
+            ${product.unit ? `<p class="font-inter text-[12px] text-[#99a1af] mt-0.5">${product.unit}</p>` : ''}
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            ${savings > 0 ? `
+              <div class="bg-[#eff6ff] flex items-center gap-1.5 px-3 h-[28px] rounded-[14px]">
+                <i data-lucide="trending-down" class="w-3.5 h-3.5 text-[#1447e6]"></i>
+                <span class="font-inter font-semibold text-[12px] text-[#1447e6] whitespace-nowrap">Save up to ${formatPrice(savings)}</span>
+              </div>` : ''}
+            <div class="bg-[#f3f4f6] px-3 h-[24px] flex items-center rounded-[10px]">
+              <span class="font-inter text-[12px] text-[#99a1af]">${sortedVendors.length} vendors</span>
+            </div>
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full min-w-[540px]">
+            <thead>
+              <tr class="bg-[rgba(249,250,251,0.7)] border-b border-[#f3f4f6]">
+                <th class="px-5 py-3 text-left font-work font-semibold text-[11px] text-[#808793] tracking-[0.5px] uppercase w-[220px]">Vendor</th>
+                <th class="px-4 py-3 text-left font-work font-semibold text-[11px] text-[#808793] tracking-[0.5px] uppercase w-[150px]">Price</th>
+                <th class="px-4 py-3 text-left font-work font-semibold text-[11px] text-[#808793] tracking-[0.5px] uppercase w-[130px]">Location</th>
+                <th class="px-4 py-3 text-right font-work font-semibold text-[11px] text-[#808793] tracking-[0.5px] uppercase">Action</th>
+              </tr>
+            </thead>
+            <tbody>${vendorRows}</tbody>
+          </table>
+        </div>
+      </div>`;
+  }
+
+  function buildCartSummaryItem(product, vendors) {
+    if (!vendors || !vendors.length) return '';
+    const cheapest = [...vendors].sort((a, b) => a.price - b.price)[0];
+    return `
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-[10px] overflow-hidden bg-[#f3f4f6] shrink-0">
+          <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover" onerror="this.src='images/placeholder.jpg'">
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="font-inter font-semibold text-[12px] text-[#1e2939] truncate">${product.name}</p>
+          <p class="font-inter text-[12px] text-[#99a1af]">${cheapest.name}</p>
+        </div>
+        <div class="text-right shrink-0">
+          <p class="font-inter font-bold text-[13px] text-[#155dfc]">${formatPrice(cheapest.price)}</p>
+          <p class="font-inter text-[11px] text-[#2b7fff]">Best price</p>
+        </div>
+      </div>`;
+  }
+
+  // ── Main render ────────────────────────────────────────────────────────
+  function renderComparePage() {
+    const ids = getCompareIds();
+
+    // Mobile elements
+    const mobileEmpty = document.getElementById('mobile-empty');
+    const mobileContent = document.getElementById('mobile-content');
+    const mobileBottomBar = document.getElementById('mobile-bottom-bar');
+    // Desktop elements
+    const desktopEmpty = document.getElementById('desktop-empty');
+    const desktopContent = document.getElementById('desktop-content');
+
+    if (!ids.length) {
+      // Empty state
+      mobileEmpty.classList.remove('hidden');
+      mobileEmpty.classList.add('flex');
+      mobileContent.classList.add('hidden');
+      mobileBottomBar.classList.add('hidden');
+
+      desktopEmpty.classList.remove('hidden');
+      desktopEmpty.classList.add('flex');
+      desktopContent.classList.add('hidden');
+
+      renderIcons();
+      return;
+    }
+
+    // Has items
+    mobileEmpty.classList.add('hidden');
+    mobileEmpty.classList.remove('flex');
+    mobileContent.classList.remove('hidden');
+    mobileBottomBar.classList.remove('hidden');
+
+    desktopEmpty.classList.add('hidden');
+    desktopEmpty.classList.remove('flex');
+    desktopContent.classList.remove('hidden');
+
+    // Update count badge (element only present on index/category pages, not here)
+    const badge = document.getElementById('mobile-compare-badge');
+    const countEl = document.getElementById('mobile-compare-count');
+    if (badge) badge.classList.remove('hidden');
+    if (countEl) countEl.textContent = ids.length;
+
+    let mobileCardsHTML = '';
+    let tablesHTML = '';
+    let summaryHTML = '';
+    let cartTotal = 0;
+    let maxTotal = 0;
+    let totalListings = 0;
+
+    ids.forEach((id, index) => {
+      const product = findProduct(id);
+      if (!product) return;
+      const vendors = VENDOR_LISTINGS[id] || [];
+      const sorted = [...vendors].sort((a, b) => a.price - b.price);
+
+      mobileCardsHTML += buildMobileProductCard(product, vendors);
+      tablesHTML += buildProductTable(product, vendors, index);
+      summaryHTML += buildCartSummaryItem(product, vendors);
+
+      if (sorted.length) {
+        cartTotal += sorted[0].price;
+        maxTotal += sorted[sorted.length - 1].price;
+        totalListings += sorted.length;
+      }
+    });
+
+    // Mobile: cards + totals + subtitle
+    document.getElementById('mobile-cards').innerHTML = mobileCardsHTML;
+    const savings = maxTotal - cartTotal;
+    document.getElementById('mobile-savings-amount').textContent = formatPrice(savings);
+    document.getElementById('mobile-cart-total').textContent = formatPrice(cartTotal);
+    document.getElementById('mobile-est-total').textContent = formatPrice(cartTotal);
+    document.getElementById('mobile-header-subtitle').textContent =
+      `${totalListings} listing${totalListings !== 1 ? 's' : ''} across ${ids.length} product${ids.length !== 1 ? 's' : ''}`;
+
+    // Desktop: tables + sidebar
+    document.getElementById('compare-tables').innerHTML = tablesHTML;
+    document.getElementById('cart-summary-items').innerHTML = summaryHTML;
+    document.getElementById('total-savings').textContent = formatPrice(savings);
+    document.getElementById('cart-total').textContent = formatPrice(cartTotal);
+    document.getElementById('cart-summary-total').textContent = formatPrice(cartTotal);
+
+    // Remove buttons
+    document.querySelectorAll('.remove-product-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const pid = parseInt(btn.dataset.productId, 10);
+        const currentIds = getCompareIds().filter(i => i !== pid);
+        window.location.hash = currentIds.length ? `ids=${currentIds.join(',')}` : '';
+        renderComparePage();
+        showToast('Product removed from compare');
+      });
+    });
+
+    renderIcons();
+  }
+
+  // Clear all
+  ['desktop-clear-all', 'mobile-clear-all'].forEach(id => {
+    const btn = document.getElementById(id);
+    if (btn) btn.addEventListener('click', () => {
+      window.location.hash = '';
+      renderComparePage();
+      showToast('Compare cart cleared');
+    });
+  });
+
+  // Vendor contact modal
+  window.openVendorModal = function(vendorName, location) {
+    // Get vendor business links from localStorage
+    const vendor = JSON.parse(localStorage.getItem('ch_vendor') || '{}');
+    const links = vendor.businessLinks || {};
+
+    // Update modal header
+    document.getElementById('modal-vendor-name').textContent = vendorName;
+    document.getElementById('modal-vendor-location').textContent = location;
+
+    // Hide all link rows first
+    ['website', 'whatsapp', 'phone', 'facebook', 'instagram', 'twitter'].forEach(type => {
+      document.getElementById(`link-${type}-row`).classList.add('hidden');
+    });
+
+    let hasLinks = false;
+
+    // Website
+    if (links.website) {
+      hasLinks = true;
+      document.getElementById('link-website-row').classList.remove('hidden');
+      document.getElementById('link-website-btn').href = links.website;
+      document.getElementById('link-website-url').textContent = new URL(links.website).hostname;
+    }
+
+    // WhatsApp
+    if (links.whatsapp) {
+      hasLinks = true;
+      document.getElementById('link-whatsapp-row').classList.remove('hidden');
+      document.getElementById('link-whatsapp-btn').href = links.whatsapp;
+      document.getElementById('link-whatsapp-url').textContent = links.whatsapp.replace(/^https:\/\/(wa\.me\/)/, '').substring(0, 20);
+    }
+
+    // Phone
+    if (links.phone) {
+      hasLinks = true;
+      document.getElementById('link-phone-row').classList.remove('hidden');
+      document.getElementById('link-phone-btn').href = 'tel:' + links.phone.replace(/[^0-9+]/g, '');
+      document.getElementById('link-phone-url').textContent = links.phone;
+    }
+
+    // Facebook
+    if (links.facebook) {
+      hasLinks = true;
+      document.getElementById('link-facebook-row').classList.remove('hidden');
+      document.getElementById('link-facebook-btn').href = links.facebook;
+      document.getElementById('link-facebook-url').textContent = links.facebook.replace(/^https:\/\/(www\.)?facebook\.com\//, '').substring(0, 20);
+    }
+
+    // Instagram
+    if (links.instagram) {
+      hasLinks = true;
+      document.getElementById('link-instagram-row').classList.remove('hidden');
+      document.getElementById('link-instagram-btn').href = links.instagram;
+      document.getElementById('link-instagram-url').textContent = links.instagram.replace(/^https:\/\/(www\.)?instagram\.com\//, '').substring(0, 20);
+    }
+
+    // Twitter
+    if (links.twitter) {
+      hasLinks = true;
+      document.getElementById('link-twitter-row').classList.remove('hidden');
+      document.getElementById('link-twitter-btn').href = links.twitter;
+      document.getElementById('link-twitter-url').textContent = links.twitter.replace(/^https:\/\/(www\.)?twitter\.com\//, '').substring(0, 20);
+    }
+
+    // Show/hide no links message
+    document.getElementById('no-links-message').classList.toggle('hidden', hasLinks);
+
+    // Open modal
+    document.getElementById('vendor-contact-modal').classList.remove('hidden');
+    lucide.createIcons({ attrs: { 'stroke-width': 1.8 } });
+  };
+
+  window.closeVendorModal = function() {
+    document.getElementById('vendor-contact-modal').classList.add('hidden');
+  };
+
+  // Close modal on backdrop click
+  document.getElementById('vendor-contact-modal').addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) {
+      closeVendorModal();
+    }
+  });
+
+  window.addEventListener('hashchange', renderComparePage);
+  renderComparePage();
+  </script>
+</body>
+</html>

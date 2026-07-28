@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — CompareHub</title>
+  <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { work: ['Work Sans','sans-serif'], inter: ['Inter','sans-serif'] },
+        },
+      },
+    };
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@0.441.0/dist/umd/lucide.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    @media (max-width: 640px) {
+      body { padding-top: 65px !important; }
+    }
+  </style>
+  <script>window.PAGE_CONFIG = { activePage: 'account' };</script>
+</head>
+<body class="font-work bg-[#f9fafb]">
+
+  <div id="app-header"></div>
+
+  <!-- Mobile header -->
+  <div class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#f3f4f6]" style="height:65px;box-shadow:0 1px 8px rgba(0,0,0,0.07)">
+    <div class="flex items-center gap-3 px-4 h-full">
+      <a href="index.html" class="w-9 h-9 rounded-full bg-[#f3f4f6] flex items-center justify-center shrink-0">
+        <i data-lucide="home" class="w-4 h-4 text-[#364153]"></i>
+      </a>
+      <div class="flex-1 min-w-0">
+        <p class="font-work font-bold text-[15px] text-[#101828] leading-tight">Dashboard</p>
+        <p id="dash-mobile-subtitle" class="font-inter text-[11px] text-[#99a1af] leading-tight">Welcome back</p>
+      </div>
+      <div class="w-9 h-9 rounded-full flex items-center justify-center shrink-0" style="background:#032d71">
+        <span id="dash-mobile-initials" class="font-work font-bold text-[13px] text-white">CH</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sm:pt-[70px] pb-[71px] sm:pb-0">
+    <div class="max-w-[1290px] mx-auto px-4 sm:px-8 py-2 sm:py-10">
+      <div class="flex gap-6 items-start">
+
+        <!-- ── Sidebar ── -->
+        <aside class="hidden sm:block w-[220px] shrink-0 bg-white rounded-[16px] border border-[#f3f4f6] p-5 space-y-5" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+          <!-- User info -->
+          <div class="flex flex-col items-center gap-3 pb-5 border-b border-[#f3f4f6]">
+            <div class="w-12 h-12 rounded-full flex items-center justify-center shrink-0" style="background:#032d71">
+              <span id="dash-sidebar-initials" class="font-work font-bold text-[16px] text-white">CH</span>
+            </div>
+            <div class="text-center">
+              <p id="dash-sidebar-name" class="font-work font-semibold text-[14px] text-[#101828]">CompareHub User</p>
+              <p id="dash-sidebar-email" class="font-work text-[12px] text-[#99a1af]">user@comparehub.ng</p>
+            </div>
+          </div>
+          <!-- Nav -->
+          <nav class="flex flex-col gap-1">
+            <a href="dashboard.html" class="flex items-center gap-2.5 px-3 py-2 rounded-[10px] bg-[#eff6ff]">
+              <i data-lucide="layout-dashboard" class="w-4 h-4 text-[#155dfc] shrink-0"></i>
+              <span class="font-work font-medium text-[13px] text-[#155dfc]">Overview</span>
+            </a>
+            <a href="wishlist.html" class="flex items-center gap-2.5 px-3 py-2 rounded-[10px] hover:bg-[#f9fafb] transition-colors">
+              <i data-lucide="heart" class="w-4 h-4 text-[#6a7282] shrink-0"></i>
+              <span class="font-work font-medium text-[13px] text-[#364153] flex-1">Wishlist</span>
+              <span class="bg-[#eff6ff] text-[#155dfc] font-work font-semibold text-[11px] px-1.5 py-0.5 rounded-full">4</span>
+            </a>
+            <a href="compare-history.html" class="flex items-center gap-2.5 px-3 py-2 rounded-[10px] hover:bg-[#f9fafb] transition-colors">
+              <i data-lucide="history" class="w-4 h-4 text-[#6a7282] shrink-0"></i>
+              <span class="font-work font-medium text-[13px] text-[#364153] flex-1 whitespace-nowrap">Compare History</span>
+              <span class="bg-[#eff6ff] text-[#155dfc] font-work font-semibold text-[11px] px-1.5 py-0.5 rounded-full shrink-0">4</span>
+            </a>
+            <a href="account-settings.html" class="flex items-center gap-2.5 px-3 py-2 rounded-[10px] hover:bg-[#f9fafb] transition-colors">
+              <i data-lucide="shield" class="w-4 h-4 text-[#6a7282] shrink-0"></i>
+              <span class="font-work font-medium text-[13px] text-[#364153]">Security</span>
+            </a>
+            <hr class="border-[#f3f4f6] my-1">
+            <button onclick="window.authSignOut()" class="flex items-center gap-2.5 px-3 py-2 rounded-[10px] hover:bg-[#fff5f5] transition-colors w-full text-left">
+              <i data-lucide="log-out" class="w-4 h-4 text-[#ef4444] shrink-0"></i>
+              <span class="font-work font-medium text-[13px] text-[#ef4444]">Sign Out</span>
+            </button>
+          </nav>
+        </aside>
+
+        <!-- ── Main content ── -->
+        <div class="flex-1 min-w-0 space-y-5">
+
+          <!-- Welcome heading -->
+          <h1 id="dash-welcome" class="font-work font-bold text-[22px] sm:text-[26px] text-[#101828]">Welcome back!</h1>
+
+          <!-- Stats row -->
+          <div class="grid grid-cols-3 gap-3 sm:gap-4">
+            <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-4 sm:p-5" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+              <div class="flex items-center gap-2 mb-2">
+                <div class="w-7 h-7 rounded-[8px] bg-[#fef3c7] flex items-center justify-center">
+                  <i data-lucide="history" class="w-3.5 h-3.5 text-[#d97706]"></i>
+                </div>
+              </div>
+              <p class="font-work font-bold text-[22px] sm:text-[26px] text-[#101828]">0</p>
+              <p class="font-work text-[11px] sm:text-[12px] text-[#99a1af]">Compare History</p>
+            </div>
+            <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-4 sm:p-5" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+              <div class="flex items-center gap-2 mb-2">
+                <div class="w-7 h-7 rounded-[8px] bg-[#fce7f3] flex items-center justify-center">
+                  <i data-lucide="heart" class="w-3.5 h-3.5 text-[#ec4899]"></i>
+                </div>
+              </div>
+              <p class="font-work font-bold text-[22px] sm:text-[26px] text-[#101828]">0</p>
+              <p class="font-work text-[11px] sm:text-[12px] text-[#99a1af]">Wishlist Items</p>
+            </div>
+            <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-4 sm:p-5" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+              <div class="flex items-center gap-2 mb-2">
+                <div class="w-7 h-7 rounded-[8px] bg-[#eff6ff] flex items-center justify-center">
+                  <i data-lucide="bar-chart-2" class="w-3.5 h-3.5 text-[#155dfc]"></i>
+                </div>
+              </div>
+              <p class="font-work font-bold text-[22px] sm:text-[26px] text-[#101828]">0</p>
+              <p class="font-work text-[11px] sm:text-[12px] text-[#99a1af]">Compare Sessions</p>
+            </div>
+          </div>
+
+          <!-- Saved to Wishlist -->
+          <div class="bg-white rounded-[16px] border border-[#f3f4f6] p-5 sm:p-6" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="font-work font-semibold text-[16px] text-[#101828]">Saved to Wishlist</h2>
+              <a href="wishlist.html" class="font-work font-medium text-[13px] text-[#155dfc] hover:underline flex items-center gap-1">
+                View all <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+            <div id="saved-wishlist-grid" class="grid grid-cols-1 sm:grid-cols-4 gap-3 sm:gap-4">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <!-- Compare Activity -->
+          <div class="bg-white rounded-[16px] border border-[#f3f4f6] p-5 sm:p-6" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+            <div class="flex items-start justify-between mb-1">
+              <div>
+                <h2 class="font-work font-semibold text-[16px] text-[#101828]">Compare Activity</h2>
+                <p class="font-work text-[12px] text-[#99a1af]">How actively you've been comparing</p>
+              </div>
+              <div class="flex items-center gap-1 bg-[#f3f4f6] rounded-[10px] p-1">
+                <button id="btn-weekly" onclick="setChartView('weekly')" class="font-work font-medium text-[12px] px-3 py-1 rounded-[8px] bg-white text-[#101828] shadow-sm transition-all">Weekly</button>
+                <button id="btn-monthly" onclick="setChartView('monthly')" class="font-work font-medium text-[12px] px-3 py-1 rounded-[8px] text-[#99a1af] transition-all">Monthly</button>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-8 mt-4 mb-5">
+              <div>
+                <p class="font-work font-bold text-[22px] text-[#101828]" data-stat="total-sessions">0</p>
+                <p class="font-work text-[12px] text-[#99a1af]">Total sessions</p>
+              </div>
+              <div>
+                <p class="font-work font-bold text-[22px] text-[#101828]" data-stat="products-compared">0</p>
+                <p class="font-work text-[12px] text-[#99a1af]">Products compared</p>
+              </div>
+            </div>
+
+            <!-- Bar chart (SVG) -->
+            <div class="relative overflow-x-auto">
+              <svg id="activity-chart" viewBox="0 0 560 180" class="w-full" style="min-width:320px">
+                <!-- Y axis labels -->
+                <text x="0" y="16" font-size="10" fill="#99a1af" font-family="Work Sans">80</text>
+                <text x="0" y="52" font-size="10" fill="#99a1af" font-family="Work Sans">60</text>
+                <text x="0" y="88" font-size="10" fill="#99a1af" font-family="Work Sans">40</text>
+                <text x="0" y="124" font-size="10" fill="#99a1af" font-family="Work Sans">20</text>
+                <text x="0" y="160" font-size="10" fill="#99a1af" font-family="Work Sans">0</text>
+                <!-- Grid lines -->
+                <line x1="30" y1="10" x2="555" y2="10" stroke="#f3f4f6" stroke-width="1"/>
+                <line x1="30" y1="46" x2="555" y2="46" stroke="#f3f4f6" stroke-width="1"/>
+                <line x1="30" y1="82" x2="555" y2="82" stroke="#f3f4f6" stroke-width="1"/>
+                <line x1="30" y1="118" x2="555" y2="118" stroke="#f3f4f6" stroke-width="1"/>
+                <line x1="30" y1="154" x2="555" y2="154" stroke="#f3f4f6" stroke-width="1"/>
+                <!-- Bars W1 Jan: sessions=35, products=25 -->
+                <rect x="58" y="29" width="14" height="125" rx="4" fill="#155dfc"/>
+                <rect x="74" y="61" width="14" height="93" rx="4" fill="#a855f7"/>
+                <!-- Bars W3 Jan: sessions=28, products=18 -->
+                <rect x="163" y="47" width="14" height="107" rx="4" fill="#155dfc"/>
+                <rect x="179" y="79" width="14" height="75" rx="4" fill="#a855f7"/>
+                <!-- Bars W1 Feb: sessions=22, products=15 -->
+                <rect x="268" y="65" width="14" height="89" rx="4" fill="#155dfc"/>
+                <rect x="284" y="89" width="14" height="65" rx="4" fill="#a855f7"/>
+                <!-- Bars W3 Feb: sessions=20, products=12 -->
+                <rect x="373" y="73" width="14" height="81" rx="4" fill="#155dfc"/>
+                <rect x="389" y="101" width="14" height="53" rx="4" fill="#a855f7"/>
+                <!-- Bars W1 Mar: sessions=15, products=10 -->
+                <rect x="478" y="91" width="14" height="63" rx="4" fill="#155dfc"/>
+                <rect x="494" y="109" width="14" height="45" rx="4" fill="#a855f7"/>
+                <!-- X labels -->
+                <text x="62" y="170" font-size="10" fill="#99a1af" font-family="Work Sans" text-anchor="middle">W1 Jan</text>
+                <text x="178" y="170" font-size="10" fill="#99a1af" font-family="Work Sans" text-anchor="middle">W3 Jan</text>
+                <text x="283" y="170" font-size="10" fill="#99a1af" font-family="Work Sans" text-anchor="middle">W1 Feb</text>
+                <text x="388" y="170" font-size="10" fill="#99a1af" font-family="Work Sans" text-anchor="middle">W3 Feb</text>
+                <text x="493" y="170" font-size="10" fill="#99a1af" font-family="Work Sans" text-anchor="middle">W1 Mar</text>
+              </svg>
+            </div>
+
+            <!-- Legend -->
+            <div class="flex items-center gap-5 mt-3">
+              <div class="flex items-center gap-1.5">
+                <div class="w-6 h-0.5 rounded bg-[#155dfc]"></div>
+                <span class="font-work text-[11px] text-[#99a1af]">Compare sessions</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <div class="w-6 h-0.5 rounded bg-[#a855f7]"></div>
+                <span class="font-work text-[11px] text-[#99a1af]">Products compared</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mobile sidebar links -->
+          <div class="sm:hidden bg-white rounded-[16px] border border-[#f3f4f6] overflow-hidden" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+            <a href="wishlist.html" class="flex items-center gap-3 px-5 py-4 border-b border-[#f3f4f6]">
+              <i data-lucide="heart" class="w-5 h-5 text-[#6a7282]"></i>
+              <span class="font-work font-medium text-[14px] text-[#364153] flex-1">Wishlist</span>
+              <span class="bg-[#eff6ff] text-[#155dfc] font-work font-semibold text-[11px] px-2 py-0.5 rounded-full">4</span>
+              <i data-lucide="chevron-right" class="w-4 h-4 text-[#d1d5dc]"></i>
+            </a>
+            <a href="compare-history.html" class="flex items-center gap-3 px-5 py-4 border-b border-[#f3f4f6]">
+              <i data-lucide="history" class="w-5 h-5 text-[#6a7282]"></i>
+              <span class="font-work font-medium text-[14px] text-[#364153] flex-1">Compare History</span>
+              <span class="bg-[#eff6ff] text-[#155dfc] font-work font-semibold text-[11px] px-2 py-0.5 rounded-full">4</span>
+              <i data-lucide="chevron-right" class="w-4 h-4 text-[#d1d5dc]"></i>
+            </a>
+            <a href="account-settings.html" class="flex items-center gap-3 px-5 py-4 border-b border-[#f3f4f6]">
+              <i data-lucide="shield" class="w-5 h-5 text-[#6a7282]"></i>
+              <span class="font-work font-medium text-[14px] text-[#364153] flex-1">Security</span>
+              <i data-lucide="chevron-right" class="w-4 h-4 text-[#d1d5dc]"></i>
+            </a>
+            <button onclick="window.authSignOut()" class="flex items-center gap-3 px-5 py-4 w-full text-left">
+              <i data-lucide="log-out" class="w-5 h-5 text-[#ef4444]"></i>
+              <span class="font-work font-medium text-[14px] text-[#ef4444]">Sign Out</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="app-footer"></div>
+  <div id="app-mobile-nav"></div>
+
+  <script src="js/components.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    lucide.createIcons({ attrs: { 'stroke-width': 1.8 } });
+
+    // ── Populate user info from localStorage ──────────────────
+    (function() {
+      let user = null;
+      try { user = JSON.parse(localStorage.getItem('ch_user') || 'null'); } catch(e) {}
+      if (!user || !user.name) return; // not logged in — show defaults
+
+      const initials  = user.name.split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase();
+      const firstName = user.name.split(/\s+/)[0];
+
+      const $ = id => document.getElementById(id);
+      if ($('dash-welcome'))          $('dash-welcome').textContent          = 'Welcome back, ' + firstName + '!';
+      if ($('dash-mobile-subtitle'))  $('dash-mobile-subtitle').textContent  = 'Welcome back, ' + firstName;
+      if ($('dash-mobile-initials'))  $('dash-mobile-initials').textContent  = initials;
+      if ($('dash-sidebar-initials')) $('dash-sidebar-initials').textContent = initials;
+      if ($('dash-sidebar-name'))     $('dash-sidebar-name').textContent     = user.name;
+      if ($('dash-sidebar-email'))    $('dash-sidebar-email').textContent    = user.email || '';
+
+      initDashboardData();
+      renderDashboard();
+      updateSidebarBadges();
+    })();
+
+    function setChartView(view) {
+      const weekly = document.getElementById('btn-weekly');
+      const monthly = document.getElementById('btn-monthly');
+      if (view === 'weekly') {
+        weekly.classList.add('bg-white','text-[#101828]','shadow-sm');
+        weekly.classList.remove('text-[#99a1af]');
+        monthly.classList.remove('bg-white','text-[#101828]','shadow-sm');
+        monthly.classList.add('text-[#99a1af]');
+      } else {
+        monthly.classList.add('bg-white','text-[#101828]','shadow-sm');
+        monthly.classList.remove('text-[#99a1af]');
+        weekly.classList.remove('bg-white','text-[#101828]','shadow-sm');
+        weekly.classList.add('text-[#99a1af]');
+      }
+    }
+  </script>
+</body>
+</html>

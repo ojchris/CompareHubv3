@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Wishlist — CompareHub</title>
+  <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { work: ['Work Sans','sans-serif'], inter: ['Inter','sans-serif'] },
+        },
+      },
+    };
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@0.441.0/dist/umd/lucide.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    @media (max-width: 640px) {
+      body { padding-top: 65px !important; }
+    }
+  </style>
+  <script>window.PAGE_CONFIG = { activePage: 'account' };</script>
+</head>
+<body class="font-work bg-[#f9fafb]">
+
+  <div id="app-header"></div>
+
+  <!-- Mobile header -->
+  <div class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#f3f4f6]" style="height:65px;box-shadow:0 1px 8px rgba(0,0,0,0.07)">
+    <div class="flex items-center gap-3 px-4 h-full">
+      <a href="dashboard.html" class="w-9 h-9 rounded-full bg-[#f3f4f6] flex items-center justify-center shrink-0">
+        <i data-lucide="arrow-left" class="w-4 h-4 text-[#364153]"></i>
+      </a>
+      <div class="flex-1 min-w-0">
+        <p class="font-work font-bold text-[15px] text-[#101828] leading-tight">My Wishlist</p>
+        <p class="font-inter text-[11px] text-[#99a1af] leading-tight"><span data-wishlist-count>0</span> saved items</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sm:pt-[70px] pb-[71px] sm:pb-0">
+    <div class="max-w-[1290px] mx-auto px-4 sm:px-8 py-2 sm:py-10">
+      <div class="flex gap-6 items-start">
+
+        <!-- ── Sidebar ── -->
+        <aside class="hidden sm:block w-[220px] shrink-0 bg-white rounded-[16px] border border-[#f3f4f6] p-5 space-y-5" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+          <div class="flex flex-col items-center gap-3 pb-5 border-b border-[#f3f4f6]">
+            <div class="w-12 h-12 rounded-full flex items-center justify-center shrink-0" style="background:#032d71">
+              <span id="wishlist-sidebar-initials" class="font-work font-bold text-[16px] text-white">--</span>
+            </div>
+            <div class="text-center">
+              <p id="wishlist-sidebar-name" class="font-work font-semibold text-[14px] text-[#101828]">CompareHub User</p>
+              <p id="wishlist-sidebar-email" class="font-work text-[12px] text-[#99a1af]">user@comparehub.ng</p>
+            </div>
+          </div>
+          <nav class="flex flex-col gap-1">
+            <a href="dashboard.html" class="flex items-center gap-2.5 px-3 py-2 rounded-[10px] hover:bg-[#f9fafb] transition-colors">
+              <i data-lucide="layout-dashboard" class="w-4 h-4 text-[#6a7282] shrink-0"></i>
+              <span class="font-work font-medium text-[13px] text-[#364153]">Overview</span>
+            </a>
+            <a href="wishlist.html" class="flex items-center gap-2.5 px-3 py-2 rounded-[10px] bg-[#eff6ff]">
+              <i data-lucide="heart" class="w-4 h-4 text-[#155dfc] shrink-0"></i>
+              <span class="font-work font-medium text-[13px] text-[#155dfc] flex-1">Wishlist</span>
+              <span class="bg-[#155dfc] text-white font-work font-semibold text-[11px] px-1.5 py-0.5 rounded-full">0</span>
+            </a>
+            <a href="compare-history.html" class="flex items-center gap-2.5 px-3 py-2 rounded-[10px] hover:bg-[#f9fafb] transition-colors">
+              <i data-lucide="history" class="w-4 h-4 text-[#6a7282] shrink-0"></i>
+              <span class="font-work font-medium text-[13px] text-[#364153] flex-1">Compare History</span>
+              <span class="bg-[#eff6ff] text-[#155dfc] font-work font-semibold text-[11px] px-1.5 py-0.5 rounded-full">0</span>
+            </a>
+            <a href="account-settings.html" class="flex items-center gap-2.5 px-3 py-2 rounded-[10px] hover:bg-[#f9fafb] transition-colors">
+              <i data-lucide="shield" class="w-4 h-4 text-[#6a7282] shrink-0"></i>
+              <span class="font-work font-medium text-[13px] text-[#364153]">Security</span>
+            </a>
+            <hr class="border-[#f3f4f6] my-1">
+            <button class="flex items-center gap-2.5 px-3 py-2 rounded-[10px] hover:bg-[#fff5f5] transition-colors w-full text-left">
+              <i data-lucide="log-out" class="w-4 h-4 text-[#ef4444] shrink-0"></i>
+              <span class="font-work font-medium text-[13px] text-[#ef4444]">Sign Out</span>
+            </button>
+          </nav>
+        </aside>
+
+        <!-- ── Main content ── -->
+        <div class="flex-1 min-w-0 space-y-5">
+          <!-- Header row -->
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <h1 class="font-work font-bold text-[22px] sm:text-[26px] text-[#101828]">My Wishlist</h1>
+              <p class="font-work text-[13px] text-[#99a1af] mt-0.5"><span data-wishlist-count>0</span> saved items — prices update in real time</p>
+            </div>
+            <a href="category.html" class="shrink-0 flex items-center gap-2 bg-[#155dfc] text-white font-work font-semibold text-[13px] px-4 py-2.5 rounded-[12px] hover:bg-[#1447e6] transition-colors">
+              <i data-lucide="search" class="w-4 h-4"></i>
+              Browse Products
+            </a>
+          </div>
+
+          <!-- Wishlist grid -->
+          <div id="wishlist-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="app-footer"></div>
+  <div id="app-mobile-nav"></div>
+
+  <script src="js/components.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    lucide.createIcons({ attrs: { 'stroke-width': 1.8 } });
+
+    // Populate user info from localStorage
+    (function() {
+      let user = null;
+      try { user = JSON.parse(localStorage.getItem('ch_user') || 'null'); } catch(e) {}
+      if (!user || !user.name) return;
+
+      const initials  = user.name.split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase();
+      const $ = id => document.getElementById(id);
+
+      if ($('wishlist-sidebar-initials')) $('wishlist-sidebar-initials').textContent = initials;
+      if ($('wishlist-sidebar-name')) $('wishlist-sidebar-name').textContent = user.name;
+      if ($('wishlist-sidebar-email')) $('wishlist-sidebar-email').textContent = user.email || '';
+
+      initDashboardData();
+      renderWishlist();
+      updateSidebarBadges();
+    })();
+  </script>
+</body>
+</html>
