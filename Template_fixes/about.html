@@ -1,0 +1,209 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us — CompareHub</title>
+  <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { work: ['Work Sans','sans-serif'], inter: ['Inter','sans-serif'] },
+        },
+      },
+    };
+  </script>
+  <script src="https://cdn.tailwindcss.com?with=default@3.4.1"></script>
+  <script src="https://unpkg.com/lucide@0.441.0/dist/umd/lucide.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    @media (max-width: 639px) {
+      body { padding-top: 0 !important; padding-bottom: 0 !important; }
+      html, body { overflow-x: hidden; }
+    }
+  </style>
+</head>
+<body class="font-work bg-white">
+
+  <!-- Desktop header (rendered by components.js) -->
+  <div id="app-header"></div>
+
+  <!-- =====================================================
+       MOBILE HEADER
+       ===================================================== -->
+  <div class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#f3f4f6]" style="height:65px;box-shadow:0 1px 8px rgba(0,0,0,0.07)">
+    <div class="flex items-center gap-3 px-4 h-full">
+      <a href="javascript:history.back()" class="w-9 h-9 rounded-full bg-[#f3f4f6] flex items-center justify-center shrink-0">
+        <i data-lucide="arrow-left" class="w-4 h-4 text-[#364153]" aria-hidden="true"></i>
+      </a>
+      <div class="flex-1 min-w-0">
+        <p class="font-work font-bold text-[15px] text-[#101828] leading-tight truncate">About Us</p>
+        <p class="font-inter text-[11px] text-[#99a1af] leading-tight">Our Story &amp; Mission</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================
+       HERO SECTION
+       ===================================================== -->
+  <section class="sm:mt-[70px] mt-[65px] relative overflow-hidden" style="height:415px">
+    <img src="images/pages/about-hero-bg.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" aria-hidden="true">
+    <div class="absolute inset-0" style="background:rgba(10,20,50,0.62)"></div>
+    <div class="relative z-10 flex flex-col items-center justify-center text-center px-4 h-full">
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-2 bg-white/15 border border-white/25 rounded-full px-4 py-1.5 mb-5">
+        <span class="text-[14px]">🇳🇬</span>
+        <span class="font-inter text-[14px] text-white tracking-[-0.15px]">Made in Nigeria, for Nigeria</span>
+      </div>
+      <!-- Headline -->
+      <h1 class="font-work font-bold text-[32px] sm:text-[48px] text-white leading-[1.2]">We're Building Nigeria's</h1>
+      <h1 class="font-work font-bold text-[32px] sm:text-[48px] leading-[1.2] mb-5" style="color:#51a2ff">Smartest Marketplace</h1>
+      <!-- Subtext -->
+      <p class="font-work text-[16px] sm:text-[18px] text-[#d1d5dc] max-w-[541px] leading-[1.6] tracking-[-0.44px]">CompareHub was born out of a simple frustration: why do the same products cost so differently across Nigerian vendors? We built the answer.</p>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       OUR STORY SECTION
+       ===================================================== -->
+  <section class="py-14 sm:py-16 px-4 sm:px-8 bg-white">
+    <div class="max-w-[1024px] mx-auto">
+      <h2 class="font-work font-semibold text-[22px] sm:text-[30px] text-[#364153] leading-[36px] mb-6 sm:mb-8">Our Story</h2>
+
+      <div class="flex flex-col lg:flex-row gap-10 lg:gap-[71px] items-start">
+
+        <!-- Left: story paragraphs -->
+        <div class="flex-1 flex flex-col gap-7">
+          <p class="font-work text-[16px] text-[#364153] leading-[26px] tracking-[-0.31px]">In 2024, our founders Illerri and Christian were shopping for a MacBook in Lagos. They visited three stores on Computer Village — and discovered price differences of over ₦150,000 for the exact same laptop.</p>
+          <p class="font-work text-[16px] text-[#364153] leading-[26px] tracking-[-0.31px]">Within 6 months, the platform had expanded to food, groceries, and household goods — covering 8 Nigerian cities and onboarding over 180 verified vendors.</p>
+          <p class="font-work text-[16px] text-[#364153] leading-[26px] tracking-[-0.31px]">Today, CompareHub processes thousands of price comparisons every day, helping Nigerians save an average of 23% on every purchase.</p>
+        </div>
+
+        <!-- Right: inline quote + stats -->
+        <div class="lg:w-[423px] shrink-0 flex flex-col gap-6">
+          <!-- Inline quote paragraph -->
+          <p class="font-work text-[16px] text-[#364153] leading-[26px] tracking-[-0.31px]">They thought: <em class="italic">"There has to be a better way."</em> So they built one. CompareHub launched in 2025 as a simple price comparison tool for electronics in Lagos.</p>
+
+          <!-- Stats: 2 rows × 2 cols -->
+          <div class="flex flex-col gap-[26px]">
+            <div class="flex gap-[26px]">
+              <div class="bg-white border border-[#c7d8fe] rounded-[16px] flex flex-col items-center justify-center gap-4 p-5 flex-1 text-center">
+                <p class="font-work font-semibold text-[30px] text-[#364153] leading-[36px] tracking-[0.40px]">2025</p>
+                <p class="font-inter text-[14px] text-[#364153] leading-[20px] tracking-[-0.15px]">Founded</p>
+              </div>
+              <div class="bg-white border border-[#c7d8fe] rounded-[16px] flex flex-col items-center justify-center gap-4 p-5 flex-1 text-center">
+                <p class="font-work font-semibold text-[30px] text-[#364153] leading-[36px] tracking-[0.40px]">180+</p>
+                <p class="font-inter text-[14px] text-[#364153] leading-[20px] tracking-[-0.15px]">Verified vendors</p>
+              </div>
+            </div>
+            <div class="flex gap-[26px]">
+              <div class="bg-white border border-[#c7d8fe] rounded-[16px] flex flex-col items-center justify-center gap-4 p-5 flex-1 text-center">
+                <p class="font-work font-semibold text-[30px] text-[#364153] leading-[36px] tracking-[0.40px]">8</p>
+                <p class="font-inter text-[14px] text-[#364153] leading-[20px] tracking-[-0.15px]">Cities covered</p>
+              </div>
+              <div class="bg-white border border-[#c7d8fe] rounded-[16px] flex flex-col items-center justify-center gap-4 p-5 flex-1 text-center">
+                <p class="font-work font-semibold text-[30px] text-[#364153] leading-[36px] tracking-[0.40px]">23%</p>
+                <p class="font-inter text-[14px] text-[#364153] leading-[20px] tracking-[-0.15px]">Avg savings</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       OUR MISSION SECTION
+       ===================================================== -->
+  <section class="py-14 sm:py-[80px] px-4 sm:px-8" style="background:rgba(232,239,255,0.22)">
+    <div class="max-w-[743px] mx-auto flex flex-col items-center gap-5 text-center">
+      <h2 class="font-work font-semibold text-[22px] sm:text-[30px] text-[#364153] leading-[36px] tracking-[0.40px] w-full">Our Mission</h2>
+      <div class="flex flex-col gap-5 items-center w-full">
+        <!-- Quote block -->
+        <div class="border-l-4 border-[#155dfc] w-full text-center px-4 sm:px-0">
+          <p class="font-work italic text-[18px] sm:text-[20px] text-[#4a5565] leading-[32.5px] tracking-[-0.45px]">"To give every Nigerian shopper — from Lagos to all part of Nigeria — the information they need to always buy at the fairest price, from a vendor they can trust."</p>
+        </div>
+        <p class="font-work text-[16px] text-[#5a6372] leading-[26px] tracking-[-0.31px] w-full">We believe price transparency is a right, not a privilege. CompareHub is free for all shoppers because saving money should never cost money.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       WHAT WE STAND FOR
+       ===================================================== -->
+  <section class="py-14 sm:py-16 px-4 sm:px-8 bg-white">
+    <div class="max-w-[1024px] mx-auto">
+      <!-- Heading -->
+      <div class="text-center mb-6 sm:mb-[25px]">
+        <h2 class="font-inter font-bold text-[22px] sm:text-[30px] text-[#101828] leading-[36px] tracking-[0.40px]">What We Stand For</h2>
+        <p class="font-inter text-[14px] sm:text-[16px] text-[#6a7282] leading-[24px] tracking-[-0.31px] mt-3">The principles that guide every decision we make.</p>
+      </div>
+
+      <!-- Cards: 2×2 grid, horizontal layout -->
+      <div class="flex flex-col gap-6">
+        <!-- Row 1 -->
+        <div class="grid sm:grid-cols-2 gap-6">
+          <div class="bg-white border border-[#f3f4f6] rounded-[16px] flex gap-4 items-start p-[25px]" style="box-shadow:0 1px 3px rgba(0,0,0,0.1),0 1px 2px rgba(0,0,0,0.1)">
+            <div class="w-12 h-12 rounded-[14px] bg-[#e8efff] flex items-center justify-center shrink-0">
+              <i data-lucide="eye" class="w-6 h-6 text-[#155dfc]" aria-hidden="true"></i>
+            </div>
+            <div class="flex flex-col gap-1">
+              <h3 class="font-work font-semibold text-[18px] text-[#364153] leading-[27px]">Transparency</h3>
+              <p class="font-work text-[14px] text-[#5a6372] leading-[22.75px] tracking-[-0.15px]">Every price, fee, and vendor is shown upfront. No hidden charges, no bait-and-switch.</p>
+            </div>
+          </div>
+          <div class="bg-white border border-[#f3f4f6] rounded-[16px] flex gap-4 items-start p-[25px]" style="box-shadow:0 1px 3px rgba(0,0,0,0.1),0 1px 2px rgba(0,0,0,0.1)">
+            <div class="w-12 h-12 rounded-[14px] bg-[#e8efff] flex items-center justify-center shrink-0">
+              <i data-lucide="flag" class="w-6 h-6 text-[#155dfc]" aria-hidden="true"></i>
+            </div>
+            <div class="flex flex-col gap-1">
+              <h3 class="font-work font-semibold text-[18px] text-[#364153] leading-[27px] tracking-[-0.44px]">Built for Nigerians</h3>
+              <p class="font-work text-[14px] text-[#6a7282] leading-[22.75px] tracking-[-0.15px]">From market prices in Naira to local delivery logistics, CompareHub is made specifically for how Nigerians shop.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Row 2 -->
+        <div class="grid sm:grid-cols-2 gap-6">
+          <div class="bg-white border border-[#f3f4f6] rounded-[16px] flex gap-4 items-start p-[25px]" style="box-shadow:0 1px 3px rgba(0,0,0,0.1),0 1px 2px rgba(0,0,0,0.1)">
+            <div class="w-12 h-12 rounded-[14px] bg-[#e8efff] flex items-center justify-center shrink-0">
+              <i data-lucide="zap" class="w-6 h-6 text-[#155dfc]" aria-hidden="true"></i>
+            </div>
+            <div class="flex flex-col gap-1">
+              <h3 class="font-work font-semibold text-[18px] text-[#364153] leading-[27px]">Speed &amp; Simplicity</h3>
+              <p class="font-work text-[14px] text-[#5a6372] leading-[22.75px] tracking-[-0.15px]">Finding the best price should take seconds, not hours. Our platform is fast, clean, and easy to use.</p>
+            </div>
+          </div>
+          <div class="bg-white border border-[#f3f4f6] rounded-[16px] flex gap-4 items-start p-[25px]" style="box-shadow:0 1px 3px rgba(0,0,0,0.1),0 1px 2px rgba(0,0,0,0.1)">
+            <div class="w-12 h-12 rounded-[14px] bg-[#e8efff] flex items-center justify-center shrink-0">
+              <i data-lucide="store" class="w-6 h-6 text-[#155dfc]" aria-hidden="true"></i>
+            </div>
+            <div class="flex flex-col gap-1">
+              <h3 class="font-work font-semibold text-[18px] text-[#364153] leading-[27px] tracking-[-0.44px]">Empowering Vendors</h3>
+              <p class="font-work text-[14px] text-[#5a6372] leading-[22.75px] tracking-[-0.15px]">We give small and medium Nigerian businesses a level playing field to compete and grow their customer base.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer (rendered by components.js) -->
+  <div id="app-footer"></div>
+
+  <!-- Mobile nav (rendered by components.js) -->
+  <div id="app-mobile-nav"></div>
+
+  <!-- Compare drawer placeholder -->
+  <div id="compare-drawer" class="hidden"></div>
+
+  <script>window.PAGE_CONFIG = { activePage: 'about' };</script>
+  <script src="js/components.js"></script>
+  <script src="js/app.js"></script>
+  <script>lucide.createIcons();</script>
+</body>
+</html>
+

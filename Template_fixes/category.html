@@ -1,0 +1,380 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Category — CompareHub</title>
+  <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { work: ['Work Sans','sans-serif'], inter: ['Inter','sans-serif'] },
+          colors: {
+            primary: 'var(--color-primary)',
+            dark:    'var(--color-dark)',
+            body:    'var(--color-body)',
+            subtle:  'var(--color-subtle)',
+            muted:   'var(--color-muted)',
+            border:  'var(--color-border)',
+            surface: 'var(--color-surface)',
+          },
+        },
+      },
+    };
+  </script>
+  <script src="https://cdn.tailwindcss.com?with=default@3.4.1"></script>
+  <script src="https://unpkg.com/lucide@0.441.0/dist/umd/lucide.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    @media (max-width: 639px) {
+      html, body { overflow-x: hidden; }
+      body { padding-bottom: 80px; }
+      ::-webkit-scrollbar { display: none; }
+      * { scrollbar-width: none; -ms-overflow-style: none; }
+    }
+  </style>
+</head>
+<body class="font-work bg-white">
+
+  <!-- =====================================================
+       MOBILE HEADER
+       ===================================================== -->
+  <div id="mobile-header" class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white" style="padding:14px 16px 12px;box-shadow:0 1px 8px rgba(0,0,0,0.07)">
+    <div class="flex items-center gap-3 mb-3">
+      <a href="index.html" class="w-8 h-8 rounded-full bg-[#f3f4f6] flex items-center justify-center shrink-0">
+        <i data-lucide="arrow-left" class="w-4 h-4 text-[#364153]" aria-hidden="true"></i>
+      </a>
+      <h1 id="mobile-page-title" class="font-work font-bold text-[16px] text-[#181d25] flex-1 truncate">All Products</h1>
+    </div>
+    <div class="relative">
+      <i data-lucide="search" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#808793] z-10" aria-hidden="true"></i>
+      <input id="cat-mobile-search" type="text" placeholder="Search products, brands…"
+        class="w-full bg-[#f3f4f6] rounded-[14px] pl-10 pr-4 font-work text-[14px] text-[#364153] placeholder-[#808793] outline-none border-none" style="height:44px" autocomplete="off">
+    </div>
+  </div>
+
+  <!-- Desktop header (rendered by components.js) -->
+  <div id="app-header"></div>
+
+  <!-- =====================================================
+       BREADCRUMBS — desktop only
+       ===================================================== -->
+  <div class="hidden sm:flex fixed top-[70px] left-0 right-0 z-40 h-[49px] items-center bg-white border-b border-[#f3f4f6] px-[120px]">
+    <div class="flex items-center gap-2">
+      <a href="index.html" class="font-work font-medium text-[16px] text-[#155dfc] hover:underline">Home</a>
+      <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-[#808793]" aria-hidden="true"></i>
+      <span id="breadcrumb-label" class="font-work font-medium text-[16px] text-[#808793]">All Products</span>
+      <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-[#808793]" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <!-- =====================================================
+       MAIN CONTENT
+       ===================================================== -->
+  <main style="padding-top:70px">
+    <!-- desktop offset for breadcrumbs -->
+    <div class="hidden sm:block" style="height:49px"></div>
+
+    <div class="max-w-[1290px] mx-auto px-4 sm:px-8 py-6 sm:py-8">
+
+      <!-- Search + Location row — desktop -->
+      <div class="hidden sm:flex items-center gap-4 mb-9">
+        <!-- Search bar -->
+        <div class="relative flex-1">
+          <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#808793]" aria-hidden="true"></i>
+          <input id="cat-desktop-search" type="text" placeholder="Search products, brands..."
+            class="w-full border border-[#e5e7eb] rounded-[14px] pl-10 pr-4 font-inter text-[14px] text-[#364153] placeholder-[#808793] outline-none bg-white" style="height:34px" autocomplete="off">
+          <div id="cat-desktop-dropdown" class="hidden absolute left-0 right-0 bg-white rounded-[14px] shadow-lg z-50 overflow-hidden" style="top:42px;box-shadow:0 8px 24px rgba(0,0,0,0.14)"></div>
+        </div>
+        <!-- Location filter -->
+        <div class="relative shrink-0" id="location-filter-wrap">
+          <button id="location-filter-btn" class="flex items-center gap-1.5 border border-[#e5e7eb] rounded-[10px] px-3 h-[34px] cursor-pointer hover:border-[#155dfc] transition-colors bg-white">
+            <i data-lucide="map-pin" class="w-4 h-4 text-[#5a6372]" aria-hidden="true"></i>
+            <span id="location-filter-label" class="font-work font-medium text-[14px] text-[#5a6372]">All States</span>
+            <i data-lucide="chevron-down" class="w-4 h-4 text-[#5a6372]" id="location-chevron" aria-hidden="true"></i>
+          </button>
+          <!-- Dropdown -->
+          <div id="location-dropdown" class="hidden absolute right-0 top-[42px] bg-white rounded-[14px] z-50 overflow-hidden" style="width:220px;box-shadow:0 8px 24px rgba(0,0,0,0.14)">
+            <div class="px-3 pt-3 pb-2">
+              <input id="location-search-input" type="text" placeholder="Search state..."
+                class="w-full bg-[#f3f4f6] rounded-[10px] px-3 py-2 font-work text-[13px] text-[#364153] placeholder-[#808793] outline-none" autocomplete="off">
+            </div>
+            <div id="location-states-list" class="overflow-y-auto" style="max-height:240px"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category filter pills — mobile -->
+      <div class="sm:hidden flex items-center gap-2 overflow-x-auto pb-3 mb-4" style="scrollbar-width:none;-ms-overflow-style:none">
+        <button class="cat-pill font-work font-semibold text-[13px] rounded-[20px] px-4 py-2 shrink-0 transition-colors" data-cat="all" style="background:var(--color-primary);color:#fff">All</button>
+        <button class="cat-pill font-work font-medium text-[13px] rounded-[20px] px-4 py-2 shrink-0 bg-white border border-[#e5e7eb] text-[#364153]" data-cat="electronics">Electronics</button>
+        <button class="cat-pill font-work font-medium text-[13px] rounded-[20px] px-4 py-2 shrink-0 bg-white border border-[#e5e7eb] text-[#364153]" data-cat="food">Food &amp; Drinks</button>
+        <button class="cat-pill font-work font-medium text-[13px] rounded-[20px] px-4 py-2 shrink-0 bg-white border border-[#e5e7eb] text-[#364153]" data-cat="home">Home</button>
+      </div>
+
+      <!-- Result count + sort row -->
+      <div class="flex items-center justify-between mb-5">
+        <p id="result-count" class="font-work text-[13px] text-[#808793]"></p>
+        <div class="flex items-center gap-2">
+          <span class="font-work text-[13px] text-[#808793] hidden sm:inline">Sort by:</span>
+          <select id="sort-select" class="bg-white border border-[#e5e7eb] rounded-[10px] px-3 py-1.5 font-work text-[13px] text-[#364153] outline-none cursor-pointer">
+            <option value="default">Relevance</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="name">Name A–Z</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Product grid -->
+      <div id="product-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-5"></div>
+
+      <!-- Empty state -->
+      <div id="empty-state" class="hidden flex-col items-center justify-center py-20 text-center">
+        <div class="w-20 h-20 rounded-full bg-[#f3f4f6] flex items-center justify-center mb-5">
+          <i data-lucide="search-x" class="w-9 h-9 text-[#808793]" aria-hidden="true"></i>
+        </div>
+        <h2 class="font-work font-bold text-[20px] text-[#181d25] mb-2">No products found</h2>
+        <p id="empty-message" class="font-work text-[14px] text-[#808793] mb-6 max-w-[280px]">We couldn't find any products matching your search.</p>
+        <a href="index.html" class="inline-flex items-center gap-2 bg-[#155dfc] text-white font-work font-semibold text-[14px] px-6 py-3 rounded-[14px] hover:bg-[#1447e6] transition-colors">
+          <i data-lucide="arrow-left" class="w-4 h-4" aria-hidden="true"></i> Back to Home
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer (rendered by components.js) -->
+  <div id="app-footer"></div>
+
+  <!-- Mobile nav (rendered by components.js) -->
+  <div id="app-mobile-nav"></div>
+
+  <!-- Toast -->
+  <div id="toast"></div>
+
+  <script>window.PAGE_CONFIG = { activePage: 'browse' };</script>
+  <script src="js/components.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    // ── Category page bootstrap — reads from URL hash ──────
+    function parseHash() {
+      const hash = window.location.hash.slice(1); // strip '#'
+      return new URLSearchParams(hash);
+    }
+    const hashParams = parseHash();
+    const qParam   = hashParams.get('q') || '';
+    const catParam = (hashParams.get('cat') || '').toLowerCase();
+
+    let activeCat    = (catParam && catParam !== 'all') ? catParam : 'all';
+    let activeSearch = qParam;
+    let sortMode     = 'default';
+
+    // Pre-fill search inputs
+    if (qParam) {
+      ['cat-desktop-search','cat-mobile-search'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = qParam;
+      });
+    }
+
+    const CAT_LABELS = {
+      all: 'All Products', electronics: 'Electronics',
+      food: 'Food & Groceries', home: 'Home & Kitchen',
+      phones: 'Phones', gaming: 'Gaming'
+    };
+
+    function parsePrice(str) {
+      return parseInt((str || '0').replace(/[^\d]/g, ''), 10);
+    }
+
+    function getFilteredProducts() {
+      let all = Object.values(PRODUCTS).flat();
+      if (activeCat !== 'all') all = all.filter(p => p.category === activeCat);
+      if (activeSearch.trim()) {
+        const q = activeSearch.toLowerCase();
+        all = all.filter(p =>
+          p.name.toLowerCase().includes(q) ||
+          p.vendor.toLowerCase().includes(q) ||
+          p.category.toLowerCase().includes(q)
+        );
+      }
+      if (sortMode === 'price-asc')  all.sort((a,b) => parsePrice(a.price) - parsePrice(b.price));
+      if (sortMode === 'price-desc') all.sort((a,b) => parsePrice(b.price) - parsePrice(a.price));
+      if (sortMode === 'name')       all.sort((a,b) => a.name.localeCompare(b.name));
+      return all;
+    }
+
+    function renderGrid() {
+      const products = getFilteredProducts();
+      const grid  = document.getElementById('product-grid');
+      const empty = document.getElementById('empty-state');
+      const count = document.getElementById('result-count');
+
+      count.textContent = `${products.length} product${products.length !== 1 ? 's' : ''} found`;
+
+      if (!products.length) {
+        grid.innerHTML = '';
+        empty.classList.remove('hidden');
+        empty.classList.add('flex');
+        document.getElementById('empty-message').textContent = activeSearch
+          ? `We couldn't find any products matching "${activeSearch}".`
+          : `No products in this category yet. Check back soon!`;
+        renderIcons();
+        return;
+      }
+
+      empty.classList.add('hidden');
+      empty.classList.remove('flex');
+
+      // Desktop card: matches Figma — image 151px, info panel below
+      grid.innerHTML = products.map(p => `
+        <div class="bg-white rounded-[10px] overflow-hidden flex flex-col" style="box-shadow:0 2px 4px rgba(0,0,0,0.06)">
+          <a href="product.html#id=${p.id}" class="block overflow-hidden bg-[#f9fafb]" style="height:151px">
+            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="this.src='images/placeholder.jpg'">
+          </a>
+          <div class="flex flex-col gap-2.5 p-4 flex-1">
+            <a href="product.html#id=${p.id}" class="flex flex-col gap-0.5 flex-1">
+              <p class="font-inter font-medium text-[11px] text-[#0f42b3] tracking-[0.06px] truncate">${p.vendor}</p>
+              <p class="font-inter font-semibold text-[13px] text-[#364153] leading-tight line-clamp-2">${p.name}</p>
+              ${p.unit ? `<p class="font-inter text-[10px] text-[#99a1af] tracking-[0.12px]">${p.unit}</p>` : ''}
+            </a>
+            <div class="mt-auto">
+              <p class="font-inter font-bold text-[15px] text-[#364153] mb-2">${p.price}</p>
+              <button class="w-full bg-[#155dfc] text-white font-inter font-medium text-[12px] rounded-[12px] flex items-center justify-center hover:bg-[#1447e6] transition-colors" style="height:32px">
+                + Compare
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+      renderIcons();
+    }
+
+    function updatePageTitle() {
+      let title = CAT_LABELS[activeCat] || 'Products';
+      if (activeSearch) title = `Results for "${activeSearch}"`;
+      document.getElementById('mobile-page-title').textContent = title;
+      document.getElementById('breadcrumb-label').textContent = title;
+      document.title = `${title} — CompareHub`;
+    }
+
+    // Category pill clicks (mobile)
+    document.querySelectorAll('.cat-pill').forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeCat = btn.dataset.cat;
+        document.querySelectorAll('.cat-pill').forEach(b => {
+          b.style.background = '';
+          b.style.color = '';
+          b.classList.add('bg-white','border','border-[#e5e7eb]','text-[#364153]');
+        });
+        btn.classList.remove('bg-white','border','border-[#e5e7eb]','text-[#364153]');
+        btn.style.background = 'var(--color-primary)';
+        btn.style.color = '#fff';
+        updatePageTitle();
+        renderGrid();
+      });
+    });
+
+    // Sort
+    document.getElementById('sort-select').addEventListener('change', e => {
+      sortMode = e.target.value;
+      renderGrid();
+    });
+
+    // Live search
+    ['cat-desktop-search','cat-mobile-search'].forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      let t;
+      el.addEventListener('input', () => {
+        clearTimeout(t);
+        t = setTimeout(() => {
+          activeSearch = el.value.trim();
+          ['cat-desktop-search','cat-mobile-search'].forEach(sid => {
+            const s = document.getElementById(sid);
+            if (s && s !== el) s.value = el.value;
+          });
+          updatePageTitle();
+          renderGrid();
+        }, 200);
+      });
+      el.addEventListener('keydown', e => {
+        if (e.key === 'Enter') { activeSearch = el.value.trim(); updatePageTitle(); renderGrid(); }
+      });
+    });
+
+    // Search dropdown on desktop
+    bindSearchBar('cat-desktop-search', 'cat-desktop-dropdown');
+
+    // ── Location filter ────────────────────────────────────────
+    const STATES = [
+      'All States','Abia','Adamawa','Akwa Ibom','Anambra','Bauchi','Bayelsa',
+      'Benue','Borno','Cross River','Delta','Ebonyi','Edo','Ekiti','Enugu',
+      'FCT — Abuja','Gombe','Imo','Jigawa','Kaduna','Kano','Katsina','Kebbi',
+      'Kogi','Kwara','Lagos','Nasarawa','Niger','Ogun','Ondo','Osun','Oyo',
+      'Plateau','Rivers','Sokoto','Taraba','Yobe','Zamfara'
+    ];
+    let activeLocation = 'All States';
+
+    function renderLocationList(filter = '') {
+      const list = document.getElementById('location-states-list');
+      const q = filter.toLowerCase();
+      const filtered = STATES.filter(s => s.toLowerCase().includes(q));
+      list.innerHTML = filtered.map(s => `
+        <button class="w-full text-left px-4 py-2.5 font-work text-[13px] hover:bg-[#f3f4f6] transition-colors ${s === activeLocation ? 'text-[#155dfc] font-semibold bg-[#eff6ff]' : 'text-[#364153]'}"
+          onclick="selectLocation('${s}')">${s}</button>
+      `).join('');
+    }
+
+    window.selectLocation = function(state) {
+      activeLocation = state;
+      const label = document.getElementById('location-filter-label');
+      label.textContent = state === 'All States' ? 'All States' : state;
+      label.style.color = state === 'All States' ? '' : '#155dfc';
+      document.getElementById('location-dropdown').classList.add('hidden');
+      document.getElementById('location-chevron').style.transform = '';
+      renderLocationList();
+      CompareHub.ui.showToast(state === 'All States' ? 'Showing all locations' : `Filtered to ${state}`);
+    };
+
+    const locBtn = document.getElementById('location-filter-btn');
+    const locDrop = document.getElementById('location-dropdown');
+    const locChev = document.getElementById('location-chevron');
+    locBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      const isOpen = !locDrop.classList.contains('hidden');
+      locDrop.classList.toggle('hidden', isOpen);
+      locChev.style.transform = isOpen ? '' : 'rotate(180deg)';
+      if (!isOpen) {
+        renderLocationList();
+        document.getElementById('location-search-input').focus();
+      }
+    });
+    document.getElementById('location-search-input').addEventListener('input', e => {
+      renderLocationList(e.target.value);
+    });
+    document.addEventListener('click', e => {
+      if (!e.target.closest('#location-filter-wrap')) {
+        locDrop.classList.add('hidden');
+        locChev.style.transform = '';
+      }
+    });
+
+    // Activate matching category pill if catParam given
+    if (catParam && catParam !== 'all') {
+      const pill = document.querySelector(`.cat-pill[data-cat="${catParam}"]`);
+      if (pill) pill.click();
+    }
+
+    updatePageTitle();
+    renderGrid();
+    renderIcons();
+  </script>
+</body>
+</html>
+
+

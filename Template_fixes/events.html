@@ -1,0 +1,890 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events — CompareHub</title>
+  <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { work: ['Work Sans','sans-serif'], inter: ['Inter','sans-serif'] },
+        },
+      },
+    };
+  </script>
+  <script src="https://cdn.tailwindcss.com?with=default@3.4.1"></script>
+  <script src="https://unpkg.com/lucide@0.441.0/dist/umd/lucide.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    @media (max-width: 639px) {
+      body { padding-top: 0 !important; padding-bottom: 0 !important; }
+      html, body { overflow-x: hidden; }
+    }
+    .tab-btn.active { background:#155dfc; color:#fff; border-color:#155dfc; box-shadow: 0 2px 8px rgba(21, 93, 252, 0.3); }
+    .tab-btn:not(.active) { background:#fff; color:#364153; border-color:#e5e7eb; }
+    .tab-btn { font-weight: 500; transition: all 0.2s ease; }
+    .tab-btn:hover:not(.active) { border-color:#155dfc; background:#eff6ff; }
+    .event-small-card { transition: all 0.3s ease; border: 1px solid transparent; }
+    .event-small-card:hover { box-shadow:0 8px 24px rgba(0,0,0,0.15); transform: translateY(-2px); border-color: #155dfc; }
+    #date-scroller { scrollbar-width:none; -ms-overflow-style:none; }
+    #date-scroller::-webkit-scrollbar { display:none; }
+    #months-container { scrollbar-width:none; -ms-overflow-style:none; }
+    #months-container::-webkit-scrollbar { display:none; }
+    .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 3rem 1rem; min-height: 300px; text-align: center; }
+    .empty-state-icon { width: 64px; height: 64px; background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; }
+    .empty-state-title { font-size: 17px; font-weight: 600; color: #101828; margin-bottom: 0.5rem; }
+    .empty-state-desc { font-size: 14px; color: #6a7282; margin-bottom: 1.5rem; }
+    .empty-state-icon i { width: 32px; height: 32px; color: #155dfc; }
+    /* Mobile month pill style */
+    @media (max-width: 639px) {
+      #months-container button {
+        border-radius: 999px !important;
+        padding: 7px 16px !important;
+        height: auto !important;
+        font-size: 13px !important;
+        letter-spacing: 0.2px !important;
+        flex-shrink: 0;
+        white-space: nowrap;
+      }
+      #months-container button.month-active {
+        background: white !important;
+        color: #1447e6 !important;
+        border: none !important;
+      }
+      #months-container button:not(.month-active) {
+        background: rgba(255,255,255,0.12) !important;
+        color: rgba(255,255,255,0.8) !important;
+        border: 1px solid rgba(255,255,255,0.2) !important;
+      }
+    }
+  </style>
+</head>
+<body class="font-work bg-[#f9fafb]">
+
+  <!-- Desktop header (rendered by components.js) -->
+  <div id="app-header"></div>
+
+  <!-- Mobile header — logo + hamburger menu -->
+  <div class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#f3f4f6]" style="height:65px;box-shadow:0 1px 8px rgba(0,0,0,0.07)">
+    <div class="flex items-center justify-between px-4 h-full">
+      <a href="index.html" class="shrink-0">
+        <img src="images/logos/logo-dark.svg" alt="CompareHub" class="h-5 w-auto">
+      </a>
+      <button id="mobile-menu-btn" class="w-9 h-9 rounded-full bg-[#f3f4f6] flex items-center justify-center shrink-0 hover:bg-[#e5e7eb] transition-colors">
+        <i data-lucide="menu" class="w-5 h-5 text-[#364153]" aria-hidden="true"></i>
+      </button>
+      <!-- Mobile Menu Dropdown -->
+      <div id="mobile-menu-dropdown" class="hidden absolute top-[65px] left-0 right-0 bg-white border-b border-[#f3f4f6] z-40">
+        <nav class="flex flex-col p-4 gap-3">
+          <a href="how-it-works.html" class="font-work font-medium text-[14px] text-[#364153] hover:text-[#155dfc] transition-colors py-2">How it works</a>
+          <a href="become-vendor.html" class="font-work font-medium text-[14px] text-[#364153] hover:text-[#155dfc] transition-colors py-2">Become Vendor</a>
+          <a href="events.html" class="font-work font-medium text-[14px] text-[#155dfc] py-2">Events</a>
+          <hr class="border-[#f3f4f6] my-1">
+          <a href="/user/login" class="font-work font-medium text-[14px] text-[#155dfc] hover:text-[#1447e6] transition-colors py-2 text-left">Sign In</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile menu toggle script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      const menuDropdown = document.getElementById('mobile-menu-dropdown');
+      if (menuBtn && menuDropdown) {
+        menuBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          menuDropdown.classList.toggle('hidden');
+        });
+        document.addEventListener('click', function() {
+          menuDropdown.classList.add('hidden');
+        });
+      }
+    });
+  </script>
+
+  <!-- =====================================================
+       HERO SECTION (blue on mobile, photo on desktop)
+       ===================================================== -->
+  <section class="sm:mt-[70px] relative overflow-hidden sm:h-[296px]">
+
+    <!-- Desktop: photo + dark overlay -->
+    <img src="images/pages/events-hero-bg.jpg" alt="" class="hidden sm:block absolute inset-0 w-full h-full object-cover" aria-hidden="true">
+    <div class="hidden sm:block absolute inset-0" style="background:rgba(0,0,0,0.72)"></div>
+
+    <!-- Mobile: solid blue bg -->
+    <div class="sm:hidden absolute inset-0" style="background:#1447e6"></div>
+
+    <div class="relative z-10 flex flex-col sm:h-full">
+
+      <!-- MOBILE: top row — location + year nav -->
+      <div class="sm:hidden flex items-center justify-between px-5 pt-12 pb-3">
+        <div>
+          <div class="flex items-center gap-1.5">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-white/70 shrink-0" aria-hidden="true"></i>
+            <span class="font-inter font-semibold text-[13px] text-white">Lagos</span>
+          </div>
+          <p id="hero-count-mobile" class="font-inter text-[12px] text-white/60 mt-0.5 ml-[19px]">2 events · April 2026</p>
+        </div>
+        <div class="flex items-center gap-1">
+          <button onclick="prevYear()" class="w-7 h-7 flex items-center justify-center rounded-full bg-white/15 hover:bg-white/25 transition-colors">
+            <i data-lucide="chevron-left" class="w-3.5 h-3.5 text-white" aria-hidden="true"></i>
+          </button>
+          <span id="cal-year-mobile" class="font-inter font-bold text-[14px] text-white px-1.5">2026</span>
+          <button onclick="nextYear()" class="w-7 h-7 flex items-center justify-center rounded-full bg-white/15 hover:bg-white/25 transition-colors">
+            <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-white" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- MOBILE: search bar -->
+      <div class="sm:hidden px-5 pb-4">
+        <div class="flex items-center gap-2 rounded-full px-4 h-[42px] border border-white/20" style="background:rgba(255,255,255,0.12)">
+          <i data-lucide="search" class="w-4 h-4 text-white/50 shrink-0" aria-hidden="true"></i>
+          <input id="search-events-mobile" type="text" placeholder="Search events…" oninput="searchEvents(this.value)" class="bg-transparent outline-none font-inter text-[14px] text-white placeholder:text-white/40 flex-1">
+        </div>
+      </div>
+
+      <!-- DESKTOP: title + hero count + search -->
+      <div class="hidden sm:flex flex-1 max-w-[1512px] w-full mx-auto px-[140px] items-end justify-between pb-6">
+        <div class="flex flex-col gap-1.5">
+          <h1 class="font-inter font-bold text-[30px] text-white leading-[37.5px] tracking-[0.40px]">Tech Events in Nigeria</h1>
+          <p class="font-inter text-[14px] text-[rgba(219,234,254,0.7)] leading-[20px]" id="hero-count"></p>
+        </div>
+        <div class="flex items-center gap-2 bg-white/15 border border-white/20 rounded-[14px] px-4 h-[42px]">
+          <i data-lucide="search" class="w-4 h-4 text-white/60 shrink-0" aria-hidden="true"></i>
+          <input id="search-events-desktop" type="text" placeholder="Search events…" oninput="searchEvents(this.value)" class="bg-transparent outline-none font-inter text-[14px] text-white placeholder-white/40 w-[200px]">
+        </div>
+      </div>
+
+      <!-- Month picker row (mobile + desktop) -->
+      <div class="border-t border-white/20">
+        <div class="max-w-[1512px] mx-auto px-4 sm:px-[101.5px] h-[50px] sm:h-[45px] flex items-center">
+          <!-- Desktop year nav -->
+          <div class="hidden sm:flex items-center border-r border-white/20 h-full shrink-0">
+            <button onclick="prevYear()" class="w-[30px] h-[44px] flex items-center justify-center opacity-60 hover:opacity-100 transition-opacity">
+              <i data-lucide="chevron-left" class="w-3.5 h-3.5 text-white" aria-hidden="true"></i>
+            </button>
+            <span id="cal-year" class="font-inter font-bold text-[14px] text-white tracking-[-0.15px] px-1 min-w-[42px] text-center">2026</span>
+            <button onclick="nextYear()" class="w-[30px] h-[44px] flex items-center justify-center opacity-60 hover:opacity-100 transition-opacity">
+              <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-white" aria-hidden="true"></i>
+            </button>
+          </div>
+          <!-- Months container -->
+          <div class="flex items-center flex-1 gap-2 sm:gap-0 overflow-x-auto" id="months-container"></div>
+        </div>
+      </div>
+
+      <!-- Date scroller row (mobile + desktop) -->
+      <div class="border-t border-white/20 bg-black/10 sm:h-[89px] py-3 sm:py-0">
+        <div class="max-w-[1512px] mx-auto px-2 sm:px-[101.5px] h-full flex items-center gap-1">
+          <button onclick="scrollDates(-1)" class="hidden sm:flex w-8 h-8 rounded-full items-center justify-center shrink-0 opacity-60 hover:opacity-100 transition-opacity">
+            <i data-lucide="chevron-left" class="w-4 h-4 text-white" aria-hidden="true"></i>
+          </button>
+          <div class="flex-1 flex items-center gap-0.5 overflow-x-auto" id="date-scroller"></div>
+          <button onclick="scrollDates(1)" class="hidden sm:flex w-8 h-8 rounded-full items-center justify-center shrink-0 opacity-60 hover:opacity-100 transition-opacity">
+            <i data-lucide="chevron-right" class="w-4 h-4 text-white" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =====================================================
+       FILTER TABS
+       ===================================================== -->
+  <section class="bg-white border-b border-[#f3f4f6] sticky top-[70px] z-40 hidden sm:block" style="box-shadow:0 1px 3px rgba(0,0,0,0.06)">
+    <div class="max-w-[1272px] mx-auto px-8">
+      <div class="flex items-center gap-2 py-3 overflow-x-auto">
+        <button onclick="filterEvents('all', this)" class="tab-btn active font-work font-medium text-[13px] px-4 py-2 rounded-[10px] border whitespace-nowrap transition-colors">All Events</button>
+        <button onclick="filterEvents('tech', this)" class="tab-btn font-work font-medium text-[13px] px-4 py-2 rounded-[10px] border whitespace-nowrap transition-colors">Tech</button>
+        <button onclick="filterEvents('launch', this)" class="tab-btn font-work font-medium text-[13px] px-4 py-2 rounded-[10px] border whitespace-nowrap transition-colors">Launch</button>
+        <button onclick="filterEvents('gaming', this)" class="tab-btn font-work font-medium text-[13px] px-4 py-2 rounded-[10px] border whitespace-nowrap transition-colors">Gaming</button>
+        <button onclick="filterEvents('sale', this)" class="tab-btn font-work font-medium text-[13px] px-4 py-2 rounded-[10px] border whitespace-nowrap transition-colors">Sale</button>
+        <button onclick="filterEvents('audio', this)" class="tab-btn font-work font-medium text-[13px] px-4 py-2 rounded-[10px] border whitespace-nowrap transition-colors">Audio</button>
+        <button onclick="filterEvents('ai', this)" class="tab-btn font-work font-medium text-[13px] px-4 py-2 rounded-[10px] border whitespace-nowrap transition-colors">AI</button>
+        <button onclick="filterEvents('smarthome', this)" class="tab-btn font-work font-medium text-[13px] px-4 py-2 rounded-[10px] border whitespace-nowrap transition-colors">SmartHome</button>
+        <button onclick="filterEvents('photo', this)" class="tab-btn font-work font-medium text-[13px] px-4 py-2 rounded-[10px] border whitespace-nowrap transition-colors">Photo</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mobile tabs -->
+  <section class="sm:hidden bg-white border-b border-[#f3f4f6]">
+    <div class="flex items-center gap-2 px-4 py-3 overflow-x-auto">
+      <button onclick="filterEvents('all', this)" class="tab-btn active font-work font-medium text-[12px] px-3 py-1.5 rounded-[8px] border whitespace-nowrap">All Events</button>
+      <button onclick="filterEvents('tech', this)" class="tab-btn font-work font-medium text-[12px] px-3 py-1.5 rounded-[8px] border whitespace-nowrap">Tech</button>
+      <button onclick="filterEvents('launch', this)" class="tab-btn font-work font-medium text-[12px] px-3 py-1.5 rounded-[8px] border whitespace-nowrap">Launch</button>
+      <button onclick="filterEvents('gaming', this)" class="tab-btn font-work font-medium text-[12px] px-3 py-1.5 rounded-[8px] border whitespace-nowrap">Gaming</button>
+      <button onclick="filterEvents('sale', this)" class="tab-btn font-work font-medium text-[12px] px-3 py-1.5 rounded-[8px] border whitespace-nowrap">Sale</button>
+      <button onclick="filterEvents('audio', this)" class="tab-btn font-work font-medium text-[12px] px-3 py-1.5 rounded-[8px] border whitespace-nowrap">Audio</button>
+      <button onclick="filterEvents('ai', this)" class="tab-btn font-work font-medium text-[12px] px-3 py-1.5 rounded-[8px] border whitespace-nowrap">AI</button>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       EVENTS CONTENT
+       ===================================================== -->
+  <section class="py-8 sm:py-10 px-4 sm:px-8">
+    <div class="max-w-[1272px] mx-auto">
+
+      <!-- Count -->
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="font-work font-bold text-[20px] text-[#101828]" id="event-count">Upcoming Events</h2>
+        <span class="font-work font-semibold text-[13px] text-[#155dfc] bg-[#eff6ff] px-3.5 py-1.5 rounded-full">8 events</span>
+      </div>
+
+      <!-- FEATURED CARD: Lagos Tech Expo 2026 -->
+      <a href="event-detail.html?name=Lagos+Tech+Expo+2026&price=free&date=Sat%2C+Mar+15&time=09%3A00+AM&location=Eko+Convention+Centre%2C+Lagos&img=lagos-tech-expo&desc=Annual+technology+exhibition+showcasing+the+latest+innovations+and+startups+from+across+Nigeria." class="block rounded-[18px] overflow-hidden mb-6 relative cursor-pointer group transition-all duration-300 hover:shadow-[0_12px_32px_rgba(0,0,0,0.18)] hover:-translate-y-1" style="height:300px;box-shadow:0 4px 16px rgba(0,0,0,0.14)" data-category="tech" data-date="2026-03-15">
+        <img src="images/events/lagos-tech-expo.jpg" alt="Lagos Tech Expo 2026" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/5"></div>
+
+        <!-- Top badges -->
+        <div class="absolute top-4 left-4 flex items-center gap-2 z-10">
+          <span class="bg-[#155dfc] text-white font-work font-semibold text-[12px] px-3.5 py-1.5 rounded-full shadow-lg">Tech</span>
+          <span class="bg-[#fbbf24] text-[#1a1a1a] font-work font-bold text-[11px] px-3 py-1.5 rounded-full shadow-lg">⭐ Featured</span>
+        </div>
+
+        <!-- Date badge top right -->
+        <div class="absolute top-4 right-4 bg-white/20 backdrop-blur-md border border-white/30 rounded-[12px] px-3.5 py-2.5 text-center min-w-[52px] shadow-lg z-10">
+          <p class="font-inter font-bold text-[20px] text-white leading-none">15</p>
+          <p class="font-work text-[10px] text-white/90 leading-none mt-0.5 font-semibold">MAR</p>
+        </div>
+
+        <!-- Bottom content -->
+        <div class="absolute bottom-0 left-0 right-0 p-6">
+          <p class="font-work text-[12px] text-white/75 mb-1.5 uppercase tracking-wide">Saturday</p>
+          <h2 class="font-work font-bold text-[26px] text-white leading-tight mb-2.5">Lagos Tech Expo 2026</h2>
+          <p class="font-work text-[14px] text-white/75 mb-4 leading-relaxed line-clamp-2">Annual technology exhibition showcasing the latest innovations and startups from across Nigeria.</p>
+          <div class="flex items-center justify-between pt-3 border-t border-white/10">
+            <div class="flex items-center gap-6">
+              <div class="flex items-center gap-1.5">
+                <i data-lucide="clock" class="w-4 h-4 text-white/60 shrink-0" aria-hidden="true"></i>
+                <span class="font-work text-[12px] text-white/70">09:00 AM</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <i data-lucide="map-pin" class="w-4 h-4 text-white/60 shrink-0" aria-hidden="true"></i>
+                <span class="font-work text-[12px] text-white/70">Eko Convention Centre</span>
+              </div>
+              <span class="font-work font-bold text-[12px] text-[#4ade80] bg-green-500/10 px-2.5 py-1 rounded-full">Free</span>
+            </div>
+            <div class="flex items-center gap-1.5 text-white font-work font-semibold text-[13px] group-hover:gap-2.5 transition-all">
+              View <i data-lucide="arrow-right" class="w-4 h-4" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- More Events heading -->
+      <p class="font-work font-semibold text-[11px] sm:text-[14px] text-[#364153] mb-4 tracking-[0.8px] sm:tracking-normal uppercase sm:normal-case">More Events</p>
+
+      <!-- 4-column grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4" id="events-grid">
+
+        <!-- Card 1: Smartphone Launch -->
+        <a href="event-detail.html?name=Smartphone+Launch+Event&price=2500&date=Wed%2C+Mar+18&time=02%3A00+PM&location=The+Landmark+Centre&img=smartphone-launch&desc=Be+the+first+to+see+the+newest+smartphone+models+and+get+exclusive+launch+deals+directly+from+top+Nigerian+vendors." class="event-small-card bg-white rounded-[12px] overflow-hidden cursor-pointer block" style="box-shadow:0 1px 3px rgba(0,0,0,0.1)" data-category="launch" data-date="2026-03-18">
+          <div class="relative h-[128px] overflow-hidden">
+            <img src="images/events/smartphone-launch.jpg" alt="Smartphone Launch Event" class="absolute inset-0 w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+            <span class="absolute top-2 left-2 bg-[#eff6ff] text-[#155dfc] font-work text-[11px] font-medium px-2.5 py-1 rounded-full">Launch</span>
+            <div class="absolute top-2 right-2 bg-black/40 backdrop-blur rounded-[8px] px-2 py-1 text-center">
+              <p class="font-inter font-bold text-[14px] text-white leading-none">18</p>
+              <p class="font-work text-[9px] text-white/80 leading-none mt-0.5">MAR</p>
+            </div>
+            <div class="absolute bottom-2 left-2.5">
+              <p class="font-work font-semibold text-[13px] text-white leading-tight drop-shadow">Smartphone Launch Event</p>
+            </div>
+          </div>
+          <div class="p-3">
+            <p class="font-work text-[12px] text-[#6a7282] leading-[1.5] mb-2 line-clamp-2">Be the first to see the newest smartphone models and get exclusive launch deals.</p>
+            <div class="flex items-center gap-3 mb-2">
+              <div class="flex items-center gap-1">
+                <i data-lucide="clock" class="w-3 h-3 text-[#99a1af] shrink-0" aria-hidden="true"></i>
+                <span class="font-work text-[11px] text-[#99a1af]">02:00 PM</span>
+              </div>
+              <span class="text-[#99a1af]">·</span>
+              <div class="flex items-center gap-1 min-w-0">
+                <i data-lucide="map-pin" class="w-3 h-3 text-[#99a1af] shrink-0" aria-hidden="true"></i>
+                <span class="font-work text-[11px] text-[#99a1af] truncate">The Landmark Centre</span>
+              </div>
+            </div>
+            <div class="flex items-center justify-between pt-2 border-t border-[#f3f4f6]">
+              <span class="font-work font-semibold text-[12px] text-[#364153]">₦2,500</span>
+              <span class="font-work font-medium text-[11px] text-white bg-[#155dfc] px-2.5 py-1 rounded-[6px]">Get Ticket</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card 2: Naija Gaming Championship -->
+        <a href="event-detail.html?name=Naija+Gaming+Championship&price=free&date=Fri%2C+Mar+20&time=10%3A00+AM&location=Transcorp+Hilton&img=naija-gaming&desc=Nigeria%27s+biggest+gaming+tournament+of+the+year+featuring+top+players+from+across+West+Africa." class="event-small-card bg-white rounded-[12px] overflow-hidden cursor-pointer block" style="box-shadow:0 1px 3px rgba(0,0,0,0.1)" data-category="gaming" data-date="2026-03-20">
+          <div class="relative h-[128px] overflow-hidden">
+            <img src="images/events/naija-gaming.jpg" alt="Naija Gaming Championship" class="absolute inset-0 w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+            <span class="absolute top-2 left-2 bg-[#faf5ff] text-[#7c3aed] font-work text-[11px] font-medium px-2.5 py-1 rounded-full">Gaming</span>
+            <div class="absolute top-2 right-2 bg-black/40 backdrop-blur rounded-[8px] px-2 py-1 text-center">
+              <p class="font-inter font-bold text-[14px] text-white leading-none">20</p>
+              <p class="font-work text-[9px] text-white/80 leading-none mt-0.5">MAR</p>
+            </div>
+            <div class="absolute bottom-2 left-2.5">
+              <p class="font-work font-semibold text-[13px] text-white leading-tight drop-shadow">Naija Gaming Championship</p>
+            </div>
+          </div>
+          <div class="p-3">
+            <p class="font-work text-[12px] text-[#6a7282] leading-[1.5] mb-2 line-clamp-2">Nigeria's biggest gaming tournament of the year featuring top players from across West Africa.</p>
+            <div class="flex items-center gap-3 mb-2">
+              <div class="flex items-center gap-1">
+                <i data-lucide="clock" class="w-3 h-3 text-[#99a1af] shrink-0" aria-hidden="true"></i>
+                <span class="font-work text-[11px] text-[#99a1af]">10:00 AM</span>
+              </div>
+              <span class="text-[#99a1af]">·</span>
+              <div class="flex items-center gap-1 min-w-0">
+                <i data-lucide="map-pin" class="w-3 h-3 text-[#99a1af] shrink-0" aria-hidden="true"></i>
+                <span class="font-work text-[11px] text-[#99a1af] truncate">Transcorp Hilton</span>
+              </div>
+            </div>
+            <div class="flex items-center justify-between pt-2 border-t border-[#f3f4f6]">
+              <span class="font-work font-semibold text-[12px] text-[#22c55e]">Free</span>
+              <span class="font-work font-medium text-[11px] text-white bg-[#155dfc] px-2.5 py-1 rounded-[6px]">Get Ticket</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card 3: Electronics Mega Sale -->
+        <a href="event-detail.html?name=Electronics+Mega+Sale&price=free&date=Sun%2C+Mar+22&time=08%3A00+AM&location=PH+City+Mall&img=electronics-sale&desc=Mega+sale+event+with+discounts+up+to+60%25+on+electronics+from+top+Nigerian+vendors." class="event-small-card bg-white rounded-[12px] overflow-hidden cursor-pointer block" style="box-shadow:0 1px 3px rgba(0,0,0,0.1)" data-category="sale" data-date="2026-03-22">
+          <div class="relative h-[128px] overflow-hidden">
+            <img src="images/events/electronics-sale.jpg" alt="Electronics Mega Sale" class="absolute inset-0 w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+            <span class="absolute top-2 left-2 bg-[#fff1f2] text-[#dc2626] font-work text-[11px] font-medium px-2.5 py-1 rounded-full">Sale</span>
+            <div class="absolute top-2 right-2 bg-black/40 backdrop-blur rounded-[8px] px-2 py-1 text-center">
+              <p class="font-inter font-bold text-[14px] text-white leading-none">22</p>
+              <p class="font-work text-[9px] text-white/80 leading-none mt-0.5">MAR</p>
+            </div>
+            <div class="absolute bottom-2 left-2.5">
+              <p class="font-work font-semibold text-[13px] text-white leading-tight drop-shadow">Electronics Mega Sale</p>
+            </div>
+          </div>
+          <div class="p-3">
+            <p class="font-work text-[12px] text-[#6a7282] leading-[1.5] mb-2 line-clamp-2">Mega sale event with discounts up to 60% on electronics from top Nigerian vendors.</p>
+            <div class="flex items-center gap-3 mb-2">
+              <div class="flex items-center gap-1">
+                <i data-lucide="clock" class="w-3 h-3 text-[#99a1af] shrink-0" aria-hidden="true"></i>
+                <span class="font-work text-[11px] text-[#99a1af]">08:00 AM</span>
+              </div>
+              <span class="text-[#99a1af]">·</span>
+              <div class="flex items-center gap-1 min-w-0">
+                <i data-lucide="map-pin" class="w-3 h-3 text-[#99a1af] shrink-0" aria-hidden="true"></i>
+                <span class="font-work text-[11px] text-[#99a1af] truncate">PH City Mall</span>
+              </div>
+            </div>
+            <div class="flex items-center justify-between pt-2 border-t border-[#f3f4f6]">
+              <span class="font-work font-semibold text-[12px] text-[#22c55e]">Free</span>
+              <span class="font-work font-medium text-[11px] text-white bg-[#155dfc] px-2.5 py-1 rounded-[6px]">Get Ticket</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card 4: Audio & Music Festival -->
+        <a href="event-detail.html?name=Audio+%26+Music+Festival&price=5000&date=Wed%2C+Mar+25&time=12%3A00+PM&location=Tafawa+Balewa+Square&img=audio-festival&desc=Celebrate+the+art+of+sound+with+live+demos%2C+headphone+try-ons%2C+and+top+DJs+from+across+Nigeria." class="event-small-card bg-white rounded-[12px] overflow-hidden cursor-pointer block" style="box-shadow:0 1px 3px rgba(0,0,0,0.1)" data-category="audio" data-date="2026-03-25">
+          <div class="relative h-[128px] overflow-hidden">
+            <img src="images/events/audio-festival.jpg" alt="Audio & Music Festival" class="absolute inset-0 w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+            <span class="absolute top-2 left-2 bg-[#ecfdf5] text-[#059669] font-work text-[11px] font-medium px-2.5 py-1 rounded-full">Audio</span>
+            <div class="absolute top-2 right-2 bg-black/40 backdrop-blur rounded-[8px] px-2 py-1 text-center">
+              <p class="font-inter font-bold text-[14px] text-white leading-none">25</p>
+              <p class="font-work text-[9px] text-white/80 leading-none mt-0.5">MAR</p>
+            </div>
+            <div class="absolute bottom-2 left-2.5">
+              <p class="font-work font-semibold text-[13px] text-white leading-tight drop-shadow">Audio &amp; Music Festival</p>
+            </div>
+          </div>
+          <div class="p-3">
+            <p class="font-work text-[12px] text-[#6a7282] leading-[1.5] mb-2 line-clamp-2">Celebrate the art of sound with live demos, headphone try-ons, and top DJs.</p>
+            <div class="flex items-center gap-3 mb-2">
+              <div class="flex items-center gap-1">
+                <i data-lucide="clock" class="w-3 h-3 text-[#99a1af] shrink-0" aria-hidden="true"></i>
+                <span class="font-work text-[11px] text-[#99a1af]">12:00 PM</span>
+              </div>
+              <span class="text-[#99a1af]">·</span>
+              <div class="flex items-center gap-1 min-w-0">
+                <i data-lucide="map-pin" class="w-3 h-3 text-[#99a1af] shrink-0" aria-hidden="true"></i>
+                <span class="font-work text-[11px] text-[#99a1af] truncate">Tafawa Balewa Sq.</span>
+              </div>
+            </div>
+            <div class="flex items-center justify-between pt-2 border-t border-[#f3f4f6]">
+              <span class="font-work font-semibold text-[12px] text-[#364153]">₦5,000</span>
+              <span class="font-work font-medium text-[11px] text-white bg-[#155dfc] px-2.5 py-1 rounded-[6px]">Get Ticket</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card 5: AI & Wearables Summit -->
+        <a href="event-detail.html?name=AI+%26+Wearables+Summit&price=3000&date=Sat%2C+Mar+28&time=09%3A30+AM&location=Abuja+Int%27l+Conf.+Centre&img=ai-summit&desc=Explore+the+intersection+of+AI+technology+and+wearables+with+Nigeria%27s+top+innovators+and+researchers." class="event-small-card bg-white rounded-[12px] overflow-hidden cursor-pointer block" style="box-shadow:0 1px 3px rgba(0,0,0,0.1)" data-category="ai" data-date="2026-03-28">
+          <div class="relative h-[128px] overflow-hidden">
+            <img src="images/events/ai-summit.jpg" alt="AI & Wearables Summit" class="absolute inset-0 w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+            <span class="absolute top-2 left-2 bg-[#ecfeff] text-[#0891b2] font-work text-[11px] font-medium px-2.5 py-1 rounded-full">AI</span>
+            <div class="absolute top-2 right-2 bg-black/40 backdrop-blur rounded-[8px] px-2 py-1 text-center">
+              <p class="font-inter font-bold text-[14px] text-white leading-none">28</p>
+              <p class="font-work text-[9px] text-white/80 leading-none mt-0.5">MAR</p>
+            </div>
+            <div class="absolute bottom-2 left-2.5">
+              <p class="font-work font-semibold text-[13px] text-white leading-tight drop-shadow">AI &amp; Wearables Summit</p>
+            </div>
+          </div>
+          <div class="p-3">
+            <p class="font-work text-[12px] text-[#6a7282] leading-[1.5] mb-2 line-clamp-2">Explore the intersection of AI technology and wearables with Nigeria's top innovators.</p>
+            <div class="flex items-center gap-3 mb-2">
+              <div class="flex items-center gap-1">
+                <i data-lucide="clock" class="w-3 h-3 text-[#99a1af] shrink-0" aria-hidden="true"></i>
+                <span class="font-work text-[11px] text-[#99a1af]">09:30 AM</span>
+              </div>
+              <span class="text-[#99a1af]">·</span>
+              <div class="flex items-center gap-1 min-w-0">
+                <i data-lucide="map-pin" class="w-3 h-3 text-[#99a1af] shrink-0" aria-hidden="true"></i>
+                <span class="font-work text-[11px] text-[#99a1af] truncate">Abuja Int'l Conf. Centre</span>
+              </div>
+            </div>
+            <div class="flex items-center justify-between pt-2 border-t border-[#f3f4f6]">
+              <span class="font-work font-semibold text-[12px] text-[#364153]">₦3,000</span>
+              <span class="font-work font-medium text-[11px] text-white bg-[#155dfc] px-2.5 py-1 rounded-[6px]">Get Ticket</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card 6: Photography Masterclass -->
+        <a href="event-detail.html?name=Photography+Masterclass&price=8000&date=Thu%2C+Apr+2&time=11%3A00+AM&location=Terra+Kulture&img=photography-masterclass&desc=Learn+from+professional+photographers+in+hands-on+workshops+covering+studio+and+street+photography." class="event-small-card bg-white rounded-[12px] overflow-hidden cursor-pointer block" style="box-shadow:0 1px 3px rgba(0,0,0,0.1)" data-category="photo" data-date="2026-04-02">
+          <div class="relative h-[128px] overflow-hidden">
+            <img src="images/events/photography-masterclass.jpg" alt="Photography Masterclass" class="absolute inset-0 w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+            <span class="absolute top-2 left-2 bg-[#fffbeb] text-[#d97706] font-work text-[11px] font-medium px-2.5 py-1 rounded-full">Photo</span>
+            <div class="absolute top-2 right-2 bg-black/40 backdrop-blur rounded-[8px] px-2 py-1 text-center">
+              <p class="font-inter font-bold text-[14px] text-white leading-none">2</p>
+              <p class="font-work text-[9px] text-white/80 leading-none mt-0.5">APR</p>
+            </div>
+            <div class="absolute bottom-2 left-2.5">
+              <p class="font-work font-semibold text-[13px] text-white leading-tight drop-shadow">Photography Masterclass</p>
+            </div>
+          </div>
+          <div class="p-3">
+            <p class="font-work text-[12px] text-[#6a7282] leading-[1.5] mb-2 line-clamp-2">Learn from professional photographers in hands-on workshops covering studio and street photography.</p>
+            <div class="flex items-center gap-3 mb-2">
+              <div class="flex items-center gap-1">
+                <i data-lucide="clock" class="w-3 h-3 text-[#99a1af] shrink-0" aria-hidden="true"></i>
+                <span class="font-work text-[11px] text-[#99a1af]">11:00 AM</span>
+              </div>
+              <span class="text-[#99a1af]">·</span>
+              <div class="flex items-center gap-1 min-w-0">
+                <i data-lucide="map-pin" class="w-3 h-3 text-[#99a1af] shrink-0" aria-hidden="true"></i>
+                <span class="font-work text-[11px] text-[#99a1af] truncate">Terra Kulture</span>
+              </div>
+            </div>
+            <div class="flex items-center justify-between pt-2 border-t border-[#f3f4f6]">
+              <span class="font-work font-semibold text-[12px] text-[#364153]">₦8,000</span>
+              <span class="font-work font-medium text-[11px] text-white bg-[#155dfc] px-2.5 py-1 rounded-[6px]">Get Ticket</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card 7: Smart Home Expo -->
+        <a href="event-detail.html?name=Smart+Home+Expo&price=1500&date=Sun%2C+Apr+5&time=10%3A00+AM&location=Muson+Centre&img=smart-home-expo&desc=Discover+the+latest+in+smart+home+technology%2C+automation%2C+and+connected+devices+for+Nigerian+homes." class="event-small-card bg-white rounded-[12px] overflow-hidden cursor-pointer block" style="box-shadow:0 1px 3px rgba(0,0,0,0.1)" data-category="smarthome" data-date="2026-04-05">
+          <div class="relative h-[128px] overflow-hidden">
+            <img src="images/events/smart-home-expo.jpg" alt="Smart Home Expo" class="absolute inset-0 w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+            <span class="absolute top-2 left-2 bg-[#eff6ff] text-[#155dfc] font-work text-[11px] font-medium px-2.5 py-1 rounded-full">SmartHome</span>
+            <div class="absolute top-2 right-2 bg-black/40 backdrop-blur rounded-[8px] px-2 py-1 text-center">
+              <p class="font-inter font-bold text-[14px] text-white leading-none">5</p>
+              <p class="font-work text-[9px] text-white/80 leading-none mt-0.5">APR</p>
+            </div>
+            <div class="absolute bottom-2 left-2.5">
+              <p class="font-work font-semibold text-[13px] text-white leading-tight drop-shadow">Smart Home Expo</p>
+            </div>
+          </div>
+          <div class="p-3">
+            <p class="font-work text-[12px] text-[#6a7282] leading-[1.5] mb-2 line-clamp-2">Discover the latest in smart home technology, automation, and connected devices.</p>
+            <div class="flex items-center gap-3 mb-2">
+              <div class="flex items-center gap-1">
+                <i data-lucide="clock" class="w-3 h-3 text-[#99a1af] shrink-0" aria-hidden="true"></i>
+                <span class="font-work text-[11px] text-[#99a1af]">10:00 AM</span>
+              </div>
+              <span class="text-[#99a1af]">·</span>
+              <div class="flex items-center gap-1 min-w-0">
+                <i data-lucide="map-pin" class="w-3 h-3 text-[#99a1af] shrink-0" aria-hidden="true"></i>
+                <span class="font-work text-[11px] text-[#99a1af] truncate">Muson Centre</span>
+              </div>
+            </div>
+            <div class="flex items-center justify-between pt-2 border-t border-[#f3f4f6]">
+              <span class="font-work font-semibold text-[12px] text-[#364153]">₦1,500</span>
+              <span class="font-work font-medium text-[11px] text-white bg-[#155dfc] px-2.5 py-1 rounded-[6px]">Get Ticket</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer (rendered by components.js) -->
+  <div id="app-footer"></div>
+
+  <!-- Mobile nav (rendered by components.js) -->
+  <div id="app-mobile-nav"></div>
+
+  <!-- Compare drawer placeholder -->
+  <div id="compare-drawer" class="hidden"></div>
+
+  <!-- Hidden FullCalendar mount point -->
+  <div id="fc-root" style="display:none"></div>
+
+  <script>window.PAGE_CONFIG = { activePage: 'events' };</script>
+  <script src="js/components.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    lucide.createIcons();
+
+    // ── Constants ──────────────────────────────────────────────────
+    const _now = new Date();
+    const TODAY_STR    = `${_now.getFullYear()}-${String(_now.getMonth()+1).padStart(2,'0')}-${String(_now.getDate()).padStart(2,'0')}`;
+    const MONTH_LABELS = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+    const DAY_LABELS   = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+
+    let selectedDate = null;
+    let currentYear  = _now.getFullYear();
+    let currentMonth = _now.getMonth(); // 0-indexed
+
+    // ── FullCalendar setup (hidden, used as data/nav engine) ───────
+    const fcEl = document.getElementById('fc-root');
+    const calendar = new FullCalendar.Calendar(fcEl, {
+      initialView: 'dayGridMonth',
+      initialDate: TODAY_STR,
+      events: [
+        { title: 'Lagos Tech Expo 2026',      start: '2026-03-15', extendedProps: { dateKey: '2026-03-15' } },
+        { title: 'Smartphone Launch Event',   start: '2026-03-18', extendedProps: { dateKey: '2026-03-18' } },
+        { title: 'Naija Gaming Championship', start: '2026-03-20', extendedProps: { dateKey: '2026-03-20' } },
+        { title: 'Electronics Mega Sale',     start: '2026-03-22', extendedProps: { dateKey: '2026-03-22' } },
+        { title: 'Audio & Music Festival',    start: '2026-03-25', extendedProps: { dateKey: '2026-03-25' } },
+        { title: 'AI & Wearables Summit',     start: '2026-03-28', extendedProps: { dateKey: '2026-03-28' } },
+        { title: 'Photography Masterclass',   start: '2026-04-02', extendedProps: { dateKey: '2026-04-02' } },
+        { title: 'Smart Home Expo',           start: '2026-04-05', extendedProps: { dateKey: '2026-04-05' } },
+      ],
+      datesSet: function(info) {
+        // FullCalendar fired navigation — sync our UI
+        const d = calendar.getDate();
+        currentYear  = d.getFullYear();
+        currentMonth = d.getMonth(); // 0-indexed
+        refreshCustomUI();
+      }
+    });
+    calendar.render();
+
+    // ── Derive event-dates map from FullCalendar events ────────────
+    function getEventDatesMap() {
+      const map = {};
+      calendar.getEvents().forEach(ev => {
+        map[ev.extendedProps.dateKey] = true;
+      });
+      return map;
+    }
+
+    // ── Month buttons ──────────────────────────────────────────────
+    function buildMonthButtons() {
+      const container = document.getElementById('months-container');
+      if (!container) return;
+      container.innerHTML = '';
+      MONTH_LABELS.forEach((label, i) => {
+        const isActive = i === currentMonth;
+        const btn = document.createElement('button');
+        // Desktop style (overridden by CSS on mobile)
+        btn.style.cssText = `height:44px;padding:0 14px;font-family:Inter,sans-serif;font-weight:700;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;position:relative;transition:color 0.15s;color:${isActive ? '#fff' : 'rgba(255,255,255,0.5)'};border:none;background:none;cursor:pointer`;
+        btn.textContent = label;
+        if (isActive) {
+          btn.classList.add('month-active');
+          const line = document.createElement('span');
+          line.className = 'month-underline';
+          line.style.cssText = 'position:absolute;bottom:1.5px;left:12px;right:12px;height:2.5px;background:#fff;border-radius:9999px';
+          btn.appendChild(line);
+        }
+        btn.addEventListener('mouseenter', () => { if (!isActive) btn.style.color = '#fff'; });
+        btn.addEventListener('mouseleave', () => { if (!isActive) btn.style.color = 'rgba(255,255,255,0.5)'; });
+        btn.onclick = () => {
+          selectedDate = null;
+          calendar.gotoDate(new Date(currentYear, i, 1));
+        };
+        container.appendChild(btn);
+      });
+      // Update year labels (desktop + mobile)
+      const yearEl = document.getElementById('cal-year');
+      if (yearEl) yearEl.textContent = currentYear;
+      const yearElM = document.getElementById('cal-year-mobile');
+      if (yearElM) yearElM.textContent = currentYear;
+    }
+
+    // ── Date scroller ──────────────────────────────────────────────
+    function buildDateScroller() {
+      const scroller = document.getElementById('date-scroller');
+      if (!scroller) return;
+      scroller.innerHTML = '';
+
+      const EVENT_DATES = getEventDatesMap();
+      const todayDate   = new Date(TODAY_STR);
+
+      // Days in current month
+      const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+      // Day-of-week of the 1st (0=Sun)
+      const firstDOW    = new Date(currentYear, currentMonth, 1).getDay();
+
+      for (let d = 1; d <= daysInMonth; d++) {
+        const y        = currentYear;
+        const m        = String(currentMonth + 1).padStart(2, '0');
+        const dd       = String(d).padStart(2, '0');
+        const dateKey  = `${y}-${m}-${dd}`;
+        const dow      = (firstDOW + d - 1) % 7;
+        const thisDate = new Date(y, currentMonth, d);
+        const isToday  = thisDate.toDateString() === todayDate.toDateString();
+        const isSelected = dateKey === selectedDate;
+        const hasEvent = !!EVENT_DATES[dateKey];
+
+        const btn = document.createElement('button');
+        btn.dataset.dateKey = dateKey;
+
+        let bgColor = 'transparent';
+        if (isSelected)   bgColor = 'rgba(255,255,255,0.35)';
+        else if (isToday) bgColor = 'rgba(255,255,255,0.2)';
+
+        btn.style.cssText = `min-width:52px;display:flex;flex-direction:column;align-items:center;padding:8px 0;border-radius:14px;flex-shrink:0;transition:background 0.15s;background:${bgColor};border:none;cursor:pointer`;
+
+        const opacity = (isToday || isSelected) ? '1' : (hasEvent ? '0.85' : '0.4');
+        const color   = `rgba(255,255,255,${opacity})`;
+
+        btn.innerHTML = `
+          <span style="font-family:Inter,sans-serif;font-weight:600;font-size:10px;letter-spacing:0.6px;text-transform:uppercase;color:${color}">${DAY_LABELS[dow]}</span>
+          <span style="font-family:Inter,sans-serif;font-weight:900;font-size:16px;line-height:1.2;letter-spacing:-0.3px;color:${color};margin-top:2px">${d}</span>
+          <span style="display:block;width:4px;height:4px;border-radius:50%;margin-top:2px;background:${hasEvent ? 'rgba(255,255,255,0.75)' : 'transparent'}"></span>
+        `;
+
+        btn.onclick = () => filterByDate(dateKey);
+        scroller.appendChild(btn);
+      }
+
+      // Scroll today into view if in current month
+      const todayInThisMonth = todayDate.getFullYear() === currentYear && todayDate.getMonth() === currentMonth;
+      const targetDay = todayInThisMonth ? todayDate.getDate() : 1;
+      scroller.scrollLeft = Math.max(0, (targetDay - 4) * 52);
+    }
+
+    // ── Hero subtitle ──────────────────────────────────────────────
+    function updateHeroCount() {
+      const EVENT_DATES = getEventDatesMap();
+      const monthEvents = Object.keys(EVENT_DATES).filter(k => {
+        const d = new Date(k);
+        return d.getFullYear() === currentYear && d.getMonth() === currentMonth;
+      }).length;
+      const text = `${monthEvents} event${monthEvents !== 1 ? 's' : ''} in ${MONTH_LABELS[currentMonth]} ${currentYear}`;
+      const el = document.getElementById('hero-count');
+      if (el) el.textContent = text;
+      // Mobile subtitle: "N events · MONTH YEAR"
+      const mobileText = `${monthEvents} event${monthEvents !== 1 ? 's' : ''} · ${MONTH_LABELS[currentMonth]} ${currentYear}`;
+      const elM = document.getElementById('hero-count-mobile');
+      if (elM) elM.textContent = mobileText;
+    }
+
+    // ── Filter events by clicked date ──────────────────────────────
+    function filterByDate(dateKey) {
+      if (selectedDate === dateKey) {
+        selectedDate = null;
+        showAllEvents();
+      } else {
+        selectedDate = dateKey;
+        const allCards = document.querySelectorAll('[data-date]');
+        let visible = 0;
+        allCards.forEach(card => {
+          if (card.dataset.date === dateKey) { card.style.display = ''; visible++; }
+          else { card.style.display = 'none'; }
+        });
+
+        const [y, mo, d] = dateKey.split('-');
+        const fmt = new Date(+y, +mo - 1, +d).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+
+        // Show/hide no-events placeholder
+        let noEventsEl = document.getElementById('no-events-msg');
+        if (visible === 0) {
+          if (!noEventsEl) {
+            noEventsEl = document.createElement('div');
+            noEventsEl.id = 'no-events-msg';
+            noEventsEl.className = 'empty-state';
+            noEventsEl.innerHTML = `
+              <div class="empty-state-icon">
+                <i data-lucide="calendar-x" class="w-8 h-8" aria-hidden="true"></i>
+              </div>
+              <p class="empty-state-title" id="no-events-date-text"></p>
+              <p class="empty-state-desc">No events scheduled for this date</p>
+              <p class="font-work text-[12px] text-[#99a1af]">Browse other dates or try a different category</p>
+            `;
+            // Find the section that contains event cards and insert before it
+            const eventSection = document.querySelector('section:has([data-date])');
+            if (eventSection) {
+              const contentDiv = eventSection.querySelector('[data-date]')?.parentElement;
+              if (contentDiv) contentDiv.parentElement.insertBefore(noEventsEl, contentDiv);
+            }
+          }
+          noEventsEl.style.display = 'flex';
+          const dtEl = document.getElementById('no-events-date-text');
+          if (dtEl) dtEl.textContent = fmt;
+          // Render icons if lucide is available
+          if (typeof lucide !== 'undefined') lucide.createIcons();
+        } else {
+          if (noEventsEl) noEventsEl.style.display = 'none';
+        }
+
+        const shortFmt = new Date(+y, +mo - 1, +d).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        const countEl = document.getElementById('event-count');
+        countEl.innerHTML = `Events on <span class="text-[#155dfc]">${shortFmt}</span>`;
+        // Update badge
+        const badgeEl = countEl.parentElement?.querySelector('.bg-\\[\\#eff6ff\\]');
+        if (badgeEl) badgeEl.textContent = `${visible} event${visible !== 1 ? 's' : ''}`;
+      }
+      buildDateScroller();
+    }
+
+    function showAllEvents() {
+      document.querySelectorAll('[data-date]').forEach(c => c.style.display = '');
+      const countEl = document.getElementById('event-count');
+      countEl.innerHTML = 'Upcoming Events';
+      // Update badge
+      const badgeEl = countEl.parentElement?.querySelector('.bg-\\[\\#eff6ff\\]');
+      if (badgeEl) badgeEl.textContent = '8 events';
+      const noEventsEl = document.getElementById('no-events-msg');
+      if (noEventsEl) noEventsEl.style.display = 'none';
+      buildDateScroller();
+    }
+
+    // ── Full UI refresh (called by FullCalendar datesSet + init) ───
+    function refreshCustomUI() {
+      buildMonthButtons();
+      buildDateScroller();
+      updateHeroCount();
+    }
+
+    // ── Year nav (delegates to FullCalendar) ───────────────────────
+    function prevYear() {
+      selectedDate = null;
+      calendar.gotoDate(new Date(currentYear - 1, currentMonth, 1));
+    }
+    function nextYear() {
+      selectedDate = null;
+      calendar.gotoDate(new Date(currentYear + 1, currentMonth, 1));
+    }
+    function scrollDates(dir) {
+      const s = document.getElementById('date-scroller');
+      if (s) s.scrollBy({ left: dir * 260, behavior: 'smooth' });
+    }
+
+    // ── Init ───────────────────────────────────────────────────────
+    // FullCalendar's datesSet fires on render, which calls refreshCustomUI automatically.
+
+    // ── Search events ──────────────────────────────────────────────
+    function searchEvents(query) {
+      const q = query.trim().toLowerCase();
+      const allCards = document.querySelectorAll('[data-date]');
+      const noEventsEl = document.getElementById('no-events-msg');
+      if (noEventsEl) noEventsEl.style.display = 'none';
+      selectedDate = null;
+
+      // Sync both search inputs
+      const desktopEl = document.getElementById('search-events-desktop');
+      const mobileEl  = document.getElementById('search-events-mobile');
+      if (desktopEl && desktopEl.value !== query) desktopEl.value = query;
+      if (mobileEl  && mobileEl.value  !== query) mobileEl.value  = query;
+
+      let visible = 0;
+      allCards.forEach(card => {
+        const href = card.getAttribute('href') || '';
+        const nameMatch = href.match(/[?&]name=([^&]*)/);
+        const name = nameMatch
+          ? decodeURIComponent(nameMatch[1].replace(/\+/g, ' ')).toLowerCase()
+          : (card.querySelector('h2,p.font-semibold')?.textContent || '').toLowerCase();
+        const matches = !q || name.includes(q);
+        card.style.display = matches ? '' : 'none';
+        if (matches) visible++;
+      });
+
+      const countEl = document.getElementById('event-count');
+      if (countEl) {
+        if (q) {
+          countEl.innerHTML = `Search Results for <span class="text-[#155dfc]">"${query}"</span>`;
+          const badgeEl = countEl.parentElement?.querySelector('.bg-\\[\\#eff6ff\\]');
+          if (badgeEl) badgeEl.textContent = visible + ' result' + (visible !== 1 ? 's' : '');
+        } else {
+          countEl.innerHTML = 'Upcoming Events';
+          const badgeEl = countEl.parentElement?.querySelector('.bg-\\[\\#eff6ff\\]');
+          if (badgeEl) badgeEl.textContent = '8 events';
+        }
+      }
+
+      // Show empty state if nothing matches
+      if (q && visible === 0) {
+        let noEl = document.getElementById('search-empty-msg');
+        if (!noEl) {
+          noEl = document.createElement('div');
+          noEl.id = 'search-empty-msg';
+          noEl.className = 'empty-state';
+          noEl.innerHTML = `
+            <div class="empty-state-icon">
+              <i data-lucide="search-x" class="w-8 h-8" aria-hidden="true"></i>
+            </div>
+            <p class="empty-state-title" id="search-empty-text"></p>
+            <p class="empty-state-desc">We couldn't find any matching events</p>
+            <p class="font-work text-[12px] text-[#99a1af]">Try searching with different keywords or browse all events</p>
+          `;
+          document.querySelector('.tab-btn')?.closest('div')?.parentElement?.appendChild(noEl);
+        }
+        noEl.style.display = 'flex';
+        const t = document.getElementById('search-empty-text');
+        if (t) t.textContent = 'No results for "' + query + '"';
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+      } else {
+        const noEl = document.getElementById('search-empty-msg');
+        if (noEl) noEl.style.display = 'none';
+      }
+      buildDateScroller();
+    }
+
+    // ── Category filter tabs ───────────────────────────────────────
+    function filterEvents(category, btn) {
+      selectedDate = null; // clear date filter when using category tabs
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => {
+        if (b.getAttribute('onclick') && b.getAttribute('onclick').includes("'" + category + "'")) {
+          b.classList.add('active');
+        }
+      });
+
+      const featuredCard = document.querySelector('[data-category="tech"]');
+      const cards = document.querySelectorAll('#events-grid [data-category]');
+      const countEl = document.getElementById('event-count');
+      let visible = 0;
+
+      if (category === 'all' || category === 'tech') { featuredCard.style.display = ''; visible++; }
+      else { featuredCard.style.display = 'none'; }
+
+      cards.forEach(card => {
+        if (category === 'all' || card.dataset.category === category) { card.style.display = ''; visible++; }
+        else { card.style.display = 'none'; }
+      });
+
+      countEl.innerHTML = 'Upcoming Events';
+      // Update badge with filtered count
+      const badgeEl = countEl.parentElement?.querySelector('.bg-\\[\\#eff6ff\\]');
+      if (badgeEl) badgeEl.textContent = visible + ' event' + (visible !== 1 ? 's' : '');
+      buildDateScroller(); // re-render to clear selected date highlight
+    }
+  </script>
+</body>
+</html>
+
+

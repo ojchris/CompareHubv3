@@ -1,0 +1,374 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Become a Vendor — CompareHub</title>
+  <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { work: ['Work Sans','sans-serif'], inter: ['Inter','sans-serif'] },
+        },
+      },
+    };
+  </script>
+  <script src="https://cdn.tailwindcss.com?with=default@3.4.1"></script>
+  <script src="https://unpkg.com/lucide@0.441.0/dist/umd/lucide.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="font-work bg-[#f9fafb]">
+
+  <div id="app-header"></div>
+
+  <div class="min-h-screen pt-[70px] pb-20">
+    <div class="max-w-[500px] mx-auto px-4 py-10">
+
+      <!-- Header -->
+      <div class="mb-10 text-center">
+        <h1 class="font-work font-bold text-[32px] text-[#101828] mb-2">Become a Vendor</h1>
+        <p class="font-work text-[14px] text-[#6a7282]">Join CompareHub and start selling to customers across Nigeria</p>
+      </div>
+
+      <!-- Form -->
+      <form id="vendor-signup-form" method="POST" action="/vendor/signup" class="bg-white rounded-[16px] border border-[#e5e7eb] p-6 space-y-4" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+        <input type="hidden" name="_csrf" value="">
+
+        <!-- Business Name -->
+        <div>
+          <label for="business-name" class="block font-work font-medium text-[13px] text-[#101828] mb-2">Business Name *</label>
+          <input type="text" id="business-name" name="business_name" placeholder="Enter your business name" required class="w-full px-4 py-3 border border-[#e5e7eb] rounded-[10px] font-work text-[13px] text-[#101828] outline-none focus:border-[#155dfc] transition-colors" style="background:#fafafa">
+        </div>
+
+        <!-- Email Address -->
+        <div>
+          <label for="vendor-email" class="block font-work font-medium text-[13px] text-[#101828] mb-2">Email Address *</label>
+          <input type="email" id="vendor-email" name="email" placeholder="Enter your email" required class="w-full px-4 py-3 border border-[#e5e7eb] rounded-[10px] font-work text-[13px] text-[#101828] outline-none focus:border-[#155dfc] transition-colors" style="background:#fafafa">
+        </div>
+
+        <!-- Phone Number -->
+        <div>
+          <label for="vendor-phone" class="block font-work font-medium text-[13px] text-[#101828] mb-2">Phone Number *</label>
+          <div class="flex border border-[#e5e7eb] rounded-[10px] overflow-hidden focus-within:border-[#155dfc] transition-colors" style="background:#fafafa">
+            <div class="flex items-center gap-2 px-3 border-r border-[#e5e7eb] shrink-0 bg-[#f3f4f6]">
+              <span class="text-[16px] leading-none">🇳🇬</span>
+              <span class="font-work text-[13px] text-[#6a7282]">+234</span>
+            </div>
+            <input type="tel" id="vendor-phone" name="phone" placeholder="0801 234 5678" required inputmode="numeric" class="flex-1 px-3 py-3 font-work text-[13px] text-[#101828] outline-none bg-transparent">
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div>
+          <label for="vendor-password" class="block font-work font-medium text-[13px] text-[#101828] mb-2">Password *</label>
+          <div class="relative">
+            <input type="password" id="vendor-password" name="password" placeholder="Create a password (min. 8 characters)" required minlength="8" class="w-full px-4 py-3 pr-11 border border-[#e5e7eb] rounded-[10px] font-work text-[13px] text-[#101828] outline-none focus:border-[#155dfc] transition-colors" style="background:#fafafa">
+            <button type="button" onclick="togglePassword('vendor-password','eye-pwd')" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#99a1af] hover:text-[#364153]">
+              <i data-lucide="eye" id="eye-pwd" class="w-4 h-4" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Confirm Password -->
+        <div>
+          <label for="vendor-confirm-password" class="block font-work font-medium text-[13px] text-[#101828] mb-2">Confirm Password *</label>
+          <div class="relative">
+            <input type="password" id="vendor-confirm-password" name="confirm_password" placeholder="Re-enter your password" required minlength="8" class="w-full px-4 py-3 pr-11 border border-[#e5e7eb] rounded-[10px] font-work text-[13px] text-[#101828] outline-none focus:border-[#155dfc] transition-colors" style="background:#fafafa">
+            <button type="button" onclick="togglePassword('vendor-confirm-password','eye-confirm')" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#99a1af] hover:text-[#364153]">
+              <i data-lucide="eye" id="eye-confirm" class="w-4 h-4" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- State -->
+        <div>
+          <label for="vendor-state" class="block font-work font-medium text-[13px] text-[#101828] mb-2">State *</label>
+          <select id="vendor-state" name="state" required class="w-full px-4 py-3 border border-[#e5e7eb] rounded-[10px] font-work text-[13px] text-[#101828] outline-none focus:border-[#155dfc] transition-colors" style="background:#fafafa">
+            <option value="">Select state</option>
+            <option value="Lagos">Lagos</option>
+            <option value="Abuja">Abuja (FCT)</option>
+            <option value="Kano">Kano</option>
+            <option value="Rivers">Rivers</option>
+            <option value="Enugu">Enugu</option>
+            <option value="Oyo">Oyo</option>
+            <option value="Kaduna">Kaduna</option>
+            <option value="Imo">Imo</option>
+            <option value="Akwa Ibom">Akwa Ibom</option>
+            <option value="Cross River">Cross River</option>
+            <option value="Anambra">Anambra</option>
+            <option value="Osun">Osun</option>
+            <option value="Ekiti">Ekiti</option>
+            <option value="Bayelsa">Bayelsa</option>
+            <option value="Delta">Delta</option>
+            <option value="Edo">Edo</option>
+            <option value="Ondo">Ondo</option>
+            <option value="Jigawa">Jigawa</option>
+            <option value="Kebbi">Kebbi</option>
+            <option value="Katsina">Katsina</option>
+            <option value="Sokoto">Sokoto</option>
+            <option value="Zamfara">Zamfara</option>
+            <option value="Borno">Borno</option>
+            <option value="Yobe">Yobe</option>
+            <option value="Adamawa">Adamawa</option>
+            <option value="Taraba">Taraba</option>
+            <option value="Plateau">Plateau</option>
+            <option value="Nasarawa">Nasarawa</option>
+            <option value="Niger">Niger</option>
+            <option value="Kwara">Kwara</option>
+            <option value="Kogi">Kogi</option>
+            <option value="Benue">Benue</option>
+            <option value="Gombe">Gombe</option>
+            <option value="Bauchi">Bauchi</option>
+            <option value="Abia">Abia</option>
+            <option value="Ebonyi">Ebonyi</option>
+            <option value="Benue">Benue</option>
+            <option value="Ogun">Ogun</option>
+            <option value="Ondo">Ondo</option>
+            <option value="Osun">Osun</option>
+          </select>
+        </div>
+
+        <!-- City -->
+        <div>
+          <label for="vendor-city" class="block font-work font-medium text-[13px] text-[#101828] mb-2">City *</label>
+          <input type="text" id="vendor-city" name="city" placeholder="Enter your city" required class="w-full px-4 py-3 border border-[#e5e7eb] rounded-[10px] font-work text-[13px] text-[#101828] outline-none focus:border-[#155dfc] transition-colors" style="background:#fafafa">
+        </div>
+
+        <!-- Business Address -->
+        <div>
+          <label for="vendor-address" class="block font-work font-medium text-[13px] text-[#101828] mb-2">Business Address *</label>
+          <textarea id="vendor-address" name="address" placeholder="Enter your business address" rows="3" required class="w-full px-4 py-3 border border-[#e5e7eb] rounded-[10px] font-work text-[13px] text-[#101828] outline-none focus:border-[#155dfc] transition-colors resize-none" style="background:#fafafa"></textarea>
+        </div>
+
+        <!-- Terms -->
+        <div class="flex items-start gap-3 pt-2">
+          <input type="checkbox" id="vendor-terms" name="terms" required class="mt-1 w-4 h-4 rounded border-[#e5e7eb]">
+          <label for="vendor-terms" class="font-work text-[12px] text-[#6a7282]">I agree to CompareHub's Terms of Service and Privacy Policy</label>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="w-full bg-[#155dfc] text-white font-work font-semibold text-[14px] py-3 rounded-[12px] hover:bg-[#1447e6] transition-colors mt-6">
+          Continue to Verification
+        </button>
+
+        <!-- Sign In Link -->
+        <div class="text-center pt-2">
+          <p class="font-work text-[13px] text-[#6a7282]">Already a customer? <a href="/user/login" class="text-[#155dfc] font-semibold hover:underline bg-none border-none cursor-pointer">Sign in here</a></p>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- OTP Verification Modal -->
+  <div id="otp-modal" class="hidden fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 px-4">
+    <div class="bg-white rounded-[16px] border border-[#e5e7eb] p-6 w-full max-w-[500px]" style="box-shadow:0 4px 16px rgba(0,0,0,0.1)">
+
+      <!-- Header -->
+      <div class="mb-6 text-center">
+        <div class="w-16 h-16 rounded-full bg-[#eff6ff] flex items-center justify-center mx-auto mb-4">
+          <i data-lucide="mail-check" class="w-8 h-8 text-[#155dfc]" aria-hidden="true"></i>
+        </div>
+        <h2 class="font-work font-bold text-[28px] text-[#101828] mb-2">Verify Your Email</h2>
+        <p class="font-work text-[14px] text-[#6a7282]">We've sent a 6-digit code to <span id="otp-email-display" class="font-semibold text-[#101828]">your email</span></p>
+      </div>
+
+      <!-- OTP Form -->
+      <form id="otp-form" class="space-y-6">
+        <!-- OTP Input -->
+        <div>
+          <label class="block font-work font-medium text-[13px] text-[#101828] mb-3 text-center">Enter OTP Code *</label>
+          <div class="flex gap-2 justify-center">
+            <input type="text" id="otp-1" name="otp1" maxlength="1" placeholder="0" inputmode="numeric" pattern="[0-9]*" class="w-12 h-12 text-center font-work font-semibold text-[18px] border border-[#e5e7eb] rounded-[8px] outline-none focus:border-[#155dfc] focus:ring-2 focus:ring-[#eff6ff] transition-colors" style="background:#fafafa">
+            <input type="text" id="otp-2" name="otp2" maxlength="1" placeholder="0" inputmode="numeric" pattern="[0-9]*" class="w-12 h-12 text-center font-work font-semibold text-[18px] border border-[#e5e7eb] rounded-[8px] outline-none focus:border-[#155dfc] focus:ring-2 focus:ring-[#eff6ff] transition-colors" style="background:#fafafa">
+            <input type="text" id="otp-3" name="otp3" maxlength="1" placeholder="0" inputmode="numeric" pattern="[0-9]*" class="w-12 h-12 text-center font-work font-semibold text-[18px] border border-[#e5e7eb] rounded-[8px] outline-none focus:border-[#155dfc] focus:ring-2 focus:ring-[#eff6ff] transition-colors" style="background:#fafafa">
+            <input type="text" id="otp-4" name="otp4" maxlength="1" placeholder="0" inputmode="numeric" pattern="[0-9]*" class="w-12 h-12 text-center font-work font-semibold text-[18px] border border-[#e5e7eb] rounded-[8px] outline-none focus:border-[#155dfc] focus:ring-2 focus:ring-[#eff6ff] transition-colors" style="background:#fafafa">
+            <input type="text" id="otp-5" name="otp5" maxlength="1" placeholder="0" inputmode="numeric" pattern="[0-9]*" class="w-12 h-12 text-center font-work font-semibold text-[18px] border border-[#e5e7eb] rounded-[8px] outline-none focus:border-[#155dfc] focus:ring-2 focus:ring-[#eff6ff] transition-colors" style="background:#fafafa">
+            <input type="text" id="otp-6" name="otp6" maxlength="1" placeholder="0" inputmode="numeric" pattern="[0-9]*" class="w-12 h-12 text-center font-work font-semibold text-[18px] border border-[#e5e7eb] rounded-[8px] outline-none focus:border-[#155dfc] focus:ring-2 focus:ring-[#eff6ff] transition-colors" style="background:#fafafa">
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="w-full bg-[#155dfc] text-white font-work font-semibold text-[14px] py-3 rounded-[12px] hover:bg-[#1447e6] transition-colors">
+          Verify Email
+        </button>
+
+        <!-- Resend -->
+        <div class="text-center">
+          <p class="font-work text-[13px] text-[#6a7282]">Didn't receive code? <button type="button" id="resend-btn" class="text-[#155dfc] font-semibold hover:underline">Resend in <span id="resend-timer">60</span>s</button></p>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="app-footer"></div>
+
+  <script src="js/components.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    lucide.createIcons({ attrs: { 'stroke-width': 1.8 } });
+
+    function showOtpModal(email) {
+      document.getElementById('otp-email-display').textContent = email;
+      document.getElementById('otp-modal').classList.remove('hidden');
+      localStorage.setItem('ch_vendor_otp_email', email);
+
+      // Reset OTP inputs
+      document.querySelectorAll('[id^="otp-"]').forEach(input => {
+        input.value = '';
+      });
+
+      // Reset resend timer
+      startResendTimer();
+    }
+
+    function hideOtpModal() {
+      document.getElementById('otp-modal').classList.add('hidden');
+    }
+
+    function startResendTimer() {
+      let resendCountdown = 60;
+      const resendBtn = document.getElementById('resend-btn');
+      const resendTimer = document.getElementById('resend-timer');
+      resendBtn.disabled = true;
+
+      const timerInterval = setInterval(() => {
+        resendCountdown--;
+        resendTimer.textContent = resendCountdown;
+        if (resendCountdown <= 0) {
+          clearInterval(timerInterval);
+          resendBtn.disabled = false;
+          resendBtn.innerHTML = '<span class="text-[#155dfc]">Resend code</span>';
+        }
+      }, 1000);
+    }
+
+    // Password show/hide toggle
+    function togglePassword(inputId, iconId) {
+      const input = document.getElementById(inputId);
+      const icon = document.getElementById(iconId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.setAttribute('data-lucide', 'eye-off');
+      } else {
+        input.type = 'password';
+        icon.setAttribute('data-lucide', 'eye');
+      }
+      lucide.createIcons({ attrs: { 'stroke-width': 1.8 } });
+    }
+
+    // OTP input auto-advance — use 'input[id^="otp-"]' to skip non-input elements
+    const otpInputs = document.querySelectorAll('input[id^="otp-"]');
+    otpInputs.forEach((input, index) => {
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && !e.target.value && index > 0) {
+          otpInputs[index - 1].focus();
+        }
+      });
+      input.addEventListener('input', (e) => {
+        const val = e.target.value.replace(/\D/g, '');
+        e.target.value = val.slice(0, 1);
+        if (e.target.value && index < otpInputs.length - 1) {
+          otpInputs[index + 1].focus();
+        }
+      });
+      input.addEventListener('paste', (e) => {
+        e.preventDefault();
+        const pasted = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '');
+        [...pasted].forEach((char, i) => {
+          if (otpInputs[index + i]) otpInputs[index + i].value = char;
+        });
+        const nextIdx = Math.min(index + pasted.length, otpInputs.length - 1);
+        otpInputs[nextIdx].focus();
+      });
+    });
+
+    // Resend button
+    document.getElementById('resend-btn').addEventListener('click', (e) => {
+      e.preventDefault();
+      startResendTimer();
+    });
+
+    // OTP form submission
+    document.getElementById('otp-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const enteredOtp = Array.from(otpInputs).map(input => input.value).join('');
+
+      if (enteredOtp.length !== 6) {
+        alert('Please enter a 6-digit code');
+        return;
+      }
+
+      // OTP verified - create vendor account
+      const signupData = JSON.parse(localStorage.getItem('ch_vendor_signup'));
+
+      const vendorAccount = {
+        id: Math.random().toString(36).substr(2, 9),
+        ...signupData,
+        verified: true,
+        createdAt: new Date().toISOString(),
+        products: [],
+        events: [],
+        team: [],
+        banner: '',
+        logo: '',
+        about: '',
+        isLoggedIn: true
+      };
+
+      localStorage.setItem('ch_vendor', JSON.stringify(vendorAccount));
+      localStorage.removeItem('ch_vendor_signup');
+      localStorage.removeItem('ch_vendor_otp');
+      localStorage.removeItem('ch_vendor_otp_email');
+
+      hideOtpModal();
+      window.location.href = 'vendor-dashboard.html';
+    });
+
+    // Main signup form submission
+    document.getElementById('vendor-signup-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const password = document.getElementById('vendor-password').value;
+      const confirmPassword = document.getElementById('vendor-confirm-password').value;
+
+      if (password.length < 8) {
+        alert('Password must be at least 8 characters');
+        return;
+      }
+      if (password !== confirmPassword) {
+        alert('Passwords do not match');
+        return;
+      }
+
+      const vendorData = {
+        businessName: document.getElementById('business-name').value,
+        email: document.getElementById('vendor-email').value,
+        password: password,
+        phone: '+234' + document.getElementById('vendor-phone').value.replace(/^0/, ''),
+        state: document.getElementById('vendor-state').value,
+        city: document.getElementById('vendor-city').value,
+        address: document.getElementById('vendor-address').value,
+      };
+
+      // Save to localStorage temporarily
+      localStorage.setItem('ch_vendor_signup', JSON.stringify(vendorData));
+
+      // Show OTP modal instead of redirecting
+      showOtpModal(vendorData.email);
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+

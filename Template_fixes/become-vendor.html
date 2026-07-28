@@ -1,0 +1,404 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Become a Vendor — CompareHub</title>
+  <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { work: ['Work Sans','sans-serif'], inter: ['Inter','sans-serif'] },
+        },
+      },
+    };
+  </script>
+  <script src="https://cdn.tailwindcss.com?with=default@3.4.1"></script>
+  <script src="https://unpkg.com/lucide@0.441.0/dist/umd/lucide.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    @media (max-width: 639px) {
+      body { padding-top: 0 !important; padding-bottom: 0 !important; }
+      html, body { overflow-x: hidden; }
+    }
+    .step-card { position: relative; overflow: hidden; }
+    .feature-card { transition: box-shadow 0.2s; }
+    .feature-card:hover { box-shadow: 0 4px 12px rgba(21,93,252,0.1); }
+  </style>
+  <script>window.PAGE_CONFIG = { activePage: 'become-vendor' };</script>
+</head>
+<body class="font-work bg-white">
+
+  <!-- Desktop header (rendered by components.js) -->
+  <div id="app-header"></div>
+
+  <!-- =====================================================
+       MOBILE HEADER
+       ===================================================== -->
+  <div class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#f3f4f6]" style="height:65px;box-shadow:0 1px 8px rgba(0,0,0,0.07)">
+    <div class="flex items-center justify-between px-4 h-full">
+      <a href="index.html" class="shrink-0">
+        <img src="images/logos/logo-dark.svg" alt="CompareHub" class="h-6 w-auto">
+      </a>
+      <button id="mobile-menu-toggle" class="w-9 h-9 rounded-full bg-[#f3f4f6] flex items-center justify-center shrink-0 hover:bg-[#e5e7eb] transition-colors">
+        <i data-lucide="menu" class="w-5 h-5 text-[#364153]" aria-hidden="true"></i>
+      </button>
+      <!-- Mobile Menu Dropdown -->
+      <div id="mobile-menu-dropdown" class="hidden absolute top-[65px] left-0 right-0 bg-white border-b border-[#f3f4f6] z-40">
+        <nav class="flex flex-col p-4 gap-3">
+          <a href="how-it-works.html" class="font-work font-medium text-[14px] text-[#364153] hover:text-[#155dfc] transition-colors py-2">How it works</a>
+          <a href="become-vendor.html" class="font-work font-medium text-[14px] text-[#155dfc] py-2">Become Vendor</a>
+          <a href="events.html" class="font-work font-medium text-[14px] text-[#364153] hover:text-[#155dfc] transition-colors py-2">Events</a>
+          <hr class="border-[#f3f4f6] my-1">
+          <a href="/user/login" class="font-work font-medium text-[14px] text-[#155dfc] hover:text-[#1447e6] transition-colors py-2 text-left">Sign in</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile menu toggle script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuToggle = document.getElementById('mobile-menu-toggle');
+      const menuDropdown = document.getElementById('mobile-menu-dropdown');
+      if (menuToggle && menuDropdown) {
+        menuToggle.addEventListener('click', function(e) {
+          e.stopPropagation();
+          menuDropdown.classList.toggle('hidden');
+        });
+        document.addEventListener('click', function() {
+          menuDropdown.classList.add('hidden');
+        });
+      }
+    });
+  </script>
+
+  <!-- =====================================================
+       HERO SECTION
+       ===================================================== -->
+  <section class="sm:mt-[70px] mt-[65px] relative overflow-hidden" style="min-height:345px">
+    <!-- Background image -->
+    <img src="images/pages/how-it-works-hero-bg.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" aria-hidden="true">
+    <!-- Colour overlay -->
+    <div class="absolute inset-0" style="background:linear-gradient(135deg,rgba(20,71,230,0.55) 0%,rgba(21,93,252,0.50) 50%,rgba(30,64,175,0.60) 100%)"></div>
+    <div class="relative z-10 flex flex-col items-center justify-center text-center px-4 py-16 sm:py-20">
+      <h1 class="font-inter font-black text-[26px] sm:text-[36px] text-white tracking-[0.37px] mb-3">Grow Your Business with CompareHub</h1>
+      <p class="font-work text-[16px] sm:text-[18px] text-white/85 max-w-[470px] leading-[1.6] mb-8">Join thousands of Nigerian vendors selling products across our platform and reach customers actively looking to compare prices.</p>
+      <div class="flex items-center gap-4 flex-wrap justify-center">
+        <a href="vendor-signup.html" class="bg-[#124fd6] font-work font-medium text-[14px] text-white px-6 py-3 rounded-[14px] hover:bg-[#1040c0] transition-colors">Start Selling</a>
+        <a href="/user/login" class="border border-white font-work font-medium text-[14px] text-white px-6 py-3 rounded-[14px] hover:bg-white/10 transition-colors">Sign In</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       STATS BAR
+       ===================================================== -->
+  <section class="bg-[#e8efff] hidden sm:block">
+    <div class="max-w-[1272px] mx-auto px-8">
+      <div class="grid grid-cols-4 divide-x divide-[#155dfc]/20 py-6">
+        <div class="flex flex-col items-center gap-1 px-4">
+          <span class="font-inter font-black text-[24px] text-[#364153] tracking-[0.07px]">2,400+</span>
+          <span class="font-inter text-[12px] text-[#5a6372]">Products Listed</span>
+        </div>
+        <div class="flex flex-col items-center gap-1 px-4">
+          <span class="font-inter font-black text-[24px] text-[#364153] tracking-[0.07px]">180+</span>
+          <span class="font-inter text-[12px] text-[#5a6372]">Vendors Nationwide</span>
+        </div>
+        <div class="flex flex-col items-center gap-1 px-4">
+          <span class="font-inter font-black text-[24px] text-[#364153] tracking-[0.07px]">8</span>
+          <span class="font-inter text-[12px] text-[#5a6372]">Active Cities</span>
+        </div>
+        <div class="flex flex-col items-center gap-1 px-4">
+          <span class="font-inter font-black text-[24px] text-[#364153] tracking-[0.07px]">₦2.3B+</span>
+          <span class="font-inter text-[12px] text-[#5a6372]">Savings Found</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mobile stats -->
+  <section class="sm:hidden bg-[#e8efff] py-4 px-4">
+    <div class="grid grid-cols-2 gap-3">
+      <div class="bg-white rounded-[12px] p-3 text-center">
+        <p class="font-inter font-black text-[20px] text-[#364153]">2,400+</p>
+        <p class="font-inter text-[11px] text-[#5a6372]">Products Listed</p>
+      </div>
+      <div class="bg-white rounded-[12px] p-3 text-center">
+        <p class="font-inter font-black text-[20px] text-[#364153]">180+</p>
+        <p class="font-inter text-[11px] text-[#5a6372]">Vendors Nationwide</p>
+      </div>
+      <div class="bg-white rounded-[12px] p-3 text-center">
+        <p class="font-inter font-black text-[20px] text-[#364153]">8</p>
+        <p class="font-inter text-[11px] text-[#5a6372]">Active Cities</p>
+      </div>
+      <div class="bg-white rounded-[12px] p-3 text-center">
+        <p class="font-inter font-black text-[20px] text-[#364153]">₦2.3B+</p>
+        <p class="font-inter text-[11px] text-[#5a6372]">Savings Found</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       VENDOR JOURNEY SECTION
+       ===================================================== -->
+  <section class="py-14 sm:py-20 px-4 sm:px-8 bg-white">
+    <div class="max-w-[1272px] mx-auto">
+      <h2 class="font-work font-semibold text-[22px] sm:text-[28px] text-[#181d25] text-center mb-10 sm:mb-14">Your Vendor Journey</h2>
+
+      <!-- Step 1 + Step 2 -->
+      <div class="grid sm:grid-cols-2 gap-5 mb-5">
+        <!-- Step 1 -->
+        <div class="step-card rounded-[24px] bg-[#181d25] p-8 sm:p-10 min-h-[280px] flex flex-col justify-between">
+          <div>
+            <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-[#155dfc]/20 text-[#51a2ff] font-inter font-bold text-[15px] mb-4">1</span>
+            <h3 class="font-work font-semibold text-[20px] sm:text-[22px] text-white mb-3 leading-tight">Create Your Account</h3>
+            <p class="font-work text-[14px] text-white/70 leading-[1.6]">Sign up with your business details. Provide your email, phone, business name, and location. Takes just 5 minutes to get started.</p>
+          </div>
+          <!-- Mock signup UI -->
+          <div class="mt-6 bg-white/10 rounded-[16px] p-4 backdrop-blur">
+            <div class="space-y-3">
+              <div class="bg-white/5 rounded-[10px] px-3 py-2.5 h-10"></div>
+              <div class="bg-white/5 rounded-[10px] px-3 py-2.5 h-10"></div>
+              <div class="bg-[#155dfc]/40 rounded-[10px] px-3 py-2.5 h-10 flex items-center">
+                <p class="font-work font-medium text-[12px] text-[#51a2ff]">Sign Up</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step-card rounded-[24px] bg-[#181d25] p-8 sm:p-10 min-h-[280px] flex flex-col justify-between">
+          <div>
+            <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-[#155dfc]/20 text-[#51a2ff] font-inter font-bold text-[15px] mb-4">2</span>
+            <h3 class="font-work font-semibold text-[20px] sm:text-[22px] text-white mb-3 leading-tight">Verify Your Email</h3>
+            <p class="font-work text-[14px] text-white/70 leading-[1.6]">Confirm your email address with a one-time OTP. We'll send you a 6-digit code to verify your email address in seconds.</p>
+          </div>
+          <!-- Mock OTP UI -->
+          <div class="mt-6 bg-white/10 rounded-[16px] p-4 backdrop-blur">
+            <div class="flex gap-2 justify-center mb-3">
+              <div class="w-8 h-10 rounded-[8px] bg-white/5"></div>
+              <div class="w-8 h-10 rounded-[8px] bg-white/5"></div>
+              <div class="w-8 h-10 rounded-[8px] bg-white/5"></div>
+              <div class="w-8 h-10 rounded-[8px] bg-[#155dfc]/40"></div>
+              <div class="w-8 h-10 rounded-[8px] bg-white/5"></div>
+              <div class="w-8 h-10 rounded-[8px] bg-white/5"></div>
+            </div>
+            <p class="text-center font-work text-[12px] text-white/50">Resend in 2:45</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 + Step 4 -->
+      <div class="grid sm:grid-cols-2 gap-5">
+        <!-- Step 3 -->
+        <div class="step-card rounded-[24px] bg-[#181d25] p-8 sm:p-10 min-h-[280px] flex flex-col justify-between">
+          <div>
+            <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-[#155dfc]/20 text-[#51a2ff] font-inter font-bold text-[15px] mb-4">3</span>
+            <h3 class="font-work font-semibold text-[20px] sm:text-[22px] text-white mb-3 leading-tight">List Your Products</h3>
+            <p class="font-work text-[14px] text-white/70 leading-[1.6]">Add your products to our marketplace. Include product name, description, pricing, and images. Our intuitive dashboard makes it easy.</p>
+          </div>
+          <!-- Mock product grid -->
+          <div class="mt-6 bg-white/10 rounded-[16px] p-4 backdrop-blur">
+            <div class="grid grid-cols-2 gap-2">
+              <div class="bg-white/5 rounded-[8px] h-12"></div>
+              <div class="bg-white/5 rounded-[8px] h-12"></div>
+              <div class="bg-[#155dfc]/40 rounded-[8px] h-12"></div>
+              <div class="bg-white/5 rounded-[8px] h-12"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="step-card rounded-[24px] bg-gradient-to-br from-[#155dfc] to-[#1447e6] p-8 sm:p-10 min-h-[280px] flex flex-col justify-between">
+          <div>
+            <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-white/20 text-white font-inter font-bold text-[15px] mb-4">4</span>
+            <h3 class="font-work font-semibold text-[20px] sm:text-[22px] text-white mb-3 leading-tight">Start Making Sales</h3>
+            <p class="font-work text-[14px] text-white/85 leading-[1.6]">Your products go live immediately. Customers can find you through search and filters. Track sales, manage orders, and grow your business in real-time.</p>
+          </div>
+          <!-- Mock vendor benefits -->
+          <div class="mt-6 flex flex-col gap-2">
+            <div class="flex items-center gap-3 bg-white/15 rounded-[12px] px-4 py-3">
+              <div class="w-8 h-8 rounded-full bg-[#05df72]/20 flex items-center justify-center shrink-0">
+                <i data-lucide="trending-up" class="w-4 h-4 text-[#05df72]" aria-hidden="true"></i>
+              </div>
+              <span class="font-work font-medium text-[13px] text-white">Real-time analytics</span>
+            </div>
+            <div class="flex items-center gap-3 bg-white/15 rounded-[12px] px-4 py-3">
+              <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+                <i data-lucide="users" class="w-4 h-4 text-white" aria-hidden="true"></i>
+              </div>
+              <span class="font-work font-medium text-[13px] text-white">Reach thousands of buyers</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       WHY BECOME A VENDOR SECTION
+       ===================================================== -->
+  <section class="py-14 sm:py-20 px-4 sm:px-8 bg-white border-t border-[#f3f4f6]">
+    <div class="max-w-[1272px] mx-auto">
+      <div class="flex flex-col lg:flex-row gap-10 lg:gap-16 items-start">
+
+        <!-- Left column: title + content -->
+        <div class="lg:w-[462px] shrink-0">
+          <div class="flex items-center gap-2 mb-4">
+            <div class="bg-[#eff6ff] rounded-full px-4 py-1.5 flex items-center gap-2">
+              <i data-lucide="star" class="w-3.5 h-3.5 text-[#155dfc]" aria-hidden="true"></i>
+              <span class="font-inter font-semibold text-[13px] text-[#155dfc]">Benefits</span>
+            </div>
+          </div>
+          <h2 class="font-work font-semibold text-[28px] sm:text-[36px] text-[#364153] leading-[1.25] mb-4">Why Become a CompareHub Vendor?</h2>
+          <p class="font-work text-[16px] text-[#364153] leading-[1.5] mb-8">Get access to Nigeria's most trusted marketplace and connect with thousands of customers actively looking to compare prices and find the best deals on your products.</p>
+          <!-- CTA Button -->
+          <a href="vendor-signup.html" class="inline-flex items-center gap-2 bg-[#155dfc] text-white font-work font-medium text-[14px] px-6 py-3 rounded-[14px] hover:bg-[#1447e6] transition-colors">
+            Get Started Now
+            <i data-lucide="arrow-right" class="w-4 h-4" aria-hidden="true"></i>
+          </a>
+        </div>
+
+        <!-- Right column: feature grid -->
+        <div class="flex-1 grid sm:grid-cols-2 gap-4 content-start">
+          <div class="feature-card bg-white border border-[#f3f4f6] rounded-[16px] p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.08)">
+            <div class="w-10 h-10 rounded-[12px] bg-[#eff6ff] flex items-center justify-center mb-3">
+              <i data-lucide="users" class="w-5 h-5 text-[#155dfc]" aria-hidden="true"></i>
+            </div>
+            <h4 class="font-work font-semibold text-[15px] text-[#101828] mb-1.5">Reach More Customers</h4>
+            <p class="font-work text-[13px] text-[#6a7282] leading-[1.55]">Connect with thousands of active customers across Nigeria who are actively comparing prices and shopping for deals.</p>
+          </div>
+
+          <div class="feature-card bg-white border border-[#f3f4f6] rounded-[16px] p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.08)">
+            <div class="w-10 h-10 rounded-[12px] bg-[#fef3c7] flex items-center justify-center mb-3">
+              <i data-lucide="trending-up" class="w-5 h-5 text-[#d97706]" aria-hidden="true"></i>
+            </div>
+            <h4 class="font-work font-semibold text-[15px] text-[#101828] mb-1.5">Increase Sales</h4>
+            <p class="font-work text-[13px] text-[#6a7282] leading-[1.55]">Boost your visibility and sales by listing on Nigeria's leading price comparison platform where customers actively shop.</p>
+          </div>
+
+          <div class="feature-card bg-white border border-[#f3f4f6] rounded-[16px] p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.08)">
+            <div class="w-10 h-10 rounded-[12px] bg-[#f0fdf4] flex items-center justify-center mb-3">
+              <i data-lucide="shield-check" class="w-5 h-5 text-[#059669]" aria-hidden="true"></i>
+            </div>
+            <h4 class="font-work font-semibold text-[15px] text-[#101828] mb-1.5">Build Trust</h4>
+            <p class="font-work text-[13px] text-[#6a7282] leading-[1.55]">Get verified as a trusted vendor and build credibility with our community of verified buyers and sellers.</p>
+          </div>
+
+          <div class="feature-card bg-white border border-[#f3f4f6] rounded-[16px] p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.08)">
+            <div class="w-10 h-10 rounded-[12px] bg-[#fef9e7] flex items-center justify-center mb-3">
+              <i data-lucide="zap" class="w-5 h-5 text-[#ea580c]" aria-hidden="true"></i>
+            </div>
+            <h4 class="font-work font-semibold text-[15px] text-[#101828] mb-1.5">Easy Tools</h4>
+            <p class="font-work text-[13px] text-[#6a7282] leading-[1.55]">Manage products, pricing, and team members from a simple dashboard. Track sales and get real-time analytics.</p>
+          </div>
+
+          <div class="feature-card bg-white border border-[#f3f4f6] rounded-[16px] p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.08)">
+            <div class="w-10 h-10 rounded-[12px] bg-[#fce7f3] flex items-center justify-center mb-3">
+              <i data-lucide="headphones" class="w-5 h-5 text-[#ec4899]" aria-hidden="true"></i>
+            </div>
+            <h4 class="font-work font-semibold text-[15px] text-[#101828] mb-1.5">Dedicated Support</h4>
+            <p class="font-work text-[13px] text-[#6a7282] leading-[1.55]">Get support from our vendor team. We help you optimize listings and maximize your sales potential.</p>
+          </div>
+
+          <div class="feature-card bg-white border border-[#f3f4f6] rounded-[16px] p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.08)">
+            <div class="w-10 h-10 rounded-[12px] bg-[#dbeafe] flex items-center justify-center mb-3">
+              <i data-lucide="bar-chart-2" class="w-5 h-5 text-[#0284c7]" aria-hidden="true"></i>
+            </div>
+            <h4 class="font-work font-semibold text-[15px] text-[#101828] mb-1.5">Analytics</h4>
+            <p class="font-work text-[13px] text-[#6a7282] leading-[1.55]">Access detailed reports on performance, customer behavior, and market trends to make data-driven decisions.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       REQUIREMENTS SECTION
+       ===================================================== -->
+  <section class="py-14 sm:py-20 px-4 sm:px-8 bg-[#f9fafb] border-t border-[#f3f4f6]">
+    <div class="max-w-[1272px] mx-auto">
+      <div class="text-center mb-10 sm:mb-14">
+        <h2 class="font-work font-semibold text-[22px] sm:text-[28px] text-[#181d25] mb-4">What You'll Need</h2>
+        <p class="font-work text-[14px] sm:text-[16px] text-[#6a7282] max-w-[600px] mx-auto">Simple requirements to get your vendor account up and running</p>
+      </div>
+
+      <div class="bg-white rounded-[16px] border border-[#e5e7eb] p-6 sm:p-8 max-w-[700px] mx-auto" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+        <div class="space-y-4">
+          <div class="flex gap-4">
+            <div class="w-6 h-6 rounded-full bg-[#155dfc] flex items-center justify-center shrink-0 mt-1">
+              <i data-lucide="check" class="w-4 h-4 text-white" aria-hidden="true"></i>
+            </div>
+            <div>
+              <p class="font-work font-semibold text-[15px] text-[#101828] mb-1">Valid Business Email</p>
+              <p class="font-work text-[13px] text-[#6a7282]">Professional email for your business</p>
+            </div>
+          </div>
+
+          <div class="flex gap-4">
+            <div class="w-6 h-6 rounded-full bg-[#155dfc] flex items-center justify-center shrink-0 mt-1">
+              <i data-lucide="check" class="w-4 h-4 text-white" aria-hidden="true"></i>
+            </div>
+            <div>
+              <p class="font-work font-semibold text-[15px] text-[#101828] mb-1">Contact Information</p>
+              <p class="font-work text-[13px] text-[#6a7282]">Phone number and address in Nigeria</p>
+            </div>
+          </div>
+
+          <div class="flex gap-4">
+            <div class="w-6 h-6 rounded-full bg-[#155dfc] flex items-center justify-center shrink-0 mt-1">
+              <i data-lucide="check" class="w-4 h-4 text-white" aria-hidden="true"></i>
+            </div>
+            <div>
+              <p class="font-work font-semibold text-[15px] text-[#101828] mb-1">Product Information</p>
+              <p class="font-work text-[13px] text-[#6a7282]">Product names, descriptions, and pricing</p>
+            </div>
+          </div>
+
+          <div class="flex gap-4">
+            <div class="w-6 h-6 rounded-full bg-[#155dfc] flex items-center justify-center shrink-0 mt-1">
+              <i data-lucide="check" class="w-4 h-4 text-white" aria-hidden="true"></i>
+            </div>
+            <div>
+              <p class="font-work font-semibold text-[15px] text-[#101828] mb-1">Quality Standards</p>
+              <p class="font-work text-[13px] text-[#6a7282]">Commitment to quality and customer service</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       CTA SECTION
+       ===================================================== -->
+  <section class="py-14 sm:py-20 px-4 sm:px-8 bg-white">
+    <div class="max-w-[1272px] mx-auto">
+      <div class="bg-gradient-to-r from-[#155dfc] to-[#1447e6] rounded-[20px] p-12 sm:p-16 text-center text-white" style="box-shadow:0 10px 40px rgba(21,93,252,0.2)">
+        <h2 class="font-work font-bold text-[28px] sm:text-[36px] mb-4">Ready to Start Selling?</h2>
+        <p class="font-work text-[16px] text-white/90 mb-8 max-w-[600px] mx-auto">
+          Join CompareHub today and connect with thousands of customers actively looking for your products
+        </p>
+        <a href="vendor-signup.html" class="inline-flex items-center gap-2 bg-white text-[#155dfc] font-work font-semibold text-[16px] px-8 py-4 rounded-[14px] hover:bg-gray-50 transition-colors">
+          Create Your Free Account
+          <i data-lucide="arrow-right" class="w-5 h-5" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div id="app-footer"></div>
+
+  <script src="js/components.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    lucide.createIcons({ attrs: { 'stroke-width': 1.8 } });
+  </script>
+</body>
+</html>
+
+

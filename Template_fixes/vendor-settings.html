@@ -1,0 +1,435 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings — CompareHub Vendor</title>
+  <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { work: ['Work Sans','sans-serif'], inter: ['Inter','sans-serif'] },
+        },
+      },
+    };
+  </script>
+  <script src="https://cdn.tailwindcss.com?with=default@3.4.1"></script>
+  <script src="https://unpkg.com/lucide@0.441.0/dist/umd/lucide.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    @media (max-width: 640px) {
+      body { padding-top: 65px !important; }
+    }
+  </style>
+  <script>window.PAGE_CONFIG = { activePage: 'vendor' };</script>
+</head>
+<body class="font-work bg-[#f9fafb]">
+
+  <div id="app-header"></div>
+
+  <!-- Mobile header -->
+  <div class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#f3f4f6]" style="height:65px;box-shadow:0 1px 8px rgba(0,0,0,0.07)">
+    <div class="flex items-center gap-3 px-4 h-full">
+      <a href="vendor-dashboard.html" class="w-9 h-9 rounded-full bg-[#f3f4f6] flex items-center justify-center shrink-0">
+        <i data-lucide="arrow-left" class="w-4 h-4 text-[#364153]" aria-hidden="true"></i>
+      </a>
+      <div class="flex-1 min-w-0">
+        <p class="font-work font-bold text-[15px] text-[#101828] leading-tight">Settings</p>
+        <p class="font-inter text-[11px] text-[#99a1af] leading-tight">Business profile</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Bottom Navigation -->
+  <nav class="sm:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-[#f3f4f6] z-40" style="box-shadow:0 -1px 8px rgba(0,0,0,0.07)">
+    <div class="flex items-center justify-around h-[70px]">
+      <a href="vendor-dashboard.html" class="flex flex-col items-center justify-center gap-1 flex-1 h-full text-[#99a1af] hover:text-[#364153]">
+        <i data-lucide="layout-dashboard" class="w-5 h-5" aria-hidden="true"></i>
+        <span class="font-work font-medium text-[10px]">Overview</span>
+      </a>
+      <a href="vendor-products.html" class="flex flex-col items-center justify-center gap-1 flex-1 h-full text-[#99a1af] hover:text-[#364153]">
+        <i data-lucide="box" class="w-5 h-5" aria-hidden="true"></i>
+        <span class="font-work font-medium text-[10px]">Products</span>
+      </a>
+      <a href="vendor-events.html" class="flex flex-col items-center justify-center gap-1 flex-1 h-full text-[#99a1af] hover:text-[#364153]">
+        <i data-lucide="calendar" class="w-5 h-5" aria-hidden="true"></i>
+        <span class="font-work font-medium text-[10px]">Events</span>
+      </a>
+      <a href="vendor-teams.html" class="flex flex-col items-center justify-center gap-1 flex-1 h-full text-[#99a1af] hover:text-[#364153]">
+        <i data-lucide="users" class="w-5 h-5" aria-hidden="true"></i>
+        <span class="font-work font-medium text-[10px]">Teams</span>
+      </a>
+      <a href="vendor-settings.html" class="flex flex-col items-center justify-center gap-1 flex-1 h-full text-[#155dfc]">
+        <i data-lucide="settings" class="w-5 h-5" aria-hidden="true"></i>
+        <span class="font-work font-medium text-[10px]">Settings</span>
+      </a>
+    </div>
+  </nav>
+
+  <div class="sm:pt-[70px] pb-[100px] sm:pb-0">
+    <div class="max-w-[1290px] mx-auto px-4 sm:px-8 py-2 sm:py-10">
+      <div class="flex gap-6 items-start">
+
+        <!-- Sidebar -->
+        <aside class="hidden sm:block w-[220px] shrink-0 bg-white rounded-[16px] border border-[#f3f4f6] p-5 space-y-5" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+          <div class="flex flex-col items-center gap-3 pb-5 border-b border-[#f3f4f6]">
+            <div id="vendor-logo" class="w-12 h-12 rounded-full flex items-center justify-center shrink-0" style="background:#032d71">
+              <span id="vendor-initials" class="font-work font-bold text-[16px] text-white">--</span>
+            </div>
+            <div class="text-center">
+              <p id="vendor-business-name" class="font-work font-semibold text-[14px] text-[#101828]">Business</p>
+              <p id="vendor-email" class="font-work text-[12px] text-[#99a1af]">vendor@email.com</p>
+            </div>
+          </div>
+          <nav class="flex flex-col gap-1">
+            <a href="vendor-dashboard.html" class="flex items-center gap-2.5 px-3 py-2 rounded-[10px] hover:bg-[#f9fafb] transition-colors">
+              <i data-lucide="layout-dashboard" class="w-4 h-4 text-[#6a7282] shrink-0" aria-hidden="true"></i>
+              <span class="font-work font-medium text-[13px] text-[#364153]">Overview</span>
+            </a>
+            <a href="vendor-products.html" class="flex items-center gap-2.5 px-3 py-2 rounded-[10px] hover:bg-[#f9fafb] transition-colors">
+              <i data-lucide="box" class="w-4 h-4 text-[#6a7282] shrink-0" aria-hidden="true"></i>
+              <span class="font-work font-medium text-[13px] text-[#364153] flex-1">Products</span>
+            </a>
+            <a href="vendor-events.html" class="flex items-center gap-2.5 px-3 py-2 rounded-[10px] hover:bg-[#f9fafb] transition-colors">
+              <i data-lucide="calendar" class="w-4 h-4 text-[#6a7282] shrink-0" aria-hidden="true"></i>
+              <span class="font-work font-medium text-[13px] text-[#364153] flex-1">Events</span>
+              <span id="event-count-badge" class="bg-[#f3f4f6] text-[#6a7282] font-work font-semibold text-[11px] px-1.5 py-0.5 rounded-full">0</span>
+            </a>
+            <a href="vendor-teams.html" class="flex items-center gap-2.5 px-3 py-2 rounded-[10px] hover:bg-[#f9fafb] transition-colors">
+              <i data-lucide="users" class="w-4 h-4 text-[#6a7282] shrink-0" aria-hidden="true"></i>
+              <span class="font-work font-medium text-[13px] text-[#364153] flex-1">Teams</span>
+            </a>
+            <a href="vendor-settings.html" class="flex items-center gap-2.5 px-3 py-2 rounded-[10px] bg-[#eff6ff]">
+              <i data-lucide="settings" class="w-4 h-4 text-[#155dfc] shrink-0" aria-hidden="true"></i>
+              <span class="font-work font-medium text-[13px] text-[#155dfc]">Settings</span>
+            </a>
+            <a href="vendor-reports.html" class="flex items-center gap-2.5 px-3 py-2 rounded-[10px] hover:bg-[#f9fafb] transition-colors">
+              <i data-lucide="bar-chart-2" class="w-4 h-4 text-[#6a7282] shrink-0" aria-hidden="true"></i>
+              <span class="font-work font-medium text-[13px] text-[#364153]">Reports</span>
+            </a>
+            <hr class="border-[#f3f4f6] my-1">
+            <button onclick="CompareHub.vendor.signOut()" class="flex items-center gap-2.5 px-3 py-2 rounded-[10px] hover:bg-[#fff5f5] transition-colors w-full text-left">
+              <i data-lucide="log-out" class="w-4 h-4 text-[#ef4444] shrink-0" aria-hidden="true"></i>
+              <span class="font-work font-medium text-[13px] text-[#ef4444]">Sign Out</span>
+            </button>
+          </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="flex-1 min-w-0 space-y-5">
+
+          <!-- Header -->
+          <div class="hidden sm:block">
+            <h1 class="font-work font-bold text-[22px] sm:text-[26px] text-[#101828]">Settings</h1>
+            <p class="font-work text-[13px] text-[#99a1af] mt-0.5">Manage your business profile and account</p>
+          </div>
+
+          <!-- Settings Container with Tabs -->
+          <div class="bg-white rounded-[14px] border border-[#f3f4f6]" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+
+            <!-- Tab Navigation -->
+            <div class="flex border-b border-[#f3f4f6]">
+              <button id="tab-business" onclick="switchTab('business')" class="flex-1 px-6 py-4 font-work font-semibold text-[14px] text-[#364153] hover:text-[#101828] transition-colors border-b-2 border-transparent hover:border-[#f3f4f6]" style="border-bottom-color:#155dfc;color:#155dfc">
+                Business Profile
+              </button>
+              <button id="tab-security" onclick="switchTab('security')" class="flex-1 px-6 py-4 font-work font-semibold text-[14px] text-[#364153] hover:text-[#101828] transition-colors border-b-2 border-transparent hover:border-[#f3f4f6]">
+                Security
+              </button>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="p-6 space-y-6">
+
+              <!-- Business Profile Tab -->
+              <div id="content-business" class="space-y-6">
+                <!-- Business Name -->
+                <div>
+                  <label class="block font-work font-medium text-[13px] text-[#101828] mb-2">Business Name</label>
+                  <input type="text" id="edit-business-name" class="w-full px-4 py-3 border border-[#e5e7eb] rounded-[10px] font-work text-[13px] outline-none focus:border-[#155dfc]" style="background:#fafafa">
+                </div>
+
+                <!-- About -->
+                <div>
+                  <label class="block font-work font-medium text-[13px] text-[#101828] mb-2">About Business</label>
+                  <textarea id="edit-about" placeholder="Tell us about your business" rows="4" class="w-full px-4 py-3 border border-[#e5e7eb] rounded-[10px] font-work text-[13px] outline-none focus:border-[#155dfc] resize-none" style="background:#fafafa"></textarea>
+                </div>
+
+                <!-- Logo -->
+                <div>
+                  <label class="block font-work font-medium text-[13px] text-[#101828] mb-2">Business Logo</label>
+                  <div class="flex gap-4">
+                    <div id="logo-preview" class="w-20 h-20 rounded-[10px] border-2 border-dashed border-[#e5e7eb] flex items-center justify-center bg-[#fafafa] shrink-0">
+                      <i data-lucide="image" class="w-8 h-8 text-[#99a1af]" aria-hidden="true"></i>
+                    </div>
+                    <input type="file" id="logo-upload" accept="image/*" class="hidden">
+                    <button type="button" onclick="document.getElementById('logo-upload').click()" class="flex-1 px-4 py-3 border border-[#e5e7eb] rounded-[10px] font-work font-medium text-[13px] text-[#364153] hover:bg-[#f9fafb] transition-colors">
+                      Upload Logo
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Banner -->
+                <div>
+                  <label class="block font-work font-medium text-[13px] text-[#101828] mb-2">Banner Image</label>
+                  <div id="banner-preview" class="w-full h-[120px] rounded-[10px] border-2 border-dashed border-[#e5e7eb] flex items-center justify-center bg-[#fafafa] mb-2">
+                    <i data-lucide="image" class="w-8 h-8 text-[#99a1af]" aria-hidden="true"></i>
+                  </div>
+                  <input type="file" id="banner-upload" accept="image/*" class="hidden">
+                  <button type="button" onclick="document.getElementById('banner-upload').click()" class="w-full px-4 py-3 border border-[#e5e7eb] rounded-[10px] font-work font-medium text-[13px] text-[#364153] hover:bg-[#f9fafb] transition-colors">
+                    Upload Banner
+                  </button>
+                </div>
+
+                <!-- Business Links Section -->
+                <div class="border-t border-[#f3f4f6] pt-6">
+                  <h3 class="font-work font-semibold text-[15px] text-[#101828] mb-4">Business Links</h3>
+                  <p class="font-work text-[12px] text-[#99a1af] mb-4">Add your business contact links for customers to reach you</p>
+
+                  <!-- Website URL -->
+                  <div class="mb-4">
+                    <label class="block font-work font-medium text-[13px] text-[#101828] mb-2">Website URL</label>
+                    <div class="flex items-center gap-2">
+                      <i data-lucide="globe" class="w-4 h-4 text-[#6a7282]" aria-hidden="true"></i>
+                      <input type="url" id="link-website" placeholder="https://www.example.com" class="flex-1 px-4 py-3 border border-[#e5e7eb] rounded-[10px] font-work text-[13px] outline-none focus:border-[#155dfc]" style="background:#fafafa">
+                    </div>
+                  </div>
+
+                  <!-- WhatsApp URL -->
+                  <div class="mb-4">
+                    <label class="block font-work font-medium text-[13px] text-[#101828] mb-2">WhatsApp</label>
+                    <div class="flex items-center gap-2">
+                      <i data-lucide="message-circle" class="w-4 h-4 text-[#6a7282]" aria-hidden="true"></i>
+                      <input type="url" id="link-whatsapp" placeholder="https://wa.me/234..." class="flex-1 px-4 py-3 border border-[#e5e7eb] rounded-[10px] font-work text-[13px] outline-none focus:border-[#155dfc]" style="background:#fafafa">
+                    </div>
+                  </div>
+
+                  <!-- Facebook URL -->
+                  <div class="mb-4">
+                    <label class="block font-work font-medium text-[13px] text-[#101828] mb-2">Facebook</label>
+                    <div class="flex items-center gap-2">
+                      <i data-lucide="facebook" class="w-4 h-4 text-[#6a7282]" aria-hidden="true"></i>
+                      <input type="url" id="link-facebook" placeholder="https://facebook.com/..." class="flex-1 px-4 py-3 border border-[#e5e7eb] rounded-[10px] font-work text-[13px] outline-none focus:border-[#155dfc]" style="background:#fafafa">
+                    </div>
+                  </div>
+
+                  <!-- Instagram URL -->
+                  <div class="mb-4">
+                    <label class="block font-work font-medium text-[13px] text-[#101828] mb-2">Instagram</label>
+                    <div class="flex items-center gap-2">
+                      <i data-lucide="instagram" class="w-4 h-4 text-[#6a7282]" aria-hidden="true"></i>
+                      <input type="url" id="link-instagram" placeholder="https://instagram.com/..." class="flex-1 px-4 py-3 border border-[#e5e7eb] rounded-[10px] font-work text-[13px] outline-none focus:border-[#155dfc]" style="background:#fafafa">
+                    </div>
+                  </div>
+
+                  <!-- Twitter URL -->
+                  <div class="mb-4">
+                    <label class="block font-work font-medium text-[13px] text-[#101828] mb-2">Twitter/X</label>
+                    <div class="flex items-center gap-2">
+                      <i data-lucide="twitter" class="w-4 h-4 text-[#6a7282]" aria-hidden="true"></i>
+                      <input type="url" id="link-twitter" placeholder="https://twitter.com/..." class="flex-1 px-4 py-3 border border-[#e5e7eb] rounded-[10px] font-work text-[13px] outline-none focus:border-[#155dfc]" style="background:#fafafa">
+                    </div>
+                  </div>
+
+                  <!-- Phone Number -->
+                  <div>
+                    <label class="block font-work font-medium text-[13px] text-[#101828] mb-2">Phone Number</label>
+                    <div class="flex items-center gap-2">
+                      <i data-lucide="phone" class="w-4 h-4 text-[#6a7282]" aria-hidden="true"></i>
+                      <input type="tel" id="link-phone" placeholder="+234..." class="flex-1 px-4 py-3 border border-[#e5e7eb] rounded-[10px] font-work text-[13px] outline-none focus:border-[#155dfc]" style="background:#fafafa">
+                    </div>
+                  </div>
+                </div>
+
+                <button type="button" onclick="saveProfile()" class="w-full bg-[#155dfc] text-white font-work font-semibold text-[14px] py-3 rounded-[12px] hover:bg-[#1447e6] transition-colors mt-6">
+                  Save Changes
+                </button>
+              </div>
+
+              <!-- Security Tab -->
+              <div id="content-security" class="space-y-6 hidden">
+                <!-- Current Password -->
+                <div>
+                  <label class="block font-work font-medium text-[13px] text-[#101828] mb-2">Current Password</label>
+                  <input type="password" id="current-password" class="w-full px-4 py-3 border border-[#e5e7eb] rounded-[10px] font-work text-[13px] outline-none focus:border-[#155dfc]" style="background:#fafafa">
+                </div>
+
+                <!-- New Password -->
+                <div>
+                  <label class="block font-work font-medium text-[13px] text-[#101828] mb-2">New Password</label>
+                  <input type="password" id="new-password" class="w-full px-4 py-3 border border-[#e5e7eb] rounded-[10px] font-work text-[13px] outline-none focus:border-[#155dfc]" style="background:#fafafa">
+                </div>
+
+                <!-- Confirm Password -->
+                <div>
+                  <label class="block font-work font-medium text-[13px] text-[#101828] mb-2">Confirm Password</label>
+                  <input type="password" id="confirm-password" class="w-full px-4 py-3 border border-[#e5e7eb] rounded-[10px] font-work text-[13px] outline-none focus:border-[#155dfc]" style="background:#fafafa">
+                </div>
+
+                <button type="button" onclick="changePassword()" class="w-full bg-[#155dfc] text-white font-work font-semibold text-[14px] py-3 rounded-[12px] hover:bg-[#1447e6] transition-colors">
+                  Update Password
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Mobile Logout Button -->
+          <button onclick="CompareHub.vendor.signOut()" class="sm:hidden w-full flex items-center justify-center gap-2 bg-[#fff5f5] text-[#ef4444] font-work font-semibold text-[13px] px-4 py-3 rounded-[12px] hover:bg-[#fee2e2] transition-colors mt-6 border border-[#fecaca]">
+            <i data-lucide="log-out" class="w-4 h-4" aria-hidden="true"></i>
+            <span>Sign Out</span>
+          </button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="app-footer"></div>
+
+  <script src="js/components.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    lucide.createIcons({ attrs: { 'stroke-width': 1.8 } });
+
+    function switchTab(tab) {
+      const businessTab = document.getElementById('tab-business');
+      const securityTab = document.getElementById('tab-security');
+      const businessContent = document.getElementById('content-business');
+      const securityContent = document.getElementById('content-security');
+
+      if (tab === 'business') {
+        businessTab.style.borderBottomColor = '#155dfc';
+        businessTab.style.color = '#155dfc';
+        securityTab.style.borderBottomColor = 'transparent';
+        securityTab.style.color = '#364153';
+        businessContent.classList.remove('hidden');
+        securityContent.classList.add('hidden');
+      } else {
+        businessTab.style.borderBottomColor = 'transparent';
+        businessTab.style.color = '#364153';
+        securityTab.style.borderBottomColor = '#155dfc';
+        securityTab.style.color = '#155dfc';
+        businessContent.classList.add('hidden');
+        securityContent.classList.remove('hidden');
+      }
+    }
+
+    function initVendorSettings() {
+      const vendor = JSON.parse(localStorage.getItem('ch_vendor'));
+
+      if (!vendor || !vendor.isLoggedIn) {
+        window.location.href = 'vendor-signup.html';
+        return;
+      }
+
+      // Update sidebar
+      const initials = vendor.businessName.split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase();
+      document.getElementById('vendor-initials').textContent = initials;
+      document.getElementById('vendor-business-name').textContent = vendor.businessName;
+      document.getElementById('vendor-email').textContent = vendor.email;
+
+      // Load settings
+      document.getElementById('edit-business-name').value = vendor.businessName || '';
+      document.getElementById('edit-about').value = vendor.about || '';
+
+      // Load business links
+      const links = vendor.businessLinks || {};
+      document.getElementById('link-website').value = links.website || '';
+      document.getElementById('link-whatsapp').value = links.whatsapp || '';
+      document.getElementById('link-facebook').value = links.facebook || '';
+      document.getElementById('link-instagram').value = links.instagram || '';
+      document.getElementById('link-twitter').value = links.twitter || '';
+      document.getElementById('link-phone').value = links.phone || '';
+    }
+
+    function saveProfile() {
+      const vendor = JSON.parse(localStorage.getItem('ch_vendor'));
+      vendor.businessName = document.getElementById('edit-business-name').value;
+      vendor.about = document.getElementById('edit-about').value;
+
+      // Save business links
+      vendor.businessLinks = {
+        website: document.getElementById('link-website').value,
+        whatsapp: document.getElementById('link-whatsapp').value,
+        facebook: document.getElementById('link-facebook').value,
+        instagram: document.getElementById('link-instagram').value,
+        twitter: document.getElementById('link-twitter').value,
+        phone: document.getElementById('link-phone').value
+      };
+
+      localStorage.setItem('ch_vendor', JSON.stringify(vendor));
+      alert('Profile updated successfully!');
+    }
+
+    function changePassword() {
+      const current = document.getElementById('current-password').value;
+      const newPass = document.getElementById('new-password').value;
+      const confirm = document.getElementById('confirm-password').value;
+
+      if (!current || !newPass || !confirm) {
+        alert('Please fill in all password fields');
+        return;
+      }
+
+      if (newPass !== confirm) {
+        alert('New passwords do not match');
+        return;
+      }
+
+      if (newPass.length < 6) {
+        alert('Password must be at least 6 characters');
+        return;
+      }
+
+      const vendor = JSON.parse(localStorage.getItem('ch_vendor'));
+      vendor.password = newPass;
+      localStorage.setItem('ch_vendor', JSON.stringify(vendor));
+
+      document.getElementById('current-password').value = '';
+      document.getElementById('new-password').value = '';
+      document.getElementById('confirm-password').value = '';
+
+      alert('Password updated successfully!');
+    }
+
+    document.getElementById('logo-upload').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          document.getElementById('logo-preview').innerHTML = `<img src="${event.target.result}" class="w-full h-full object-cover rounded-[8px]">`;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    document.getElementById('banner-upload').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          document.getElementById('banner-preview').innerHTML = `<img src="${event.target.result}" class="w-full h-full object-cover rounded-[8px]">`;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    window.CompareHub = window.CompareHub || { auth: {}, vendor: {}, compare: {}, ui: {} };\r\n    CompareHub.vendor.signOut = function() {
+      const vendor = JSON.parse(localStorage.getItem('ch_vendor'));
+      vendor.isLoggedIn = false;
+      localStorage.setItem('ch_vendor', JSON.stringify(vendor));
+      window.location.href = 'index.html';
+    }
+
+    initVendorSettings();
+  </script>
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verify Email — CompareHub Vendor</title>
+  <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { work: ['Work Sans','sans-serif'], inter: ['Inter','sans-serif'] },
+        },
+      },
+    };
+  </script>
+  <script src="https://cdn.tailwindcss.com?with=default@3.4.1"></script>
+  <script src="https://unpkg.com/lucide@0.441.0/dist/umd/lucide.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="font-work bg-[#f9fafb]">
+
+  <div id="app-header"></div>
+
+  <div class="min-h-screen pt-[70px] pb-20">
+    <div class="max-w-[500px] mx-auto px-4 py-10">
+
+      <!-- Header -->
+      <div class="mb-10 text-center">
+        <div class="w-16 h-16 rounded-full bg-[#eff6ff] flex items-center justify-center mx-auto mb-4">
+          <i data-lucide="mail-check" class="w-8 h-8 text-[#155dfc]" aria-hidden="true"></i>
+        </div>
+        <h1 class="font-work font-bold text-[32px] text-[#101828] mb-2">Verify Your Email</h1>
+        <p class="font-work text-[14px] text-[#6a7282]">We've sent a 6-digit code to <span id="otp-email" class="font-semibold text-[#101828]">your email</span></p>
+      </div>
+
+      <!-- Form -->
+      <form id="otp-form" class="bg-white rounded-[16px] border border-[#e5e7eb] p-6 space-y-6" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+
+        <!-- OTP Input -->
+        <div>
+          <label class="block font-work font-medium text-[13px] text-[#101828] mb-3">Enter OTP Code *</label>
+          <div class="flex gap-2 justify-center">
+            <input type="text" id="otp-1" maxlength="1" placeholder="0" class="w-12 h-12 text-center font-work font-semibold text-[18px] border border-[#e5e7eb] rounded-[8px] outline-none focus:border-[#155dfc] focus:ring-2 focus:ring-[#eff6ff] transition-colors" style="background:#fafafa">
+            <input type="text" id="otp-2" maxlength="1" placeholder="0" class="w-12 h-12 text-center font-work font-semibold text-[18px] border border-[#e5e7eb] rounded-[8px] outline-none focus:border-[#155dfc] focus:ring-2 focus:ring-[#eff6ff] transition-colors" style="background:#fafafa">
+            <input type="text" id="otp-3" maxlength="1" placeholder="0" class="w-12 h-12 text-center font-work font-semibold text-[18px] border border-[#e5e7eb] rounded-[8px] outline-none focus:border-[#155dfc] focus:ring-2 focus:ring-[#eff6ff] transition-colors" style="background:#fafafa">
+            <input type="text" id="otp-4" maxlength="1" placeholder="0" class="w-12 h-12 text-center font-work font-semibold text-[18px] border border-[#e5e7eb] rounded-[8px] outline-none focus:border-[#155dfc] focus:ring-2 focus:ring-[#eff6ff] transition-colors" style="background:#fafafa">
+            <input type="text" id="otp-5" maxlength="1" placeholder="0" class="w-12 h-12 text-center font-work font-semibold text-[18px] border border-[#e5e7eb] rounded-[8px] outline-none focus:border-[#155dfc] focus:ring-2 focus:ring-[#eff6ff] transition-colors" style="background:#fafafa">
+            <input type="text" id="otp-6" maxlength="1" placeholder="0" class="w-12 h-12 text-center font-work font-semibold text-[18px] border border-[#e5e7eb] rounded-[8px] outline-none focus:border-[#155dfc] focus:ring-2 focus:ring-[#eff6ff] transition-colors" style="background:#fafafa">
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="w-full bg-[#155dfc] text-white font-work font-semibold text-[14px] py-3 rounded-[12px] hover:bg-[#1447e6] transition-colors">
+          Verify Email
+        </button>
+
+        <!-- Resend -->
+        <div class="text-center">
+          <p class="font-work text-[13px] text-[#6a7282]">Didn't receive code? <button type="button" id="resend-btn" class="text-[#155dfc] font-semibold hover:underline">Resend in <span id="resend-timer">60</span>s</button></p>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <div id="app-footer"></div>
+
+  <script src="js/components.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    lucide.createIcons({ attrs: { 'stroke-width': 1.8 } });
+
+    // Display email
+    const email = localStorage.getItem('ch_vendor_otp_email');
+    if (email) {
+      document.getElementById('otp-email').textContent = email;
+    }
+
+    // OTP input auto-advance
+    const otpInputs = document.querySelectorAll('[id^="otp-"]');
+    otpInputs.forEach((input, index) => {
+      input.addEventListener('input', (e) => {
+        if (e.target.value && index < otpInputs.length - 1) {
+          otpInputs[index + 1].focus();
+        }
+      });
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && !e.target.value && index > 0) {
+          otpInputs[index - 1].focus();
+        }
+      });
+    });
+
+    // Resend timer
+    let resendCountdown = 60;
+    const resendBtn = document.getElementById('resend-btn');
+    const resendTimer = document.getElementById('resend-timer');
+
+    const timerInterval = setInterval(() => {
+      resendCountdown--;
+      resendTimer.textContent = resendCountdown;
+      if (resendCountdown <= 0) {
+        clearInterval(timerInterval);
+        resendBtn.disabled = false;
+        resendBtn.innerHTML = '<span class="text-[#155dfc]">Resend code</span>';
+      }
+    }, 1000);
+
+    resendBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (resendCountdown > 0) return;
+
+      // Resend OTP
+      const newOtp = Math.floor(100000 + Math.random() * 900000).toString();
+      localStorage.setItem('ch_vendor_otp', newOtp);
+      console.log('New OTP sent:', newOtp);
+
+      resendCountdown = 60;
+      resendBtn.disabled = true;
+      resendTimer.textContent = resendCountdown;
+    });
+
+    // Form submission
+    document.getElementById('otp-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const enteredOtp = Array.from(otpInputs).map(input => input.value).join('');
+      const correctOtp = localStorage.getItem('ch_vendor_otp');
+
+      if (enteredOtp === correctOtp) {
+        // OTP verified - create vendor account
+        const signupData = JSON.parse(localStorage.getItem('ch_vendor_signup'));
+
+        const vendorAccount = {
+          id: Math.random().toString(36).substr(2, 9),
+          ...signupData,
+          verified: true,
+          createdAt: new Date().toISOString(),
+          products: [],
+          events: [],
+          team: [],
+          banner: '',
+          logo: '',
+          about: '',
+          isLoggedIn: true
+        };
+
+        localStorage.setItem('ch_vendor', JSON.stringify(vendorAccount));
+        localStorage.removeItem('ch_vendor_signup');
+        localStorage.removeItem('ch_vendor_otp');
+        localStorage.removeItem('ch_vendor_otp_email');
+
+        // Redirect to dashboard
+        window.location.href = 'vendor-dashboard.html';
+      } else {
+        alert('Invalid OTP. Please try again.');
+      }
+    });
+  </script>
+</body>
+</html>
+
+
+

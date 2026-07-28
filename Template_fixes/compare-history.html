@@ -1,0 +1,217 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compare History — CompareHub</title>
+  <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { work: ['Work Sans','sans-serif'], inter: ['Inter','sans-serif'] },
+        },
+      },
+    };
+  </script>
+  <script src="https://cdn.tailwindcss.com?with=default@3.4.1"></script>
+  <script src="https://unpkg.com/lucide@0.441.0/dist/umd/lucide.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    @media (max-width: 640px) {
+      body { padding-top: 65px !important; }
+    }
+  </style>
+  <script>window.PAGE_CONFIG = { activePage: 'account' };</script>
+</head>
+<body class="font-work bg-[#f9fafb]">
+
+  <div id="app-header"></div>
+
+  <!-- Mobile header -->
+  <div class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#f3f4f6]" style="height:65px;box-shadow:0 1px 8px rgba(0,0,0,0.07)">
+    <div class="flex items-center gap-3 px-4 h-full">
+      <a href="dashboard.html" class="w-9 h-9 rounded-full bg-[#f3f4f6] flex items-center justify-center shrink-0">
+        <i data-lucide="arrow-left" class="w-4 h-4 text-[#364153]" aria-hidden="true"></i>
+      </a>
+      <div class="flex-1 min-w-0">
+        <p class="font-work font-bold text-[15px] text-[#101828] leading-tight">Compare History</p>
+        <p class="font-inter text-[11px] text-[#99a1af] leading-tight">Products you've compared</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sm:pt-[70px] pb-[71px] sm:pb-0">
+    <div class="max-w-[1290px] mx-auto px-4 sm:px-8 py-2 sm:py-10">
+      <div class="flex gap-6 items-start">
+
+        <!-- ── Sidebar ── -->
+        <aside class="hidden sm:block w-[220px] shrink-0 bg-white rounded-[16px] border border-[#f3f4f6] p-5 space-y-5" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+          <div class="flex flex-col items-center gap-3 pb-5 border-b border-[#f3f4f6]">
+            <div class="w-12 h-12 rounded-full flex items-center justify-center shrink-0" style="background:#032d71">
+              <span id="history-sidebar-initials" class="font-work font-bold text-[16px] text-white">--</span>
+            </div>
+            <div class="text-center">
+              <p id="history-sidebar-name" class="font-work font-semibold text-[14px] text-[#101828]">CompareHub User</p>
+              <p id="history-sidebar-email" class="font-work text-[12px] text-[#99a1af]">user@comparehub.ng</p>
+            </div>
+          </div>
+          <nav class="flex flex-col gap-1">
+            <a href="dashboard.html" class="flex items-center gap-2.5 px-3 py-2 rounded-[10px] hover:bg-[#f9fafb] transition-colors">
+              <i data-lucide="layout-dashboard" class="w-4 h-4 text-[#6a7282] shrink-0" aria-hidden="true"></i>
+              <span class="font-work font-medium text-[13px] text-[#364153]">Overview</span>
+            </a>
+            <a href="wishlist.html" class="flex items-center gap-2.5 px-3 py-2 rounded-[10px] hover:bg-[#f9fafb] transition-colors">
+              <i data-lucide="heart" class="w-4 h-4 text-[#6a7282] shrink-0" aria-hidden="true"></i>
+              <span class="font-work font-medium text-[13px] text-[#364153] flex-1">Wishlist</span>
+              <span class="bg-[#eff6ff] text-[#155dfc] font-work font-semibold text-[11px] px-1.5 py-0.5 rounded-full">0</span>
+            </a>
+            <a href="compare-history.html" class="flex items-center gap-2.5 px-3 py-2 rounded-[10px] bg-[#eff6ff]">
+              <i data-lucide="history" class="w-4 h-4 text-[#155dfc] shrink-0" aria-hidden="true"></i>
+              <span class="font-work font-medium text-[13px] text-[#155dfc] flex-1 whitespace-nowrap">Compare History</span>
+              <span class="bg-[#155dfc] text-white font-work font-semibold text-[11px] px-1.5 py-0.5 rounded-full shrink-0">0</span>
+            </a>
+            <a href="account-settings.html" class="flex items-center gap-2.5 px-3 py-2 rounded-[10px] hover:bg-[#f9fafb] transition-colors">
+              <i data-lucide="shield" class="w-4 h-4 text-[#6a7282] shrink-0" aria-hidden="true"></i>
+              <span class="font-work font-medium text-[13px] text-[#364153]">Security</span>
+            </a>
+            <hr class="border-[#f3f4f6] my-1">
+            <button class="flex items-center gap-2.5 px-3 py-2 rounded-[10px] hover:bg-[#fff5f5] transition-colors w-full text-left">
+              <i data-lucide="log-out" class="w-4 h-4 text-[#ef4444] shrink-0" aria-hidden="true"></i>
+              <span class="font-work font-medium text-[13px] text-[#ef4444]">Sign Out</span>
+            </button>
+          </nav>
+        </aside>
+
+        <!-- ── Main content ── -->
+        <div class="flex-1 min-w-0 space-y-5">
+
+          <!-- Header row -->
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <h1 class="font-work font-bold text-[22px] sm:text-[26px] text-[#101828]">Compare History</h1>
+              <p class="font-work text-[13px] text-[#99a1af] mt-0.5">Products you've compared — revisit and find the best deal again.</p>
+            </div>
+            <a href="category.html" class="shrink-0 flex items-center gap-2 bg-[#155dfc] text-white font-work font-semibold text-[13px] px-4 py-2.5 rounded-[12px] hover:bg-[#1447e6] transition-colors">
+              <i data-lucide="search" class="w-4 h-4" aria-hidden="true"></i>
+              <span class="hidden sm:inline">Compare New Product</span>
+              <span class="sm:hidden">New</span>
+            </a>
+          </div>
+
+          <!-- Stats row -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-4" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+              <div class="w-8 h-8 rounded-[10px] bg-[#eff6ff] flex items-center justify-center mb-2">
+                <i data-lucide="layers" class="w-4 h-4 text-[#155dfc]" aria-hidden="true"></i>
+              </div>
+              <p class="font-work font-bold text-[20px] text-[#101828]" data-stat="products-compared">0</p>
+              <p class="font-work text-[11px] text-[#99a1af]">Products Compared</p>
+            </div>
+            <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-4" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+              <div class="w-8 h-8 rounded-[10px] bg-[#fef3c7] flex items-center justify-center mb-2">
+                <i data-lucide="tag" class="w-4 h-4 text-[#d97706]" aria-hidden="true"></i>
+              </div>
+              <p class="font-work font-bold text-[20px] text-[#101828]" data-stat="categories">0</p>
+              <p class="font-work text-[11px] text-[#99a1af]">Categories</p>
+            </div>
+            <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-4" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+              <div class="w-8 h-8 rounded-[10px] bg-[#f0fdf4] flex items-center justify-center mb-2">
+                <i data-lucide="bar-chart-2" class="w-4 h-4 text-[#16a34a]" aria-hidden="true"></i>
+              </div>
+              <p class="font-work font-bold text-[20px] text-[#101828]" data-stat="listings-reviewed">9</p>
+              <p class="font-work text-[11px] text-[#99a1af]">Listings Reviewed</p>
+            </div>
+            <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-4" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+              <div class="w-8 h-8 rounded-[10px] bg-[#fce7f3] flex items-center justify-center mb-2">
+                <i data-lucide="trending-down" class="w-4 h-4 text-[#ec4899]" aria-hidden="true"></i>
+              </div>
+              <p class="font-work font-bold text-[20px] text-[#101828]" data-stat="potential-savings">₦0</p>
+              <p class="font-work text-[11px] text-[#99a1af]">Potential Savings</p>
+            </div>
+          </div>
+
+          <!-- Search & filters -->
+          <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-4" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="flex-1 relative">
+                <i data-lucide="search" class="w-4 h-4 text-[#99a1af] absolute left-3 top-1/2 -translate-y-1/2" aria-hidden="true"></i>
+                <input type="text" id="history-search" placeholder="Search history..." oninput="filterHistory()" class="w-full pl-9 pr-4 py-2.5 border border-[#e5e7eb] rounded-[10px] font-work text-[13px] text-[#364153] outline-none focus:border-[#155dfc] transition-colors" style="background:#fafafa">
+              </div>
+              <button class="w-9 h-9 border border-[#e5e7eb] rounded-[10px] flex items-center justify-center hover:bg-[#f9fafb] transition-colors shrink-0">
+                <i data-lucide="sliders-horizontal" class="w-4 h-4 text-[#6a7282]" aria-hidden="true"></i>
+              </button>
+            </div>
+            <!-- Filter pills -->
+            <div class="flex items-center gap-2 flex-wrap">
+              <button onclick="setFilter('all',this)" class="filter-pill font-work font-medium text-[12px] px-3 py-1.5 rounded-full bg-[#155dfc] text-white transition-colors">All</button>
+              <button onclick="setFilter('smartphones',this)" class="filter-pill font-work font-medium text-[12px] px-3 py-1.5 rounded-full bg-[#f3f4f6] text-[#6a7282] hover:bg-[#e5e7eb] transition-colors">Smartphones</button>
+              <button onclick="setFilter('headphones',this)" class="filter-pill font-work font-medium text-[12px] px-3 py-1.5 rounded-full bg-[#f3f4f6] text-[#6a7282] hover:bg-[#e5e7eb] transition-colors">Headphones</button>
+              <button onclick="setFilter('cameras',this)" class="filter-pill font-work font-medium text-[12px] px-3 py-1.5 rounded-full bg-[#f3f4f6] text-[#6a7282] hover:bg-[#e5e7eb] transition-colors">Cameras</button>
+            </div>
+          </div>
+
+          <!-- Product cards -->
+          <div id="compare-history-list" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="app-footer"></div>
+  <div id="app-mobile-nav"></div>
+
+  <script src="js/components.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    lucide.createIcons({ attrs: { 'stroke-width': 1.8 } });
+
+    // Populate user info from localStorage
+    (function() {
+      let user = null;
+      try { user = JSON.parse(localStorage.getItem('ch_user') || 'null'); } catch(e) {}
+      if (!user || !user.name) return;
+
+      const initials  = user.name.split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase();
+      const $ = id => document.getElementById(id);
+
+      if ($('history-sidebar-initials')) $('history-sidebar-initials').textContent = initials;
+      if ($('history-sidebar-name')) $('history-sidebar-name').textContent = user.name;
+      if ($('history-sidebar-email')) $('history-sidebar-email').textContent = user.email || '';
+
+      initDashboardData();
+      renderCompareHistory();
+      updateSidebarBadges();
+    })();
+
+    let activeFilter = 'all';
+
+    function setFilter(cat, btn) {
+      activeFilter = cat;
+      document.querySelectorAll('.filter-pill').forEach(p => {
+        p.classList.remove('bg-[#155dfc]', 'text-white');
+        p.classList.add('bg-[#f3f4f6]', 'text-[#6a7282]');
+      });
+      btn.classList.remove('bg-[#f3f4f6]', 'text-[#6a7282]');
+      btn.classList.add('bg-[#155dfc]', 'text-white');
+      filterHistory();
+    }
+
+    function filterHistory() {
+      const q = document.getElementById('history-search').value.toLowerCase();
+      document.querySelectorAll('.history-card').forEach(card => {
+        const cat = card.dataset.cat;
+        const name = card.querySelector('p.font-semibold').textContent.toLowerCase();
+        const catMatch = activeFilter === 'all' || cat === activeFilter;
+        const searchMatch = !q || name.includes(q) || cat.includes(q);
+        card.style.display = (catMatch && searchMatch) ? '' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>
+
