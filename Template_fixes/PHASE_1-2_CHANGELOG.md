@@ -1,4 +1,4 @@
-﻿# CompareHub — Phase 1 & Phase 2 Change Log
+# CompareHub — Phase 1 & Phase 2 Change Log
 
 Generated: 2026-07-15T15:33:13+01:00
 
@@ -108,6 +108,15 @@ Other UI pages (toast updates)
 - `Phase 1 fixes/compare.html` — toast calls updated to `CompareHub.ui.showToast(...)` (approx. lines ~666, ~679).
 - `Phase 1 fixes/product.html` — toast calls updated to `CompareHub.ui.showToast(...)` (approx. lines ~549, ~565, ~568, ~570).
 - `Phase 1 fixes/category.html` — toast call updated to `CompareHub.ui.showToast(...)` (approx. line ~341).
+
+---
+
+## Phase 3 - Moderate Priority fixes
+
+- **Item 17: Self-Hosted Lucide Icons**
+  - Downloaded and saved the pinned Lucide Icons UMD build (v0.441.0) directly into [`js/lucide.min.js`](file:///z:/home/ojchris/webworks/Comparehub/Template_fixes/js/lucide.min.js).
+  - Replaced external CDN URLs (`https://unpkg.com/lucide@0.441.0/dist/umd/lucide.min.js`) with relative local script paths (`js/lucide.min.js` or `../js/lucide.min.js`) across all 25 HTML pages.
+  - Eliminates reliance on external third-party CDNs, improving security, resilience, and offline availability.
 
 ---
 
