@@ -630,7 +630,9 @@ svg.lucide.w-6  { width: 24px !important; height: 24px !important; }
   }
 
   /* Tighter section spacing on mobile */
-  .main-container > div { --tw-space-y-reverse: 0; }
+  .main-container > div,
+  .main-container > section,
+  .main-container > main { --tw-space-y-reverse: 0; }
   .main-container .space-y-12 > * + * { margin-top: 20px !important; }
   .footer-container {
     padding-left: 16px !important;

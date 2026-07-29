@@ -113,6 +113,11 @@ Other UI pages (toast updates)
 
 ## Phase 3 - Moderate Priority fixes
 
+- **Item 8: Semantic Structure & Corresponding CSS Updates**
+  - Converted generic top header `<div>` tags in [`index.html`](file:///z:/home/ojchris/webworks/Comparehub/Template_fixes/index.html) and [`vendor-dashboard.html`](file:///z:/home/ojchris/webworks/Comparehub/Template_fixes/vendor-dashboard.html) to semantic `<header>` elements.
+  - Wrapped content areas in [`vendor-dashboard.html`](file:///z:/home/ojchris/webworks/Comparehub/Template_fixes/vendor-dashboard.html) with semantic `<main>` and `<section>` elements.
+  - Updated direct descendant CSS selectors in [`css/styles.css`](file:///z:/home/ojchris/webworks/Comparehub/Template_fixes/css/styles.css#L633) (`.main-container > div, .main-container > section, .main-container > main`) to ensure responsive rules match semantic elements without breaking layout hierarchy.
+
 - **Item 17: Self-Hosted Lucide Icons**
   - Downloaded and saved the pinned Lucide Icons UMD build (v0.441.0) directly into [`js/lucide.min.js`](file:///z:/home/ojchris/webworks/Comparehub/Template_fixes/js/lucide.min.js).
   - Replaced external CDN URLs (`https://unpkg.com/lucide@0.441.0/dist/umd/lucide.min.js`) with relative local script paths (`js/lucide.min.js` or `../js/lucide.min.js`) across all 25 HTML pages.
