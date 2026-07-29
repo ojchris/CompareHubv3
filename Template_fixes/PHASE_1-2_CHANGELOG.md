@@ -118,6 +118,15 @@ Other UI pages (toast updates)
   - Wrapped content areas in [`vendor-dashboard.html`](file:///z:/home/ojchris/webworks/Comparehub/Template_fixes/vendor-dashboard.html) with semantic `<main>` and `<section>` elements.
   - Updated direct descendant CSS selectors in [`css/styles.css`](file:///z:/home/ojchris/webworks/Comparehub/Template_fixes/css/styles.css#L633) (`.main-container > div, .main-container > section, .main-container > main`) to ensure responsive rules match semantic elements without breaking layout hierarchy.
 
+- **Item 9: Inline Style Extraction & Tailwind Utilities**
+  - Extracted inline `style="..."` attributes from [`index.html`](file:///z:/home/ojchris/webworks/Comparehub/Template_fixes/index.html), [`vendor-dashboard.html`](file:///z:/home/ojchris/webworks/Comparehub/Template_fixes/vendor-dashboard.html), and [`admin/login.html`](file:///z:/home/ojchris/webworks/Comparehub/Template_fixes/admin/login.html).
+  - Replaced inline styles (heights, shadows, background gradients, font sizes) with equivalent Tailwind utility classes (`h-[65px]`, `shadow-[0_1px_8px_rgba(0,0,0,0.07)]`, `bg-[linear-gradient(...)]`, `text-[#ffd234]`) and CSS rules (`.form-remember label`).
+
+- **Item 10: Tailwind Config & Token Standardization**
+  - Standardized `tailwind.config` in [`index.html`](file:///z:/home/ojchris/webworks/Comparehub/Template_fixes/index.html), [`vendor-dashboard.html`](file:///z:/home/ojchris/webworks/Comparehub/Template_fixes/vendor-dashboard.html), [`vendor-signup.html`](file:///z:/home/ojchris/webworks/Comparehub/Template_fixes/vendor-signup.html), and [`dashboard.html`](file:///z:/home/ojchris/webworks/Comparehub/Template_fixes/dashboard.html).
+  - Mapped `brand` color tokens directly to static hex values (`primary: '#155dfc'`, `hover: '#1447e6'`, `dark: '#181d25'`, `body: '#364153'`, `danger: '#ef4444'`) and radii/text sizing matching `:root` definitions in [`styles.css`](file:///z:/home/ojchris/webworks/Comparehub/Template_fixes/css/styles.css).
+  - Resolves conflicts between Tailwind JIT evaluation and runtime CSS variable lookups.
+
 - **Item 17: Self-Hosted Lucide Icons**
   - Downloaded and saved the pinned Lucide Icons UMD build (v0.441.0) directly into [`js/lucide.min.js`](file:///z:/home/ojchris/webworks/Comparehub/Template_fixes/js/lucide.min.js).
   - Replaced external CDN URLs (`https://unpkg.com/lucide@0.441.0/dist/umd/lucide.min.js`) with relative local script paths (`js/lucide.min.js` or `../js/lucide.min.js`) across all 25 HTML pages.

@@ -18,46 +18,47 @@
           },
           colors: {
             brand: {
-              primary: 'var(--color-primary)',
-              hover:   'var(--color-primary-hover)',
-              dark:    'var(--color-dark)',
-              body:    'var(--color-body)',
-              subtle:  'var(--color-subtle)',
-              muted:   'var(--color-muted)',
-              border:  'var(--color-border)',
-              surface: 'var(--color-surface)',
-              light:   'var(--color-light)',
-              success: 'var(--color-success)',
-              danger:  'var(--color-danger)',
+              primary: '#155dfc',
+              hover:   '#1447e6',
+              dark:    '#181d25',
+              body:    '#364153',
+              subtle:  '#5a6372',
+              muted:   '#808793',
+              border:  '#e5e7eb',
+              surface: '#f9fafb',
+              light:   '#e5edff',
+              success: '#05df72',
+              danger:  '#ef4444',
+              vendor:  '#0f42b3',
             },
           },
           borderRadius: {
-            btn:    'var(--radius-btn)',
-            card:   'var(--radius-card)',
-            panel:  'var(--radius-panel)',
-            drawer: 'var(--radius-drawer)',
-            pill:   'var(--radius-pill)',
+            btn:    '14px',
+            card:   '10px',
+            panel:  '16px',
+            drawer: '20px',
+            pill:   '30px',
           },
           fontSize: {
-            'label':      ['var(--text-label)',      { lineHeight: '1.5' }],
-            'caption':    ['var(--text-caption)',    { lineHeight: '1.5' }],
-            'body-sm':    ['var(--text-body-sm)',    { lineHeight: '1.5' }],
-            'body':       ['var(--text-body)',       { lineHeight: '1.5' }],
-            'body-md':    ['var(--text-body-md)',    { lineHeight: '1.5' }],
-            'heading-sm': ['var(--text-heading-sm)', { lineHeight: '1.5' }],
-            'heading':    ['var(--text-heading)',    { lineHeight: '1.5' }],
-            'heading-lg': ['var(--text-heading-lg)', { lineHeight: '1.2' }],
-            'hero':       ['var(--text-hero)',        { lineHeight: '1.1' }],
+            'label':      ['11px', { lineHeight: '1.5' }],
+            'caption':    ['12px', { lineHeight: '1.5' }],
+            'body-sm':    ['13px', { lineHeight: '1.5' }],
+            'body':       ['14px', { lineHeight: '1.5' }],
+            'body-md':    ['15px', { lineHeight: '1.5' }],
+            'heading-sm': ['18px', { lineHeight: '1.5' }],
+            'heading':    ['20px', { lineHeight: '1.5' }],
+            'heading-lg': ['30px', { lineHeight: '1.2' }],
+            'hero':       ['45px', { lineHeight: '1.1' }],
           },
           boxShadow: {
-            card:      'var(--shadow-card)',
-            'card-hover': 'var(--shadow-card-hover)',
-            header:    'var(--shadow-header)',
-            drawer:    'var(--shadow-drawer)',
-            dropdown:  'var(--shadow-dropdown)',
+            card:         '0 2px 4px rgba(0,0,0,0.06)',
+            'card-hover': '0 10px 28px rgba(0,0,0,0.1)',
+            header:       '0 1px 12px rgba(0,0,0,0.08)',
+            drawer:       '0 -8px 32px rgba(0,0,0,0.12)',
+            dropdown:     '0 12px 32px rgba(0,0,0,0.12)',
           },
           spacing: {
-            'section': 'var(--spacing-section)',
+            'section':    '111px',
           },
         },
       },
@@ -79,14 +80,14 @@
   <div id="app-header"></div>
 
   <!-- Mobile header — logo + search bar + menu -->
-  <header class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#f3f4f6]" style="height:65px;box-shadow:0 1px 8px rgba(0,0,0,0.07)">
+  <header class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#f3f4f6] h-[65px] shadow-[0_1px_8px_rgba(0,0,0,0.07)]">
     <div class="flex items-center gap-2 px-4 h-full">
       <a href="index.html" class="shrink-0">
         <img src="images/logos/logo-dark.svg" alt="CompareHub" class="h-5 w-auto">
       </a>
       <div class="flex-1 relative">
         <i data-lucide="search" class="w-4 h-4 text-[#99a1af] absolute left-3 top-1/2 -translate-y-1/2" aria-hidden="true"></i>
-        <input type="text" placeholder="Search..." class="w-full pl-9 pr-4 py-2 border border-[#e5e7eb] rounded-[8px] font-work text-[12px] text-[#364153] outline-none focus:border-[#155dfc] transition-colors" style="background:#fafafa">
+        <input type="text" placeholder="Search..." class="w-full pl-9 pr-4 py-2 border border-[#e5e7eb] rounded-[8px] font-work text-[12px] text-[#364153] outline-none focus:border-[#155dfc] transition-colors bg-[#fafafa]">
       </div>
       <button id="mobile-menu-btn" aria-label="Open mobile menu" class="w-9 h-9 border border-[#e5e7eb] rounded-[8px] flex items-center justify-center hover:bg-[#f9fafb] transition-colors shrink-0">
         <i data-lucide="menu" class="w-4 h-4 text-[#6a7282]" aria-hidden="true"></i>
@@ -122,34 +123,34 @@
   </script>
 
   <!-- Add top padding on mobile to account for fixed header -->
-  <div class="sm:hidden" style="height:2px"></div>
+  <div class="sm:hidden h-[2px]"></div>
 
   <!-- ===================================================
        MOBILE HERO BANNER — shown only on mobile
        =================================================== -->
-  <section class="sm:hidden px-4" style="padding-top:2px">
-    <div id="mobile-hero" class="relative overflow-hidden rounded-[16px]" style="background:linear-gradient(130deg,#155dfc 0%,#1244d4 60%,#0b3ac7 100%); height:148px">
+  <section class="sm:hidden px-4 pt-[2px]">
+    <div id="mobile-hero" class="relative overflow-hidden rounded-[16px] bg-[linear-gradient(130deg,#155dfc_0%,#1244d4_60%,#0b3ac7_100%)] h-[148px]">
 
       <!-- Decorative radial blobs -->
-      <div class="absolute rounded-full pointer-events-none" style="width:180px;height:180px;right:-20px;top:-50px;background:radial-gradient(circle,rgba(255,255,255,0.18) 0%,rgba(255,255,255,0) 70%)"></div>
-      <div class="absolute rounded-full pointer-events-none" style="width:100px;height:100px;left:35%;bottom:-20px;background:radial-gradient(circle,rgba(255,255,255,0.1) 0%,rgba(255,255,255,0) 70%)"></div>
+      <div class="absolute rounded-full pointer-events-none w-[180px] h-[180px] -right-[20px] -top-[50px] bg-[radial-gradient(circle,rgba(255,255,255,0.18)_0%,rgba(255,255,255,0)_70%)]"></div>
+      <div class="absolute rounded-full pointer-events-none w-[100px] h-[100px] left-[35%] -bottom-[20px] bg-[radial-gradient(circle,rgba(255,255,255,0.1)_0%,rgba(255,255,255,0)_70%)]"></div>
 
       <!-- Content row -->
       <div class="relative flex items-stretch h-full">
 
         <!-- Left: text content -->
-        <div class="flex flex-col justify-center gap-2.5 pl-5 pr-2" style="flex:1; max-width:210px">
-          <h2 class="font-work font-bold text-white leading-[1.2]" style="font-size:20px">
+        <div class="flex flex-col justify-center gap-2.5 pl-5 pr-2 flex-1 max-w-[210px]">
+          <h2 class="font-work font-bold text-white leading-[1.2] text-[20px]">
             Find the Best Price.
-            <span style="color:#ffd234">Every Time.</span>
+            <span class="text-[#ffd234]">Every Time.</span>
           </h2>
-          <button class="bg-white font-work font-semibold text-[#155dfc] text-[12px] rounded-[20px] self-start" style="padding:7px 18px">
+          <button class="bg-white font-work font-semibold text-[#155dfc] text-[12px] rounded-[20px] self-start px-[18px] py-[7px]">
             Get Started
           </button>
         </div>
 
         <!-- Right: woman with shopping bags — drop image at images/mobile-hero-woman.png -->
-        <div class="absolute bottom-0 right-0 pointer-events-none" style="width:145px; height:148px">
+        <div class="absolute bottom-0 right-0 pointer-events-none w-[145px] h-[148px]">
           <img src="images/mobile-hero-woman.png" alt="" class="w-full h-full object-cover object-top"
             onerror="this.style.display='none'" aria-hidden="true">
         </div>
@@ -158,9 +159,9 @@
 
       <!-- Slider dots -->
       <div class="absolute bottom-2.5 left-5 flex items-center gap-1.5">
-        <span class="block rounded-full bg-white" style="width:16px;height:4px"></span>
-        <span class="block rounded-full" style="width:4px;height:4px;background:rgba(255,255,255,0.45)"></span>
-        <span class="block rounded-full" style="width:4px;height:4px;background:rgba(255,255,255,0.45)"></span>
+        <span class="block rounded-full bg-white w-[16px] h-[4px]"></span>
+        <span class="block rounded-full w-[4px] h-[4px] bg-white/45"></span>
+        <span class="block rounded-full w-[4px] h-[4px] bg-white/45"></span>
       </div>
     </div>
   </section>
