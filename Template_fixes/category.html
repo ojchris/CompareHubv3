@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Category â€” CompareHub</title>
+  <title>Category — CompareHub</title>
   <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
   <script src="js/tailwind-config.js"></script>
   <script src="https://cdn.tailwindcss.com?with=default@3.4.1"></script>
@@ -34,7 +34,7 @@
     </div>
     <div class="relative">
       <i data-lucide="search" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#808793] z-10" aria-hidden="true"></i>
-      <input id="cat-mobile-search" type="text" placeholder="Search products, brandsâ€¦"
+      <input id="cat-mobile-search" type="text" placeholder="Search products, brands…"
         class="w-full bg-[#f3f4f6] rounded-[14px] pl-10 pr-4 font-work text-[14px] text-[#364153] placeholder-[#808793] outline-none border-none" style="height:44px" autocomplete="off">
     </div>
   </div>
@@ -43,7 +43,7 @@
   <div id="app-header"></div>
 
   <!-- =====================================================
-       BREADCRUMBS â€” desktop only
+       BREADCRUMBS — desktop only
        ===================================================== -->
   <div class="hidden sm:flex fixed top-[70px] left-0 right-0 z-40 h-[49px] items-center bg-white border-b border-[#f3f4f6] px-[120px]">
     <div class="flex items-center gap-2">
@@ -63,7 +63,7 @@
 
     <div class="max-w-[1290px] mx-auto px-4 sm:px-8 py-6 sm:py-8">
 
-      <!-- Search + Location row â€” desktop -->
+      <!-- Search + Location row — desktop -->
       <div class="hidden sm:flex items-center gap-4 mb-9">
         <!-- Search bar -->
         <div class="relative flex-1">
@@ -90,7 +90,7 @@
         </div>
       </div>
 
-      <!-- Category filter pills â€” mobile -->
+      <!-- Category filter pills — mobile -->
       <div class="sm:hidden flex items-center gap-2 overflow-x-auto pb-3 mb-4 no-scrollbar">
         <button class="cat-pill font-work font-semibold text-[13px] rounded-[20px] px-4 py-2 shrink-0 transition-colors bg-brand-primary text-white" data-cat="all">All</button>
         <button class="cat-pill font-work font-medium text-[13px] rounded-[20px] px-4 py-2 shrink-0 bg-white border border-[#e5e7eb] text-[#364153]" data-cat="electronics">Electronics</button>
@@ -107,7 +107,7 @@
             <option value="default">Relevance</option>
             <option value="price-asc">Price: Low to High</option>
             <option value="price-desc">Price: High to Low</option>
-            <option value="name">Name Aâ€“Z</option>
+            <option value="name">Name A-Z</option>
           </select>
         </div>
       </div>
@@ -143,7 +143,7 @@
   <script src="js/components.js"></script>
   <script src="js/app.js"></script>
   <script>
-    // â”€â”€ Category page bootstrap â€” reads from URL hash â”€â”€â”€â”€â”€â”€
+    // -- Category page bootstrap — reads from URL hash ------
     function parseHash() {
       const hash = window.location.hash.slice(1); // strip '#'
       return new URLSearchParams(hash);
@@ -213,7 +213,7 @@
       empty.classList.add('hidden');
       empty.classList.remove('flex');
 
-      // Desktop card: matches Figma â€” image 151px, info panel below
+      // Desktop card: matches Figma — image 151px, info panel below
       grid.innerHTML = products.map(p => `
         <div class="bg-white rounded-[10px] overflow-hidden flex flex-col shadow-soft">
           <a href="product.html#id=${p.id}" class="block overflow-hidden bg-[#f9fafb]" style="height:151px">
@@ -242,7 +242,7 @@
       if (activeSearch) title = `Results for "${activeSearch}"`;
       document.getElementById('mobile-page-title').textContent = title;
       document.getElementById('breadcrumb-label').textContent = title;
-      document.title = `${title} â€” CompareHub`;
+      document.title = `${title} — CompareHub`;
     }
 
     // Category pill clicks (mobile)
@@ -291,11 +291,11 @@
     // Search dropdown on desktop
     bindSearchBar('cat-desktop-search', 'cat-desktop-dropdown');
 
-    // â”€â”€ Location filter â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // -- Location filter ----------------------------------------
     const STATES = [
       'All States','Abia','Adamawa','Akwa Ibom','Anambra','Bauchi','Bayelsa',
       'Benue','Borno','Cross River','Delta','Ebonyi','Edo','Ekiti','Enugu',
-      'FCT â€” Abuja','Gombe','Imo','Jigawa','Kaduna','Kano','Katsina','Kebbi',
+      'FCT — Abuja','Gombe','Imo','Jigawa','Kaduna','Kano','Katsina','Kebbi',
       'Kogi','Kwara','Lagos','Nasarawa','Niger','Ogun','Ondo','Osun','Oyo',
       'Plateau','Rivers','Sokoto','Taraba','Yobe','Zamfara'
     ];
@@ -357,6 +357,10 @@
   </script>
 </body>
 </html>
+
+
+
+
 
 
 

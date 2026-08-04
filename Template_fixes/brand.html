@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Brand Profile â€” CompareHub</title>
+  <title>Brand Profile — CompareHub</title>
   <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
   <script src="js/tailwind-config.js"></script>
   <script src="https://cdn.tailwindcss.com?with=default@3.4.1"></script>
@@ -111,7 +111,7 @@
   <main class="max-w-[1290px] mx-auto px-4 sm:px-8 py-6 sm:py-8">
     <div class="flex flex-col lg:flex-row gap-6 items-start">
 
-      <!-- â”€â”€ LEFT SIDEBAR â”€â”€ -->
+      <!-- -- LEFT SIDEBAR -- -->
       <div class="lg:w-[256px] shrink-0 flex flex-col gap-4 lg:sticky lg:top-[90px]">
 
         <!-- Product Categories -->
@@ -150,7 +150,7 @@
 
       </div>
 
-      <!-- â”€â”€ MAIN PRODUCTS AREA â”€â”€ -->
+      <!-- -- MAIN PRODUCTS AREA -- -->
       <div class="flex-1 min-w-0">
         <!-- Heading -->
         <div class="flex items-center gap-2 mb-4">
@@ -188,10 +188,10 @@
   <script src="js/components.js"></script>
   <script src="js/app.js"></script>
   <script>
-  // â”€â”€ Brand Profile Page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // -- Brand Profile Page -------------------------------------------------
 
   const VENDOR_PROFILES = {
-    // â”€â”€ Vendors (have listings in VENDOR_LISTINGS) â”€â”€
+    // -- Vendors (have listings in VENDOR_LISTINGS) --
     ELECTROMART: {
       display: 'ElectroMart',
       tagline: 'Premium electronics, nationwide delivery',
@@ -240,7 +240,7 @@
       location: 'Ibadan, Oyo',
       avatar: { bg: '#ecfcca', text: '#497d00' },
     },
-    // â”€â”€ Restaurant & Food Brands â”€â”€
+    // -- Restaurant & Food Brands --
     MAMACAS: {
       display: 'Mamacas',
       tagline: 'Authentic Nigerian home-style cooking',
@@ -277,34 +277,34 @@
       location: 'Port Harcourt, Rivers',
       avatar: { bg: '#fff1f2', text: '#be123c' },
     },
-    // â”€â”€ Global Tech Brands â”€â”€
+    // -- Global Tech Brands --
     APPLE: {
       display: 'Apple',
-      tagline: 'Think different â€” premium devices & accessories',
+      tagline: 'Think different — premium devices & accessories',
       location: 'Available Nationwide',
       avatar: { bg: '#f1f5f9', text: '#334155' },
     },
     SAMSUNG: {
       display: 'Samsung',
-      tagline: "Do what you can't â€” innovation for everyone",
+      tagline: "Do what you can't — innovation for everyone",
       location: 'Available Nationwide',
       avatar: { bg: '#dbeafe', text: '#1447e6' },
     },
     SONY: {
       display: 'Sony',
-      tagline: 'Be moved â€” electronics, gaming & entertainment',
+      tagline: 'Be moved — electronics, gaming & entertainment',
       location: 'Available Nationwide',
       avatar: { bg: '#f8fafc', text: '#1e293b' },
     },
     JBL: {
       display: 'JBL',
-      tagline: 'Hear the truth â€” premium audio gear',
+      tagline: 'Hear the truth — premium audio gear',
       location: 'Available Nationwide',
       avatar: { bg: '#fef3c6', text: '#92400e' },
     },
     CANON: {
       display: 'Canon',
-      tagline: 'Delighting you always â€” cameras & imaging',
+      tagline: 'Delighting you always — cameras & imaging',
       location: 'Available Nationwide',
       avatar: { bg: '#fee2e2', text: '#b91c1c' },
     },
@@ -342,7 +342,7 @@
   }
 
   function formatPrice(num) {
-    return 'â‚¦' + num.toLocaleString('en-NG');
+    return '₦' + num.toLocaleString('en-NG');
   }
 
   function buildProductCard(product, listing) {
@@ -396,7 +396,7 @@
     document.getElementById('mobile-brand-sub').textContent = profile.tagline;
 
     // Page title
-    document.title = `${profile.display} â€” CompareHub`;
+    document.title = `${profile.display} — CompareHub`;
 
     // Get products for this vendor
     const vendorProducts = getVendorProducts(brandId);
@@ -473,6 +473,8 @@
   </script>
 </body>
 </html>
+
+
 
 
 

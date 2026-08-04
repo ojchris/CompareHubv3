@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Events â€” CompareHub</title>
+  <title>Events — CompareHub</title>
   <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
   <script src="js/tailwind-config.js"></script>
   <script src="https://cdn.tailwindcss.com?with=default@3.4.1"></script>
@@ -61,7 +61,7 @@
   <!-- Desktop header (rendered by components.js) -->
   <div id="app-header"></div>
 
-  <!-- Mobile header â€” logo + hamburger menu -->
+  <!-- Mobile header — logo + hamburger menu -->
   <div class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#f3f4f6] h-[65px] shadow-soft-top">
     <div class="flex items-center justify-between px-4 h-full">
       <a href="index.html" class="shrink-0">
@@ -114,14 +114,14 @@
 
     <div class="relative z-10 flex flex-col sm:h-full">
 
-      <!-- MOBILE: top row â€” location + year nav -->
+      <!-- MOBILE: top row — location + year nav -->
       <div class="sm:hidden flex items-center justify-between px-5 pt-12 pb-3">
         <div>
           <div class="flex items-center gap-1.5">
             <i data-lucide="map-pin" class="w-3.5 h-3.5 text-white/70 shrink-0" aria-hidden="true"></i>
             <span class="font-inter font-semibold text-[13px] text-white">Lagos</span>
           </div>
-          <p id="hero-count-mobile" class="font-inter text-[12px] text-white/60 mt-0.5 ml-[19px]">2 events Â· April 2026</p>
+          <p id="hero-count-mobile" class="font-inter text-[12px] text-white/60 mt-0.5 ml-[19px]">2 events · April 2026</p>
         </div>
         <div class="flex items-center gap-1">
           <button onclick="prevYear()" class="w-7 h-7 flex items-center justify-center rounded-full bg-white/15 hover:bg-white/25 transition-colors">
@@ -138,7 +138,7 @@
       <div class="sm:hidden px-5 pb-4">
         <div class="flex items-center gap-2 rounded-full px-4 h-[42px] border border-white/20" style="background:rgba(255,255,255,0.12)">
           <i data-lucide="search" class="w-4 h-4 text-white/50 shrink-0" aria-hidden="true"></i>
-          <input id="search-events-mobile" type="text" placeholder="Search eventsâ€¦" oninput="searchEvents(this.value)" class="bg-transparent outline-none font-inter text-[14px] text-white placeholder:text-white/40 flex-1">
+          <input id="search-events-mobile" type="text" placeholder="Search events…" oninput="searchEvents(this.value)" class="bg-transparent outline-none font-inter text-[14px] text-white placeholder:text-white/40 flex-1">
         </div>
       </div>
 
@@ -150,7 +150,7 @@
         </div>
         <div class="flex items-center gap-2 bg-white/15 border border-white/20 rounded-[14px] px-4 h-[42px]">
           <i data-lucide="search" class="w-4 h-4 text-white/60 shrink-0" aria-hidden="true"></i>
-          <input id="search-events-desktop" type="text" placeholder="Search eventsâ€¦" oninput="searchEvents(this.value)" class="bg-transparent outline-none font-inter text-[14px] text-white placeholder-white/40 w-[200px]">
+          <input id="search-events-desktop" type="text" placeholder="Search events…" oninput="searchEvents(this.value)" class="bg-transparent outline-none font-inter text-[14px] text-white placeholder-white/40 w-[200px]">
         </div>
       </div>
 
@@ -240,7 +240,7 @@
         <!-- Top badges -->
         <div class="absolute top-4 left-4 flex items-center gap-2 z-10">
           <span class="bg-[#155dfc] text-white font-work font-semibold text-[12px] px-3.5 py-1.5 rounded-full shadow-lg">Tech</span>
-          <span class="bg-[#fbbf24] text-[#1a1a1a] font-work font-bold text-[11px] px-3 py-1.5 rounded-full shadow-lg">â­Â Featured</span>
+          <span class="bg-[#fbbf24] text-[#1a1a1a] font-work font-bold text-[11px] px-3 py-1.5 rounded-full shadow-lg">💰 Featured</span>
         </div>
 
         <!-- Date badge top right -->
@@ -300,14 +300,14 @@
                 <i data-lucide="clock" class="w-3 h-3 text-[#99a1af] shrink-0" aria-hidden="true"></i>
                 <span class="font-work text-[11px] text-[#99a1af]">02:00 PM</span>
               </div>
-              <span class="text-[#99a1af]">Â·</span>
+              <span class="text-[#99a1af]">·</span>
               <div class="flex items-center gap-1 min-w-0">
                 <i data-lucide="map-pin" class="w-3 h-3 text-[#99a1af] shrink-0" aria-hidden="true"></i>
                 <span class="font-work text-[11px] text-[#99a1af] truncate">The Landmark Centre</span>
               </div>
             </div>
             <div class="flex items-center justify-between pt-2 border-t border-[#f3f4f6]">
-              <span class="font-work font-semibold text-[12px] text-[#364153]">â‚¦2,500</span>
+              <span class="font-work font-semibold text-[12px] text-[#364153]">₦2,500</span>
               <span class="font-work font-medium text-[11px] text-white bg-[#155dfc] px-2.5 py-1 rounded-[6px]">Get Ticket</span>
             </div>
           </div>
@@ -334,7 +334,7 @@
                 <i data-lucide="clock" class="w-3 h-3 text-[#99a1af] shrink-0" aria-hidden="true"></i>
                 <span class="font-work text-[11px] text-[#99a1af]">10:00 AM</span>
               </div>
-              <span class="text-[#99a1af]">Â·</span>
+              <span class="text-[#99a1af]">·</span>
               <div class="flex items-center gap-1 min-w-0">
                 <i data-lucide="map-pin" class="w-3 h-3 text-[#99a1af] shrink-0" aria-hidden="true"></i>
                 <span class="font-work text-[11px] text-[#99a1af] truncate">Transcorp Hilton</span>
@@ -368,7 +368,7 @@
                 <i data-lucide="clock" class="w-3 h-3 text-[#99a1af] shrink-0" aria-hidden="true"></i>
                 <span class="font-work text-[11px] text-[#99a1af]">08:00 AM</span>
               </div>
-              <span class="text-[#99a1af]">Â·</span>
+              <span class="text-[#99a1af]">·</span>
               <div class="flex items-center gap-1 min-w-0">
                 <i data-lucide="map-pin" class="w-3 h-3 text-[#99a1af] shrink-0" aria-hidden="true"></i>
                 <span class="font-work text-[11px] text-[#99a1af] truncate">PH City Mall</span>
@@ -402,14 +402,14 @@
                 <i data-lucide="clock" class="w-3 h-3 text-[#99a1af] shrink-0" aria-hidden="true"></i>
                 <span class="font-work text-[11px] text-[#99a1af]">12:00 PM</span>
               </div>
-              <span class="text-[#99a1af]">Â·</span>
+              <span class="text-[#99a1af]">·</span>
               <div class="flex items-center gap-1 min-w-0">
                 <i data-lucide="map-pin" class="w-3 h-3 text-[#99a1af] shrink-0" aria-hidden="true"></i>
                 <span class="font-work text-[11px] text-[#99a1af] truncate">Tafawa Balewa Sq.</span>
               </div>
             </div>
             <div class="flex items-center justify-between pt-2 border-t border-[#f3f4f6]">
-              <span class="font-work font-semibold text-[12px] text-[#364153]">â‚¦5,000</span>
+              <span class="font-work font-semibold text-[12px] text-[#364153]">₦5,000</span>
               <span class="font-work font-medium text-[11px] text-white bg-[#155dfc] px-2.5 py-1 rounded-[6px]">Get Ticket</span>
             </div>
           </div>
@@ -436,14 +436,14 @@
                 <i data-lucide="clock" class="w-3 h-3 text-[#99a1af] shrink-0" aria-hidden="true"></i>
                 <span class="font-work text-[11px] text-[#99a1af]">09:30 AM</span>
               </div>
-              <span class="text-[#99a1af]">Â·</span>
+              <span class="text-[#99a1af]">·</span>
               <div class="flex items-center gap-1 min-w-0">
                 <i data-lucide="map-pin" class="w-3 h-3 text-[#99a1af] shrink-0" aria-hidden="true"></i>
                 <span class="font-work text-[11px] text-[#99a1af] truncate">Abuja Int'l Conf. Centre</span>
               </div>
             </div>
             <div class="flex items-center justify-between pt-2 border-t border-[#f3f4f6]">
-              <span class="font-work font-semibold text-[12px] text-[#364153]">â‚¦3,000</span>
+              <span class="font-work font-semibold text-[12px] text-[#364153]">₦3,000</span>
               <span class="font-work font-medium text-[11px] text-white bg-[#155dfc] px-2.5 py-1 rounded-[6px]">Get Ticket</span>
             </div>
           </div>
@@ -470,14 +470,14 @@
                 <i data-lucide="clock" class="w-3 h-3 text-[#99a1af] shrink-0" aria-hidden="true"></i>
                 <span class="font-work text-[11px] text-[#99a1af]">11:00 AM</span>
               </div>
-              <span class="text-[#99a1af]">Â·</span>
+              <span class="text-[#99a1af]">·</span>
               <div class="flex items-center gap-1 min-w-0">
                 <i data-lucide="map-pin" class="w-3 h-3 text-[#99a1af] shrink-0" aria-hidden="true"></i>
                 <span class="font-work text-[11px] text-[#99a1af] truncate">Terra Kulture</span>
               </div>
             </div>
             <div class="flex items-center justify-between pt-2 border-t border-[#f3f4f6]">
-              <span class="font-work font-semibold text-[12px] text-[#364153]">â‚¦8,000</span>
+              <span class="font-work font-semibold text-[12px] text-[#364153]">₦8,000</span>
               <span class="font-work font-medium text-[11px] text-white bg-[#155dfc] px-2.5 py-1 rounded-[6px]">Get Ticket</span>
             </div>
           </div>
@@ -504,14 +504,14 @@
                 <i data-lucide="clock" class="w-3 h-3 text-[#99a1af] shrink-0" aria-hidden="true"></i>
                 <span class="font-work text-[11px] text-[#99a1af]">10:00 AM</span>
               </div>
-              <span class="text-[#99a1af]">Â·</span>
+              <span class="text-[#99a1af]">·</span>
               <div class="flex items-center gap-1 min-w-0">
                 <i data-lucide="map-pin" class="w-3 h-3 text-[#99a1af] shrink-0" aria-hidden="true"></i>
                 <span class="font-work text-[11px] text-[#99a1af] truncate">Muson Centre</span>
               </div>
             </div>
             <div class="flex items-center justify-between pt-2 border-t border-[#f3f4f6]">
-              <span class="font-work font-semibold text-[12px] text-[#364153]">â‚¦1,500</span>
+              <span class="font-work font-semibold text-[12px] text-[#364153]">₦1,500</span>
               <span class="font-work font-medium text-[11px] text-white bg-[#155dfc] px-2.5 py-1 rounded-[6px]">Get Ticket</span>
             </div>
           </div>
@@ -539,7 +539,7 @@
   <script>
     lucide.createIcons();
 
-    // â”€â”€ Constants â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // -- Constants --------------------------------------------------
     const _now = new Date();
     const TODAY_STR    = `${_now.getFullYear()}-${String(_now.getMonth()+1).padStart(2,'0')}-${String(_now.getDate()).padStart(2,'0')}`;
     const MONTH_LABELS = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
@@ -549,7 +549,7 @@
     let currentYear  = _now.getFullYear();
     let currentMonth = _now.getMonth(); // 0-indexed
 
-    // â”€â”€ FullCalendar setup (hidden, used as data/nav engine) â”€â”€â”€â”€â”€â”€â”€
+    // -- FullCalendar setup (hidden, used as data/nav engine) -------
     const fcEl = document.getElementById('fc-root');
     const calendar = new FullCalendar.Calendar(fcEl, {
       initialView: 'dayGridMonth',
@@ -565,7 +565,7 @@
         { title: 'Smart Home Expo',           start: '2026-04-05', extendedProps: { dateKey: '2026-04-05' } },
       ],
       datesSet: function(info) {
-        // FullCalendar fired navigation â€” sync our UI
+        // FullCalendar fired navigation — sync our UI
         const d = calendar.getDate();
         currentYear  = d.getFullYear();
         currentMonth = d.getMonth(); // 0-indexed
@@ -574,7 +574,7 @@
     });
     calendar.render();
 
-    // â”€â”€ Derive event-dates map from FullCalendar events â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // -- Derive event-dates map from FullCalendar events ------------
     function getEventDatesMap() {
       const map = {};
       calendar.getEvents().forEach(ev => {
@@ -583,7 +583,7 @@
       return map;
     }
 
-    // â”€â”€ Month buttons â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // -- Month buttons ----------------------------------------------
     function buildMonthButtons() {
       const container = document.getElementById('months-container');
       if (!container) return;
@@ -616,7 +616,7 @@
       if (yearElM) yearElM.textContent = currentYear;
     }
 
-    // â”€â”€ Date scroller â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // -- Date scroller ----------------------------------------------
     function buildDateScroller() {
       const scroller = document.getElementById('date-scroller');
       if (!scroller) return;
@@ -669,7 +669,7 @@
       scroller.scrollLeft = Math.max(0, (targetDay - 4) * 52);
     }
 
-    // â”€â”€ Hero subtitle â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // -- Hero subtitle ----------------------------------------------
     function updateHeroCount() {
       const EVENT_DATES = getEventDatesMap();
       const monthEvents = Object.keys(EVENT_DATES).filter(k => {
@@ -679,13 +679,13 @@
       const text = `${monthEvents} event${monthEvents !== 1 ? 's' : ''} in ${MONTH_LABELS[currentMonth]} ${currentYear}`;
       const el = document.getElementById('hero-count');
       if (el) el.textContent = text;
-      // Mobile subtitle: "N events Â· MONTH YEAR"
-      const mobileText = `${monthEvents} event${monthEvents !== 1 ? 's' : ''} Â· ${MONTH_LABELS[currentMonth]} ${currentYear}`;
+      // Mobile subtitle: "N events · MONTH YEAR"
+      const mobileText = `${monthEvents} event${monthEvents !== 1 ? 's' : ''} · ${MONTH_LABELS[currentMonth]} ${currentYear}`;
       const elM = document.getElementById('hero-count-mobile');
       if (elM) elM.textContent = mobileText;
     }
 
-    // â”€â”€ Filter events by clicked date â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // -- Filter events by clicked date ------------------------------
     function filterByDate(dateKey) {
       if (selectedDate === dateKey) {
         selectedDate = null;
@@ -755,14 +755,14 @@
       buildDateScroller();
     }
 
-    // â”€â”€ Full UI refresh (called by FullCalendar datesSet + init) â”€â”€â”€
+    // -- Full UI refresh (called by FullCalendar datesSet + init) ---
     function refreshCustomUI() {
       buildMonthButtons();
       buildDateScroller();
       updateHeroCount();
     }
 
-    // â”€â”€ Year nav (delegates to FullCalendar) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // -- Year nav (delegates to FullCalendar) -----------------------
     function prevYear() {
       selectedDate = null;
       calendar.gotoDate(new Date(currentYear - 1, currentMonth, 1));
@@ -776,10 +776,10 @@
       if (s) s.scrollBy({ left: dir * 260, behavior: 'smooth' });
     }
 
-    // â”€â”€ Init â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // -- Init -------------------------------------------------------
     // FullCalendar's datesSet fires on render, which calls refreshCustomUI automatically.
 
-    // â”€â”€ Search events â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // -- Search events ----------------------------------------------
     function searchEvents(query) {
       const q = query.trim().toLowerCase();
       const allCards = document.querySelectorAll('[data-date]');
@@ -846,7 +846,7 @@
       buildDateScroller();
     }
 
-    // â”€â”€ Category filter tabs â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // -- Category filter tabs ---------------------------------------
     function filterEvents(category, btn) {
       selectedDate = null; // clear date filter when using category tabs
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -878,6 +878,10 @@
   </script>
 </body>
 </html>
+
+
+
+
 
 
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reports â€” CompareHub Vendor</title>
+  <title>Reports — CompareHub Vendor</title>
   <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
   <script src="js/tailwind-config.js"></script>
   <script src="https://cdn.tailwindcss.com?with=default@3.4.1"></script>
@@ -154,7 +154,7 @@
               <div class="w-8 h-8 rounded-[10px] bg-[#fce7f3] flex items-center justify-center mb-2">
                 <i data-lucide="trending-up" class="w-4 h-4 text-[#ec4899]" aria-hidden="true"></i>
               </div>
-              <p class="font-work font-bold text-[20px] text-[#101828]" id="metric-revenue">â‚¦0</p>
+              <p class="font-work font-bold text-[20px] text-[#101828]" id="metric-revenue">₦0</p>
               <p class="font-work text-[11px] text-[#99a1af]">Revenue</p>
             </div>
           </div>
@@ -329,7 +329,7 @@
       document.getElementById('metric-views').textContent = views;
       document.getElementById('metric-clicks').textContent = clicks;
       document.getElementById('metric-conversions').textContent = conversions;
-      document.getElementById('metric-revenue').textContent = 'â‚¦' + totalRevenue.toLocaleString();
+      document.getElementById('metric-revenue').textContent = '₦' + totalRevenue.toLocaleString();
 
       // Render top products
       renderTopProducts(vendor);
@@ -351,7 +351,7 @@
           <span class="font-work font-bold text-[13px] text-[#99a1af] w-6">${idx + 1}</span>
           <div class="flex-1 min-w-0">
             <p class="font-work font-medium text-[13px] text-[#101828] truncate">${product.name}</p>
-            <p class="font-work text-[11px] text-[#99a1af]">â‚¦${product.price.toLocaleString()}</p>
+            <p class="font-work text-[11px] text-[#99a1af]">₦${product.price.toLocaleString()}</p>
           </div>
           <span class="font-work font-semibold text-[12px] text-[#155dfc]">${Math.floor(Math.random() * 100)}</span>
         </div>
@@ -397,13 +397,13 @@
                 <p class="font-work text-[13px] text-[#364153]">${ticket.name}</p>
               </td>
               <td class="px-4 py-4">
-                <p class="font-work font-semibold text-[13px] text-[#101828]">â‚¦${priceNum.toLocaleString()}</p>
+                <p class="font-work font-semibold text-[13px] text-[#101828]">₦${priceNum.toLocaleString()}</p>
               </td>
               <td class="px-4 py-4">
                 <span class="font-work font-bold text-[13px] text-[#155dfc]">${sold}/${ticket.quantity}</span>
               </td>
               <td class="px-4 py-4 text-right">
-                <p class="font-work font-bold text-[13px] text-[#16a34a]">â‚¦${revenue.toLocaleString()}</p>
+                <p class="font-work font-bold text-[13px] text-[#16a34a]">₦${revenue.toLocaleString()}</p>
               </td>
             </tr>`;
 
@@ -416,7 +416,7 @@
               <div class="space-y-2 mb-3">
                 <div class="flex items-center justify-between">
                   <span class="font-work text-[11px] text-[#6a7282]">Price</span>
-                  <span class="font-work font-semibold text-[12px] text-[#101828]">â‚¦${priceNum.toLocaleString()}</span>
+                  <span class="font-work font-semibold text-[12px] text-[#101828]">₦${priceNum.toLocaleString()}</span>
                 </div>
                 <div class="flex items-center justify-between">
                   <span class="font-work text-[11px] text-[#6a7282]">Sold</span>
@@ -424,7 +424,7 @@
                 </div>
                 <div class="flex items-center justify-between pt-2 border-t border-[#f3f4f6]">
                   <span class="font-work text-[11px] text-[#6a7282]">Revenue</span>
-                  <span class="font-work font-bold text-[12px] text-[#16a34a]">â‚¦${revenue.toLocaleString()}</span>
+                  <span class="font-work font-bold text-[12px] text-[#16a34a]">₦${revenue.toLocaleString()}</span>
                 </div>
               </div>
             </div>`;
@@ -462,6 +462,8 @@
   </script>
 </body>
 </html>
+
+
 
 
 

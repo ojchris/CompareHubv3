@@ -1040,7 +1040,7 @@ CH.ui.selectState = function(state) {
   if (locationEl) locationEl.textContent = state;
   renderStatesList();
   setTimeout(closeLocationModal, 200);
-  CH.ui.showToast(`ðŸ“ Delivering to ${state}`);
+  CH.ui.showToast(`📍 Delivering to ${state}`);
 };
 
 function openLocationModal() {
@@ -1435,6 +1435,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initLocationModal();
   renderIcons();
 });
+
 
 
 

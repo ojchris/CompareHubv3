@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Compare Cart â€” CompareHub</title>
+  <title>Compare Cart — CompareHub</title>
   <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
   <script src="js/tailwind-config.js"></script>
   <script src="https://cdn.tailwindcss.com?with=default@3.4.1"></script>
@@ -101,11 +101,11 @@
         </div>
         <div class="flex-1 min-w-0">
           <p class="font-inter font-semibold text-[10px] text-white/80 tracking-[0.37px] uppercase">You're saving</p>
-          <p id="mobile-savings-amount" class="font-inter font-bold text-[16px] text-white leading-tight tracking-[-0.3px]">â‚¦0</p>
+          <p id="mobile-savings-amount" class="font-inter font-bold text-[16px] text-white leading-tight tracking-[-0.3px]">₦0</p>
         </div>
         <div class="text-right shrink-0">
           <p class="font-inter text-[10px] text-[#bedbff] leading-tight">Cart total</p>
-          <p id="mobile-cart-total" class="font-inter font-bold text-[13px] text-white leading-tight tracking-[-0.08px]">â‚¦0</p>
+          <p id="mobile-cart-total" class="font-inter font-bold text-[13px] text-white leading-tight tracking-[-0.08px]">₦0</p>
         </div>
       </div>
 
@@ -126,7 +126,7 @@
     <div class="flex items-center gap-3">
       <div class="flex-1 min-w-0">
         <p class="font-inter text-[11px] text-[#99a1af] leading-tight">Est. total</p>
-        <p id="mobile-est-total" class="font-inter font-bold text-[17px] text-[#101828] tracking-[-0.43px] leading-tight">â‚¦0</p>
+        <p id="mobile-est-total" class="font-inter font-bold text-[17px] text-[#101828] tracking-[-0.43px] leading-tight">₦0</p>
       </div>
       <a href="category.html#cat=all" class="flex items-center gap-2 border border-[#e5e7eb] rounded-[14px] h-[41px] px-4 font-inter font-medium text-[13px] text-[#4a5565] shrink-0 hover:bg-[#f9fafb] transition-colors">
         <i data-lucide="plus" class="w-3.5 h-3.5" aria-hidden="true"></i> Add more
@@ -169,11 +169,11 @@
           <div class="rounded-[16px] overflow-hidden" style="background:linear-gradient(135deg,#155dfc 0%,#1447e6 100%)">
             <div class="px-5 pt-5 pb-4">
               <p class="font-inter font-semibold text-[11px] text-[#dbeafe] tracking-[0.8px] uppercase mb-2">You're saving with CompareHub</p>
-              <p id="total-savings" class="font-inter font-bold text-[30px] text-white leading-none mb-1">â‚¦0</p>
+              <p id="total-savings" class="font-inter font-bold text-[30px] text-white leading-none mb-1">₦0</p>
               <p class="font-inter text-[13px] text-[#bedbff] mb-4">vs. the most expensive listings</p>
               <div class="border-t border-[#2b7fff] pt-3 flex items-center justify-between">
                 <span class="font-inter text-[13px] text-[#bedbff]">Your cart total</span>
-                <span id="cart-total" class="font-inter font-bold text-[14px] text-white">â‚¦0</span>
+                <span id="cart-total" class="font-inter font-bold text-[14px] text-white">₦0</span>
               </div>
             </div>
           </div>
@@ -185,7 +185,7 @@
               <div id="cart-summary-items" class="flex flex-col gap-3 mb-4"></div>
               <div class="border-t border-[#f3f4f6] pt-3 flex items-center justify-between">
                 <span class="font-inter text-[14px] text-[#6a7282]">Est. total</span>
-                <span id="cart-summary-total" class="font-inter font-bold text-[16px] text-[#101828]">â‚¦0</span>
+                <span id="cart-summary-total" class="font-inter font-bold text-[16px] text-[#101828]">₦0</span>
               </div>
             </div>
           </div>
@@ -317,7 +317,7 @@
   <script src="js/components.js"></script>
   <script src="js/app.js"></script>
   <script>
-  // â”€â”€ Compare Page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // -- Compare Page ----------------------------------------------------------
 
   const AVATAR_COLORS = [
     { bg: '#ffe4e6', text: '#c70036' },
@@ -342,14 +342,14 @@
 
   // Vendor delivery & rating metadata
   const VENDOR_META = {
-    'ELECTROMART': { delivery: 'â‚¦1,500', rating: '4.6' },
-    'GADGETPRO':   { delivery: 'â‚¦2,500', rating: '4.7' },
-    'TECHSTORE':   { delivery: 'â‚¦2,000', rating: '4.5' },
-    'SMARTBUY':    { delivery: 'â‚¦1,800', rating: '4.4' },
-    'DIGIZONE':    { delivery: 'â‚¦1,200', rating: '4.3' },
-    'NAIJAFOODS':  { delivery: 'â‚¦800',   rating: '4.8' },
-    'FOODHUB':     { delivery: 'â‚¦1,000', rating: '4.6' },
-    'GREENFARM':   { delivery: 'â‚¦600',   rating: '4.5' },
+    'ELECTROMART': { delivery: '₦1,500', rating: '4.6' },
+    'GADGETPRO':   { delivery: '₦2,500', rating: '4.7' },
+    'TECHSTORE':   { delivery: '₦2,000', rating: '4.5' },
+    'SMARTBUY':    { delivery: '₦1,800', rating: '4.4' },
+    'DIGIZONE':    { delivery: '₦1,200', rating: '4.3' },
+    'NAIJAFOODS':  { delivery: '₦800',   rating: '4.8' },
+    'FOODHUB':     { delivery: '₦1,000', rating: '4.6' },
+    'GREENFARM':   { delivery: '₦600',   rating: '4.5' },
   };
 
   function vendorColor(name) {
@@ -361,7 +361,7 @@
   }
 
   function formatPrice(num) {
-    return 'â‚¦' + num.toLocaleString('en-NG');
+    return '₦' + num.toLocaleString('en-NG');
   }
 
   function getInitials(name) {
@@ -375,13 +375,13 @@
     return raw.split(',').map(Number).filter(n => n > 0);
   }
 
-  // â”€â”€ Mobile card builder â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // -- Mobile card builder ------------------------------------------------
   function buildMobileProductCard(product, vendors) {
     if (!vendors || !vendors.length) return '';
     const sortedVendors = [...vendors].sort((a, b) => a.price - b.price);
     const best = sortedVendors[0];
     const col = vendorColor(best.name);
-    const meta = VENDOR_META[best.name.toUpperCase()] || { delivery: 'â‚¦1,500', rating: '4.5' };
+    const meta = VENDOR_META[best.name.toUpperCase()] || { delivery: '₦1,500', rating: '4.5' };
 
     const catMap = {
       electronics: 'Smartphones', food: 'Food & Groceries',
@@ -417,7 +417,7 @@
             <div class="mobile-vendor-avatar" style="background:${col.bg};color:${col.text}">${getInitials(best.name)}</div>
             <div class="flex items-center gap-2 flex-1 min-w-0">
               <span class="font-inter font-semibold text-[13px] text-[#101828] whitespace-nowrap tracking-[-0.08px]">${best.name.charAt(0) + best.name.slice(1).toLowerCase()}</span>
-              <span class="bg-[#d0fae5] font-inter font-bold text-[10px] text-[#007a55] px-2 py-0.5 rounded-full whitespace-nowrap tracking-[0.12px]">âœ¦ Best</span>
+              <span class="bg-[#d0fae5] font-inter font-bold text-[10px] text-[#007a55] px-2 py-0.5 rounded-full whitespace-nowrap tracking-[0.12px]">★ Best</span>
             </div>
             <span class="font-inter font-bold text-[15px] text-[#155dfc] whitespace-nowrap tracking-[-0.23px]">${formatPrice(best.price)}</span>
             <button class="remove-product-btn w-7 h-7 rounded-full bg-[#f3f4f6] flex items-center justify-center shrink-0 hover:bg-[#fee2e2] transition-colors" data-product-id="${product.id}">
@@ -452,7 +452,7 @@
       </div>`;
   }
 
-  // â”€â”€ Desktop table builder â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // -- Desktop table builder ----------------------------------------------
   function buildProductTable(product, vendors, productIndex) {
     if (!vendors || !vendors.length) return '';
     const sortedVendors = [...vendors].sort((a, b) => a.price - b.price);
@@ -561,7 +561,7 @@
       </div>`;
   }
 
-  // â”€â”€ Main render â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // -- Main render --------------------------------------------------------
   function renderComparePage() {
     const ids = getCompareIds();
 
@@ -757,6 +757,9 @@
   </script>
 </body>
 </html>
+
+
+
 
 
 

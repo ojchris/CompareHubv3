@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Event Detail â€” CompareHub</title>
+  <title>Event Detail — CompareHub</title>
   <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
   <script src="js/tailwind-config.js"></script>
   <script src="https://cdn.tailwindcss.com?with=default@3.4.1"></script>
@@ -106,7 +106,7 @@
         <!-- About this event -->
         <div class="flex flex-col gap-6">
           <h3 class="font-work font-medium text-[18px] text-[#2e3747] tracking-[-0.36px]">About this event</h3>
-          <p id="ev-desc" class="font-work text-[18px] text-[#364153] leading-[27px]">For one unforgettable hour, leave the noise behind and step into a world of calm waters, golden sunsets, and soft ocean breeze. Sip, unwind, and let the city fade into the horizon as you cruise in style. This isn't just a boat rideâ€”it's your escape, your moment, your story on the sea.</p>
+          <p id="ev-desc" class="font-work text-[18px] text-[#364153] leading-[27px]">For one unforgettable hour, leave the noise behind and step into a world of calm waters, golden sunsets, and soft ocean breeze. Sip, unwind, and let the city fade into the horizon as you cruise in style. This isn't just a boat ride—it's your escape, your moment, your story on the sea.</p>
         </div>
 
       </div>
@@ -238,7 +238,7 @@
           <label class="font-inter font-medium text-[13px] text-[#364153]">Phone Number</label>
           <div class="flex h-[44px] rounded-[10px] border border-[#e5e7eb] overflow-hidden focus-within:border-[#155dfc] focus-within:ring-2 focus-within:ring-[#155dfc]/20 transition-colors">
             <div class="flex items-center gap-1.5 px-3 bg-[#f9fafb] border-r border-[#e5e7eb] shrink-0">
-              <span class="text-[15px]">ðŸ‡³ðŸ‡¬</span>
+              <span class="text-[15px]">🇳🇬</span>
               <span class="font-inter text-[13px] text-[#364153]">+234</span>
             </div>
             <input type="tel" placeholder="800 000 0000"
@@ -285,22 +285,22 @@
         <div class="flex flex-col gap-2 text-[13px] font-inter">
           <div class="flex justify-between text-[#6a7282]">
             <span id="summary-event-name" class="truncate max-w-[220px]">Event</span>
-            <span id="summary-subtotal">â‚¦0</span>
+            <span id="summary-subtotal">₦0</span>
           </div>
           <div class="flex justify-between text-[#6a7282]">
             <span>VAT (7.5%)</span>
-            <span id="summary-vat">â‚¦0</span>
+            <span id="summary-vat">₦0</span>
           </div>
           <hr class="border-[#e5e7eb]">
           <div class="flex justify-between font-semibold text-[#155dfc]">
             <span>TOTAL</span>
-            <span id="summary-total">â‚¦0</span>
+            <span id="summary-total">₦0</span>
           </div>
         </div>
       </div>
       <!-- Pay button -->
       <button id="pay-btn" onclick="submitPayment()" class="w-full h-[44px] bg-[#155dfc] text-white font-inter font-semibold text-[14px] rounded-[10px] hover:bg-[#1447e6] transition-colors">
-        Pay â‚¦0
+        Pay ₦0
       </button>
     </div>
   </div>
@@ -345,7 +345,7 @@
   <script>
     lucide.createIcons();
 
-    // â”€â”€ Read URL params and populate event details â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // -- Read URL params and populate event details -----------------
     const _params = new URLSearchParams(window.location.search);
     const _name     = _params.get('name');
     const _price    = _params.get('price');
@@ -387,12 +387,12 @@
         priceEl.style.color = '#22c55e';
       } else {
         _priceNum = parseInt(_price, 10);
-        priceEl.textContent = 'â‚¦' + _priceNum.toLocaleString('en-NG');
+        priceEl.textContent = '₦' + _priceNum.toLocaleString('en-NG');
         priceEl.style.color = '#364153';
       }
     }
 
-    // â”€â”€ Save toggle â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // -- Save toggle ------------------------------------------------
     function handleSave(el) {
       const label = el.querySelector('span');
       if (label.textContent.trim() === 'Save Events') {
@@ -406,7 +406,7 @@
       }
     }
 
-    // â”€â”€ Modal helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // -- Modal helpers ----------------------------------------------
     function showModal(id) {
       document.getElementById('modal-backdrop').classList.remove('hidden');
       document.getElementById(id).classList.remove('hidden');
@@ -421,7 +421,7 @@
       document.body.style.overflow = '';
     }
 
-    // â”€â”€ Ticket tiers (paid modal) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // -- Ticket tiers (paid modal) ----------------------------------
     const TIERS = [
       { label: 'Early Bird', qty: 0 },
       { label: 'VIP',        qty: 0 },
@@ -441,11 +441,11 @@
             </div>
             <div>
               <p class="font-work font-semibold text-[14px] text-[#101828]">${tier.label}</p>
-              <p class="font-inter text-[12px] text-[#6a7282]">â‚¦${_priceNum.toLocaleString('en-NG')}</p>
+              <p class="font-inter text-[12px] text-[#6a7282]">₦${_priceNum.toLocaleString('en-NG')}</p>
             </div>
           </div>
           <div class="flex items-center gap-2">
-            ${tier.qty > 0 ? `<button onclick="adjustQty(${i},-1)" class="w-7 h-7 rounded-full border border-[#e5e7eb] flex items-center justify-center font-inter font-bold text-[#364153] text-[16px] hover:border-[#155dfc] hover:text-[#155dfc] transition-colors">âˆ’</button>` : ''}
+            ${tier.qty > 0 ? `<button onclick="adjustQty(${i},-1)" class="w-7 h-7 rounded-full border border-[#e5e7eb] flex items-center justify-center font-inter font-bold text-[#364153] text-[16px] hover:border-[#155dfc] hover:text-[#155dfc] transition-colors">-</button>` : ''}
             ${tier.qty > 0 ? `<span class="font-inter font-semibold text-[14px] text-[#101828] min-w-[16px] text-center">${tier.qty}</span>` : ''}
             <button onclick="adjustQty(${i},1)" class="w-7 h-7 rounded-full flex items-center justify-center font-inter font-bold text-white text-[16px] hover:bg-[#1447e6] transition-colors bg-brand-primary">+</button>
             ${tier.qty > 0 ? `<button onclick="adjustQty(${i},-${tier.qty})" class="w-7 h-7 rounded-full flex items-center justify-center ml-1" style="color:#dc2626"><i data-lucide="trash-2" class="w-3.5 h-3.5" aria-hidden="true"></i></button>` : ''}
@@ -468,15 +468,15 @@
       const vat      = Math.round(subtotal * 0.075);
       const total    = subtotal + vat;
       document.getElementById('summary-event-name').textContent = _name || 'Event';
-      document.getElementById('summary-subtotal').textContent   = 'â‚¦' + subtotal.toLocaleString('en-NG');
-      document.getElementById('summary-vat').textContent        = 'â‚¦' + vat.toLocaleString('en-NG');
-      document.getElementById('summary-total').textContent      = 'â‚¦' + total.toLocaleString('en-NG');
+      document.getElementById('summary-subtotal').textContent   = '₦' + subtotal.toLocaleString('en-NG');
+      document.getElementById('summary-vat').textContent        = '₦' + vat.toLocaleString('en-NG');
+      document.getElementById('summary-total').textContent      = '₦' + total.toLocaleString('en-NG');
       document.getElementById('pay-btn').textContent            = totalQty > 0
-        ? 'Pay â‚¦' + total.toLocaleString('en-NG')
+        ? 'Pay ₦' + total.toLocaleString('en-NG')
         : 'Select a ticket';
     }
 
-    // â”€â”€ Open modal logic â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // -- Open modal logic -------------------------------------------
     function openTicketModal() {
       if (_price === 'free' || !_price) {
         showModal('modal-free');
@@ -488,7 +488,7 @@
       }
     }
 
-    // â”€â”€ Submit handlers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // -- Submit handlers --------------------------------------------
     function submitRSVP(e) {
       e.preventDefault();
       closeAllModals();
@@ -504,6 +504,10 @@
   </script>
 </body>
 </html>
+
+
+
+
 
 
 
