@@ -1,19 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>How It Works — CompareHub</title>
+  <title>How It Works â€” CompareHub</title>
   <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { work: ['Work Sans','sans-serif'], inter: ['Inter','sans-serif'] },
-        },
-      },
-    };
-  </script>
+  <script src="js/tailwind-config.js"></script>
   <script src="https://cdn.tailwindcss.com?with=default@3.4.1"></script>
   <script src="js/lucide.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,7 +34,7 @@
   <!-- =====================================================
        MOBILE HEADER
        ===================================================== -->
-  <div class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#f3f4f6]" style="height:65px;box-shadow:0 1px 8px rgba(0,0,0,0.07)">
+  <div class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#f3f4f6] h-[65px] shadow-soft-top">
     <div class="flex items-center justify-between px-4 h-full">
       <a href="index.html" class="shrink-0">
         <img src="images/logos/logo-dark.svg" alt="CompareHub" class="h-5 w-auto">
@@ -83,14 +75,14 @@
   <!-- =====================================================
        HERO SECTION
        ===================================================== -->
-  <section class="sm:mt-[70px] mt-[65px] relative overflow-hidden" style="min-height:345px">
+  <section class="sm:mt-[70px] mt-[65px] relative overflow-hidden min-h-[345px]">
     <!-- Background image -->
     <img src="images/pages/how-it-works-hero-bg.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" aria-hidden="true">
     <!-- Colour overlay -->
-    <div class="absolute inset-0" style="background:linear-gradient(135deg,rgba(20,71,230,0.55) 0%,rgba(21,93,252,0.50) 50%,rgba(30,64,175,0.60) 100%)"></div>
+    <div class="absolute inset-0 bg-brand-gradient"></div>
     <div class="relative z-10 flex flex-col items-center justify-center text-center px-4 py-16 sm:py-20">
       <h1 class="font-inter font-black text-[26px] sm:text-[36px] text-white tracking-[0.37px] mb-3">How CompareHub Works</h1>
-      <p class="font-work text-[16px] sm:text-[18px] text-white/85 max-w-[470px] leading-[1.6] mb-8">Find the cheapest price for any product from verified Nigerian vendors — in 4 simple steps.</p>
+      <p class="font-work text-[16px] sm:text-[18px] text-white/85 max-w-[470px] leading-[1.6] mb-8">Find the cheapest price for any product from verified Nigerian vendors â€” in 4 simple steps.</p>
       <div class="flex items-center gap-4 flex-wrap justify-center">
         <a href="category.html" class="bg-[#124fd6] font-work font-medium text-[14px] text-white px-6 py-3 rounded-[14px] hover:bg-[#1040c0] transition-colors">Start Comparing</a>
         <a href="become-vendor.html" class="border border-white font-work font-medium text-[14px] text-white px-6 py-3 rounded-[14px] hover:bg-white/10 transition-colors">Become a Vendor</a>
@@ -117,7 +109,7 @@
           <span class="font-inter text-[12px] text-[#5a6372]">Active Cities</span>
         </div>
         <div class="flex flex-col items-center gap-1 px-4">
-          <span class="font-inter font-black text-[24px] text-[#364153] tracking-[0.07px]">₦2.3B+</span>
+          <span class="font-inter font-black text-[24px] text-[#364153] tracking-[0.07px]">â‚¦2.3B+</span>
           <span class="font-inter text-[12px] text-[#5a6372]">Savings Found</span>
         </div>
       </div>
@@ -140,7 +132,7 @@
         <p class="font-inter text-[11px] text-[#5a6372]">Active Cities</p>
       </div>
       <div class="bg-white rounded-[12px] p-3 text-center">
-        <p class="font-inter font-black text-[20px] text-[#364153]">₦2.3B+</p>
+        <p class="font-inter font-black text-[20px] text-[#364153]">â‚¦2.3B+</p>
         <p class="font-inter text-[11px] text-[#5a6372]">Savings Found</p>
       </div>
     </div>
@@ -160,7 +152,7 @@
           <div>
             <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-[#155dfc]/20 text-[#51a2ff] font-inter font-bold text-[15px] mb-4">1</span>
             <h3 class="font-work font-semibold text-[20px] sm:text-[22px] text-white mb-3 leading-tight">Search any product across Nigeria</h3>
-            <p class="font-work text-[14px] text-white/70 leading-[1.6]">Type any product name — iPhone, rice, headphones, yam, laptops and more. Our smart search scans all verified vendors across Nigeria in real time.</p>
+            <p class="font-work text-[14px] text-white/70 leading-[1.6]">Type any product name â€” iPhone, rice, headphones, yam, laptops and more. Our smart search scans all verified vendors across Nigeria in real time.</p>
           </div>
           <!-- Mock search UI -->
           <div class="mt-6 bg-white/10 rounded-[16px] p-4 backdrop-blur">
@@ -174,7 +166,7 @@
               </div>
               <div>
                 <p class="font-work font-medium text-[13px] text-white">Infinix Smart 7</p>
-                <p class="font-work text-[11px] text-white/50">₦50,000</p>
+                <p class="font-work text-[11px] text-white/50">â‚¦50,000</p>
               </div>
             </div>
           </div>
@@ -185,19 +177,19 @@
           <div>
             <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-[#155dfc]/20 text-[#51a2ff] font-inter font-bold text-[15px] mb-4">2</span>
             <h3 class="font-work font-semibold text-[20px] sm:text-[22px] text-white mb-3 leading-tight">Filter &amp; Narrow Down Results</h3>
-            <p class="font-work text-[14px] text-white/70 leading-[1.6]">Powerful filters let you zero in on exactly what you want. Set price ranges, pick your Nigerian city, choose delivery speed, and sort by rating or lowest price — all in one click.</p>
+            <p class="font-work text-[14px] text-white/70 leading-[1.6]">Powerful filters let you zero in on exactly what you want. Set price ranges, pick your Nigerian city, choose delivery speed, and sort by rating or lowest price â€” all in one click.</p>
           </div>
           <!-- Mock filter UI -->
           <div class="mt-6 bg-white/10 rounded-[16px] p-4 backdrop-blur">
             <div class="flex flex-wrap gap-2">
               <span class="bg-[#155dfc] text-white font-work text-[12px] px-3 py-1.5 rounded-full">Lagos</span>
-              <span class="bg-white/10 text-white/70 font-work text-[12px] px-3 py-1.5 rounded-full">₦40k – ₦80k</span>
+              <span class="bg-white/10 text-white/70 font-work text-[12px] px-3 py-1.5 rounded-full">â‚¦40k â€“ â‚¦80k</span>
               <span class="bg-white/10 text-white/70 font-work text-[12px] px-3 py-1.5 rounded-full">Same Day</span>
-              <span class="bg-white/10 text-white/70 font-work text-[12px] px-3 py-1.5 rounded-full">4★ &amp; above</span>
+              <span class="bg-white/10 text-white/70 font-work text-[12px] px-3 py-1.5 rounded-full">4â˜… &amp; above</span>
             </div>
             <div class="mt-3 flex items-center justify-between bg-white/5 rounded-[10px] px-3 py-2.5">
               <span class="font-work font-semibold text-[14px] text-white">Best Price</span>
-              <span class="font-work font-black text-[18px] text-[#51a2ff]">₦2,000,000</span>
+              <span class="font-work font-black text-[18px] text-[#51a2ff]">â‚¦2,000,000</span>
             </div>
           </div>
         </div>
@@ -210,7 +202,7 @@
           <div>
             <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-[#155dfc]/20 text-[#51a2ff] font-inter font-bold text-[15px] mb-4">3</span>
             <h3 class="font-work font-semibold text-[20px] sm:text-[22px] text-white mb-3 leading-tight">Compare Side by Side Instantly</h3>
-            <p class="font-work text-[14px] text-white/70 leading-[1.6]">Add up to 6 listings to your Compare Cart. See a full side-by-side breakdown of price, delivery fee, total cost, seller rating, and stock — so the best deal is obvious at a glance.</p>
+            <p class="font-work text-[14px] text-white/70 leading-[1.6]">Add up to 6 listings to your Compare Cart. See a full side-by-side breakdown of price, delivery fee, total cost, seller rating, and stock â€” so the best deal is obvious at a glance.</p>
           </div>
           <!-- Mock compare UI -->
           <div class="mt-6 bg-white/5 rounded-[16px] overflow-hidden">
@@ -219,15 +211,15 @@
             </div>
             <div class="grid grid-cols-4 items-center px-3 py-2.5 border-b border-white/5">
               <span class="font-work font-medium text-[12px] text-[#51a2ff]">FoodHub</span>
-              <span class="font-work font-bold text-[12px] text-white text-right">₦3,800</span>
-              <span class="font-work text-[11px] text-white/50 text-right">₦500</span>
-              <span class="font-work text-[11px] text-[#fbbf24] text-right">4.7 ★</span>
+              <span class="font-work font-bold text-[12px] text-white text-right">â‚¦3,800</span>
+              <span class="font-work text-[11px] text-white/50 text-right">â‚¦500</span>
+              <span class="font-work text-[11px] text-[#fbbf24] text-right">4.7 â˜…</span>
             </div>
             <div class="grid grid-cols-4 items-center px-3 py-2.5">
               <span class="font-work font-medium text-[12px] text-white/70">NaijaFoods</span>
-              <span class="font-work text-[12px] text-white/70 text-right">₦4,000</span>
-              <span class="font-work text-[11px] text-white/50 text-right">₦300</span>
-              <span class="font-work text-[11px] text-[#fbbf24] text-right">4.3 ★</span>
+              <span class="font-work text-[12px] text-white/70 text-right">â‚¦4,000</span>
+              <span class="font-work text-[11px] text-white/50 text-right">â‚¦300</span>
+              <span class="font-work text-[11px] text-[#fbbf24] text-right">4.3 â˜…</span>
             </div>
           </div>
         </div>
@@ -237,7 +229,7 @@
           <div>
             <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-white/20 text-white font-inter font-bold text-[15px] mb-4">4</span>
             <h3 class="font-work font-semibold text-[20px] sm:text-[22px] text-white mb-3 leading-tight">Buy from Verified Vendors</h3>
-            <p class="font-work text-[14px] text-white/85 leading-[1.6]">Once you've found the best deal, click through to the vendor's store. All vendors are background-checked, verified, and rated by real buyers — no fake listings, no scams.</p>
+            <p class="font-work text-[14px] text-white/85 leading-[1.6]">Once you've found the best deal, click through to the vendor's store. All vendors are background-checked, verified, and rated by real buyers â€” no fake listings, no scams.</p>
           </div>
           <!-- Mock vendor badges -->
           <div class="mt-6 flex flex-col gap-2">
@@ -275,9 +267,9 @@
             </div>
           </div>
           <h2 class="font-work font-semibold text-[28px] sm:text-[36px] text-[#364153] leading-[1.25] mb-4">Why Millions of Nigerians Trust CompareHub</h2>
-          <p class="font-work text-[16px] text-[#364153] leading-[1.5] mb-8">Built specifically for the Nigerian market — from Lagos to Kano, Abuja to Port Harcourt. Every feature was designed with the Nigerian shopper in mind.</p>
+          <p class="font-work text-[16px] text-[#364153] leading-[1.5] mb-8">Built specifically for the Nigerian market â€” from Lagos to Kano, Abuja to Port Harcourt. Every feature was designed with the Nigerian shopper in mind.</p>
           <!-- Image card -->
-          <div class="relative rounded-[24px] overflow-hidden h-[300px] sm:h-[380px]" style="background:linear-gradient(135deg,#1447e6 0%,#0f172a 100%)">
+          <div class="relative rounded-[24px] overflow-hidden h-[300px] sm:h-[380px] bg-primary-gradient-alt">
             <img src="images/pages/shoppers-using-comparehub.jpg" alt="Shoppers using CompareHub" class="absolute inset-0 w-full h-full object-cover opacity-60">
             <div class="absolute inset-0" style="background:linear-gradient(to top, rgba(10,20,70,0.85) 0%, transparent 55%)"></div>
             <div class="absolute bottom-6 left-6">
@@ -290,42 +282,42 @@
 
         <!-- Right column: feature grid -->
         <div class="flex-1 grid sm:grid-cols-2 gap-4 content-start">
-          <div class="feature-card bg-white border border-[#f3f4f6] rounded-[16px] p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.08)">
+          <div class="feature-card bg-white border border-[#f3f4f6] rounded-[16px] p-5 shadow-soft">
             <div class="w-10 h-10 rounded-[12px] bg-[#eff6ff] flex items-center justify-center mb-3">
               <i data-lucide="map-pin" class="w-5 h-5 text-[#155dfc]" aria-hidden="true"></i>
             </div>
             <h4 class="font-work font-semibold text-[15px] text-[#101828] mb-1.5">Location-Based Results</h4>
             <p class="font-work text-[13px] text-[#6a7282] leading-[1.55]">Prices are from vendors in your area. Nigerian city, and availability are always accurate.</p>
           </div>
-          <div class="feature-card bg-white border border-[#f3f4f6] rounded-[16px] p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.08)">
+          <div class="feature-card bg-white border border-[#f3f4f6] rounded-[16px] p-5 shadow-soft">
             <div class="w-10 h-10 rounded-[12px] bg-[#ecfdf5] flex items-center justify-center mb-3">
               <i data-lucide="shield-check" class="w-5 h-5 text-[#059669]" aria-hidden="true"></i>
             </div>
             <h4 class="font-work font-semibold text-[15px] text-[#101828] mb-1.5">Verified Vendors Only</h4>
-            <p class="font-work text-[13px] text-[#6a7282] leading-[1.55]">Every business on CompareHub is background-checked and verified. No counterfeiting sellers, no scams — quality is guaranteed.</p>
+            <p class="font-work text-[13px] text-[#6a7282] leading-[1.55]">Every business on CompareHub is background-checked and verified. No counterfeiting sellers, no scams â€” quality is guaranteed.</p>
           </div>
-          <div class="feature-card bg-white border border-[#f3f4f6] rounded-[16px] p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.08)">
+          <div class="feature-card bg-white border border-[#f3f4f6] rounded-[16px] p-5 shadow-soft">
             <div class="w-10 h-10 rounded-[12px] bg-[#fff7ed] flex items-center justify-center mb-3">
               <i data-lucide="zap" class="w-5 h-5 text-[#ea580c]" aria-hidden="true"></i>
             </div>
             <h4 class="font-work font-semibold text-[15px] text-[#101828] mb-1.5">Real-Time Pricing</h4>
-            <p class="font-work text-[13px] text-[#6a7282] leading-[1.55]">Prices update in real time. What you see is what you pay — no hidden markups or surprises at checkout.</p>
+            <p class="font-work text-[13px] text-[#6a7282] leading-[1.55]">Prices update in real time. What you see is what you pay â€” no hidden markups or surprises at checkout.</p>
           </div>
-          <div class="feature-card bg-white border border-[#f3f4f6] rounded-[16px] p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.08)">
+          <div class="feature-card bg-white border border-[#f3f4f6] rounded-[16px] p-5 shadow-soft">
             <div class="w-10 h-10 rounded-[12px] bg-[#f0fdf4] flex items-center justify-center mb-3">
               <i data-lucide="truck" class="w-5 h-5 text-[#16a34a]" aria-hidden="true"></i>
             </div>
             <h4 class="font-work font-semibold text-[15px] text-[#101828] mb-1.5">Transparent Delivery Fees</h4>
-            <p class="font-work text-[13px] text-[#6a7282] leading-[1.55]">We display everything so you can compare real totals — including delivery fees, so you get the lowest price.</p>
+            <p class="font-work text-[13px] text-[#6a7282] leading-[1.55]">We display everything so you can compare real totals â€” including delivery fees, so you get the lowest price.</p>
           </div>
-          <div class="feature-card bg-white border border-[#f3f4f6] rounded-[16px] p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.08)">
+          <div class="feature-card bg-white border border-[#f3f4f6] rounded-[16px] p-5 shadow-soft">
             <div class="w-10 h-10 rounded-[12px] bg-[#fffbeb] flex items-center justify-center mb-3">
               <i data-lucide="star" class="w-5 h-5 text-[#d97706]" aria-hidden="true"></i>
             </div>
             <h4 class="font-work font-semibold text-[15px] text-[#101828] mb-1.5">Honest Ratings &amp; Reviews</h4>
-            <p class="font-work text-[13px] text-[#6a7282] leading-[1.55]">Ratings come from verified buyers only. We filter fake reviews — only real Nigerian buyers can rate.</p>
+            <p class="font-work text-[13px] text-[#6a7282] leading-[1.55]">Ratings come from verified buyers only. We filter fake reviews â€” only real Nigerian buyers can rate.</p>
           </div>
-          <div class="feature-card bg-white border border-[#f3f4f6] rounded-[16px] p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.08)">
+          <div class="feature-card bg-white border border-[#f3f4f6] rounded-[16px] p-5 shadow-soft">
             <div class="w-10 h-10 rounded-[12px] bg-[#fdf2f8] flex items-center justify-center mb-3">
               <i data-lucide="lock" class="w-5 h-5 text-[#9333ea]" aria-hidden="true"></i>
             </div>
@@ -348,7 +340,7 @@
         <p class="font-work text-[15px] text-[#6a7282]">Everything you need to know before your first compare.</p>
       </div>
 
-      <div class="bg-white rounded-[20px] border border-[#f3f4f6]" style="box-shadow:0 1px 3px rgba(0,0,0,0.08)">
+      <div class="bg-white rounded-[20px] border border-[#f3f4f6] shadow-soft">
         <!-- FAQ item 1 -->
         <div class="faq-item px-6 py-5 cursor-pointer" onclick="toggleFaq(this)">
           <div class="flex items-center justify-between gap-4">
@@ -366,7 +358,7 @@
             <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-[#6a7282] shrink-0 transition-transform duration-200" aria-hidden="true"></i>
           </div>
           <div class="faq-answer mt-3">
-            <p class="font-work text-[14px] text-[#6a7282] leading-[1.6]">No — CompareHub is a price comparison platform. We show you prices from verified vendors and link you directly to their store to complete your purchase.</p>
+            <p class="font-work text-[14px] text-[#6a7282] leading-[1.6]">No â€” CompareHub is a price comparison platform. We show you prices from verified vendors and link you directly to their store to complete your purchase.</p>
           </div>
         </div>
         <!-- FAQ item 3 -->
@@ -386,7 +378,7 @@
             <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-[#6a7282] shrink-0 transition-transform duration-200" aria-hidden="true"></i>
           </div>
           <div class="faq-answer mt-3">
-            <p class="font-work text-[14px] text-[#6a7282] leading-[1.6]">We currently cover Lagos, Abuja, Port Harcourt, Kano, Ibadan, Enugu, Kaduna, and Benin City — with more cities launching soon.</p>
+            <p class="font-work text-[14px] text-[#6a7282] leading-[1.6]">We currently cover Lagos, Abuja, Port Harcourt, Kano, Ibadan, Enugu, Kaduna, and Benin City â€” with more cities launching soon.</p>
           </div>
         </div>
         <!-- FAQ item 5 -->
@@ -414,7 +406,7 @@
           <div class="bg-[#eff6ff] rounded-[16px] p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
               <p class="font-work font-semibold text-[14px] text-[#155dfc] mb-1">Still have questions?</p>
-              <p class="font-work text-[13px] text-[#6a7282]">Our support team is available Mon–Sat, 8am–8pm (WAT).</p>
+              <p class="font-work text-[13px] text-[#6a7282]">Our support team is available Monâ€“Sat, 8amâ€“8pm (WAT).</p>
             </div>
             <a href="contact.html" class="shrink-0 flex items-center gap-2 bg-[#155dfc] text-white font-work font-semibold text-[13px] px-5 py-2.5 rounded-[12px] hover:bg-[#1447e6] transition-colors">
               Contact Support <i data-lucide="arrow-right" class="w-3.5 h-3.5" aria-hidden="true"></i>
@@ -452,5 +444,7 @@
   </script>
 </body>
 </html>
+
+
 
 

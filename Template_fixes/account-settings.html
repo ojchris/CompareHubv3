@@ -1,19 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Security Settings — CompareHub</title>
+  <title>Security Settings â€” CompareHub</title>
   <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { work: ['Work Sans','sans-serif'], inter: ['Inter','sans-serif'] },
-        },
-      },
-    };
-  </script>
+  <script src="js/tailwind-config.js"></script>
   <script src="https://cdn.tailwindcss.com?with=default@3.4.1"></script>
   <script src="js/lucide.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,7 +22,7 @@
   <div id="app-header"></div>
 
   <!-- Mobile header -->
-  <div class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#f3f4f6]" style="height:65px;box-shadow:0 1px 8px rgba(0,0,0,0.07)">
+  <div class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#f3f4f6] h-[65px] shadow-soft-top">
     <div class="flex items-center gap-3 px-4 h-full">
       <a href="index.html" class="w-9 h-9 rounded-full bg-[#f3f4f6] flex items-center justify-center shrink-0">
         <i data-lucide="arrow-left" class="w-4 h-4 text-[#364153]" aria-hidden="true"></i>
@@ -91,10 +83,10 @@
     <div class="max-w-[1290px] mx-auto px-4 sm:px-8 py-6 sm:py-10">
       <div class="flex gap-6 items-start">
 
-        <!-- ── Sidebar ── -->
-        <aside class="hidden sm:block w-[220px] shrink-0 bg-white rounded-[16px] border border-[#f3f4f6] p-5 space-y-5" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+        <!-- â”€â”€ Sidebar â”€â”€ -->
+        <aside class="hidden sm:block w-[220px] shrink-0 bg-white rounded-[16px] border border-[#f3f4f6] p-5 space-y-5 shadow-soft">
           <div class="flex flex-col items-center gap-3 pb-5 border-b border-[#f3f4f6]">
-            <div class="w-12 h-12 rounded-full flex items-center justify-center shrink-0" style="background:#032d71">
+            <div class="w-12 h-12 rounded-full flex items-center justify-center shrink-0 bg-brand-dark">
               <span class="font-work font-bold text-[16px] text-white">CO</span>
             </div>
             <div class="text-center">
@@ -129,7 +121,7 @@
           </nav>
         </aside>
 
-        <!-- ── Main content ── -->
+        <!-- â”€â”€ Main content â”€â”€ -->
         <div class="flex-1 min-w-0 space-y-5">
 
           <div>
@@ -138,7 +130,7 @@
           </div>
 
           <!-- Change Password -->
-          <div class="bg-white rounded-[16px] border border-[#f3f4f6] p-5 sm:p-6" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+          <div class="bg-white rounded-[16px] border border-[#f3f4f6] p-5 sm:p-6 shadow-soft">
             <div class="flex items-center gap-3 mb-5">
               <div class="w-9 h-9 rounded-[10px] bg-[#eff6ff] flex items-center justify-center shrink-0">
                 <i data-lucide="lock" class="w-4 h-4 text-[#155dfc]" aria-hidden="true"></i>
@@ -153,7 +145,7 @@
                 <div>
                   <label class="block font-work font-medium text-[12px] text-[#364153] mb-1.5">Current Password</label>
                   <div class="relative">
-                    <input type="password" id="current-pwd" value="••••••••" class="w-full border border-[#e5e7eb] rounded-[10px] px-3 py-2.5 font-work text-[13px] text-[#364153] outline-none focus:border-[#155dfc] pr-10 transition-colors">
+                    <input type="password" id="current-pwd" value="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" class="w-full border border-[#e5e7eb] rounded-[10px] px-3 py-2.5 font-work text-[13px] text-[#364153] outline-none focus:border-[#155dfc] pr-10 transition-colors">
                     <button type="button" onclick="togglePwd('current-pwd',this)" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#99a1af] hover:text-[#6a7282]">
                       <i data-lucide="eye" class="w-4 h-4" aria-hidden="true"></i>
                     </button>
@@ -162,7 +154,7 @@
                 <div>
                   <label class="block font-work font-medium text-[12px] text-[#364153] mb-1.5">New Password</label>
                   <div class="relative">
-                    <input type="password" id="new-pwd" value="••••••••" class="w-full border border-[#e5e7eb] rounded-[10px] px-3 py-2.5 font-work text-[13px] text-[#364153] outline-none focus:border-[#155dfc] pr-10 transition-colors">
+                    <input type="password" id="new-pwd" value="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" class="w-full border border-[#e5e7eb] rounded-[10px] px-3 py-2.5 font-work text-[13px] text-[#364153] outline-none focus:border-[#155dfc] pr-10 transition-colors">
                     <button type="button" onclick="togglePwd('new-pwd',this)" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#99a1af] hover:text-[#6a7282]">
                       <i data-lucide="eye" class="w-4 h-4" aria-hidden="true"></i>
                     </button>
@@ -171,7 +163,7 @@
                 <div>
                   <label class="block font-work font-medium text-[12px] text-[#364153] mb-1.5">Confirm New Password</label>
                   <div class="relative">
-                    <input type="password" id="confirm-pwd" value="••••••••" class="w-full border border-[#e5e7eb] rounded-[10px] px-3 py-2.5 font-work text-[13px] text-[#364153] outline-none focus:border-[#155dfc] pr-10 transition-colors">
+                    <input type="password" id="confirm-pwd" value="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" class="w-full border border-[#e5e7eb] rounded-[10px] px-3 py-2.5 font-work text-[13px] text-[#364153] outline-none focus:border-[#155dfc] pr-10 transition-colors">
                     <button type="button" onclick="togglePwd('confirm-pwd',this)" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#99a1af] hover:text-[#6a7282]">
                       <i data-lucide="eye" class="w-4 h-4" aria-hidden="true"></i>
                     </button>
@@ -184,7 +176,7 @@
           </div>
 
           <!-- Active Sessions -->
-          <div class="bg-white rounded-[16px] border border-[#f3f4f6] p-5 sm:p-6" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+          <div class="bg-white rounded-[16px] border border-[#f3f4f6] p-5 sm:p-6 shadow-soft">
             <div class="flex items-start justify-between mb-5">
               <div class="flex items-center gap-3">
                 <div class="w-9 h-9 rounded-[10px] bg-[#fef3c7] flex items-center justify-center shrink-0">
@@ -200,17 +192,17 @@
 
             <div class="space-y-3" id="sessions-list">
 
-              <!-- Session 1 — this device -->
+              <!-- Session 1 â€” this device -->
               <div class="session-item flex items-center gap-3 p-3 rounded-[12px] bg-[#f9fafb]">
                 <div class="w-9 h-9 rounded-[10px] bg-white border border-[#e5e7eb] flex items-center justify-center shrink-0">
                   <i data-lucide="monitor" class="w-4 h-4 text-[#364153]" aria-hidden="true"></i>
                 </div>
                 <div class="flex-1 min-w-0">
                   <div class="flex items-center gap-2 flex-wrap">
-                    <p class="font-work font-medium text-[13px] text-[#101828]">Chrome · Windows 11</p>
+                    <p class="font-work font-medium text-[13px] text-[#101828]">Chrome Â· Windows 11</p>
                     <span class="bg-[#dcfce7] text-[#16a34a] font-work font-semibold text-[10px] px-2 py-0.5 rounded-full">This device</span>
                   </div>
-                  <p class="font-work text-[11px] text-[#99a1af]">Lagos, Nigeria · <span class="text-[#16a34a]">Active now</span></p>
+                  <p class="font-work text-[11px] text-[#99a1af]">Lagos, Nigeria Â· <span class="text-[#16a34a]">Active now</span></p>
                 </div>
               </div>
 
@@ -220,8 +212,8 @@
                   <i data-lucide="smartphone" class="w-4 h-4 text-[#364153]" aria-hidden="true"></i>
                 </div>
                 <div class="flex-1 min-w-0">
-                  <p class="font-work font-medium text-[13px] text-[#101828]">Safari · iPhone 15 Pro</p>
-                  <p class="font-work text-[11px] text-[#99a1af]">Lagos, Nigeria · 2 hours ago</p>
+                  <p class="font-work font-medium text-[13px] text-[#101828]">Safari Â· iPhone 15 Pro</p>
+                  <p class="font-work text-[11px] text-[#99a1af]">Lagos, Nigeria Â· 2 hours ago</p>
                 </div>
                 <button onclick="removeSession(this)" class="w-6 h-6 flex items-center justify-center text-[#99a1af] hover:text-[#ef4444] shrink-0 transition-colors">
                   <i data-lucide="x" class="w-4 h-4" aria-hidden="true"></i>
@@ -234,8 +226,8 @@
                   <i data-lucide="laptop" class="w-4 h-4 text-[#364153]" aria-hidden="true"></i>
                 </div>
                 <div class="flex-1 min-w-0">
-                  <p class="font-work font-medium text-[13px] text-[#101828]">Chrome · MacBook Air</p>
-                  <p class="font-work text-[11px] text-[#99a1af]">Abuja, Nigeria · Yesterday, 3:42 PM</p>
+                  <p class="font-work font-medium text-[13px] text-[#101828]">Chrome Â· MacBook Air</p>
+                  <p class="font-work text-[11px] text-[#99a1af]">Abuja, Nigeria Â· Yesterday, 3:42 PM</p>
                 </div>
                 <button onclick="removeSession(this)" class="w-6 h-6 flex items-center justify-center text-[#99a1af] hover:text-[#ef4444] shrink-0 transition-colors">
                   <i data-lucide="x" class="w-4 h-4" aria-hidden="true"></i>
@@ -252,7 +244,7 @@
           </div>
 
           <!-- Danger Zone -->
-          <div class="bg-white rounded-[16px] border border-[#fecaca] p-5 sm:p-6" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+          <div class="bg-white rounded-[16px] border border-[#fecaca] p-5 sm:p-6 shadow-soft">
             <div class="flex items-center gap-3 mb-4">
               <div class="w-9 h-9 rounded-[10px] bg-[#fef2f2] flex items-center justify-center shrink-0">
                 <i data-lucide="alert-triangle" class="w-4 h-4 text-[#ef4444]" aria-hidden="true"></i>
@@ -280,7 +272,7 @@
   </div>
 
   <!-- Delete confirm modal -->
-  <div id="delete-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center px-4" style="background:rgba(0,0,0,0.45)">
+  <div id="delete-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center px-4 bg-black/45">
     <div class="bg-white rounded-[20px] p-6 w-full max-w-[380px]" style="box-shadow:0 20px 60px rgba(0,0,0,0.2)">
       <div class="w-12 h-12 rounded-full bg-[#fef2f2] flex items-center justify-center mx-auto mb-4">
         <i data-lucide="trash-2" class="w-6 h-6 text-[#ef4444]" aria-hidden="true"></i>
@@ -377,5 +369,8 @@
   </script>
 </body>
 </html>
+
+
+
 
 

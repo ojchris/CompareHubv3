@@ -1,19 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Event Detail — CompareHub</title>
+  <title>Event Detail â€” CompareHub</title>
   <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { work: ['Work Sans','sans-serif'], inter: ['Inter','sans-serif'] },
-        },
-      },
-    };
-  </script>
+  <script src="js/tailwind-config.js"></script>
   <script src="https://cdn.tailwindcss.com?with=default@3.4.1"></script>
   <script src="js/lucide.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,7 +28,7 @@
   <!-- =====================================================
        MOBILE HEADER
        ===================================================== -->
-  <div class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#f3f4f6]" style="height:65px;box-shadow:0 1px 8px rgba(0,0,0,0.07)">
+  <div class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#f3f4f6] h-[65px] shadow-soft-top">
     <div class="flex items-center gap-3 px-4 h-full">
       <a href="events.html" class="w-9 h-9 rounded-full bg-[#f3f4f6] flex items-center justify-center shrink-0">
         <i data-lucide="arrow-left" class="w-4 h-4 text-[#364153]" aria-hidden="true"></i>
@@ -114,7 +106,7 @@
         <!-- About this event -->
         <div class="flex flex-col gap-6">
           <h3 class="font-work font-medium text-[18px] text-[#2e3747] tracking-[-0.36px]">About this event</h3>
-          <p id="ev-desc" class="font-work text-[18px] text-[#364153] leading-[27px]">For one unforgettable hour, leave the noise behind and step into a world of calm waters, golden sunsets, and soft ocean breeze. Sip, unwind, and let the city fade into the horizon as you cruise in style. This isn't just a boat ride—it's your escape, your moment, your story on the sea.</p>
+          <p id="ev-desc" class="font-work text-[18px] text-[#364153] leading-[27px]">For one unforgettable hour, leave the noise behind and step into a world of calm waters, golden sunsets, and soft ocean breeze. Sip, unwind, and let the city fade into the horizon as you cruise in style. This isn't just a boat rideâ€”it's your escape, your moment, your story on the sea.</p>
         </div>
 
       </div>
@@ -133,7 +125,7 @@
         <!-- Card 1: SOYCITY PARTY -->
         <a href="event-detail.html?name=SOYCITY+PARTY+-+Easter+in+the+City&price=free&date=Thu%2C+Apr+2nd&time=6%3A00+PM&location=Eko+Atlantic%2C+Lagos&img=event-card-1&desc=The+biggest+Easter+party+in+Lagos+featuring+top+DJs+and+live+performances." class="shrink-0 rounded-[13px] overflow-hidden cursor-pointer relative" style="width:238px;height:370px">
           <img src="images/pages/event-card-1.jpg" alt="SOYCITY PARTY" class="absolute inset-0 w-full h-full object-cover">
-          <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(0,0,0,0.85) 30%,rgba(0,0,0,0.15) 70%)"></div>
+          <div class="absolute inset-0 overlay-dark"></div>
           <div class="absolute bottom-[75px] left-0 right-0 text-center text-white">
             <p class="font-work font-black text-[19.6px] leading-[26px]">SOYCITY PARTY -</p>
             <p class="font-work font-black text-[19.6px] leading-[26px]">EASTER IN THE CITY</p>
@@ -146,7 +138,7 @@
         <!-- Card 2: Secret Garden -->
         <a href="event-detail.html?name=The+Secret+Garden%3A+An+Easter+Village+Experience&price=free&date=Sat%2C+Apr+4th&time=10%3A00+AM&location=Victoria+Island%2C+Lagos&img=event-card-2&desc=An+immersive+Easter+village+experience+with+garden+activities%2C+food+and+family+fun." class="shrink-0 rounded-[13px] overflow-hidden cursor-pointer relative" style="width:238px;height:370px">
           <img src="images/pages/event-card-2.jpg" alt="The Secret Garden" class="absolute inset-0 w-full h-full object-cover">
-          <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(0,0,0,0.85) 30%,rgba(0,0,0,0.15) 70%)"></div>
+          <div class="absolute inset-0 overlay-dark"></div>
           <div class="absolute bottom-[88px] left-0 right-0 text-center text-white">
             <p class="font-work font-black text-[19.6px] leading-[26px]">The Secret Garden: An</p>
             <p class="font-work font-black text-[19.6px] leading-[26px]">Easter Village</p>
@@ -160,7 +152,7 @@
         <!-- Card 3: Homecoming -->
         <a href="event-detail.html?name=Homecoming+Live+Music+Show+2026&price=15000&date=Sun%2C+Apr+5th&time=7%3A00+PM&location=Balmoral+Hall%2C+Lagos&img=event-card-3&desc=An+electrifying+live+music+concert+bringing+home+your+favourite+artists+for+one+unforgettable+night." class="shrink-0 rounded-[13px] overflow-hidden cursor-pointer relative" style="width:238px;height:370px">
           <img src="images/pages/event-card-3.jpg" alt="HOMECOMING LIVE" class="absolute inset-0 w-full h-full object-cover">
-          <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(0,0,0,0.85) 30%,rgba(0,0,0,0.15) 70%)"></div>
+          <div class="absolute inset-0 overlay-dark"></div>
           <div class="absolute bottom-[75px] left-0 right-0 text-center text-white">
             <p class="font-work font-black text-[19.6px] leading-[26px]">HOMECOMING LIVE</p>
             <p class="font-work font-black text-[19.6px] leading-[26px]">MUSIC SHOW 2026</p>
@@ -173,7 +165,7 @@
         <!-- Card 4: REHASH -->
         <a href="event-detail.html?name=REHASH%3A+Rhythm+%26+Rhymes&price=12500&date=Sun%2C+Apr+12th&time=12%3A00+PM&location=Landmark+Event+Centre%2C+Lagos&img=event-card-4&desc=A+hip+hop+and+R%26B+edition+celebrating+the+classics+with+live+performances+and+DJ+sets." class="shrink-0 rounded-[13px] overflow-hidden cursor-pointer relative" style="width:238px;height:370px">
           <img src="images/pages/event-card-4.jpg" alt="REHASH" class="absolute inset-0 w-full h-full object-cover">
-          <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(0,0,0,0.85) 30%,rgba(0,0,0,0.15) 70%)"></div>
+          <div class="absolute inset-0 overlay-dark"></div>
           <div class="absolute bottom-[75px] left-0 right-0 text-center text-white">
             <p class="font-work font-black text-[19.6px] leading-[26px]">REHASH: Rhythm &amp;</p>
             <p class="font-work font-black text-[19.6px] leading-[26px]">Rhymes</p>
@@ -186,7 +178,7 @@
         <!-- Card 5: FALANA -->
         <a href="event-detail.html?name=FALANA+Presents+%27Take+Me+Home%27+-+Pop+Up+Concert+Series&price=20000&date=Sat%2C+Apr+18th&time=5%3A00+PM&location=Terra+Kulture%2C+Lagos&img=event-card-5&desc=FALANA+brings+her+beloved+Take+Me+Home+series+to+Lagos+in+an+intimate+pop-up+concert+experience." class="shrink-0 rounded-[13px] overflow-hidden cursor-pointer relative" style="width:238px;height:370px">
           <img src="images/pages/event-card-5.jpg" alt="FALANA" class="absolute inset-0 w-full h-full object-cover">
-          <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(0,0,0,0.85) 30%,rgba(0,0,0,0.15) 70%)"></div>
+          <div class="absolute inset-0 overlay-dark"></div>
           <div class="absolute bottom-[88px] left-0 right-0 text-center text-white">
             <p class="font-work font-black text-[19.6px] leading-[26px]">FALANA Presents</p>
             <p class="font-work font-black text-[19.6px] leading-[26px]">'TAKE ME HOME' -</p>
@@ -219,7 +211,7 @@
 
   <!-- 1. FREE RSVP MODAL: Reserve a Seat -->
   <div id="modal-free" class="hidden fixed inset-0 z-[101] flex items-center justify-center px-4">
-    <div class="bg-white rounded-[20px] w-full max-w-[400px] p-6 flex flex-col gap-5" style="box-shadow:0 20px 60px rgba(0,0,0,0.18)">
+    <div class="bg-white rounded-[20px] w-full max-w-[400px] p-6 flex flex-col gap-5 shadow-xxl">
       <!-- Header -->
       <div class="flex items-start justify-between">
         <div class="flex flex-col gap-1">
@@ -246,7 +238,7 @@
           <label class="font-inter font-medium text-[13px] text-[#364153]">Phone Number</label>
           <div class="flex h-[44px] rounded-[10px] border border-[#e5e7eb] overflow-hidden focus-within:border-[#155dfc] focus-within:ring-2 focus-within:ring-[#155dfc]/20 transition-colors">
             <div class="flex items-center gap-1.5 px-3 bg-[#f9fafb] border-r border-[#e5e7eb] shrink-0">
-              <span class="text-[15px]">🇳🇬</span>
+              <span class="text-[15px]">ðŸ‡³ðŸ‡¬</span>
               <span class="font-inter text-[13px] text-[#364153]">+234</span>
             </div>
             <input type="tel" placeholder="800 000 0000"
@@ -293,29 +285,29 @@
         <div class="flex flex-col gap-2 text-[13px] font-inter">
           <div class="flex justify-between text-[#6a7282]">
             <span id="summary-event-name" class="truncate max-w-[220px]">Event</span>
-            <span id="summary-subtotal">₦0</span>
+            <span id="summary-subtotal">â‚¦0</span>
           </div>
           <div class="flex justify-between text-[#6a7282]">
             <span>VAT (7.5%)</span>
-            <span id="summary-vat">₦0</span>
+            <span id="summary-vat">â‚¦0</span>
           </div>
           <hr class="border-[#e5e7eb]">
           <div class="flex justify-between font-semibold text-[#155dfc]">
             <span>TOTAL</span>
-            <span id="summary-total">₦0</span>
+            <span id="summary-total">â‚¦0</span>
           </div>
         </div>
       </div>
       <!-- Pay button -->
       <button id="pay-btn" onclick="submitPayment()" class="w-full h-[44px] bg-[#155dfc] text-white font-inter font-semibold text-[14px] rounded-[10px] hover:bg-[#1447e6] transition-colors">
-        Pay ₦0
+        Pay â‚¦0
       </button>
     </div>
   </div>
 
   <!-- 3. FREE RSVP SUCCESS MODAL -->
   <div id="modal-free-success" class="hidden fixed inset-0 z-[101] flex items-center justify-center px-4">
-    <div class="bg-white rounded-[20px] w-full max-w-[360px] p-8 flex flex-col items-center gap-5 text-center" style="box-shadow:0 20px 60px rgba(0,0,0,0.18)">
+    <div class="bg-white rounded-[20px] w-full max-w-[360px] p-8 flex flex-col items-center gap-5 text-center shadow-xxl">
       <!-- Green check -->
       <div class="w-[72px] h-[72px] rounded-full bg-[#ecfdf3] border-[8px] border-[#d1fadf] flex items-center justify-center">
         <i data-lucide="check" class="w-8 h-8 text-[#16a34a]" style="stroke-width:3" aria-hidden="true"></i>
@@ -332,7 +324,7 @@
 
   <!-- 4. PAID SUCCESS MODAL -->
   <div id="modal-paid-success" class="hidden fixed inset-0 z-[101] flex items-center justify-center px-4">
-    <div class="bg-white rounded-[20px] w-full max-w-[360px] p-8 flex flex-col items-center gap-5 text-center" style="box-shadow:0 20px 60px rgba(0,0,0,0.18)">
+    <div class="bg-white rounded-[20px] w-full max-w-[360px] p-8 flex flex-col items-center gap-5 text-center shadow-xxl">
       <!-- Green check -->
       <div class="w-[72px] h-[72px] rounded-full bg-[#ecfdf3] border-[8px] border-[#d1fadf] flex items-center justify-center">
         <i data-lucide="check" class="w-8 h-8 text-[#16a34a]" style="stroke-width:3" aria-hidden="true"></i>
@@ -341,7 +333,7 @@
         <h2 class="font-work font-bold text-[22px] text-[#101828]">Payment Successful!</h2>
         <p class="font-inter text-[14px] text-[#6a7282] leading-[22px]">Thank you for your order. Your ticket details have been sent to your email address.</p>
       </div>
-      <button onclick="closeAllModals()" class="w-full h-[44px] text-white font-inter font-semibold text-[14px] rounded-[10px] hover:opacity-90 transition-opacity" style="background:#032d71">
+      <button onclick="closeAllModals()" class="w-full h-[44px] text-white font-inter font-semibold text-[14px] rounded-[10px] hover:opacity-90 transition-opacity bg-brand-dark">
         Okay
       </button>
     </div>
@@ -353,7 +345,7 @@
   <script>
     lucide.createIcons();
 
-    // ── Read URL params and populate event details ─────────────────
+    // â”€â”€ Read URL params and populate event details â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     const _params = new URLSearchParams(window.location.search);
     const _name     = _params.get('name');
     const _price    = _params.get('price');
@@ -395,12 +387,12 @@
         priceEl.style.color = '#22c55e';
       } else {
         _priceNum = parseInt(_price, 10);
-        priceEl.textContent = '₦' + _priceNum.toLocaleString('en-NG');
+        priceEl.textContent = 'â‚¦' + _priceNum.toLocaleString('en-NG');
         priceEl.style.color = '#364153';
       }
     }
 
-    // ── Save toggle ────────────────────────────────────────────────
+    // â”€â”€ Save toggle â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     function handleSave(el) {
       const label = el.querySelector('span');
       if (label.textContent.trim() === 'Save Events') {
@@ -414,7 +406,7 @@
       }
     }
 
-    // ── Modal helpers ──────────────────────────────────────────────
+    // â”€â”€ Modal helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     function showModal(id) {
       document.getElementById('modal-backdrop').classList.remove('hidden');
       document.getElementById(id).classList.remove('hidden');
@@ -429,7 +421,7 @@
       document.body.style.overflow = '';
     }
 
-    // ── Ticket tiers (paid modal) ──────────────────────────────────
+    // â”€â”€ Ticket tiers (paid modal) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     const TIERS = [
       { label: 'Early Bird', qty: 0 },
       { label: 'VIP',        qty: 0 },
@@ -449,13 +441,13 @@
             </div>
             <div>
               <p class="font-work font-semibold text-[14px] text-[#101828]">${tier.label}</p>
-              <p class="font-inter text-[12px] text-[#6a7282]">₦${_priceNum.toLocaleString('en-NG')}</p>
+              <p class="font-inter text-[12px] text-[#6a7282]">â‚¦${_priceNum.toLocaleString('en-NG')}</p>
             </div>
           </div>
           <div class="flex items-center gap-2">
-            ${tier.qty > 0 ? `<button onclick="adjustQty(${i},-1)" class="w-7 h-7 rounded-full border border-[#e5e7eb] flex items-center justify-center font-inter font-bold text-[#364153] text-[16px] hover:border-[#155dfc] hover:text-[#155dfc] transition-colors">−</button>` : ''}
+            ${tier.qty > 0 ? `<button onclick="adjustQty(${i},-1)" class="w-7 h-7 rounded-full border border-[#e5e7eb] flex items-center justify-center font-inter font-bold text-[#364153] text-[16px] hover:border-[#155dfc] hover:text-[#155dfc] transition-colors">âˆ’</button>` : ''}
             ${tier.qty > 0 ? `<span class="font-inter font-semibold text-[14px] text-[#101828] min-w-[16px] text-center">${tier.qty}</span>` : ''}
-            <button onclick="adjustQty(${i},1)" class="w-7 h-7 rounded-full flex items-center justify-center font-inter font-bold text-white text-[16px] hover:bg-[#1447e6] transition-colors" style="background:#155dfc">+</button>
+            <button onclick="adjustQty(${i},1)" class="w-7 h-7 rounded-full flex items-center justify-center font-inter font-bold text-white text-[16px] hover:bg-[#1447e6] transition-colors bg-brand-primary">+</button>
             ${tier.qty > 0 ? `<button onclick="adjustQty(${i},-${tier.qty})" class="w-7 h-7 rounded-full flex items-center justify-center ml-1" style="color:#dc2626"><i data-lucide="trash-2" class="w-3.5 h-3.5" aria-hidden="true"></i></button>` : ''}
           </div>
         `;
@@ -476,15 +468,15 @@
       const vat      = Math.round(subtotal * 0.075);
       const total    = subtotal + vat;
       document.getElementById('summary-event-name').textContent = _name || 'Event';
-      document.getElementById('summary-subtotal').textContent   = '₦' + subtotal.toLocaleString('en-NG');
-      document.getElementById('summary-vat').textContent        = '₦' + vat.toLocaleString('en-NG');
-      document.getElementById('summary-total').textContent      = '₦' + total.toLocaleString('en-NG');
+      document.getElementById('summary-subtotal').textContent   = 'â‚¦' + subtotal.toLocaleString('en-NG');
+      document.getElementById('summary-vat').textContent        = 'â‚¦' + vat.toLocaleString('en-NG');
+      document.getElementById('summary-total').textContent      = 'â‚¦' + total.toLocaleString('en-NG');
       document.getElementById('pay-btn').textContent            = totalQty > 0
-        ? 'Pay ₦' + total.toLocaleString('en-NG')
+        ? 'Pay â‚¦' + total.toLocaleString('en-NG')
         : 'Select a ticket';
     }
 
-    // ── Open modal logic ───────────────────────────────────────────
+    // â”€â”€ Open modal logic â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     function openTicketModal() {
       if (_price === 'free' || !_price) {
         showModal('modal-free');
@@ -496,7 +488,7 @@
       }
     }
 
-    // ── Submit handlers ────────────────────────────────────────────
+    // â”€â”€ Submit handlers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     function submitRSVP(e) {
       e.preventDefault();
       closeAllModals();
@@ -512,4 +504,7 @@
   </script>
 </body>
 </html>
+
+
+
 

@@ -1,19 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reports — CompareHub Vendor</title>
+  <title>Reports â€” CompareHub Vendor</title>
   <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { work: ['Work Sans','sans-serif'], inter: ['Inter','sans-serif'] },
-        },
-      },
-    };
-  </script>
+  <script src="js/tailwind-config.js"></script>
   <script src="https://cdn.tailwindcss.com?with=default@3.4.1"></script>
   <script src="js/lucide.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,7 +23,7 @@
   <div id="app-header"></div>
 
   <!-- Mobile header -->
-  <div class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#f3f4f6]" style="height:65px;box-shadow:0 1px 8px rgba(0,0,0,0.07)">
+  <div class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#f3f4f6] h-[65px] shadow-soft-top">
     <div class="flex items-center gap-3 px-4 h-full">
       <a href="vendor-dashboard.html" class="w-9 h-9 rounded-full bg-[#f3f4f6] flex items-center justify-center shrink-0">
         <i data-lucide="arrow-left" class="w-4 h-4 text-[#364153]" aria-hidden="true"></i>
@@ -44,7 +36,7 @@
   </div>
 
   <!-- Mobile Bottom Navigation -->
-  <nav class="sm:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-[#f3f4f6] z-40" style="box-shadow:0 -1px 8px rgba(0,0,0,0.07)">
+  <nav class="sm:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-[#f3f4f6] z-40 shadow-soft-top">
     <div class="flex items-center justify-around h-[70px]">
       <a href="vendor-dashboard.html" class="flex flex-col items-center justify-center gap-1 flex-1 h-full text-[#99a1af] hover:text-[#364153]">
         <i data-lucide="layout-dashboard" class="w-5 h-5" aria-hidden="true"></i>
@@ -74,9 +66,9 @@
       <div class="flex gap-6 items-start">
 
         <!-- Sidebar -->
-        <aside class="hidden sm:block w-[220px] shrink-0 bg-white rounded-[16px] border border-[#f3f4f6] p-5 space-y-5" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+        <aside class="hidden sm:block w-[220px] shrink-0 bg-white rounded-[16px] border border-[#f3f4f6] p-5 space-y-5 shadow-soft">
           <div class="flex flex-col items-center gap-3 pb-5 border-b border-[#f3f4f6]">
-            <div id="vendor-logo" class="w-12 h-12 rounded-full flex items-center justify-center shrink-0" style="background:#032d71">
+            <div id="vendor-logo" class="w-12 h-12 rounded-full flex items-center justify-center shrink-0 bg-brand-dark">
               <span id="vendor-initials" class="font-work font-bold text-[16px] text-white">--</span>
             </div>
             <div class="text-center">
@@ -127,7 +119,7 @@
               <h1 class="font-work font-bold text-[22px] sm:text-[26px] text-[#101828]">Reports & Analytics</h1>
               <p class="font-work text-[13px] text-[#99a1af] mt-0.5">Track your business performance</p>
             </div>
-            <select class="px-4 py-2.5 border border-[#e5e7eb] rounded-[10px] font-work text-[13px] outline-none focus:border-[#155dfc]" style="background:#fff">
+            <select class="px-4 py-2.5 border border-[#e5e7eb] rounded-[10px] font-work text-[13px] outline-none focus:border-[#155dfc] bg-white">
               <option>Last 7 days</option>
               <option>Last 30 days</option>
               <option>Last 3 months</option>
@@ -137,32 +129,32 @@
 
           <!-- Key Metrics -->
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-4" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+            <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-4 shadow-soft">
               <div class="w-8 h-8 rounded-[10px] bg-[#eff6ff] flex items-center justify-center mb-2">
                 <i data-lucide="eye" class="w-4 h-4 text-[#155dfc]" aria-hidden="true"></i>
               </div>
               <p class="font-work font-bold text-[20px] text-[#101828]" id="metric-views">0</p>
               <p class="font-work text-[11px] text-[#99a1af]">Profile Views</p>
             </div>
-            <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-4" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+            <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-4 shadow-soft">
               <div class="w-8 h-8 rounded-[10px] bg-[#fef3c7] flex items-center justify-center mb-2">
                 <i data-lucide="click" class="w-4 h-4 text-[#d97706]" aria-hidden="true"></i>
               </div>
               <p class="font-work font-bold text-[20px] text-[#101828]" id="metric-clicks">0</p>
               <p class="font-work text-[11px] text-[#99a1af]">Product Clicks</p>
             </div>
-            <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-4" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+            <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-4 shadow-soft">
               <div class="w-8 h-8 rounded-[10px] bg-[#f0fdf4] flex items-center justify-center mb-2">
                 <i data-lucide="shopping-cart" class="w-4 h-4 text-[#16a34a]" aria-hidden="true"></i>
               </div>
               <p class="font-work font-bold text-[20px] text-[#101828]" id="metric-conversions">0</p>
               <p class="font-work text-[11px] text-[#99a1af]">Conversions</p>
             </div>
-            <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-4" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+            <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-4 shadow-soft">
               <div class="w-8 h-8 rounded-[10px] bg-[#fce7f3] flex items-center justify-center mb-2">
                 <i data-lucide="trending-up" class="w-4 h-4 text-[#ec4899]" aria-hidden="true"></i>
               </div>
-              <p class="font-work font-bold text-[20px] text-[#101828]" id="metric-revenue">₦0</p>
+              <p class="font-work font-bold text-[20px] text-[#101828]" id="metric-revenue">â‚¦0</p>
               <p class="font-work text-[11px] text-[#99a1af]">Revenue</p>
             </div>
           </div>
@@ -170,7 +162,7 @@
           <!-- Charts Section -->
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
             <!-- Traffic Chart -->
-            <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-6" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+            <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-6 shadow-soft">
               <h2 class="font-work font-semibold text-[16px] text-[#101828] mb-6">Traffic Overview</h2>
               <div class="space-y-4">
                 <div>
@@ -222,7 +214,7 @@
             </div>
 
             <!-- Top Products -->
-            <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-6" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+            <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-6 shadow-soft">
               <h2 class="font-work font-semibold text-[16px] text-[#101828] mb-4">Top Products</h2>
               <div id="top-products" class="space-y-3">
                 <div class="text-center py-8">
@@ -233,7 +225,7 @@
           </div>
 
           <!-- Event Ticket Sales -->
-          <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-6" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+          <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-6 shadow-soft">
             <h2 class="font-work font-semibold text-[16px] text-[#101828] mb-6">Event Ticket Sales</h2>
             <div class="space-y-3 sm:space-y-0">
               <!-- Desktop Table View -->
@@ -267,7 +259,7 @@
           </div>
 
           <!-- Recent Activity -->
-          <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-6" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+          <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-6 shadow-soft">
             <h2 class="font-work font-semibold text-[16px] text-[#101828] mb-4">Recent Events</h2>
             <div class="space-y-3">
               <div class="flex items-center gap-3 p-4 rounded-[10px] border border-[#f3f4f6]">
@@ -337,7 +329,7 @@
       document.getElementById('metric-views').textContent = views;
       document.getElementById('metric-clicks').textContent = clicks;
       document.getElementById('metric-conversions').textContent = conversions;
-      document.getElementById('metric-revenue').textContent = '₦' + totalRevenue.toLocaleString();
+      document.getElementById('metric-revenue').textContent = 'â‚¦' + totalRevenue.toLocaleString();
 
       // Render top products
       renderTopProducts(vendor);
@@ -359,7 +351,7 @@
           <span class="font-work font-bold text-[13px] text-[#99a1af] w-6">${idx + 1}</span>
           <div class="flex-1 min-w-0">
             <p class="font-work font-medium text-[13px] text-[#101828] truncate">${product.name}</p>
-            <p class="font-work text-[11px] text-[#99a1af]">₦${product.price.toLocaleString()}</p>
+            <p class="font-work text-[11px] text-[#99a1af]">â‚¦${product.price.toLocaleString()}</p>
           </div>
           <span class="font-work font-semibold text-[12px] text-[#155dfc]">${Math.floor(Math.random() * 100)}</span>
         </div>
@@ -405,18 +397,18 @@
                 <p class="font-work text-[13px] text-[#364153]">${ticket.name}</p>
               </td>
               <td class="px-4 py-4">
-                <p class="font-work font-semibold text-[13px] text-[#101828]">₦${priceNum.toLocaleString()}</p>
+                <p class="font-work font-semibold text-[13px] text-[#101828]">â‚¦${priceNum.toLocaleString()}</p>
               </td>
               <td class="px-4 py-4">
                 <span class="font-work font-bold text-[13px] text-[#155dfc]">${sold}/${ticket.quantity}</span>
               </td>
               <td class="px-4 py-4 text-right">
-                <p class="font-work font-bold text-[13px] text-[#16a34a]">₦${revenue.toLocaleString()}</p>
+                <p class="font-work font-bold text-[13px] text-[#16a34a]">â‚¦${revenue.toLocaleString()}</p>
               </td>
             </tr>`;
 
           mobileHtml += `
-            <div class="bg-white rounded-[12px] border border-[#f3f4f6] p-3" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+            <div class="bg-white rounded-[12px] border border-[#f3f4f6] p-3 shadow-soft">
               <div class="mb-3">
                 <p class="font-work font-semibold text-[13px] text-[#101828]">${event.name}</p>
                 <p class="font-work text-[12px] text-[#6a7282]">${ticket.name}</p>
@@ -424,7 +416,7 @@
               <div class="space-y-2 mb-3">
                 <div class="flex items-center justify-between">
                   <span class="font-work text-[11px] text-[#6a7282]">Price</span>
-                  <span class="font-work font-semibold text-[12px] text-[#101828]">₦${priceNum.toLocaleString()}</span>
+                  <span class="font-work font-semibold text-[12px] text-[#101828]">â‚¦${priceNum.toLocaleString()}</span>
                 </div>
                 <div class="flex items-center justify-between">
                   <span class="font-work text-[11px] text-[#6a7282]">Sold</span>
@@ -432,7 +424,7 @@
                 </div>
                 <div class="flex items-center justify-between pt-2 border-t border-[#f3f4f6]">
                   <span class="font-work text-[11px] text-[#6a7282]">Revenue</span>
-                  <span class="font-work font-bold text-[12px] text-[#16a34a]">₦${revenue.toLocaleString()}</span>
+                  <span class="font-work font-bold text-[12px] text-[#16a34a]">â‚¦${revenue.toLocaleString()}</span>
                 </div>
               </div>
             </div>`;
@@ -470,6 +462,8 @@
   </script>
 </body>
 </html>
+
+
 
 
 

@@ -1,19 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Privacy Policy — CompareHub</title>
+  <title>Privacy Policy â€” CompareHub</title>
   <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { work: ['Work Sans','sans-serif'], inter: ['Inter','sans-serif'] },
-        },
-      },
-    };
-  </script>
+  <script src="js/tailwind-config.js"></script>
   <script src="https://cdn.tailwindcss.com?with=default@3.4.1"></script>
   <script src="js/lucide.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -37,7 +29,7 @@
   <!-- =====================================================
        MOBILE HEADER
        ===================================================== -->
-  <div class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#f3f4f6]" style="height:65px;box-shadow:0 1px 8px rgba(0,0,0,0.07)">
+  <div class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#f3f4f6] h-[65px] shadow-soft-top">
     <div class="flex items-center gap-3 px-4 h-full">
       <a href="javascript:history.back()" class="w-9 h-9 rounded-full bg-[#f3f4f6] flex items-center justify-center shrink-0">
         <i data-lucide="arrow-left" class="w-4 h-4 text-[#364153]" aria-hidden="true"></i>
@@ -52,7 +44,7 @@
   <!-- =====================================================
        HERO BANNER
        ===================================================== -->
-  <section class="sm:mt-[70px] mt-[65px]" style="background:#124fd6;padding:56px 0 96px">
+  <section class="sm:mt-[70px] mt-[65px] bg-[#124fd6] pt-[56px] pb-[96px]">
     <div class="max-w-[1104px] mx-auto px-4 sm:px-8 text-center">
       <div class="inline-flex items-center gap-2 bg-white/15 border border-white/25 rounded-full px-4 py-1.5 mb-4 backdrop-blur-sm">
         <i data-lucide="shield" class="w-3.5 h-3.5 text-white" aria-hidden="true"></i>
@@ -60,19 +52,19 @@
       </div>
       <h1 class="font-inter font-bold text-[26px] sm:text-[34px] text-white tracking-[-0.5px] mb-3">Privacy Policy</h1>
       <p class="font-work text-[15px] sm:text-[17px] text-white/80 max-w-[500px] mx-auto leading-[1.6]">We are committed to protecting your personal data and being transparent about how we use it.</p>
-      <p class="font-inter text-[13px] text-white/60 mt-4">Last updated: 1 April 2026 &nbsp;·&nbsp; Effective: 1 April 2026</p>
+      <p class="font-inter text-[13px] text-white/60 mt-4">Last updated: 1 April 2026 &nbsp;Â·&nbsp; Effective: 1 April 2026</p>
     </div>
   </section>
 
   <!-- =====================================================
        MAIN CONTENT: SIDEBAR + SECTIONS
        ===================================================== -->
-  <section class="max-w-[1104px] mx-auto px-4 sm:px-8 pb-16" style="margin-top:-56px">
+  <section class="max-w-[1104px] mx-auto px-4 sm:px-8 pb-16 -mt-14">
     <div class="flex flex-col lg:flex-row gap-7 items-start">
 
-      <!-- ── SIDEBAR: Quick Navigation ── -->
+      <!-- â”€â”€ SIDEBAR: Quick Navigation â”€â”€ -->
       <aside class="lg:w-[280px] shrink-0 lg:sticky lg:top-[86px]">
-        <div class="bg-white rounded-[20px] border border-[#e5e7eb] p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.08)">
+        <div class="bg-white rounded-[20px] border border-[#e5e7eb] p-5 shadow-soft">
           <p class="font-inter font-semibold text-[13px] text-[#101828] mb-4 tracking-[-0.15px]">Quick Navigation</p>
           <div class="flex flex-col gap-2">
             <a href="#section-1"  class="nav-pill active font-inter font-medium text-[12px] px-3 py-2 rounded-[10px] transition-colors hover:bg-[#155dfc] hover:text-white">1. Introduction</a>
@@ -90,11 +82,11 @@
         </div>
       </aside>
 
-      <!-- ── MAIN: Content cards ── -->
+      <!-- â”€â”€ MAIN: Content cards â”€â”€ -->
       <div class="flex-1 flex flex-col gap-5 min-w-0">
 
         <!-- 1. Introduction -->
-        <div id="section-1" class="content-card bg-white rounded-[20px] border border-[#e5e7eb] p-7" style="box-shadow:0 1px 3px rgba(0,0,0,0.06)">
+        <div id="section-1" class="content-card bg-white rounded-[20px] border border-[#e5e7eb] p-7 shadow-soft-sm">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-8 h-8 rounded-[10px] bg-[#eff6ff] flex items-center justify-center shrink-0">
               <i data-lucide="info" class="w-4 h-4 text-[#155dfc]" aria-hidden="true"></i>
@@ -106,7 +98,7 @@
         </div>
 
         <!-- 2. Information We Collect -->
-        <div id="section-2" class="content-card bg-white rounded-[20px] border border-[#e5e7eb] p-7" style="box-shadow:0 1px 3px rgba(0,0,0,0.06)">
+        <div id="section-2" class="content-card bg-white rounded-[20px] border border-[#e5e7eb] p-7 shadow-soft-sm">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-8 h-8 rounded-[10px] bg-[#eff6ff] flex items-center justify-center shrink-0">
               <i data-lucide="database" class="w-4 h-4 text-[#155dfc]" aria-hidden="true"></i>
@@ -131,7 +123,7 @@
         </div>
 
         <!-- 3. How We Use Your Data -->
-        <div id="section-3" class="content-card bg-white rounded-[20px] border border-[#e5e7eb] p-7" style="box-shadow:0 1px 3px rgba(0,0,0,0.06)">
+        <div id="section-3" class="content-card bg-white rounded-[20px] border border-[#e5e7eb] p-7 shadow-soft-sm">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-8 h-8 rounded-[10px] bg-[#eff6ff] flex items-center justify-center shrink-0">
               <i data-lucide="settings" class="w-4 h-4 text-[#155dfc]" aria-hidden="true"></i>
@@ -146,7 +138,7 @@
             </li>
             <li class="flex items-start gap-2.5">
               <i data-lucide="check" class="w-4 h-4 text-[#059669] shrink-0 mt-0.5" aria-hidden="true"></i>
-              <span class="font-work text-[14px] text-[#4a5565] leading-[1.6]">Personalising your experience — showing relevant products and price alerts for your city.</span>
+              <span class="font-work text-[14px] text-[#4a5565] leading-[1.6]">Personalising your experience â€” showing relevant products and price alerts for your city.</span>
             </li>
             <li class="flex items-start gap-2.5">
               <i data-lucide="check" class="w-4 h-4 text-[#059669] shrink-0 mt-0.5" aria-hidden="true"></i>
@@ -168,7 +160,7 @@
         </div>
 
         <!-- 4. Information Sharing -->
-        <div id="section-4" class="content-card bg-white rounded-[20px] border border-[#e5e7eb] p-7" style="box-shadow:0 1px 3px rgba(0,0,0,0.06)">
+        <div id="section-4" class="content-card bg-white rounded-[20px] border border-[#e5e7eb] p-7 shadow-soft-sm">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-8 h-8 rounded-[10px] bg-[#eff6ff] flex items-center justify-center shrink-0">
               <i data-lucide="share-2" class="w-4 h-4 text-[#155dfc]" aria-hidden="true"></i>
@@ -197,7 +189,7 @@
         </div>
 
         <!-- 5. Data Retention -->
-        <div id="section-5" class="content-card bg-white rounded-[20px] border border-[#e5e7eb] p-7" style="box-shadow:0 1px 3px rgba(0,0,0,0.06)">
+        <div id="section-5" class="content-card bg-white rounded-[20px] border border-[#e5e7eb] p-7 shadow-soft-sm">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-8 h-8 rounded-[10px] bg-[#eff6ff] flex items-center justify-center shrink-0">
               <i data-lucide="clock" class="w-4 h-4 text-[#155dfc]" aria-hidden="true"></i>
@@ -223,7 +215,7 @@
         </div>
 
         <!-- 6. Your Rights -->
-        <div id="section-6" class="content-card bg-white rounded-[20px] border border-[#e5e7eb] p-7" style="box-shadow:0 1px 3px rgba(0,0,0,0.06)">
+        <div id="section-6" class="content-card bg-white rounded-[20px] border border-[#e5e7eb] p-7 shadow-soft-sm">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-8 h-8 rounded-[10px] bg-[#eff6ff] flex items-center justify-center shrink-0">
               <i data-lucide="user-check" class="w-4 h-4 text-[#155dfc]" aria-hidden="true"></i>
@@ -279,7 +271,7 @@
         </div>
 
         <!-- 7. Cookies & Tracking -->
-        <div id="section-7" class="content-card bg-white rounded-[20px] border border-[#e5e7eb] p-7" style="box-shadow:0 1px 3px rgba(0,0,0,0.06)">
+        <div id="section-7" class="content-card bg-white rounded-[20px] border border-[#e5e7eb] p-7 shadow-soft-sm">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-8 h-8 rounded-[10px] bg-[#eff6ff] flex items-center justify-center shrink-0">
               <i data-lucide="cookie" class="w-4 h-4 text-[#155dfc]" aria-hidden="true"></i>
@@ -290,7 +282,7 @@
           <ul class="flex flex-col gap-2">
             <li class="flex items-start gap-2.5">
               <i data-lucide="check-circle" class="w-4 h-4 text-[#059669] shrink-0 mt-0.5" aria-hidden="true"></i>
-              <span class="font-work text-[14px] text-[#4a5565] leading-[1.6]"><strong class="text-[#101828]">Essential Cookies:</strong> Required for the Platform to function — login sessions, compare cart state, and security tokens.</span>
+              <span class="font-work text-[14px] text-[#4a5565] leading-[1.6]"><strong class="text-[#101828]">Essential Cookies:</strong> Required for the Platform to function â€” login sessions, compare cart state, and security tokens.</span>
             </li>
             <li class="flex items-start gap-2.5">
               <i data-lucide="check-circle" class="w-4 h-4 text-[#6a7282] shrink-0 mt-0.5" aria-hidden="true"></i>
@@ -305,7 +297,7 @@
         </div>
 
         <!-- 8. Third-Party Services -->
-        <div id="section-8" class="content-card bg-white rounded-[20px] border border-[#e5e7eb] p-7" style="box-shadow:0 1px 3px rgba(0,0,0,0.06)">
+        <div id="section-8" class="content-card bg-white rounded-[20px] border border-[#e5e7eb] p-7 shadow-soft-sm">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-8 h-8 rounded-[10px] bg-[#eff6ff] flex items-center justify-center shrink-0">
               <i data-lucide="link" class="w-4 h-4 text-[#155dfc]" aria-hidden="true"></i>
@@ -331,7 +323,7 @@
         </div>
 
         <!-- 9. Security -->
-        <div id="section-9" class="content-card bg-white rounded-[20px] border border-[#e5e7eb] p-7" style="box-shadow:0 1px 3px rgba(0,0,0,0.06)">
+        <div id="section-9" class="content-card bg-white rounded-[20px] border border-[#e5e7eb] p-7 shadow-soft-sm">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-8 h-8 rounded-[10px] bg-[#eff6ff] flex items-center justify-center shrink-0">
               <i data-lucide="lock" class="w-4 h-4 text-[#155dfc]" aria-hidden="true"></i>
@@ -357,7 +349,7 @@
         </div>
 
         <!-- 10. Children's Privacy -->
-        <div id="section-10" class="content-card bg-white rounded-[20px] border border-[#e5e7eb] p-7" style="box-shadow:0 1px 3px rgba(0,0,0,0.06)">
+        <div id="section-10" class="content-card bg-white rounded-[20px] border border-[#e5e7eb] p-7 shadow-soft-sm">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-8 h-8 rounded-[10px] bg-[#eff6ff] flex items-center justify-center shrink-0">
               <i data-lucide="users" class="w-4 h-4 text-[#155dfc]" aria-hidden="true"></i>
@@ -368,7 +360,7 @@
         </div>
 
         <!-- 11. Policy Changes -->
-        <div id="section-11" class="content-card bg-white rounded-[20px] border border-[#e5e7eb] p-7" style="box-shadow:0 1px 3px rgba(0,0,0,0.06)">
+        <div id="section-11" class="content-card bg-white rounded-[20px] border border-[#e5e7eb] p-7 shadow-soft-sm">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-8 h-8 rounded-[10px] bg-[#eff6ff] flex items-center justify-center shrink-0">
               <i data-lucide="refresh-cw" class="w-4 h-4 text-[#155dfc]" aria-hidden="true"></i>
@@ -398,7 +390,7 @@
                 <p class="font-inter font-semibold text-[16px] text-[#155dfc] tracking-[-0.3px]">Data Protection Officer (DPO)</p>
               </div>
               <p class="font-work text-[14px] text-[#364153] mb-1">For any data privacy concerns, subject access requests, or NDPA-related enquiries, contact our DPO directly.</p>
-              <p class="font-inter font-medium text-[14px] text-[#101828]">privacy@comparehub.ng &nbsp;·&nbsp; +234 801 234 5678</p>
+              <p class="font-inter font-medium text-[14px] text-[#101828]">privacy@comparehub.ng &nbsp;Â·&nbsp; +234 801 234 5678</p>
             </div>
             <a href="contact.html" class="shrink-0 inline-flex items-center gap-2 bg-[#155dfc] text-white font-inter font-semibold text-[13px] px-5 py-2.5 rounded-[12px] hover:bg-[#1447e6] transition-colors whitespace-nowrap">
               Contact DPO <i data-lucide="arrow-right" class="w-3.5 h-3.5" aria-hidden="true"></i>
@@ -447,4 +439,7 @@
   </script>
 </body>
 </html>
+
+
+
 

@@ -1,19 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Become a Vendor — CompareHub</title>
+  <title>Become a Vendor â€” CompareHub</title>
   <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { work: ['Work Sans','sans-serif'], inter: ['Inter','sans-serif'] },
-        },
-      },
-    };
-  </script>
+  <script src="js/tailwind-config.js"></script>
   <script src="https://cdn.tailwindcss.com?with=default@3.4.1"></script>
   <script src="js/lucide.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,7 +30,7 @@
   <!-- =====================================================
        MOBILE HEADER
        ===================================================== -->
-  <div class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#f3f4f6]" style="height:65px;box-shadow:0 1px 8px rgba(0,0,0,0.07)">
+  <div class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#f3f4f6] h-[65px] shadow-soft-top">
     <div class="flex items-center justify-between px-4 h-full">
       <a href="index.html" class="shrink-0">
         <img src="images/logos/logo-dark.svg" alt="CompareHub" class="h-6 w-auto">
@@ -79,11 +71,11 @@
   <!-- =====================================================
        HERO SECTION
        ===================================================== -->
-  <section class="sm:mt-[70px] mt-[65px] relative overflow-hidden" style="min-height:345px">
+  <section class="sm:mt-[70px] mt-[65px] relative overflow-hidden min-h-[345px]">
     <!-- Background image -->
     <img src="images/pages/how-it-works-hero-bg.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" aria-hidden="true">
     <!-- Colour overlay -->
-    <div class="absolute inset-0" style="background:linear-gradient(135deg,rgba(20,71,230,0.55) 0%,rgba(21,93,252,0.50) 50%,rgba(30,64,175,0.60) 100%)"></div>
+    <div class="absolute inset-0 bg-brand-gradient"></div>
     <div class="relative z-10 flex flex-col items-center justify-center text-center px-4 py-16 sm:py-20">
       <h1 class="font-inter font-black text-[26px] sm:text-[36px] text-white tracking-[0.37px] mb-3">Grow Your Business with CompareHub</h1>
       <p class="font-work text-[16px] sm:text-[18px] text-white/85 max-w-[470px] leading-[1.6] mb-8">Join thousands of Nigerian vendors selling products across our platform and reach customers actively looking to compare prices.</p>
@@ -113,7 +105,7 @@
           <span class="font-inter text-[12px] text-[#5a6372]">Active Cities</span>
         </div>
         <div class="flex flex-col items-center gap-1 px-4">
-          <span class="font-inter font-black text-[24px] text-[#364153] tracking-[0.07px]">₦2.3B+</span>
+          <span class="font-inter font-black text-[24px] text-[#364153] tracking-[0.07px]">â‚¦2.3B+</span>
           <span class="font-inter text-[12px] text-[#5a6372]">Savings Found</span>
         </div>
       </div>
@@ -136,7 +128,7 @@
         <p class="font-inter text-[11px] text-[#5a6372]">Active Cities</p>
       </div>
       <div class="bg-white rounded-[12px] p-3 text-center">
-        <p class="font-inter font-black text-[20px] text-[#364153]">₦2.3B+</p>
+        <p class="font-inter font-black text-[20px] text-[#364153]">â‚¦2.3B+</p>
         <p class="font-inter text-[11px] text-[#5a6372]">Savings Found</p>
       </div>
     </div>
@@ -265,7 +257,7 @@
 
         <!-- Right column: feature grid -->
         <div class="flex-1 grid sm:grid-cols-2 gap-4 content-start">
-          <div class="feature-card bg-white border border-[#f3f4f6] rounded-[16px] p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.08)">
+          <div class="feature-card bg-white border border-[#f3f4f6] rounded-[16px] p-5 shadow-soft">
             <div class="w-10 h-10 rounded-[12px] bg-[#eff6ff] flex items-center justify-center mb-3">
               <i data-lucide="users" class="w-5 h-5 text-[#155dfc]" aria-hidden="true"></i>
             </div>
@@ -273,7 +265,7 @@
             <p class="font-work text-[13px] text-[#6a7282] leading-[1.55]">Connect with thousands of active customers across Nigeria who are actively comparing prices and shopping for deals.</p>
           </div>
 
-          <div class="feature-card bg-white border border-[#f3f4f6] rounded-[16px] p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.08)">
+          <div class="feature-card bg-white border border-[#f3f4f6] rounded-[16px] p-5 shadow-soft">
             <div class="w-10 h-10 rounded-[12px] bg-[#fef3c7] flex items-center justify-center mb-3">
               <i data-lucide="trending-up" class="w-5 h-5 text-[#d97706]" aria-hidden="true"></i>
             </div>
@@ -281,7 +273,7 @@
             <p class="font-work text-[13px] text-[#6a7282] leading-[1.55]">Boost your visibility and sales by listing on Nigeria's leading price comparison platform where customers actively shop.</p>
           </div>
 
-          <div class="feature-card bg-white border border-[#f3f4f6] rounded-[16px] p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.08)">
+          <div class="feature-card bg-white border border-[#f3f4f6] rounded-[16px] p-5 shadow-soft">
             <div class="w-10 h-10 rounded-[12px] bg-[#f0fdf4] flex items-center justify-center mb-3">
               <i data-lucide="shield-check" class="w-5 h-5 text-[#059669]" aria-hidden="true"></i>
             </div>
@@ -289,7 +281,7 @@
             <p class="font-work text-[13px] text-[#6a7282] leading-[1.55]">Get verified as a trusted vendor and build credibility with our community of verified buyers and sellers.</p>
           </div>
 
-          <div class="feature-card bg-white border border-[#f3f4f6] rounded-[16px] p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.08)">
+          <div class="feature-card bg-white border border-[#f3f4f6] rounded-[16px] p-5 shadow-soft">
             <div class="w-10 h-10 rounded-[12px] bg-[#fef9e7] flex items-center justify-center mb-3">
               <i data-lucide="zap" class="w-5 h-5 text-[#ea580c]" aria-hidden="true"></i>
             </div>
@@ -297,7 +289,7 @@
             <p class="font-work text-[13px] text-[#6a7282] leading-[1.55]">Manage products, pricing, and team members from a simple dashboard. Track sales and get real-time analytics.</p>
           </div>
 
-          <div class="feature-card bg-white border border-[#f3f4f6] rounded-[16px] p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.08)">
+          <div class="feature-card bg-white border border-[#f3f4f6] rounded-[16px] p-5 shadow-soft">
             <div class="w-10 h-10 rounded-[12px] bg-[#fce7f3] flex items-center justify-center mb-3">
               <i data-lucide="headphones" class="w-5 h-5 text-[#ec4899]" aria-hidden="true"></i>
             </div>
@@ -305,7 +297,7 @@
             <p class="font-work text-[13px] text-[#6a7282] leading-[1.55]">Get support from our vendor team. We help you optimize listings and maximize your sales potential.</p>
           </div>
 
-          <div class="feature-card bg-white border border-[#f3f4f6] rounded-[16px] p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.08)">
+          <div class="feature-card bg-white border border-[#f3f4f6] rounded-[16px] p-5 shadow-soft">
             <div class="w-10 h-10 rounded-[12px] bg-[#dbeafe] flex items-center justify-center mb-3">
               <i data-lucide="bar-chart-2" class="w-5 h-5 text-[#0284c7]" aria-hidden="true"></i>
             </div>
@@ -327,7 +319,7 @@
         <p class="font-work text-[14px] sm:text-[16px] text-[#6a7282] max-w-[600px] mx-auto">Simple requirements to get your vendor account up and running</p>
       </div>
 
-      <div class="bg-white rounded-[16px] border border-[#e5e7eb] p-6 sm:p-8 max-w-[700px] mx-auto" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+      <div class="bg-white rounded-[16px] border border-[#e5e7eb] p-6 sm:p-8 max-w-[700px] mx-auto shadow-soft">
         <div class="space-y-4">
           <div class="flex gap-4">
             <div class="w-6 h-6 rounded-full bg-[#155dfc] flex items-center justify-center shrink-0 mt-1">
@@ -378,7 +370,7 @@
        ===================================================== -->
   <section class="py-14 sm:py-20 px-4 sm:px-8 bg-white">
     <div class="max-w-[1272px] mx-auto">
-      <div class="bg-gradient-to-r from-[#155dfc] to-[#1447e6] rounded-[20px] p-12 sm:p-16 text-center text-white" style="box-shadow:0 10px 40px rgba(21,93,252,0.2)">
+      <div class="bg-gradient-to-r from-[#155dfc] to-[#1447e6] rounded-[20px] p-12 sm:p-16 text-center text-white shadow-brand">
         <h2 class="font-work font-bold text-[28px] sm:text-[36px] mb-4">Ready to Start Selling?</h2>
         <p class="font-work text-[16px] text-white/90 mb-8 max-w-[600px] mx-auto">
           Join CompareHub today and connect with thousands of customers actively looking for your products
@@ -400,5 +392,9 @@
   </script>
 </body>
 </html>
+
+
+
+
 
 

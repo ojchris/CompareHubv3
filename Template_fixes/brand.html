@@ -1,19 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Brand Profile — CompareHub</title>
+  <title>Brand Profile â€” CompareHub</title>
   <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { work: ['Work Sans','sans-serif'], inter: ['Inter','sans-serif'] },
-        },
-      },
-    };
-  </script>
+  <script src="js/tailwind-config.js"></script>
   <script src="https://cdn.tailwindcss.com?with=default@3.4.1"></script>
   <script src="js/lucide.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -48,7 +40,7 @@
   <!-- =====================================================
        MOBILE HEADER
        ===================================================== -->
-  <div class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#f3f4f6]" style="height:65px;box-shadow:0 1px 8px rgba(0,0,0,0.07)">
+  <div class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#f3f4f6] h-[65px] shadow-soft-top">
     <div class="flex items-center gap-3 px-4 h-full">
       <a href="javascript:history.back()" class="w-9 h-9 rounded-full bg-[#f3f4f6] flex items-center justify-center shrink-0">
         <i data-lucide="arrow-left" class="w-4 h-4 text-[#364153]" aria-hidden="true"></i>
@@ -80,7 +72,7 @@
               <span id="brand-initials" class="font-inter font-bold text-[28px] sm:text-[36px] tracking-[0.37px]"></span>
             </div>
             <!-- Verified badge -->
-            <div class="absolute bottom-[-4px] right-[-4px] w-7 h-7 rounded-full bg-[#2b7fff] border-2 border-white flex items-center justify-center" style="box-shadow:0 1px 3px rgba(0,0,0,0.1)">
+            <div class="absolute bottom-[-4px] right-[-4px] w-7 h-7 rounded-full bg-[#2b7fff] border-2 border-white flex items-center justify-center shadow-soft-md">
               <i data-lucide="check" class="w-3.5 h-3.5 text-white" aria-hidden="true"></i>
             </div>
           </div>
@@ -102,10 +94,10 @@
         </div>
         <!-- Right: action buttons (desktop) -->
         <div class="hidden sm:flex items-center gap-3 shrink-0">
-          <button class="flex items-center gap-2 px-4 py-3 rounded-[14px] border border-white/25 font-work font-medium text-[14px] text-white hover:bg-white/10 transition-colors" style="background:rgba(255,255,255,0.15)">
+          <button class="flex items-center gap-2 px-4 py-3 rounded-[14px] border border-white/25 font-work font-medium text-[14px] text-white hover:bg-white/10 transition-colors bg-white/15">
             <i data-lucide="phone" class="w-4 h-4" aria-hidden="true"></i> Contact
           </button>
-          <button class="flex items-center gap-2 px-4 py-3 rounded-[14px] bg-white font-work font-semibold text-[14px] text-[#1447e6] hover:bg-blue-50 transition-colors" style="box-shadow:0 1px 3px rgba(0,0,0,0.1)">
+          <button class="flex items-center gap-2 px-4 py-3 rounded-[14px] bg-white font-work font-semibold text-[14px] text-[#1447e6] hover:bg-blue-50 transition-colors shadow-soft-md">
             <i data-lucide="phone-call" class="w-4 h-4" aria-hidden="true"></i> Call Vendor
           </button>
         </div>
@@ -119,17 +111,17 @@
   <main class="max-w-[1290px] mx-auto px-4 sm:px-8 py-6 sm:py-8">
     <div class="flex flex-col lg:flex-row gap-6 items-start">
 
-      <!-- ── LEFT SIDEBAR ── -->
+      <!-- â”€â”€ LEFT SIDEBAR â”€â”€ -->
       <div class="lg:w-[256px] shrink-0 flex flex-col gap-4 lg:sticky lg:top-[90px]">
 
         <!-- Product Categories -->
-        <div class="bg-white rounded-[16px] border border-[#f3f4f6] p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.1)">
+        <div class="bg-white rounded-[16px] border border-[#f3f4f6] p-5 shadow-soft-md">
           <p class="font-work font-medium text-[14px] text-[#364153] mb-3 tracking-[-0.15px]">Product Categories</p>
           <div id="category-list" class="flex flex-col gap-2"></div>
         </div>
 
         <!-- Store Info -->
-        <div class="bg-white rounded-[16px] border border-[#f3f4f6] p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.1)">
+        <div class="bg-white rounded-[16px] border border-[#f3f4f6] p-5 shadow-soft-md">
           <p class="font-work font-medium text-[14px] text-[#364153] mb-3 tracking-[-0.15px]">Store Info</p>
           <div class="flex flex-col gap-3">
             <div class="flex items-center gap-2.5">
@@ -148,7 +140,7 @@
         </div>
 
         <!-- CTA card -->
-        <div class="rounded-[16px] overflow-hidden relative p-5 flex flex-col gap-3" style="background:linear-gradient(145deg,#1447e6 0%,#1d4ed8 60%,#1e1b4b 100%);min-height:180px">
+        <div class="rounded-[16px] overflow-hidden relative p-5 flex flex-col gap-3 bg-brand-gradient-dark min-h-[180px]">
           <p class="font-inter font-bold text-[15px] text-white tracking-[-0.23px]">Get the best deal</p>
           <p id="cta-text" class="font-work text-[12px] text-[#bedbff] leading-[19.5px]"></p>
           <a href="category.html#cat=all" class="flex items-center justify-center gap-2 bg-white rounded-[14px] h-10 font-work font-semibold text-[13px] text-[#1447e6] hover:bg-blue-50 transition-colors mt-auto">
@@ -158,7 +150,7 @@
 
       </div>
 
-      <!-- ── MAIN PRODUCTS AREA ── -->
+      <!-- â”€â”€ MAIN PRODUCTS AREA â”€â”€ -->
       <div class="flex-1 min-w-0">
         <!-- Heading -->
         <div class="flex items-center gap-2 mb-4">
@@ -196,10 +188,10 @@
   <script src="js/components.js"></script>
   <script src="js/app.js"></script>
   <script>
-  // ── Brand Profile Page ─────────────────────────────────────────────────
+  // â”€â”€ Brand Profile Page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
   const VENDOR_PROFILES = {
-    // ── Vendors (have listings in VENDOR_LISTINGS) ──
+    // â”€â”€ Vendors (have listings in VENDOR_LISTINGS) â”€â”€
     ELECTROMART: {
       display: 'ElectroMart',
       tagline: 'Premium electronics, nationwide delivery',
@@ -248,7 +240,7 @@
       location: 'Ibadan, Oyo',
       avatar: { bg: '#ecfcca', text: '#497d00' },
     },
-    // ── Restaurant & Food Brands ──
+    // â”€â”€ Restaurant & Food Brands â”€â”€
     MAMACAS: {
       display: 'Mamacas',
       tagline: 'Authentic Nigerian home-style cooking',
@@ -285,34 +277,34 @@
       location: 'Port Harcourt, Rivers',
       avatar: { bg: '#fff1f2', text: '#be123c' },
     },
-    // ── Global Tech Brands ──
+    // â”€â”€ Global Tech Brands â”€â”€
     APPLE: {
       display: 'Apple',
-      tagline: 'Think different — premium devices & accessories',
+      tagline: 'Think different â€” premium devices & accessories',
       location: 'Available Nationwide',
       avatar: { bg: '#f1f5f9', text: '#334155' },
     },
     SAMSUNG: {
       display: 'Samsung',
-      tagline: "Do what you can't — innovation for everyone",
+      tagline: "Do what you can't â€” innovation for everyone",
       location: 'Available Nationwide',
       avatar: { bg: '#dbeafe', text: '#1447e6' },
     },
     SONY: {
       display: 'Sony',
-      tagline: 'Be moved — electronics, gaming & entertainment',
+      tagline: 'Be moved â€” electronics, gaming & entertainment',
       location: 'Available Nationwide',
       avatar: { bg: '#f8fafc', text: '#1e293b' },
     },
     JBL: {
       display: 'JBL',
-      tagline: 'Hear the truth — premium audio gear',
+      tagline: 'Hear the truth â€” premium audio gear',
       location: 'Available Nationwide',
       avatar: { bg: '#fef3c6', text: '#92400e' },
     },
     CANON: {
       display: 'Canon',
-      tagline: 'Delighting you always — cameras & imaging',
+      tagline: 'Delighting you always â€” cameras & imaging',
       location: 'Available Nationwide',
       avatar: { bg: '#fee2e2', text: '#b91c1c' },
     },
@@ -350,14 +342,14 @@
   }
 
   function formatPrice(num) {
-    return '₦' + num.toLocaleString('en-NG');
+    return 'â‚¦' + num.toLocaleString('en-NG');
   }
 
   function buildProductCard(product, listing) {
     const catLabel = CAT_LABELS[product.category] || product.category || '';
     const price = listing ? formatPrice(listing.price) : (product.price || '');
     return `
-      <div class="bg-white rounded-[14px] border border-[#f3f4f6] overflow-hidden flex flex-col" style="box-shadow:0 1px 3px rgba(0,0,0,0.1)">
+      <div class="bg-white rounded-[14px] border border-[#f3f4f6] overflow-hidden flex flex-col shadow-soft-md">
         <a href="product.html#id=${product.id}" class="block bg-[#f9fafb] overflow-hidden" style="height:190px">
           <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover" onerror="this.src='images/placeholder.jpg'">
         </a>
@@ -404,7 +396,7 @@
     document.getElementById('mobile-brand-sub').textContent = profile.tagline;
 
     // Page title
-    document.title = `${profile.display} — CompareHub`;
+    document.title = `${profile.display} â€” CompareHub`;
 
     // Get products for this vendor
     const vendorProducts = getVendorProducts(brandId);
@@ -481,5 +473,8 @@
   </script>
 </body>
 </html>
+
+
+
 
 

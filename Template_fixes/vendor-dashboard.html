@@ -1,34 +1,12 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vendor Dashboard — CompareHub</title>
+  <title>Vendor Dashboard â€” CompareHub</title>
   <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
   <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { work: ['Work Sans','sans-serif'], inter: ['Inter','sans-serif'] },
-          colors: {
-            brand: {
-              primary: '#155dfc',
-              hover:   '#1447e6',
-              dark:    '#181d25',
-              body:    '#364153',
-              subtle:  '#5a6372',
-              muted:   '#808793',
-              border:  '#e5e7eb',
-              surface: '#f9fafb',
-              light:   '#e5edff',
-              success: '#05df72',
-              danger:  '#ef4444',
-              vendor:  '#0f42b3',
-            },
-          },
-        },
-      },
-    };
+    // tailwind.config centralized in js/tailwind-config.js
   </script>
   <script src="https://cdn.tailwindcss.com?with=default@3.4.1"></script>
   <script src="js/lucide.min.js"></script>
@@ -118,28 +96,28 @@
 
           <!-- Stats Grid -->
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-4" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+            <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-4 shadow-soft">
               <div class="w-8 h-8 rounded-[10px] bg-[#eff6ff] flex items-center justify-center mb-2">
                 <i data-lucide="box" class="w-4 h-4 text-[#155dfc]" aria-hidden="true"></i>
               </div>
               <p class="font-work font-bold text-[20px] text-[#101828]" id="stat-products">0</p>
               <p class="font-work text-[11px] text-[#99a1af]">Products</p>
             </div>
-            <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-4" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+            <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-4 shadow-soft">
               <div class="w-8 h-8 rounded-[10px] bg-[#fef3c7] flex items-center justify-center mb-2">
                 <i data-lucide="calendar" class="w-4 h-4 text-[#d97706]" aria-hidden="true"></i>
               </div>
               <p class="font-work font-bold text-[20px] text-[#101828]" id="stat-events">0</p>
               <p class="font-work text-[11px] text-[#99a1af]">Events</p>
             </div>
-            <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-4" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+            <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-4 shadow-soft">
               <div class="w-8 h-8 rounded-[10px] bg-[#f0fdf4] flex items-center justify-center mb-2">
                 <i data-lucide="users" class="w-4 h-4 text-[#16a34a]" aria-hidden="true"></i>
               </div>
               <p class="font-work font-bold text-[20px] text-[#101828]" id="stat-team">0</p>
               <p class="font-work text-[11px] text-[#99a1af]">Team Members</p>
             </div>
-            <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-4" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+            <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-4 shadow-soft">
               <div class="w-8 h-8 rounded-[10px] bg-[#fce7f3] flex items-center justify-center mb-2">
                 <i data-lucide="trending-up" class="w-4 h-4 text-[#ec4899]" aria-hidden="true"></i>
               </div>
@@ -149,7 +127,7 @@
           </div>
 
           <!-- Quick Actions -->
-          <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-6" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+          <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-6 shadow-soft">
             <h2 class="font-work font-semibold text-[16px] text-[#101828] mb-4">Quick Actions</h2>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
               <a href="vendor-products.html" class="flex flex-col items-center gap-2 p-4 rounded-[12px] border border-[#e5e7eb] hover:border-[#155dfc] hover:bg-[#eff6ff] transition-colors text-center">
@@ -309,12 +287,11 @@
           </div>`;
       } else {
         feed.innerHTML = activities.slice(0, 6).map((activity, idx) => {
-          const iconColor = activity.type === 'product' ? '#155dfc' : activity.type === 'event' ? '#d97706' : '#16a34a';
-          const iconBg = activity.type === 'product' ? '#eff6ff' : activity.type === 'event' ? '#fef3c7' : '#f0fdf4';
+          const activityClass = activity.type === 'product' ? 'activity-product' : activity.type === 'event' ? 'activity-event' : 'activity-team';
           return `
             <div class="flex items-start gap-3 p-3 rounded-[10px] border border-[#f3f4f6] hover:border-[#e5e7eb] transition-colors">
-              <div class="w-10 h-10 rounded-[8px] flex items-center justify-center shrink-0" style="background:${iconBg}">
-                <i data-lucide="${activity.icon}" class="w-4 h-4" style="color:${iconColor}" aria-hidden="true"></i>
+              <div class="activity-icon ${activityClass}">
+                <i data-lucide="${activity.icon}" class="w-4 h-4" aria-hidden="true"></i>
               </div>
               <div class="flex-1 min-w-0">
                 <p class="font-work font-medium text-[13px] text-[#101828]">${activity.title}</p>
@@ -355,6 +332,7 @@
   </script>
 </body>
 </html>
+
 
 
 

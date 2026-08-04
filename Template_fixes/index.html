@@ -1,76 +1,21 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CompareHub — Nigeria's No. 1 Price Comparison Marketplace</title>
+  <title>CompareHub â€” Nigeria's No. 1 Price Comparison Marketplace</title>
   <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
 
   <!-- Tailwind CSS CDN -->
+  <script src="js/tailwind-config.js"></script>
   <script src="https://cdn.tailwindcss.com?with=default@3.4.1"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            work:  ['"Work Sans"', 'sans-serif'],
-            inter: ['Inter',       'sans-serif'],
-          },
-          colors: {
-            brand: {
-              primary: '#155dfc',
-              hover:   '#1447e6',
-              dark:    '#181d25',
-              body:    '#364153',
-              subtle:  '#5a6372',
-              muted:   '#808793',
-              border:  '#e5e7eb',
-              surface: '#f9fafb',
-              light:   '#e5edff',
-              success: '#05df72',
-              danger:  '#ef4444',
-              vendor:  '#0f42b3',
-            },
-          },
-          borderRadius: {
-            btn:    '14px',
-            card:   '10px',
-            panel:  '16px',
-            drawer: '20px',
-            pill:   '30px',
-          },
-          fontSize: {
-            'label':      ['11px', { lineHeight: '1.5' }],
-            'caption':    ['12px', { lineHeight: '1.5' }],
-            'body-sm':    ['13px', { lineHeight: '1.5' }],
-            'body':       ['14px', { lineHeight: '1.5' }],
-            'body-md':    ['15px', { lineHeight: '1.5' }],
-            'heading-sm': ['18px', { lineHeight: '1.5' }],
-            'heading':    ['20px', { lineHeight: '1.5' }],
-            'heading-lg': ['30px', { lineHeight: '1.2' }],
-            'hero':       ['45px', { lineHeight: '1.1' }],
-          },
-          boxShadow: {
-            card:         '0 2px 4px rgba(0,0,0,0.06)',
-            'card-hover': '0 10px 28px rgba(0,0,0,0.1)',
-            header:       '0 1px 12px rgba(0,0,0,0.08)',
-            drawer:       '0 -8px 32px rgba(0,0,0,0.12)',
-            dropdown:     '0 12px 32px rgba(0,0,0,0.12)',
-          },
-          spacing: {
-            'section':    '111px',
-          },
-        },
-      },
-    };
-  </script>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Lucide Icons — pinned version for reliability -->
+  <!-- Lucide Icons â€” pinned version for reliability -->
   <script src="js/lucide.min.js"></script>
 
   <link rel="stylesheet" href="css/styles.css">
@@ -79,7 +24,7 @@
 
   <div id="app-header"></div>
 
-  <!-- Mobile header — logo + search bar + menu -->
+  <!-- Mobile header â€” logo + search bar + menu -->
   <header class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#f3f4f6] h-[65px] shadow-[0_1px_8px_rgba(0,0,0,0.07)]">
     <div class="flex items-center gap-2 px-4 h-full">
       <a href="index.html" class="shrink-0">
@@ -126,7 +71,7 @@
   <div class="sm:hidden h-[2px]"></div>
 
   <!-- ===================================================
-       MOBILE HERO BANNER — shown only on mobile
+       MOBILE HERO BANNER â€” shown only on mobile
        =================================================== -->
   <section class="sm:hidden px-4 pt-[2px]">
     <div id="mobile-hero" class="relative overflow-hidden rounded-[16px] bg-[linear-gradient(130deg,#155dfc_0%,#1244d4_60%,#0b3ac7_100%)] h-[148px]">
@@ -149,7 +94,7 @@
           </button>
         </div>
 
-        <!-- Right: woman with shopping bags — drop image at images/mobile-hero-woman.png -->
+        <!-- Right: woman with shopping bags â€” drop image at images/mobile-hero-woman.png -->
         <div class="absolute bottom-0 right-0 pointer-events-none w-[145px] h-[148px]">
           <img src="images/mobile-hero-woman.png" alt="" class="w-full h-full object-cover object-top"
             onerror="this.style.display='none'" aria-hidden="true">
@@ -168,11 +113,11 @@
 
 
   <!-- ===================================================
-       MOBILE CATEGORY PILLS — right after hero, mobile only
+       MOBILE CATEGORY PILLS â€” right after hero, mobile only
        =================================================== -->
   <section class="sm:hidden px-4 pt-3 pb-1">
-    <div id="mobile-category-tabs" class="flex items-center gap-2 overflow-x-auto pb-1" style="scrollbar-width:none;-ms-overflow-style:none">
-      <a href="category.html#cat=all"         class="mobile-cat-tab flex-shrink-0 font-work font-semibold text-[13px] rounded-[20px] px-4 py-2 text-white" style="background:var(--color-primary)">All</a>
+    <div id="mobile-category-tabs" class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+      <a href="category.html#cat=all"         class="mobile-cat-tab flex-shrink-0 font-work font-semibold text-[13px] rounded-[20px] px-4 py-2 text-white bg-brand-primary">All</a>
       <a href="category.html#cat=phones"      class="mobile-cat-tab flex-shrink-0 font-work font-medium text-[13px] rounded-[20px] px-4 py-2 bg-white border border-[#e5e7eb] text-[#364153]">Phones</a>
       <a href="category.html#cat=gaming"      class="mobile-cat-tab flex-shrink-0 font-work font-medium text-[13px] rounded-[20px] px-4 py-2 bg-white border border-[#e5e7eb] text-[#364153]">Gaming</a>
       <a href="category.html#cat=electronics" class="mobile-cat-tab flex-shrink-0 font-work font-medium text-[13px] rounded-[20px] px-4 py-2 bg-white border border-[#e5e7eb] text-[#364153]">Cameras</a>
@@ -183,58 +128,58 @@
 
 
   <!-- ===================================================
-       HERO SLIDER — desktop only
+       HERO SLIDER â€” desktop only
        =================================================== -->
-  <section id="hero" class="hidden sm:block relative overflow-hidden" style="height:680px">
+  <section id="hero" class="hidden sm:block relative overflow-hidden h-[680px]">
     <div id="slider-track">
 
-      <!-- Slide 1 — background only -->
+      <!-- Slide 1 â€” background only -->
       <div class="slide">
         <img src="images/sliders/Slider 1.png" alt="" class="absolute inset-0 w-full h-full object-cover" aria-hidden="true">
       </div>
 
-      <!-- Slide 2 — background only -->
+      <!-- Slide 2 â€” background only -->
       <div class="slide">
         <img src="images/sliders/Slider 2.png" alt="" class="absolute inset-0 w-full h-full object-cover" aria-hidden="true">
       </div>
 
     </div><!-- /slider-track -->
 
-    <!-- Static content overlay — does NOT slide -->
-    <div class="absolute inset-x-0 bottom-0 flex flex-col items-center pb-[70px] z-10" style="top:45%">
-      <div class="flex flex-col items-center gap-[30px] text-center" style="width:min(790px,100%);padding:0 24px">
-        <div class="flex flex-col items-center gap-2" style="width:min(563px,100%)">
-          <h1 class="font-work font-bold text-white text-center leading-tight" style="font-size:45px;width:min(401px,100%)">
+    <!-- Static content overlay â€” does NOT slide -->
+    <div class="absolute inset-x-0 bottom-0 top-[45%] flex flex-col items-center pb-[70px] z-10">
+      <div class="flex flex-col items-center gap-[30px] text-center w-[min(790px,100%)] px-[24px]">
+        <div class="flex flex-col items-center gap-2 w-[min(563px,100%)]">
+          <h1 class="font-work font-bold text-white text-center leading-tight text-[45px] w-[min(401px,100%)]">
             Find the Best Price.Every Time.
           </h1>
-          <p class="font-work font-medium text-white/90 leading-[28px] tracking-[-0.44px]" style="font-size:18px;width:min(563px,100%)">
-            CompareHub lets you search products and compare prices from multiple brands near you — so you always buy at the lowest price.
+          <p class="font-work font-medium text-white/90 leading-[28px] tracking-[-0.44px] text-[18px] w-[min(563px,100%)]">
+            CompareHub lets you search products and compare prices from multiple brands near you â€” so you always buy at the lowest price.
           </p>
         </div>
         <!-- Search bar -->
-        <div class="bg-white/10 backdrop-blur-sm rounded-[30px] flex items-center gap-3 relative" style="height:66px;padding:15px 20px;width:min(760px,100%)">
-          <div class="relative shrink-0" style="flex:1 1 313px;min-width:0">
+        <div class="bg-white/10 backdrop-blur-sm rounded-[30px] flex items-center gap-3 relative h-[66px] px-5 w-[min(760px,100%)]">
+          <div class="relative shrink-0 flex-[1_1_313px] min-w-0">
             <input type="text" id="hero-search" placeholder="Search product name.."
-              class="bg-[#f9fafb] w-full rounded-[14px] px-4 font-inter text-[#364153] placeholder-[#808793] outline-none border-none" style="height:32px;font-size:14px" autocomplete="off">
+              class="bg-[#f9fafb] w-full rounded-[14px] px-4 font-inter text-[#364153] placeholder-[#808793] outline-none border-none h-[32px] text-[14px]" autocomplete="off">
             <!-- Desktop search dropdown -->
-            <div id="desktop-search-dropdown" class="hidden absolute left-0 right-0 bg-white rounded-[14px] shadow-lg z-50 overflow-hidden" style="top:40px; box-shadow:0 8px 24px rgba(0,0,0,0.14); min-width:320px"></div>
+            <div id="desktop-search-dropdown" class="hidden absolute left-0 right-0 top-[40px] bg-white rounded-[14px] shadow-[0_8px_24px_rgba(0,0,0,0.14)] z-50 overflow-hidden min-w-[320px]"></div>
           </div>
-          <div class="relative shrink-0" style="width:131px">
-            <select id="brand-filter" class="bg-white rounded-[14px] pl-3 pr-8 font-work text-[#808793] outline-none cursor-pointer w-full" style="height:32px;font-size:14px">
+          <div class="relative shrink-0 w-[131px]">
+            <select id="brand-filter" class="bg-white rounded-[14px] pl-3 pr-8 font-work text-[#808793] outline-none cursor-pointer w-full h-[32px] text-[14px]">
               <option value="">By Brands</option>
               <option>Apple</option><option>Samsung</option><option>Sony</option>
               <option>JBL</option><option>Canon</option>
             </select>
             <i data-lucide="chevron-down" class="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none w-3 h-3 text-[#808793]" aria-hidden="true"></i>
           </div>
-          <div class="relative shrink-0" style="width:131px">
-            <select id="location-filter" class="bg-white rounded-[14px] pl-3 pr-8 font-work text-[#808793] outline-none cursor-pointer w-full" style="height:32px;font-size:14px">
+          <div class="relative shrink-0 w-[131px]">
+            <select id="location-filter" class="bg-white rounded-[14px] pl-3 pr-8 font-work text-[#808793] outline-none cursor-pointer w-full h-[32px] text-[14px]">
               <option value="">By Location</option>
               <option>Abia</option><option>Adamawa</option><option>Akwa Ibom</option>
               <option>Anambra</option><option>Bauchi</option><option>Bayelsa</option>
               <option>Benue</option><option>Borno</option><option>Cross River</option>
               <option>Delta</option><option>Ebonyi</option><option>Edo</option>
-              <option>Ekiti</option><option>Enugu</option><option>FCT — Abuja</option>
+              <option>Ekiti</option><option>Enugu</option><option>FCT â€” Abuja</option>
               <option>Gombe</option><option>Imo</option><option>Jigawa</option>
               <option>Kaduna</option><option>Kano</option><option>Katsina</option>
               <option>Kebbi</option><option>Kogi</option><option>Kwara</option>
@@ -246,7 +191,7 @@
             </select>
             <i data-lucide="chevron-down" class="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none w-3 h-3 text-[#808793]" aria-hidden="true"></i>
           </div>
-          <button id="hero-search-btn" class="bg-[#155dfc] rounded-[14px] font-work font-medium text-white hover:bg-[#1447e6] transition-colors shrink-0" style="width:141px;height:32px;font-size:12px">
+          <button id="hero-search-btn" class="bg-[#155dfc] rounded-[14px] font-work font-medium text-white hover:bg-[#1447e6] transition-colors shrink-0 w-[141px] h-[32px] text-[12px]">
             Show Result
           </button>
         </div>
@@ -256,7 +201,7 @@
     <!-- Slider Dots -->
     <div class="absolute bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20" aria-label="Slide indicators">
       <button class="slider-dot active" data-slide="0" aria-label="Slide 1"></button>
-      <button class="slider-dot" data-slide="1" style="width:6px;height:6px;background:rgba(255,255,255,0.4)" aria-label="Slide 2"></button>
+      <button class="slider-dot w-[6px] h-[6px] bg-[rgba(255,255,255,0.4)]" data-slide="1" aria-label="Slide 2"></button>
     </div>
 
 
@@ -264,17 +209,17 @@
 
 
   <!-- ===================================================
-       MOBILE FLASH DEALS STRIP — mobile only (after categories)
+       MOBILE FLASH DEALS STRIP â€” mobile only (after categories)
        =================================================== -->
   <section class="sm:hidden px-4 pt-3">
     <div class="flash-deals-strip">
       <div class="flex items-center gap-3">
         <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center shrink-0">
-          <span class="text-[16px] leading-none">⚡</span>
+          <span class="text-[16px] leading-none">âš¡</span>
         </div>
         <div>
           <p class="font-work font-bold text-[14px] text-white leading-tight">Flash Deals</p>
-          <p class="font-work text-[12px] leading-tight" style="color:rgba(255,255,255,0.75)">Best prices, time-limited</p>
+          <p class="font-work text-[12px] leading-tight text-[rgba(255,255,255,0.75)]">Best prices, time-limited</p>
         </div>
       </div>
       <a href="category.html#cat=all" class="bg-white font-work font-semibold text-[12px] text-[#155dfc] rounded-full px-4 py-2 flex items-center gap-1 shrink-0">
@@ -286,7 +231,7 @@
 
 
   <!-- ===================================================
-       FEATURES BAR — desktop only
+       FEATURES BAR â€” desktop only
        =================================================== -->
   <section class="hidden sm:block bg-[#f9fafb] px-[111px] pt-8 pb-4">
     <div class="max-w-[1290px] mx-auto">
@@ -299,7 +244,7 @@
           </div>
           <div>
             <p class="font-work font-semibold text-[15px] text-[#364153] leading-normal">Free Shipping</p>
-            <p class="font-work text-[14px] text-[#5a6372] leading-normal">On order over ₦50k+</p>
+            <p class="font-work text-[14px] text-[#5a6372] leading-normal">On order over â‚¦50k+</p>
           </div>
         </div>
 
@@ -347,7 +292,7 @@
   <main class="main-container bg-[#f9fafb] px-[111px] pt-8 pb-16">
     <div class="max-w-[1290px] mx-auto space-y-12">
 
-      <!-- ---- Browse Category — desktop only ---- -->
+      <!-- ---- Browse Category â€” desktop only ---- -->
       <section class="hidden sm:block">
         <div class="flex flex-col items-center gap-3 mb-10">
           <h2 class="font-work font-semibold text-[18px] text-[#364153] text-center">Browse Category</h2>
@@ -387,16 +332,16 @@
         <div id="food-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8"></div>
       </section>
 
-      <!-- ---- Promotional Banners — desktop only ---- -->
+      <!-- ---- Promotional Banners â€” desktop only ---- -->
       <section class="hidden sm:grid grid-cols-1 lg:grid-cols-2 gap-[29px]">
 
         <!-- Electronics Banner -->
         <div class="relative h-[220px] rounded-[16px] overflow-hidden">
           <img src="images/electronics-banner.jpg" alt="Electronics deals" class="absolute inset-0 w-full h-full object-cover">
-          <div class="absolute inset-0" style="background:linear-gradient(90deg,rgba(15,40,130,0.92) 0%,rgba(21,93,252,0.72) 55%,rgba(0,0,0,0) 100%)"></div>
-          <div class="absolute left-10 flex flex-col gap-4" style="top:33.77px">
+          <div class="absolute inset-0 bg-[linear-gradient(90deg,_rgba(15,40,130,0.92)_0%,_rgba(21,93,252,0.72)_55%,_rgba(0,0,0,0)_100%)]"></div>
+          <div class="absolute left-10 flex flex-col gap-4 top-[33.77px]">
             <div class="inline-flex items-center bg-[rgba(99,179,254,0.18)] border border-[rgba(99,179,254,0.35)] rounded-full px-3 py-1 self-start">
-              <span class="font-inter font-semibold text-[11px] text-[#bedbff] tracking-[0.06px]">⚡ Top Tech Deals</span>
+              <span class="font-inter font-semibold text-[11px] text-[#bedbff] tracking-[0.06px]">âš¡ Top Tech Deals</span>
             </div>
             <div>
               <p class="font-inter font-bold text-[24px] text-white leading-[30px] tracking-[0.07px]">Phones, Laptops</p>
@@ -411,13 +356,13 @@
         <!-- Fresh Food Banner -->
         <div class="relative h-[220px] rounded-[16px] overflow-hidden">
           <img src="images/fresh-food-banner.jpg" alt="Fresh food" class="absolute inset-0 w-full h-full object-cover">
-          <div class="absolute inset-0" style="background:linear-gradient(90deg,rgba(13,84,43,0.88) 0%,rgba(1,102,48,0.65) 55%,rgba(0,0,0,0) 100%)"></div>
-          <div class="absolute left-10 flex flex-col gap-4" style="top:33.88px">
+          <div class="absolute inset-0 bg-[linear-gradient(90deg,_rgba(13,84,43,0.88)_0%,_rgba(1,102,48,0.65)_55%,_rgba(0,0,0,0)_100%)]"></div>
+          <div class="absolute left-10 flex flex-col gap-4 top-[33.88px]">
             <div class="inline-flex items-center bg-[rgba(5,223,114,0.2)] border border-[rgba(5,223,114,0.4)] rounded-full px-3 py-1 self-start">
-              <span class="font-inter font-semibold text-[11px] text-[#b9f8cf] tracking-[0.06px]">🥘 Fresh Naija Groceries</span>
+              <span class="font-inter font-semibold text-[11px] text-[#b9f8cf] tracking-[0.06px]">ðŸ¥˜ Fresh Naija Groceries</span>
             </div>
             <div>
-              <p class="font-work font-bold text-[24px] text-white leading-[30px] tracking-[0.07px]" style="max-width:244px">Rice, Yam, Catfish at Market Prices</p>
+              <p class="font-work font-bold text-[24px] text-white leading-[30px] tracking-[0.07px] max-w-[244px]">Rice, Yam, Catfish at Market Prices</p>
             </div>
             <a href="category.html?cat=food" class="bg-white text-[#016630] font-inter font-semibold text-[13px] tracking-[-0.08px] px-4 h-[38px] rounded-[12px] inline-flex items-center justify-center self-start hover:bg-green-50 transition-colors">
               Shop Fresh Food
@@ -433,7 +378,7 @@
           <h3 class="font-work font-semibold text-[18px] text-[#181d25]">Browse Brands</h3>
         </div>
         <div class="relative">
-          <div id="brands-list" class="flex gap-2.5 overflow-x-auto pb-2" style="scrollbar-width:none;-ms-overflow-style:none">
+          <div id="brands-list" class="flex gap-2.5 overflow-x-auto pb-2 no-scrollbar">
             <!-- Rendered by JS -->
           </div>
         </div>
@@ -451,22 +396,22 @@
         <div id="home-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8"></div>
       </section>
 
-      <!-- ---- SEO Text Section — desktop only ---- -->
-      <section class="hidden sm:block bg-white border border-[#f3f4f6] rounded-[16px]" style="padding:56px 70px">
-        <h2 class="font-work font-semibold text-[#181d25] leading-[36px] tracking-[0.4px] mb-4" style="font-size:30px">
-          CompareHub Nigeria — Nigeria's No. 1 Price Comparison Marketplace
+      <!-- ---- SEO Text Section â€” desktop only ---- -->
+      <section class="hidden sm:block bg-white border border-[#f3f4f6] rounded-[16px] px-[70px] py-[56px]">
+        <h2 class="font-work font-semibold text-[#181d25] leading-[36px] tracking-[0.4px] mb-4 text-[30px]">
+          CompareHub Nigeria â€” Nigeria's No. 1 Price Comparison Marketplace
         </h2>
         <div class="space-y-3">
           <h3 class="font-work font-semibold text-[18px] text-[#181d25] leading-[28px] tracking-[-0.45px]">Compare Prices on Everything You Need</h3>
-          <p class="font-work text-[14px] text-[#364153] leading-[22.75px] tracking-[-0.15px]" style="max-width:1128px">
-            CompareHub is Nigeria's largest price comparison platform. We help everyday Nigerians find the best deals on products from verified vendors across the country — all in one place. Whether you're shopping from the comfort of your home in Lagos, Abuja, Port Harcourt or anywhere in between, CompareHub lets you compare prices side-by-side and buy at the cheapest price without stress. Shop for smartphones, laptops, headphones, tablets, gaming consoles, or everyday food & groceries - and get the best price from our network of verified Nigerian vendors.  
+          <p class="font-work text-[14px] text-[#364153] leading-[22.75px] tracking-[-0.15px] max-w-[1128px]">
+            CompareHub is Nigeria's largest price comparison platform. We help everyday Nigerians find the best deals on products from verified vendors across the country â€” all in one place. Whether you're shopping from the comfort of your home in Lagos, Abuja, Port Harcourt or anywhere in between, CompareHub lets you compare prices side-by-side and buy at the cheapest price without stress. Shop for smartphones, laptops, headphones, tablets, gaming consoles, or everyday food & groceries - and get the best price from our network of verified Nigerian vendors.  
           </p>
         </div>
         <hr class="border-[#f3f4f6] my-8">
         <div class="space-y-3">
           <h3 class="font-work font-semibold text-[18px] text-[#364153] leading-[28px] tracking-[-0.45px]">Shop for Original Products at the Best Prices</h3>
-          <p class="font-work text-[14px] text-[#364153] leading-[22.75px] tracking-[-0.15px]" style="max-width:1128px">
-            CompareHub prides itself on listing only genuine, verified products from trusted Nigerian vendors — guaranteed lowest prices on original products with exclusive access to Flash Deals.
+          <p class="font-work text-[14px] text-[#364153] leading-[22.75px] tracking-[-0.15px] max-w-[1128px]">
+            CompareHub prides itself on listing only genuine, verified products from trusted Nigerian vendors â€” guaranteed lowest prices on original products with exclusive access to Flash Deals.
           </p>
         </div>
       </section>
@@ -476,10 +421,10 @@
 
 
   <!-- ===================================================
-       LOCATION MODAL — mobile only (slides up from bottom)
+       LOCATION MODAL â€” mobile only (slides up from bottom)
        =================================================== -->
-  <div id="location-modal-backdrop" class="sm:hidden fixed inset-0 bg-black/40 z-[80] hidden" style="backdrop-filter:blur(2px)"></div>
-  <div id="location-modal" class="sm:hidden fixed bottom-0 left-0 right-0 z-[90] bg-white rounded-t-[24px] translate-y-full" style="transition:transform 0.35s cubic-bezier(0.4,0,0.2,1); max-height:85vh; display:flex; flex-direction:column">
+  <div id="location-modal-backdrop" class="sm:hidden fixed inset-0 bg-black/40 z-[80] hidden modal-backdrop-blur"></div>
+  <div id="location-modal" class="sm:hidden fixed bottom-0 left-0 right-0 z-[90] bg-white rounded-t-[24px] translate-y-full transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] max-h-[85vh] flex flex-col">
 
     <!-- Handle -->
     <div class="flex justify-center pt-3 pb-1 shrink-0">
@@ -499,12 +444,12 @@
       <div class="relative">
         <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#808793]" aria-hidden="true"></i>
         <input id="location-search" type="text" placeholder="Search state..."
-          class="w-full bg-[#f3f4f6] rounded-[12px] pl-9 pr-4 font-work text-[14px] text-[#364153] placeholder-[#808793] outline-none border-none" style="height:40px">
+          class="w-full bg-[#f3f4f6] rounded-[12px] pl-9 pr-4 font-work text-[14px] text-[#364153] placeholder-[#808793] outline-none border-none h-[40px]">
       </div>
     </div>
 
     <!-- States list -->
-    <div id="states-list" class="overflow-y-auto flex-1 px-5 pb-6" style="scrollbar-width:none;-ms-overflow-style:none">
+    <div id="states-list" class="overflow-y-auto flex-1 px-5 pb-6 no-scrollbar">
       <!-- Rendered by JS -->
     </div>
   </div>
@@ -549,5 +494,7 @@
   <script src="js/app.js"></script>
 </body>
 </html>
+
+
 
 

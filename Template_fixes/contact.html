@@ -1,19 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Us — CompareHub</title>
+  <title>Contact Us â€” CompareHub</title>
   <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { work: ['Work Sans','sans-serif'], inter: ['Inter','sans-serif'] },
-        },
-      },
-    };
-  </script>
+  <script src="js/tailwind-config.js"></script>
   <script src="https://cdn.tailwindcss.com?with=default@3.4.1"></script>
   <script src="js/lucide.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,7 +26,7 @@
   <!-- =====================================================
        MOBILE HEADER
        ===================================================== -->
-  <div class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#f3f4f6]" style="height:65px;box-shadow:0 1px 8px rgba(0,0,0,0.07)">
+  <div class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#f3f4f6] h-[65px] shadow-soft-top">
     <div class="flex items-center gap-3 px-4 h-full">
       <a href="javascript:history.back()" class="w-9 h-9 rounded-full bg-[#f3f4f6] flex items-center justify-center shrink-0">
         <i data-lucide="arrow-left" class="w-4 h-4 text-[#364153]" aria-hidden="true"></i>
@@ -49,7 +41,7 @@
   <!-- =====================================================
        HERO BANNER
        ===================================================== -->
-  <section class="sm:mt-[70px] mt-[65px]" style="background:#155dfc;padding:56px 0 130px">
+  <section class="sm:mt-[70px] mt-[65px] bg-[#155dfc] pt-[56px] pb-[130px]">
     <div class="max-w-[1104px] mx-auto px-4 sm:px-8 text-center">
       <h1 class="font-inter font-bold text-[26px] sm:text-[32px] text-white tracking-[0.37px] mb-3">Contact Us</h1>
       <p class="font-work text-[16px] sm:text-[18px] text-white/85 max-w-[470px] mx-auto leading-[1.6]">We're here to help. Reach out via the form below, call, WhatsApp, or visit one of our offices.</p>
@@ -62,8 +54,8 @@
   <section class="max-w-[1104px] mx-auto px-4 sm:px-8" style="margin-top:-90px">
     <div class="grid sm:grid-cols-3 gap-4">
       <!-- Customer Support -->
-      <div class="bg-white border border-[#e5e7eb] rounded-[16px] p-6" style="box-shadow:0 1px 3px rgba(0,0,0,0.1)">
-        <div class="w-11 h-11 bg-white rounded-[14px] flex items-center justify-center mb-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.1)">
+      <div class="bg-white border border-[#e5e7eb] rounded-[16px] p-6 shadow-soft-md">
+        <div class="w-11 h-11 bg-white rounded-[14px] flex items-center justify-center mb-5 shadow-soft-md">
           <i data-lucide="headphones" class="w-6 h-6 text-[#155dfc]" aria-hidden="true"></i>
         </div>
         <h3 class="font-inter font-semibold text-[18px] text-[#101828] mb-1 tracking-[-0.44px]">Customer Support</h3>
@@ -71,12 +63,12 @@
         <p class="font-inter font-medium text-[14px] text-[#101828] mb-1 tracking-[-0.15px]">+234 800 COMPARE</p>
         <div class="flex items-center gap-1">
           <i data-lucide="clock" class="w-3 h-3 text-[#99a1af]" aria-hidden="true"></i>
-          <p class="font-inter text-[12px] text-[#99a1af]">Mon – Sat · 8am – 8pm (WAT)</p>
+          <p class="font-inter text-[12px] text-[#99a1af]">Mon â€“ Sat Â· 8am â€“ 8pm (WAT)</p>
         </div>
       </div>
       <!-- Vendor Relations -->
-      <div class="bg-white border border-[#e5e7eb] rounded-[16px] p-6" style="box-shadow:0 1px 3px rgba(0,0,0,0.1)">
-        <div class="w-11 h-11 bg-white rounded-[14px] flex items-center justify-center mb-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.1)">
+      <div class="bg-white border border-[#e5e7eb] rounded-[16px] p-6 shadow-soft-md">
+        <div class="w-11 h-11 bg-white rounded-[14px] flex items-center justify-center mb-5 shadow-soft-md">
           <i data-lucide="store" class="w-6 h-6 text-[#f54900]" aria-hidden="true"></i>
         </div>
         <h3 class="font-inter font-semibold text-[18px] text-[#101828] mb-1 tracking-[-0.44px]">Vendor Relations</h3>
@@ -88,8 +80,8 @@
         </div>
       </div>
       <!-- General Enquiries -->
-      <div class="bg-white border border-[#e5e7eb] rounded-[16px] p-6" style="box-shadow:0 1px 3px rgba(0,0,0,0.1)">
-        <div class="w-11 h-11 bg-white rounded-[14px] flex items-center justify-center mb-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.1)">
+      <div class="bg-white border border-[#e5e7eb] rounded-[16px] p-6 shadow-soft-md">
+        <div class="w-11 h-11 bg-white rounded-[14px] flex items-center justify-center mb-5 shadow-soft-md">
           <i data-lucide="mail" class="w-6 h-6 text-[#059669]" aria-hidden="true"></i>
         </div>
         <h3 class="font-inter font-semibold text-[18px] text-[#101828] mb-1 tracking-[-0.44px]">General Enquiries</h3>
@@ -112,7 +104,7 @@
       <!-- LEFT: Contact Form -->
       <div class="flex-1 min-w-0">
         <h2 class="font-inter font-bold text-[24px] text-[#101828] tracking-[0.07px] mb-5">Send Us a Message</h2>
-        <form id="contact-form" class="bg-white border border-[#f3f4f6] rounded-[24px] p-8 flex flex-col gap-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.1)" onsubmit="handleSubmit(event)">
+        <form id="contact-form" class="bg-white border border-[#f3f4f6] rounded-[24px] p-8 flex flex-col gap-5 shadow-soft-md" onsubmit="handleSubmit(event)">
           <!-- Name + Email row -->
           <div class="grid sm:grid-cols-2 gap-5">
             <div class="flex flex-col gap-1.5">
@@ -165,7 +157,7 @@
         <h2 class="font-inter font-bold text-[24px] text-[#101828] tracking-[0.07px]">Our Offices</h2>
 
         <!-- Lagos HQ -->
-        <div class="bg-white border border-[#f3f4f6] rounded-[16px] p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.1)">
+        <div class="bg-white border border-[#f3f4f6] rounded-[16px] p-5 shadow-soft-md">
           <h4 class="font-inter font-semibold text-[16px] text-[#101828] mb-3 tracking-[-0.31px]">Lagos (HQ)</h4>
           <div class="flex flex-col gap-2">
             <div class="flex items-center gap-2">
@@ -191,12 +183,12 @@
           </div>
           <div class="flex flex-col gap-2">
             <div class="flex items-center justify-between">
-              <span class="font-inter text-[14px] text-[#4a5565]">Monday – Friday</span>
-              <span class="font-inter font-medium text-[14px] text-[#4a5565]">8:00 AM – 8:00 PM</span>
+              <span class="font-inter text-[14px] text-[#4a5565]">Monday â€“ Friday</span>
+              <span class="font-inter font-medium text-[14px] text-[#4a5565]">8:00 AM â€“ 8:00 PM</span>
             </div>
             <div class="flex items-center justify-between">
               <span class="font-inter text-[14px] text-[#4a5565]">Saturday</span>
-              <span class="font-inter font-medium text-[14px] text-[#4a5565]">9:00 AM – 6:00 PM</span>
+              <span class="font-inter font-medium text-[14px] text-[#4a5565]">9:00 AM â€“ 6:00 PM</span>
             </div>
             <div class="flex items-center justify-between">
               <span class="font-inter text-[14px] text-[#4a5565]">Sunday &amp; Public Holidays</span>
@@ -251,4 +243,7 @@
   </script>
 </body>
 </html>
+
+
+
 

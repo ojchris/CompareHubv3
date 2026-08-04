@@ -1,23 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Compare Cart — CompareHub</title>
+  <title>Compare Cart â€” CompareHub</title>
   <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { work: ['Work Sans','sans-serif'], inter: ['Inter','sans-serif'] },
-          colors: {
-            primary: 'var(--color-primary)',
-            dark:    'var(--color-dark)',
-          },
-        },
-      },
-    };
-  </script>
+  <script src="js/tailwind-config.js"></script>
   <script src="https://cdn.tailwindcss.com?with=default@3.4.1"></script>
   <script src="js/lucide.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,7 +35,7 @@
   <!-- =====================================================
        MOBILE HEADER  (sm:hidden, fixed top)
        ===================================================== -->
-  <div class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#f3f4f6]" style="height:65px;box-shadow:0 1px 8px rgba(0,0,0,0.07)">
+  <div class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#f3f4f6] h-[65px] shadow-soft-top">
     <div class="flex items-center gap-3 px-4 h-full">
       <!-- Back -->
       <a href="javascript:history.back()" class="w-9 h-9 rounded-full bg-[#f3f4f6] flex items-center justify-center shrink-0">
@@ -107,17 +95,17 @@
     <div id="mobile-content" class="hidden">
 
       <!-- Savings banner -->
-      <div class="mx-4 mt-5 rounded-[16px] px-4 py-4 flex items-center gap-3" style="background:linear-gradient(170deg,#155dfc 0%,#1447e6 100%)">
+      <div class="mx-4 mt-5 rounded-[16px] px-4 py-4 flex items-center gap-3 bg-primary-gradient-alt">
         <div class="w-9 h-9 rounded-[14px] flex items-center justify-center shrink-0" style="background:rgba(255,255,255,0.2)">
           <i data-lucide="trending-down" class="w-4 h-4 text-white" aria-hidden="true"></i>
         </div>
         <div class="flex-1 min-w-0">
           <p class="font-inter font-semibold text-[10px] text-white/80 tracking-[0.37px] uppercase">You're saving</p>
-          <p id="mobile-savings-amount" class="font-inter font-bold text-[16px] text-white leading-tight tracking-[-0.3px]">₦0</p>
+          <p id="mobile-savings-amount" class="font-inter font-bold text-[16px] text-white leading-tight tracking-[-0.3px]">â‚¦0</p>
         </div>
         <div class="text-right shrink-0">
           <p class="font-inter text-[10px] text-[#bedbff] leading-tight">Cart total</p>
-          <p id="mobile-cart-total" class="font-inter font-bold text-[13px] text-white leading-tight tracking-[-0.08px]">₦0</p>
+          <p id="mobile-cart-total" class="font-inter font-bold text-[13px] text-white leading-tight tracking-[-0.08px]">â‚¦0</p>
         </div>
       </div>
 
@@ -138,7 +126,7 @@
     <div class="flex items-center gap-3">
       <div class="flex-1 min-w-0">
         <p class="font-inter text-[11px] text-[#99a1af] leading-tight">Est. total</p>
-        <p id="mobile-est-total" class="font-inter font-bold text-[17px] text-[#101828] tracking-[-0.43px] leading-tight">₦0</p>
+        <p id="mobile-est-total" class="font-inter font-bold text-[17px] text-[#101828] tracking-[-0.43px] leading-tight">â‚¦0</p>
       </div>
       <a href="category.html#cat=all" class="flex items-center gap-2 border border-[#e5e7eb] rounded-[14px] h-[41px] px-4 font-inter font-medium text-[13px] text-[#4a5565] shrink-0 hover:bg-[#f9fafb] transition-colors">
         <i data-lucide="plus" class="w-3.5 h-3.5" aria-hidden="true"></i> Add more
@@ -181,23 +169,23 @@
           <div class="rounded-[16px] overflow-hidden" style="background:linear-gradient(135deg,#155dfc 0%,#1447e6 100%)">
             <div class="px-5 pt-5 pb-4">
               <p class="font-inter font-semibold text-[11px] text-[#dbeafe] tracking-[0.8px] uppercase mb-2">You're saving with CompareHub</p>
-              <p id="total-savings" class="font-inter font-bold text-[30px] text-white leading-none mb-1">₦0</p>
+              <p id="total-savings" class="font-inter font-bold text-[30px] text-white leading-none mb-1">â‚¦0</p>
               <p class="font-inter text-[13px] text-[#bedbff] mb-4">vs. the most expensive listings</p>
               <div class="border-t border-[#2b7fff] pt-3 flex items-center justify-between">
                 <span class="font-inter text-[13px] text-[#bedbff]">Your cart total</span>
-                <span id="cart-total" class="font-inter font-bold text-[14px] text-white">₦0</span>
+                <span id="cart-total" class="font-inter font-bold text-[14px] text-white">â‚¦0</span>
               </div>
             </div>
           </div>
 
           <!-- Cart summary -->
-          <div class="bg-white rounded-[16px] border border-[#f3f4f6] overflow-hidden" style="box-shadow:0 1px 3px rgba(0,0,0,0.1)">
+          <div class="bg-white rounded-[16px] border border-[#f3f4f6] overflow-hidden shadow-soft-md">
             <div class="px-5 pt-5 pb-4">
               <p class="font-inter font-bold text-[14px] text-[#1e2939] mb-4">Cart Summary</p>
               <div id="cart-summary-items" class="flex flex-col gap-3 mb-4"></div>
               <div class="border-t border-[#f3f4f6] pt-3 flex items-center justify-between">
                 <span class="font-inter text-[14px] text-[#6a7282]">Est. total</span>
-                <span id="cart-summary-total" class="font-inter font-bold text-[16px] text-[#101828]">₦0</span>
+                <span id="cart-summary-total" class="font-inter font-bold text-[16px] text-[#101828]">â‚¦0</span>
               </div>
             </div>
           </div>
@@ -329,7 +317,7 @@
   <script src="js/components.js"></script>
   <script src="js/app.js"></script>
   <script>
-  // ── Compare Page ──────────────────────────────────────────────────────────
+  // â”€â”€ Compare Page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
   const AVATAR_COLORS = [
     { bg: '#ffe4e6', text: '#c70036' },
@@ -354,14 +342,14 @@
 
   // Vendor delivery & rating metadata
   const VENDOR_META = {
-    'ELECTROMART': { delivery: '₦1,500', rating: '4.6' },
-    'GADGETPRO':   { delivery: '₦2,500', rating: '4.7' },
-    'TECHSTORE':   { delivery: '₦2,000', rating: '4.5' },
-    'SMARTBUY':    { delivery: '₦1,800', rating: '4.4' },
-    'DIGIZONE':    { delivery: '₦1,200', rating: '4.3' },
-    'NAIJAFOODS':  { delivery: '₦800',   rating: '4.8' },
-    'FOODHUB':     { delivery: '₦1,000', rating: '4.6' },
-    'GREENFARM':   { delivery: '₦600',   rating: '4.5' },
+    'ELECTROMART': { delivery: 'â‚¦1,500', rating: '4.6' },
+    'GADGETPRO':   { delivery: 'â‚¦2,500', rating: '4.7' },
+    'TECHSTORE':   { delivery: 'â‚¦2,000', rating: '4.5' },
+    'SMARTBUY':    { delivery: 'â‚¦1,800', rating: '4.4' },
+    'DIGIZONE':    { delivery: 'â‚¦1,200', rating: '4.3' },
+    'NAIJAFOODS':  { delivery: 'â‚¦800',   rating: '4.8' },
+    'FOODHUB':     { delivery: 'â‚¦1,000', rating: '4.6' },
+    'GREENFARM':   { delivery: 'â‚¦600',   rating: '4.5' },
   };
 
   function vendorColor(name) {
@@ -373,7 +361,7 @@
   }
 
   function formatPrice(num) {
-    return '₦' + num.toLocaleString('en-NG');
+    return 'â‚¦' + num.toLocaleString('en-NG');
   }
 
   function getInitials(name) {
@@ -387,13 +375,13 @@
     return raw.split(',').map(Number).filter(n => n > 0);
   }
 
-  // ── Mobile card builder ────────────────────────────────────────────────
+  // â”€â”€ Mobile card builder â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   function buildMobileProductCard(product, vendors) {
     if (!vendors || !vendors.length) return '';
     const sortedVendors = [...vendors].sort((a, b) => a.price - b.price);
     const best = sortedVendors[0];
     const col = vendorColor(best.name);
-    const meta = VENDOR_META[best.name.toUpperCase()] || { delivery: '₦1,500', rating: '4.5' };
+    const meta = VENDOR_META[best.name.toUpperCase()] || { delivery: 'â‚¦1,500', rating: '4.5' };
 
     const catMap = {
       electronics: 'Smartphones', food: 'Food & Groceries',
@@ -425,11 +413,11 @@
         <!-- Vendor + details section -->
         <div class="border-t border-[#e5e7eb]">
           <!-- Best vendor row -->
-          <div class="flex items-center gap-3 px-4 py-[15px]" style="background:rgba(239,246,255,0.5)">
+          <div class="flex items-center gap-3 px-4 py-[15px] bg-[#eff6ff]/50">
             <div class="mobile-vendor-avatar" style="background:${col.bg};color:${col.text}">${getInitials(best.name)}</div>
             <div class="flex items-center gap-2 flex-1 min-w-0">
               <span class="font-inter font-semibold text-[13px] text-[#101828] whitespace-nowrap tracking-[-0.08px]">${best.name.charAt(0) + best.name.slice(1).toLowerCase()}</span>
-              <span class="bg-[#d0fae5] font-inter font-bold text-[10px] text-[#007a55] px-2 py-0.5 rounded-full whitespace-nowrap tracking-[0.12px]">✦ Best</span>
+              <span class="bg-[#d0fae5] font-inter font-bold text-[10px] text-[#007a55] px-2 py-0.5 rounded-full whitespace-nowrap tracking-[0.12px]">âœ¦ Best</span>
             </div>
             <span class="font-inter font-bold text-[15px] text-[#155dfc] whitespace-nowrap tracking-[-0.23px]">${formatPrice(best.price)}</span>
             <button class="remove-product-btn w-7 h-7 rounded-full bg-[#f3f4f6] flex items-center justify-center shrink-0 hover:bg-[#fee2e2] transition-colors" data-product-id="${product.id}">
@@ -464,7 +452,7 @@
       </div>`;
   }
 
-  // ── Desktop table builder ──────────────────────────────────────────────
+  // â”€â”€ Desktop table builder â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   function buildProductTable(product, vendors, productIndex) {
     if (!vendors || !vendors.length) return '';
     const sortedVendors = [...vendors].sort((a, b) => a.price - b.price);
@@ -517,7 +505,7 @@
     }).join('');
 
     return `
-      <div class="bg-white rounded-[16px] border border-[#f3f4f6] overflow-hidden" style="box-shadow:0 1px 3px rgba(0,0,0,0.1)">
+      <div class="bg-white rounded-[16px] border border-[#f3f4f6] overflow-hidden shadow-soft-md">
         <div class="flex items-center gap-4 px-5 py-4 border-b border-[#f3f4f6]">
           <a href="product.html#id=${product.id}" class="w-14 h-14 rounded-[14px] overflow-hidden bg-[#f3f4f6] shrink-0">
             <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover" onerror="this.src='images/placeholder.jpg'">
@@ -573,7 +561,7 @@
       </div>`;
   }
 
-  // ── Main render ────────────────────────────────────────────────────────
+  // â”€â”€ Main render â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   function renderComparePage() {
     const ids = getCompareIds();
 
@@ -769,5 +757,9 @@
   </script>
 </body>
 </html>
+
+
+
+
 
 

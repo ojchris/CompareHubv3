@@ -1,19 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Compare History — CompareHub</title>
+  <title>Compare History â€” CompareHub</title>
   <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { work: ['Work Sans','sans-serif'], inter: ['Inter','sans-serif'] },
-        },
-      },
-    };
-  </script>
+  <script src="js/tailwind-config.js"></script>
   <script src="https://cdn.tailwindcss.com?with=default@3.4.1"></script>
   <script src="js/lucide.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,7 +23,7 @@
   <div id="app-header"></div>
 
   <!-- Mobile header -->
-  <div class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#f3f4f6]" style="height:65px;box-shadow:0 1px 8px rgba(0,0,0,0.07)">
+  <div class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#f3f4f6] h-[65px] shadow-soft-top">
     <div class="flex items-center gap-3 px-4 h-full">
       <a href="dashboard.html" class="w-9 h-9 rounded-full bg-[#f3f4f6] flex items-center justify-center shrink-0">
         <i data-lucide="arrow-left" class="w-4 h-4 text-[#364153]" aria-hidden="true"></i>
@@ -47,10 +39,10 @@
     <div class="max-w-[1290px] mx-auto px-4 sm:px-8 py-2 sm:py-10">
       <div class="flex gap-6 items-start">
 
-        <!-- ── Sidebar ── -->
-        <aside class="hidden sm:block w-[220px] shrink-0 bg-white rounded-[16px] border border-[#f3f4f6] p-5 space-y-5" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+        <!-- â”€â”€ Sidebar â”€â”€ -->
+        <aside class="hidden sm:block w-[220px] shrink-0 bg-white rounded-[16px] border border-[#f3f4f6] p-5 space-y-5 shadow-soft">
           <div class="flex flex-col items-center gap-3 pb-5 border-b border-[#f3f4f6]">
-            <div class="w-12 h-12 rounded-full flex items-center justify-center shrink-0" style="background:#032d71">
+            <div class="w-12 h-12 rounded-full flex items-center justify-center shrink-0 bg-brand-dark">
               <span id="history-sidebar-initials" class="font-work font-bold text-[16px] text-white">--</span>
             </div>
             <div class="text-center">
@@ -85,14 +77,14 @@
           </nav>
         </aside>
 
-        <!-- ── Main content ── -->
+        <!-- â”€â”€ Main content â”€â”€ -->
         <div class="flex-1 min-w-0 space-y-5">
 
           <!-- Header row -->
           <div class="flex items-start justify-between gap-4">
             <div>
               <h1 class="font-work font-bold text-[22px] sm:text-[26px] text-[#101828]">Compare History</h1>
-              <p class="font-work text-[13px] text-[#99a1af] mt-0.5">Products you've compared — revisit and find the best deal again.</p>
+              <p class="font-work text-[13px] text-[#99a1af] mt-0.5">Products you've compared â€” revisit and find the best deal again.</p>
             </div>
             <a href="category.html" class="shrink-0 flex items-center gap-2 bg-[#155dfc] text-white font-work font-semibold text-[13px] px-4 py-2.5 rounded-[12px] hover:bg-[#1447e6] transition-colors">
               <i data-lucide="search" class="w-4 h-4" aria-hidden="true"></i>
@@ -103,42 +95,42 @@
 
           <!-- Stats row -->
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-4" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+            <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-4 shadow-soft">
               <div class="w-8 h-8 rounded-[10px] bg-[#eff6ff] flex items-center justify-center mb-2">
                 <i data-lucide="layers" class="w-4 h-4 text-[#155dfc]" aria-hidden="true"></i>
               </div>
               <p class="font-work font-bold text-[20px] text-[#101828]" data-stat="products-compared">0</p>
               <p class="font-work text-[11px] text-[#99a1af]">Products Compared</p>
             </div>
-            <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-4" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+            <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-4 shadow-soft">
               <div class="w-8 h-8 rounded-[10px] bg-[#fef3c7] flex items-center justify-center mb-2">
                 <i data-lucide="tag" class="w-4 h-4 text-[#d97706]" aria-hidden="true"></i>
               </div>
               <p class="font-work font-bold text-[20px] text-[#101828]" data-stat="categories">0</p>
               <p class="font-work text-[11px] text-[#99a1af]">Categories</p>
             </div>
-            <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-4" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+            <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-4 shadow-soft">
               <div class="w-8 h-8 rounded-[10px] bg-[#f0fdf4] flex items-center justify-center mb-2">
                 <i data-lucide="bar-chart-2" class="w-4 h-4 text-[#16a34a]" aria-hidden="true"></i>
               </div>
               <p class="font-work font-bold text-[20px] text-[#101828]" data-stat="listings-reviewed">9</p>
               <p class="font-work text-[11px] text-[#99a1af]">Listings Reviewed</p>
             </div>
-            <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-4" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+            <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-4 shadow-soft">
               <div class="w-8 h-8 rounded-[10px] bg-[#fce7f3] flex items-center justify-center mb-2">
                 <i data-lucide="trending-down" class="w-4 h-4 text-[#ec4899]" aria-hidden="true"></i>
               </div>
-              <p class="font-work font-bold text-[20px] text-[#101828]" data-stat="potential-savings">₦0</p>
+              <p class="font-work font-bold text-[20px] text-[#101828]" data-stat="potential-savings">â‚¦0</p>
               <p class="font-work text-[11px] text-[#99a1af]">Potential Savings</p>
             </div>
           </div>
 
           <!-- Search & filters -->
-          <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-4" style="box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+          <div class="bg-white rounded-[14px] border border-[#f3f4f6] p-4 shadow-soft">
             <div class="flex items-center gap-3 mb-3">
               <div class="flex-1 relative">
                 <i data-lucide="search" class="w-4 h-4 text-[#99a1af] absolute left-3 top-1/2 -translate-y-1/2" aria-hidden="true"></i>
-                <input type="text" id="history-search" placeholder="Search history..." oninput="filterHistory()" class="w-full pl-9 pr-4 py-2.5 border border-[#e5e7eb] rounded-[10px] font-work text-[13px] text-[#364153] outline-none focus:border-[#155dfc] transition-colors" style="background:#fafafa">
+                <input type="text" id="history-search" placeholder="Search history..." oninput="filterHistory()" class="w-full pl-9 pr-4 py-2.5 border border-[#e5e7eb] rounded-[10px] font-work text-[13px] text-[#364153] outline-none focus:border-[#155dfc] transition-colors bg-[#fafafa]">
               </div>
               <button class="w-9 h-9 border border-[#e5e7eb] rounded-[10px] flex items-center justify-center hover:bg-[#f9fafb] transition-colors shrink-0">
                 <i data-lucide="sliders-horizontal" class="w-4 h-4 text-[#6a7282]" aria-hidden="true"></i>
@@ -214,4 +206,6 @@
   </script>
 </body>
 </html>
+
+
 

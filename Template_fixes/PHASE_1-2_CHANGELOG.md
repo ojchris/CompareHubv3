@@ -119,12 +119,17 @@ Other UI pages (toast updates)
   - Updated direct descendant CSS selectors in [`css/styles.css`](file:///z:/home/ojchris/webworks/Comparehub/Template_fixes/css/styles.css#L633) (`.main-container > div, .main-container > section, .main-container > main`) to ensure responsive rules match semantic elements without breaking layout hierarchy.
 
 - **Item 9: Inline Style Extraction & Tailwind Utilities**
-  - Extracted inline `style="..."` attributes from [`index.html`](file:///z:/home/ojchris/webworks/Comparehub/Template_fixes/index.html), [`vendor-dashboard.html`](file:///z:/home/ojchris/webworks/Comparehub/Template_fixes/vendor-dashboard.html), and [`admin/login.html`](file:///z:/home/ojchris/webworks/Comparehub/Template_fixes/admin/login.html).
-  - Replaced inline styles (heights, shadows, background gradients, font sizes) with equivalent Tailwind utility classes (`h-[65px]`, `shadow-[0_1px_8px_rgba(0,0,0,0.07)]`, `bg-[linear-gradient(...)]`, `text-[#ffd234]`) and CSS rules (`.form-remember label`).
+  - Extracted inline `style="..."` attributes from the key evidence pages:
+    - `Template_fixes/index.html` lines ~204-249, ~396-420, ~481-482
+    - `Template_fixes/vendor-dashboard.html` lines ~311-318
+    - `Template_fixes/vendor-signup.html` line ~35
+    - `Template_fixes/admin/login.html` line ~297
+  - Replaced inline styles with equivalent Tailwind utility classes and reusable CSS helper rules in `css/styles.css` (`.card-shadow`, `.activity-icon`, `.activity-product`, `.activity-event`, `.activity-team`, `.modal-backdrop-blur`, `.text-white`).
 
 - **Item 10: Tailwind Config & Token Standardization**
-  - Standardized `tailwind.config` in [`index.html`](file:///z:/home/ojchris/webworks/Comparehub/Template_fixes/index.html), [`vendor-dashboard.html`](file:///z:/home/ojchris/webworks/Comparehub/Template_fixes/vendor-dashboard.html), [`vendor-signup.html`](file:///z:/home/ojchris/webworks/Comparehub/Template_fixes/vendor-signup.html), and [`dashboard.html`](file:///z:/home/ojchris/webworks/Comparehub/Template_fixes/dashboard.html).
+  - Centralized Tailwind configuration to a single shared file: `Template_fixes/js/tailwind-config.js` and updated HTML pages to include it before the Tailwind CDN script. This prevents drift and duplication across page heads.
   - Mapped `brand` color tokens directly to static hex values (`primary: '#155dfc'`, `hover: '#1447e6'`, `dark: '#181d25'`, `body: '#364153'`, `danger: '#ef4444'`) and radii/text sizing matching `:root` definitions in [`styles.css`](file:///z:/home/ojchris/webworks/Comparehub/Template_fixes/css/styles.css).
+  - Verified no HTML page still embeds `var(--color...)` inside `tailwind.config` blocks across `Template_fixes`.
   - Resolves conflicts between Tailwind JIT evaluation and runtime CSS variable lookups.
 
 - **Item 17: Self-Hosted Lucide Icons**
