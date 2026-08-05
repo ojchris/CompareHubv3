@@ -1,0 +1,51 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for event_calendar_carousel module.
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function event_calendar_carousel_requirements($phase) {
+  $requirements = [];
+
+  if ($phase == 'runtime') {
+    // Check if Slick Views is enabled
+    $module_handler = \Drupal::service('module_handler');
+    
+    if (!$module_handler->moduleExists('slick_views')) {
+      $requirements['event_calendar_carousel_slick_views'] = [
+        'title' => t('Event Calendar Carousel - Slick Views'),
+        'value' => t('Not installed'),
+        'description' => t('The Event Calendar Carousel module requires Slick Views. Please enable the slick_views module.'),
+        'severity' => REQUIREMENT_ERROR,
+      ];
+    }
+    
+    if (!$module_handler->moduleExists('fullcalendar')) {
+      $requirements['event_calendar_carousel_fullcalendar'] = [
+        'title' => t('Event Calendar Carousel - FullCalendar'),
+        'value' => t('Not installed'),
+        'description' => t('The Event Calendar Carousel module requires FullCalendar. Please enable the fullcalendar module.'),
+        'severity' => REQUIREMENT_ERROR,
+      ];
+    }
+    
+    // Check if example carousel view exists
+    $view_storage = \Drupal::service('entity_type.manager')->getStorage('view');
+    $carousel_view = $view_storage->load('event_carousel');
+    
+    if (!$carousel_view) {
+      $requirements['event_calendar_carousel_view'] = [
+        'title' => t('Event Calendar Carousel - Carousel View'),
+        'value' => t('Not configured'),
+        'description' => t('No carousel view named "event_carousel" found. Please create a Slick Views carousel with this machine name, or configure your calendar view to use an existing carousel view.'),
+        'severity' => REQUIREMENT_WARNING,
+      ];
+    }
+  }
+
+  return $requirements;
+}

@@ -1,9 +1,10 @@
 uuid: 143aa049-714e-4c9f-b9f1-f5b7e9393216
 langcode: en
-status: true
+status: false
 dependencies:
   config:
-    - field.storage.node.field_banner
+    - field.storage.node.field_images
+    - image.style.slick
     - node.type.event
   module:
     - image
@@ -73,10 +74,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_banner:
-          id: field_banner
-          table: node__field_banner
-          field: field_banner
+        field_images:
+          id: field_images
+          table: node__field_images
+          field: field_images
           relationship: none
           group_type: group
           admin_label: ''
@@ -126,7 +127,7 @@ display:
           type: image
           settings:
             image_link: ''
-            image_style: ''
+            image_style: slick
             image_loading:
               attribute: lazy
           group_column: ''
@@ -139,6 +140,58 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        field_scheduled_date_value:
+          id: field_scheduled_date_value
+          table: node__field_scheduled_date
+          field: field_scheduled_date_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: date
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          date_format: custom
+          custom_date_format: Y-m-d
+          timezone: ''
       pager:
         type: mini
         options:
@@ -219,22 +272,23 @@ display:
         type: slick
         options:
           caption:
+            field_images: '0'
             title: '0'
-          optionset: x_main
+          optionset: x_split
           class: ''
-          image: ''
+          image: field_images
           link: ''
           overlay: ''
           title: ''
-          vanilla: true
+          vanilla: false
           layout: ''
           cache: 0
           admin_uri: '/admin/structure/views/ajax/display/event_carousel/page_1/style_options?_wrapper_format=drupal_ajax'
           grid: ''
           grid_medium: ''
           grid_small: ''
-          style: flexbox
-          skin: classic
+          style: ''
+          skin: default
           overridables:
             arrows: '0'
             autoplay: '0'
@@ -248,7 +302,7 @@ display:
           optionset_thumbnail: ''
           skin_thumbnail: ''
           thumbnail_caption: ''
-          thumbnail_effect: ''
+          thumbnail_effect: hover
           thumbnail_position: ''
           override: false
           preserve_keys: false
@@ -269,6 +323,7 @@ display:
           replica: false
           query_tags: {  }
       relationships: {  }
+      use_ajax: true
       header: {  }
       footer: {  }
       display_extenders: {  }
@@ -281,14 +336,33 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
-        - 'config:field.storage.node.field_banner'
+        - 'config:field.storage.node.field_images'
+  dynamic_event_slides:
+    id: dynamic_event_slides
+    display_title: Block
+    display_plugin: block
+    position: 2
+    display_options:
+      display_extenders: {  }
+      block_description: 'Interactive Calendar Carousel Block'
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url.query_args
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.field_images'
   page_1:
     id: page_1
     display_title: Page
     display_plugin: page
     position: 1
     display_options:
-      display_extenders: {  }
+      display_extenders:
+        ajax_history: {  }
       path: event-slides
     cache_metadata:
       max-age: -1
@@ -299,4 +373,4 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
-        - 'config:field.storage.node.field_banner'
+        - 'config:field.storage.node.field_images'

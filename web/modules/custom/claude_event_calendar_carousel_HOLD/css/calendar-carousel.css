@@ -1,0 +1,226 @@
+/* Carousel Wrapper */
+.event-carousel-wrapper,
+[id^="event-carousel-wrapper"] {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  display: none; /* Hidden by default, shown when date is clicked */
+}
+
+.event-carousel-wrapper.visible,
+[id^="event-carousel-wrapper"].visible {
+  display: block;
+}
+
+/* Carousel Title */
+.carousel-title {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 26px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+/* Carousel Content Container */
+.carousel-content {
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+/* Loading State */
+.carousel-loading {
+  text-align: center;
+  padding: 60px 20px;
+  color: #7f8c8d;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 20px;
+  border: 4px solid #e0e0e0;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Error and No Results States */
+.carousel-error,
+.carousel-no-results {
+  text-align: center;
+  padding: 40px 20px;
+  font-size: 16px;
+}
+
+.carousel-error {
+  color: #e74c3c;
+}
+
+.carousel-no-results {
+  color: #7f8c8d;
+}
+
+/* Slick Carousel Enhancements (when rendered by Views) */
+.carousel-content .slick-slider {
+  margin: 0 auto;
+}
+
+.carousel-content .slick-list {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.carousel-content .slick-slide {
+  outline: none;
+}
+
+.carousel-content .slick-prev,
+.carousel-content .slick-next {
+  width: 50px;
+  height: 50px;
+  z-index: 100;
+  transition: all 0.3s ease;
+}
+
+.carousel-content .slick-prev:hover,
+.carousel-content .slick-next:hover {
+  transform: scale(1.1);
+}
+
+.carousel-content .slick-prev:before,
+.carousel-content .slick-next:before {
+  font-size: 50px;
+  color: #2c3e50;
+  opacity: 0.75;
+}
+
+.carousel-content .slick-prev:hover:before,
+.carousel-content .slick-next:hover:before {
+  opacity: 1;
+}
+
+.carousel-content .slick-prev {
+  left: -60px;
+}
+
+.carousel-content .slick-next {
+  right: -60px;
+}
+
+.carousel-content .slick-dots {
+  bottom: -40px;
+}
+
+.carousel-content .slick-dots li {
+  margin: 0 5px;
+}
+
+.carousel-content .slick-dots li button:before {
+  font-size: 14px;
+  color: #2c3e50;
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+
+.carousel-content .slick-dots li.slick-active button:before {
+  opacity: 1;
+  color: #3498db;
+}
+
+.carousel-content .slick-dots li:hover button:before {
+  opacity: 0.75;
+}
+
+/* Style event items in carousel (adjust based on your view output) */
+.carousel-content .views-row {
+  padding: 15px;
+}
+
+.carousel-content .views-field-field-banner img {
+  width: 100%;
+  height: auto;
+  min-height: 300px;
+  max-height: 500px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
+}
+
+.carousel-content .views-row:hover .views-field-field-banner img {
+  transform: scale(1.02);
+}
+
+.carousel-content .views-field-title {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.carousel-content .views-field-title a {
+  font-size: 22px;
+  font-weight: 600;
+  color: #2c3e50;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.carousel-content .views-field-title a:hover {
+  color: #3498db;
+}
+
+.carousel-content .views-field-body {
+  margin-top: 10px;
+  text-align: center;
+  color: #7f8c8d;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .event-carousel-wrapper,
+  [id^="event-carousel-wrapper"] {
+    padding: 20px;
+    margin: 20px 10px;
+  }
+  
+  .carousel-title {
+    font-size: 20px;
+  }
+  
+  .carousel-content .slick-prev {
+    left: 10px;
+  }
+  
+  .carousel-content .slick-next {
+    right: 10px;
+  }
+  
+  .carousel-content .slick-prev,
+  .carousel-content .slick-next {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .carousel-content .slick-prev:before,
+  .carousel-content .slick-next:before {
+    font-size: 40px;
+  }
+  
+  .carousel-content .views-field-field-banner img {
+    min-height: 200px;
+    max-height: 350px;
+  }
+  
+  .carousel-content .views-field-title a {
+    font-size: 18px;
+  }
+}

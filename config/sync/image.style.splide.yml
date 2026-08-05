@@ -1,0 +1,20 @@
+uuid: 723ebc25-1258-4db2-b0f3-51121e3fba17
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - splide_x
+_core:
+  default_config_hash: y5xe_W0hPIWYaghOSdq-yZjxJTedxSl2dQUulTpcuk0
+name: splide
+label: Splide
+effects:
+  483dc177-a6e8-4e0b-9918-24c064767935:
+    uuid: 483dc177-a6e8-4e0b-9918-24c064767935
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 1380
+      height: 520
+      anchor: center-center

@@ -1,6 +1,3 @@
-/* global Drupal */
-/* global jQuery */
-/* global once */
 (function (Drupal, $, once) {
 
   /**
@@ -19,7 +16,12 @@
       });
   }
 
-  function formatDateHuman(dateStr) {
+  /** 
+   * Convert date string to human-readable format, e.g. "Monday 1 January 2024".
+   * @param {string} dateStr - The date string in ISO format (YYYY-MM-DD).
+   * @returns {string} - The formatted date string.
+  */
+  function readableDateFormat(dateStr) {
     const date = new Date(dateStr);
 
     return date.toLocaleDateString('en-GB', {
@@ -52,63 +54,85 @@
    */
   Drupal.behaviors.interactiveEventCalendar = {
     attach: function (context, settings) {
-      once('interactiveEventCalendar', '.js-drupal-fullcalendar', context).forEach(function () {
-        //$('.fullcalendar').on('click', '.fc-daygrid-day', function () {
-        //$('.fullcalendar').on('click', '.fc-day-grid', function () {
-        //$('.fullcalendar').on('click', '.fc-day', function () {
-        $('.js-drupal-fullcalendar').on('click', '.fc-day-top', function () {
-          const dateClicked = $(this).data('date');
 
-          if (!dateClicked) {
-            return;
+      once('interactiveEventCalendar', '.js-drupal-fullcalendar', context)
+        .forEach(function (calendarEl) {
+
+          const $calendar = $(calendarEl);
+          const $target = $('#event-cards');
+
+          /* Event loader function, loads events for a given date and
+          * injects them into the page, and handles UI updates and error handling.
+          * @param {string} dateClicked - The date for which to load events, in ISO format (YYYY-MM-DD). 
+          */
+          function loadDateEvent(dateClicked) {
+
+            if (!dateClicked) {
+              return;
+            }
+
+            $target.html('<p>Loading…</p>');
+
+            $.get(`/event-cards/${dateClicked}`)
+              .done(function (html) {
+
+                const $doc = $('<div>').html(html);
+                const $view = $doc
+                  .find('.view-event-list-date-controlled')
+                  .first();
+
+                if (!$view.length) {
+                  $target.html('<p>No events found for this date.</p>');
+                  scrollToCarousel($target);
+                  return;
+                }
+
+                // Inject view
+                $target.html($view);
+
+                // Reattach Drupal behaviors (Slick etc)
+                Drupal.attachBehaviors($target[0]);
+
+                // Fix Slick position
+                setTimeout(function () {
+                  jQuery('.slick-initialized', $target).each(function () {
+                    jQuery(this).slick('setPosition');
+                  });
+                }, 150);
+
+                // Force Blazy images
+                forceLoadBlazyImages($target);
+
+                // Update human-readable date
+                const formattedDate = readableDateFormat(dateClicked);
+                jQuery('.selected-date').text(formattedDate);
+
+                // Scroll after everything is ready
+                scrollToCarousel($target);
+
+              })
+              .fail(function () {
+                $target.html('<p>No events found for this date.</p>');
+              });
           }
 
-          const $target = $('#event-cards');
-          $target.html('<p>Loading…</p>');
+          // Load events happening on TODAY's date on page load
+          const today = new Date();
+          const todayFormatted =
+            today.getFullYear() + '-' +
+            String(today.getMonth() + 1).padStart(2, '0') + '-' +
+            String(today.getDate()).padStart(2, '0');
 
-          $.get(`/event-cards/${dateClicked}`)
-            .done(function (html) {
+          loadDateEvent(todayFormatted);
 
-              const $doc = $('<div>').html(html);
-              const $view = $doc
-                .find('.view-event-list-date-controlled')
-                .first();
-
-              if (!$view.length) {
-                $target.html('<p>No events found for this datebjhkh.</p>');
-                scrollToCarousel($target);
-                return;
-              }
-
-              // Inject the carousel
-              $target.html($view);
-              // 🔑 Reattach Drupal behaviors (Slick, etc.)
-              Drupal.attachBehaviors($target[0]);
-
-              // Fix Slick after AJAX + Blazy images.
-              setTimeout(function () {
-                jQuery('.slick-initialized', $target).each(function () {
-                  jQuery(this).slick('setPosition');
-                });
-              }, 150);
-
-              // 🚀 Scroll AFTER everything is ready
-              scrollToCarousel($target);
-
-              // 🔥 Force Blazy images to load
-              forceLoadBlazyImages($target);
-
-              const formattedDate = formatDateHuman(dateClicked);
-              jQuery('.selected-date').text(formattedDate);
- 
-
-            })
-            .fail(function () {
-              $target.html('<p>No events found for this datebmmmmbmn.</p>');
-            });
+          // click date to load available events for that date
+          $calendar.on('click', '.fc-day-top', function () {
+            const dateClicked = $(this).data('date');
+            loadDateEvent(dateClicked);
+          });
 
         });
-      });
     }
   };
+
 })(Drupal, jQuery, once);

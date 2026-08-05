@@ -179,11 +179,19 @@
       </div>
     </header>
 
+  {{ page.breadcrumb }}
+
+  {{ page.highlighted }}
+
+  {{ page.help }}
 
   <main role="main">
     <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
+
+ 
     <section class="page-body">
-      <section class="page-columned-section page-secondary-mast">
+
+     <section class="page-columned-section page-secondary-mast">
         <div class="section-column-one page-secondary-mast-column-one">
           <div class="section-heading page-secondary-mast-heading">
 
@@ -211,61 +219,65 @@
           </div>
         </div>
       </section>
-
-     <section class="page-section section-after-secondary-mast">
-        <section class="terms-section">
-          <div class="section-heading-tab">
-            <div class="context-tab-selectors">
-              <div class="context-tab-selector active-tab-selector" data-content-section="termscontent" style="text-transform: capitalize;">
-               <h2>{{ title }}</h2>
-                
+      
+      
+      <section class="page-columned-section business-partnership-section">
+        <div class="section-column-one">
+          <div class="branding-info-jumbo-circle">
+            <!-- load event calendar here -->
+            <div class="calendar-wrapper">
+              {{ drupal_view('events_calendar', 'default') }}
+            </div>
+          </div>
+        </div>
+        <div class="section-column-two">
+         
+          <div class="section-subheading branding-partnership-subheading">
+            <div class="white-text">
+                   
+                      Growth & Awareness
+                   
+                      Everything You Need For Business
+                                      
+                  </div>
               </div>
+          <div class="section-content">
+            <div class="events-page">
+                         
+                
+                <!-- load views event banner result based on clicked calendar date -->
+                <div id="event-cards" class="banners-wrapper mt-5">
+                <p class="section-heading  branding-partnership-heading">SELECT A DATE TO VIEW EVENTS.</p>
+                </div>
 
-              <div class="context-tab-selector active-tab-selector" data-content-section="termscontent">
-                &nbsp;
+                         
+            </div>
+        </div>
+      </section>
+      <section class="page-columned-section subscription-cta-section">
+        <div class="section-column-one">
+          <div class="section-heading subscription-cta-section-heading">
+            Stay Subscribed
+          </div>
+          <div class="section-subheading subscription-cta-section-subheading">
+            Stay up to date with the latest product update, announcements.
+          </div>
+        </div>
+        <div class="section-column-two">
+          <div class="section-content">
+            <div class="subscription-cta-form">
+              <div class="subscription-cta-form-item">
+                <input type="text" class="subscription-cta-form-element" />
+              </div>
+              <div class="subscription-cta-form-item">
+                <button type="button" class="btn btn-cta btn-primary">
+                  Subscribe
+                </button>
               </div>
             </div>
           </div>
-        
-          <section class="terms-policy-main-content" style="display:block" id="termscontent">
-
-               <div class="section-content terms-section-content">
-                    <div class="events-page">
-                         <div class="calendar-wrapper">
-                         {{ drupal_view('events_calendar', 'default') }}
-                         </div>
-
-                         <div id="event-banners" class="banners-wrapper mt-5">
-                         <p>Select a date to view events.</p>
-                         </div>
-                    </div>
-               </div>
-               
-            <div class="section-content terms-section-content"></div>
-            </section>
-        </section>
+        </div>
       </section>
-
-            <section class="page-columned-section subscription-cta-section">
-              <div class="section-column-one">
-                <div class="section-heading subscription-cta-section-heading">Stay Subscribed</div>
-                <div class="section-subheading subscription-cta-section-subheading">
-                  Stay up to date with the latest product update, announcements.
-                </div>
-              </div>
-              <div class="section-column-two">
-                <div class="section-content">
-                  <div class="subscription-cta-form">
-                    <div class="subscription-cta-form-item">
-                      <input type="text" class="subscription-cta-form-element" />
-                    </div>
-                    <div class="subscription-cta-form-item">
-                      <button type="button" class="btn btn-cta btn-primary">Subscribe</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
     </section>
 
 

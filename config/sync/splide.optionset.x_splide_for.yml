@@ -1,0 +1,21 @@
+uuid: e83c2159-1161-4c42-bb29-cc555290f4bd
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - splide_x
+_core:
+  default_config_hash: VkQ-i6r6FpRbKd-CW9DLgu3779UDzToiNWV-U99VjZ4
+id: x_splide_for
+name: x_splide_for
+weight: -2
+label: 'X Splide for'
+group: main
+skin: classic
+breakpoint: 0
+optimized: true
+options:
+  settings:
+    type: loop
+    arrows: 'false'

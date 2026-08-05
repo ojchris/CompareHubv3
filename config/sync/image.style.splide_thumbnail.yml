@@ -1,0 +1,20 @@
+uuid: 7346eeb9-aeac-4fb4-843a-aeaf06324970
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - splide_x
+_core:
+  default_config_hash: 5TuvCK1jpQVC8LZlqgGN0jfvx8AKrvWYC2KBxVrI_hA
+name: splide_thumbnail
+label: 'Splide thumbnail'
+effects:
+  7deb6f28-2397-467e-8300-d89bf057e217:
+    uuid: 7deb6f28-2397-467e-8300-d89bf057e217
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 210
+      height: 158
+      anchor: center-center

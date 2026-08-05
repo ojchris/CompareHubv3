@@ -1,0 +1,29 @@
+uuid: 45940f55-9347-4964-8d62-fc7e01fae0f6
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.slick_x
+  module:
+    - system
+    - views
+  theme:
+    - olivero
+id: olivero_views_block__slick_x_block_carousel
+theme: olivero
+region: content
+weight: -6
+provider: null
+plugin: 'views_block:slick_x-block_carousel'
+settings:
+  id: 'views_block:slick_x-block_carousel'
+  label: ''
+  label_display: visible
+  provider: views
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'

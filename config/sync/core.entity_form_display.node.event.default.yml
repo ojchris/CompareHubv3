@@ -6,6 +6,8 @@ dependencies:
     - field.field.node.event.field_banner
     - field.field.node.event.field_brand
     - field.field.node.event.field_description
+    - field.field.node.event.field_image
+    - field.field.node.event.field_images
     - field.field.node.event.field_scheduled_date
     - image.style.thumbnail
     - node.type.event
@@ -50,6 +52,22 @@ content:
     settings:
       rows: 5
       placeholder: ''
+    third_party_settings: {  }
+  field_image:
+    type: image_image
+    weight: 1
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_images:
+    type: image_image
+    weight: 26
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
     third_party_settings: {  }
   field_scheduled_date:
     type: smartdate_inline

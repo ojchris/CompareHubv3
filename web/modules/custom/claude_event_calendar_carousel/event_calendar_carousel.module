@@ -1,0 +1,131 @@
+<?php
+
+/**
+ * @file
+ * Event Calendar Carousel module file.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\views\ViewExecutable;
+
+/**
+ * Implements hook_help().
+ */
+function event_calendar_carousel_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.event_calendar_carousel':
+      return '<p>' . t('Connects Views FullCalendar displays with Slick Views carousels. Click dates in calendar to filter and display carousel.') . '</p>';
+  }
+}
+
+/**
+ * Implements hook_views_post_render().
+ */
+function event_calendar_carousel_views_post_render(ViewExecutable $view, &$output, $cache) {
+  // Check if this is a FullCalendar display
+  if ($view->getDisplay()->getPluginId() == 'fullcalendar' || 
+      (isset($view->style_plugin) && strpos(get_class($view->style_plugin), 'FullCalendar') !== FALSE)) {
+    
+    // Get carousel configuration from view's display settings
+    $display_options = $view->display_handler->getOption('event_carousel_settings');
+    
+    if (!empty($display_options['carousel_view'])) {
+      $carousel_view_id = $display_options['carousel_view'];
+      $carousel_display_id = $display_options['carousel_display'] ?? 'block_1';
+      
+      // Attach library and settings
+      $output['#attached']['library'][] = 'event_calendar_carousel/calendar_carousel';
+      $output['#attached']['drupalSettings']['eventCalendarCarousel'] = [
+        'calendarViewId' => $view->id(),
+        'carouselViewId' => $carousel_view_id,
+        'carouselDisplayId' => $carousel_display_id,
+      ];
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for views_ui_edit_display_form.
+ */
+function event_calendar_carousel_form_views_ui_edit_display_form_alter(&$form, $form_state, $form_id) {
+  $view = $form_state->get('view');
+  $display_id = $form_state->get('display_id');
+  $display = $view->getDisplay($display_id);
+  
+  // Only add settings to FullCalendar displays
+  if ($display && ($display->getPluginId() == 'fullcalendar' || 
+      (isset($display->getOption('style')['type']) && strpos($display->getOption('style')['type'], 'fullcalendar') !== FALSE))) {
+    
+    $settings = $display->getOption('event_carousel_settings') ?: [];
+    
+    $form['event_carousel_settings'] = [
+      '#type' => 'details',
+      '#title' => t('Event Carousel Settings'),
+      '#open' => TRUE,
+    ];
+    
+    // Get available views with Slick display
+    $carousel_options = event_calendar_carousel_get_carousel_views();
+    
+    $form['event_carousel_settings']['carousel_view'] = [
+      '#type' => 'select',
+      '#title' => t('Carousel View'),
+      '#description' => t('Select the Slick view to use for the carousel. The view should accept a date contextual filter.'),
+      '#options' => $carousel_options,
+      '#default_value' => $settings['carousel_view'] ?? '',
+      '#empty_option' => t('- None (disable carousel) -'),
+      '#required' => FALSE,
+    ];
+    
+    $form['event_carousel_settings']['carousel_display'] = [
+      '#type' => 'textfield',
+      '#title' => t('Carousel Display ID'),
+      '#description' => t('The display ID of the carousel view (e.g., "block_1").'),
+      '#default_value' => $settings['carousel_display'] ?? 'block_1',
+      '#states' => [
+        'visible' => [
+          ':input[name="event_carousel_settings[carousel_view]"]' => ['!value' => ''],
+        ],
+      ],
+    ];
+    
+    // Add submit handler
+    $form['#submit'][] = 'event_calendar_carousel_views_ui_edit_display_form_submit';
+  }
+}
+
+/**
+ * Submit handler to save carousel settings.
+ */
+function event_calendar_carousel_views_ui_edit_display_form_submit($form, $form_state) {
+  $view = $form_state->get('view');
+  $display_id = $form_state->get('display_id');
+  
+  if (isset($form_state->getValue('event_carousel_settings'))) {
+    $settings = $form_state->getValue('event_carousel_settings');
+    $view->getDisplay($display_id)->setOption('event_carousel_settings', $settings);
+  }
+}
+
+/**
+ * Helper function to get available carousel views.
+ */
+function event_calendar_carousel_get_carousel_views() {
+  $options = [];
+  $view_storage = \Drupal::service('entity_type.manager')->getStorage('view');
+  $views = $view_storage->loadMultiple();
+  
+  foreach ($views as $view_id => $view) {
+    $displays = $view->get('display');
+    foreach ($displays as $display_id => $display) {
+      // Check if display uses Slick
+      if (isset($display['display_options']['style']['type']) && 
+          strpos($display['display_options']['style']['type'], 'slick') !== FALSE) {
+        $options[$view_id] = $view->label() . ' (' . $view_id . ')';
+        break;
+      }
+    }
+  }
+  
+  return $options;
+}

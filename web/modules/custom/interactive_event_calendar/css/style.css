@@ -131,6 +131,8 @@
   display: flex !important;
 }
 
+/* Custom styles for event list */
+
 .branding-partnership-subheading .white-text{
   color: #ffffff;
 }
@@ -148,7 +150,9 @@
 
 .view-event-list-date-controlled .view-content-wrapper {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 30px; /* Adds a fixed 20px space between items */
+  flex-wrap: wrap;
   height: 100%;
 }
 
@@ -182,6 +186,10 @@
     height: 50px;
     overflow: hidden;
     text-decoration: none;
+}
+
+.view-event-list-date-controlled .views-row .img-cover a{
+  height: auto;
 }
 
 .view-event-list-date-controlled .views-row a:hover {

@@ -1,0 +1,20 @@
+uuid: 1fac0271-9c1f-4a91-ae6b-add35d455fff
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - splide_x
+_core:
+  default_config_hash: JzBf0no5Qia9pFCEMsHY0r1DdRqGdjeGlqO-rtoOmAc
+id: x_grid
+name: x_grid
+weight: -5
+label: 'X Grid'
+group: main
+skin: grid
+breakpoint: 0
+optimized: true
+options:
+  settings:
+    type: loop

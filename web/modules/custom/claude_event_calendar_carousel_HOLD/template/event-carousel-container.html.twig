@@ -1,0 +1,20 @@
+{#
+/**
+ * @file
+ * Template for Event Carousel Wrapper.
+ *
+ * Available variables:
+ * - carousel_view: The carousel view render array.
+ * - calendar_view_id: The ID of the calendar view.
+ * - carousel_view_id: The ID of the carousel view.
+ * - carousel_display_id: The display ID of the carousel view.
+ */
+#}
+{% set wrapper_id = 'event-carousel-wrapper-' ~ calendar_view_id %}
+
+<div id="{{ wrapper_id }}" class="event-carousel-wrapper">
+  <h2 class="carousel-title">Select a date to view events</h2>
+  <div class="carousel-content">
+    {{ carousel_view }}
+  </div>
+</div>

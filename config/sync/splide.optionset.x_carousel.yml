@@ -1,0 +1,44 @@
+uuid: 4703dd5c-fe3e-4a40-ad0f-4e38d6af14a7
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - splide_x
+_core:
+  default_config_hash: p2EAsjP4LzIsyvAkMfFp36A0V-NxwB-rYo8oYIHY1Q0
+id: x_carousel
+name: x_carousel
+weight: -8
+label: 'X Carousel'
+group: main
+skin: boxed-carousel
+breakpoint: 2
+optimized: true
+options:
+  settings:
+    type: loop
+    perPage: 5
+    perMove: 3
+    clones: 2
+    focus: center
+    padding: '10'
+    easing: 'cubic-bezier(0.550, 0.085, 0.680, 0.530)'
+    easingOverride: easeInQuad
+    trimSpace: 'false'
+    wheel: false
+  breakpoints:
+    -
+      breakpoint: 900
+      unsplide: false
+      settings:
+        perPage: 3
+        perMove: 3
+        focus: center
+    -
+      breakpoint: 641
+      unsplide: false
+      settings:
+        perPage: 1
+        perMove: 1
+        focus: center

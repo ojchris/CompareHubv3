@@ -5,7 +5,6 @@ dependencies:
   config:
     - field.field.node.slideshow.field_image
     - field.field.node.slideshow.field_images
-    - image.style.wide
     - node.type.slideshow
   module:
     - image
@@ -27,13 +26,15 @@ content:
     weight: -1
     region: content
   field_images:
-    type: entity_reference_entity_view
+    type: image
     label: above
     settings:
-      view_mode: default
-      link: false
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
     third_party_settings: {  }
-    weight: 101
+    weight: 105
     region: content
   links:
     settings: {  }

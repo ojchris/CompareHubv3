@@ -1,0 +1,11 @@
+name: Event Calendar Carousel
+type: module
+description: 'Connects Views FullCalendar displays with Slick Views carousels to show event banners on date click'
+core_version_requirement:  ^10 || ^11
+package: Custom
+dependencies:
+  - drupal:node
+  - drupal:views
+  - fullcalendar:fullcalendar
+  - slick:slick
+  - slick:slick_views

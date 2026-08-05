@@ -1,0 +1,8 @@
+event_calendar_carousel.load_carousel:
+  path: '/api/calendar/load-carousel'
+  defaults:
+    _controller: '\Drupal\event_calendar_carousel\Controller\EventCalendarController::loadCarousel'
+  requirements:
+    _permission: 'access content'
+  options:
+    no_cache: TRUE

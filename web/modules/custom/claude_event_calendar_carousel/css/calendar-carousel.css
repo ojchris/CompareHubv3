@@ -1,0 +1,39 @@
+/* Message when date is selected */
+.calendar-date-selected {
+  padding: 15px;
+  margin: 0 0 20px 0;
+  background: #e8f4f8;
+  border-left: 4px solid #3498db;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #2c3e50;
+  text-align: center;
+}
+
+/* Ensure carousel view is visible */
+.view-id-event-carousel {
+  margin: 40px auto;
+  max-width: 1200px;
+}
+
+/* Optional: Style the carousel container if placed in a region */
+.region .block-views-blockevent-carousel-block-1 {
+  padding: 30px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .calendar-date-selected {
+    font-size: 14px;
+    padding: 12px;
+  }
+  
+  .region .block-views-blockevent-carousel-block-1 {
+    padding: 20px;
+    margin: 20px 10px;
+  }
+}

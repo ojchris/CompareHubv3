@@ -1,0 +1,13 @@
+calendar_carousel:
+  version: 1.x
+  js:
+    js/calendar-carousel.js: {}
+  css:
+    theme:
+      css/calendar-carousel.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+    - slick/slick

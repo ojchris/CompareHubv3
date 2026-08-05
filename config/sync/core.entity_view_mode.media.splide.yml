@@ -1,0 +1,16 @@
+uuid: 7dc3f6fb-b0e9-464e-9f1c-0e2687c12dbe
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+  enforced:
+    module:
+      - splide
+_core:
+  default_config_hash: txO_q_xyPhX00U-soGpC5XsZU6K2y3_5h6ORx6ru6ns
+id: media.splide
+label: 'Splide slider'
+description: ''
+targetEntityType: media
+cache: true

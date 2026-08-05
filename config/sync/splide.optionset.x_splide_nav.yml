@@ -1,0 +1,39 @@
+uuid: 9e3d9669-e788-4765-bd8a-83e2b1b0f99e
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - splide_x
+_core:
+  default_config_hash: j98PcbDddoX-6n5KOPlT9Gu5IDgp_TOFY1VEsStJEF8
+id: x_splide_nav
+name: x_splide_nav
+weight: -1
+label: 'X Splide nav'
+group: nav
+skin: asnavfor
+breakpoint: 2
+optimized: true
+options:
+  settings:
+    type: loop
+    focus: center
+    pagination: 'false'
+    perPage: 7
+    clones: 3
+    slideFocus: true
+    isNavigation: true
+  breakpoints:
+    -
+      breakpoint: 769
+      unsplide: false
+      settings:
+        focus: center
+        perPage: 5
+    -
+      breakpoint: 481
+      unsplide: false
+      settings:
+        focus: center
+        perPage: 3

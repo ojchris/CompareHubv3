@@ -1,0 +1,20 @@
+uuid: 8e5d6b80-bed8-4f8c-993b-30a3295bb1b4
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - splide_x
+_core:
+  default_config_hash: s3CcwJH-rl-wUQtQgPGMhSlBMTtyXEx_oDND9pBbajs
+id: x_split
+name: x_split
+weight: 0
+label: 'X Split'
+group: main
+skin: split
+breakpoint: 0
+optimized: true
+options:
+  settings:
+    type: loop

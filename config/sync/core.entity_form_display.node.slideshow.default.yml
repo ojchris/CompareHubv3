@@ -30,14 +30,12 @@ content:
       preview_image_style: thumbnail
     third_party_settings: {  }
   field_images:
-    type: entity_reference_autocomplete
-    weight: 121
+    type: image_image
+    weight: 26
     region: content
     settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+      progress_indicator: throbber
+      preview_image_style: thumbnail
     third_party_settings: {  }
   path:
     type: path
