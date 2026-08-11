@@ -1,0 +1,5 @@
+name: 'Events Page Calendar'
+type: module
+description: 'Replaces the boxy FullCalendar grid on /events with a horizontal date-strip calendar. Uses the calendar-wrapper div as a hidden FC engine and builds the custom horizontal UI inside .page_body. Event cards are fetched from the event_list_date_controlled view.'
+package: Compare Hub
+core_version_requirement: ^10 || ^11

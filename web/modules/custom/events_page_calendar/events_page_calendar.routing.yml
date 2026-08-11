@@ -1,0 +1,15 @@
+events_page_calendar.events_json:
+  path: '/events-calendar/events.json'
+  defaults:
+    _controller: '\Drupal\events_page_calendar\Controller\EventsJsonController::list'
+    _format: 'json'
+  requirements:
+    _permission: 'access content'
+
+events_page_calendar.event_cards:
+  path: '/events-calendar/cards/{date}'
+  defaults:
+    _controller: '\Drupal\events_page_calendar\Controller\EventCardsController::render'
+  requirements:
+    _permission: 'access content'
+    date: '^\d{4}-\d{2}-\d{2}$'

@@ -1,0 +1,12 @@
+events_page_calendar:
+  version: 1.0
+  js:
+    js/events_page_calendar.js: {}
+  css:
+    theme:
+      css/style.css: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/drupalSettings
+    - core/once

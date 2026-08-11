@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for events_page_calendar module.
+ */
+
+/**
+ * Implements hook_page_attachments().
+ *
+ * Attaches the horizontal calendar library on every page so the JS
+ * behaviour can detect .page_body .calendar-wrapper and self-initialise.
+ */
+function events_page_calendar_page_attachments(array &$attachments) {
+  $attachments['#attached']['library'][] = 'events_page_calendar/events_page_calendar';
+}
