@@ -21,6 +21,9 @@ console/
 /web/themes/custom/comparenone/node_modules/
 /web/themes/custom/comparenone/templates/form/discover form-needs work
 
+# Ignore theme sample template directory
+/Template_fixes/
+
 # Ignore database backups
 /db/
 
