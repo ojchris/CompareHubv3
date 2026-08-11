@@ -1,0 +1,7 @@
+horizontal_event_calendar.events_json:
+  path: '/horizontal-calendar/events.json'
+  defaults:
+    _controller: '\Drupal\horizontal_event_calendar\Controller\EventsJsonController::list'
+    _format: 'json'
+  requirements:
+    _permission: 'access content'
