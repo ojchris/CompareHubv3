@@ -37,6 +37,7 @@ module:
   editor: 0
   entity: 0
   entity_reference_revisions: 0
+  events_page_calendar: 0
   feeds: 0
   field: 0
   field_formatter_class: 0
@@ -49,7 +50,6 @@ module:
   history: 0
   image: 0
   inline_entity_form: 0
-  interactive_event_calendar: 0
   kint: 0
   link: 0
   media: 0
@@ -64,6 +64,8 @@ module:
   profile: 0
   recently_read: 0
   search: 0
+  search_help: 0
+  search_node: 0
   shortcut: 0
   slick: 0
   slick_example: 0

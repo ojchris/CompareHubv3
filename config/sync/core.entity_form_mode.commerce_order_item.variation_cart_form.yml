@@ -13,6 +13,6 @@ _core:
   default_config_hash: u--mTnS-vYPf2RaezDnxj9Sl0GFgFSi4fgzVPPlCMM0
 id: commerce_order_item.variation_cart_form
 label: 'Variation cart form'
-description: ''
+description: null
 targetEntityType: commerce_order_item
 cache: true

@@ -6,7 +6,6 @@ dependencies:
     - field.storage.node.field_scheduled_date
     - node.type.event
   module:
-    - fullcalendar_view
     - node
     - smart_date
     - user
@@ -82,7 +81,7 @@ display:
           admin_label: ''
           plugin_id: field
           label: ''
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -257,52 +256,11 @@ display:
             default_group_multiple: {  }
             group_items: {  }
       style:
-        type: fullcalendar_view_display
+        type: default
         options:
-          default_date_source: now
-          defaultDate: ''
-          start: field_scheduled_date
-          end: ''
-          title: title
-          left_buttons: 'prev,next today'
-          right_buttons: dayGridMonth
-          default_view: dayGridMonth
-          default_mobile_view: dayGridMonth
-          mobile_width: '768'
-          firstDay: '0'
-          nav_links: 1
-          timeFormat: 'hh:mm a'
-          allowEventOverlap: 0
-          updateAllowed: 1
-          updateConfirm: 1
-          defaultLanguage: en
-          languageSelector: 0
-          dialogWindow: 0
-          openEntityInNewTab: 1
-          createEventLink: 0
-          eventLimit: '10'
-          tax_field: ''
-          vocabularies: ''
-          color_bundle:
-            article: '#3a87ad'
-            brand: '#3a87ad'
-            event: '#3a87ad'
-            page: '#3a87ad'
-            slideshow: '#3a87ad'
-          rrule: ''
-          dialogModal: false
-          dialogCanvas: false
-          duration: field_scheduled_date
-          slotDuration: '00:30:00'
-          minTime: '00:00:00'
-          maxTime: '23:59:59'
-          bundle_type: event
-          classes: ''
-          fetchGoogleHolidays: false
-          googleHolidaysSettings:
-            googleCalendarAPIKey: ''
-            googleCalendarGroup: ''
-            renderGoogleHolidaysAsBackground: false
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
       row:
         type: fields
         options:
