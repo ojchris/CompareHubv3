@@ -23,6 +23,7 @@ console/
 
 # Ignore theme sample template directory
 /Template_fixes/
+/Template_fixes_previous/
 
 # Ignore database backups
 /db/
