@@ -401,10 +401,11 @@ svg.lucide.w-6  { width: 24px !important; height: 24px !important; }
   transition: width 0.3s, opacity 0.3s, background 0.3s;
   border-radius: 9999px;
 }
-.slider-dot.active {
-  width: 24px !important;
-  background-color: var(--color-white) !important;
-  opacity: 1 !important;
+.slider-dot.active,
+.hero-slider .slider-dot.active {
+  width: 24px;
+  background-color: var(--color-white);
+  opacity: 1;
 }
 
 
@@ -470,18 +471,23 @@ svg.lucide.w-6  { width: 24px !important; height: 24px !important; }
   line-height: 22.5px;
 }
 
+/* Compare and Wishlist button shared base */
+.compare-btn,
+.wishlist-btn {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  height: 32px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
 /* Compare button on card */
 .compare-btn {
   background-color: var(--color-primary);
   color: var(--color-white);
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  font-size: 12px;
   border: none;
-  height: 32px;
-  border-radius: 12px;
   width: 100%;
-  cursor: pointer;
   transition: background 0.2s;
 }
 .compare-btn:hover { background-color: var(--color-primary-hover); }
@@ -492,13 +498,7 @@ svg.lucide.w-6  { width: 24px !important; height: 24px !important; }
 .wishlist-btn {
   background-color: var(--color-surface);
   color: var(--color-body);
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  font-size: 12px;
   border: 1px solid var(--color-border);
-  height: 32px;
-  border-radius: 12px;
-  cursor: pointer;
   transition: all 0.2s;
 }
 .wishlist-btn:hover { background-color: var(--color-light); color: var(--color-primary); border-color: var(--color-primary); }
@@ -510,18 +510,16 @@ svg.lucide.w-6  { width: 24px !important; height: 24px !important; }
   transition: background 0.2s, color 0.2s, border-color 0.2s;
   white-space: nowrap;
 }
-.category-tab.active-tab {
-  background-color: var(--color-primary) !important;
-  border-color: var(--color-primary) !important;
-  color: var(--color-white) !important;
+body .category-tab.active-tab {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-white);
 }
 .category-tab:hover:not(.active-tab) {
   border-color: var(--color-primary);
   color: var(--color-primary);
 }
 
-/* Brands horizontal scroll */
-#brands-list::-webkit-scrollbar { display: none; }
 
 
 /* ============================================
@@ -607,14 +605,13 @@ svg.lucide.w-6  { width: 24px !important; height: 24px !important; }
 }
 
 /* Mobile category pills */
-#mobile-category-tabs::-webkit-scrollbar { display: none; }
 .mobile-cat-tab {
   transition: background 0.2s, color 0.2s, border-color 0.2s;
 }
-.mobile-cat-tab.active {
-  background: var(--color-primary) !important;
-  color: var(--color-white) !important;
-  border-color: var(--color-primary) !important;
+body .mobile-cat-tab.active {
+  background: var(--color-primary);
+  color: var(--color-white);
+  border-color: var(--color-primary);
 }
 
 
@@ -635,14 +632,14 @@ svg.lucide.w-6  { width: 24px !important; height: 24px !important; }
    12. RESPONSIVE
    ============================================ */
 @media (max-width: 1024px) {
-  .main-container   { padding-left: 24px !important; padding-right: 24px !important; }
-  .footer-container { padding-left: 24px !important; padding-right: 24px !important; }
+  body .main-container   { padding-left: 24px; padding-right: 24px; }
+  body .footer-container { padding-left: 24px; padding-right: 24px; }
 }
 
 @media (max-width: 640px) {
   /* Hide all scrollbars — full app experience */
-  * { scrollbar-width: none !important; -ms-overflow-style: none !important; }
-  *::-webkit-scrollbar { display: none !important; }
+  * { scrollbar-width: none; -ms-overflow-style: none; }
+  *::-webkit-scrollbar { display: none; }
 
   /* Body spacing for fixed mobile header + bottom nav */
   body {
@@ -651,20 +648,20 @@ svg.lucide.w-6  { width: 24px !important; height: 24px !important; }
   }
 
   /* Tighter main padding on mobile */
-  .main-container {
-    padding-left: 16px !important;
-    padding-right: 16px !important;
-    padding-top: 8px !important;
+  body .main-container {
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 8px;
   }
 
   /* Tighter section spacing on mobile */
-  .main-container > div,
-  .main-container > section,
-  .main-container > main { --tw-space-y-reverse: 0; }
-  .main-container .space-y-12 > * + * { margin-top: 20px !important; }
-  .footer-container {
-    padding-left: 16px !important;
-    padding-right: 16px !important;
+  body .main-container > div,
+  body .main-container > section,
+  body .main-container > main { --tw-space-y-reverse: 0; }
+  body .main-container .space-y-12 > * + * { margin-top: 20px; }
+  body .footer-container {
+    padding-left: 16px;
+    padding-right: 16px;
   }
 
   /* Mobile product cards: smaller image, tighter body */
@@ -676,22 +673,19 @@ svg.lucide.w-6  { width: 24px !important; height: 24px !important; }
   .wishlist-btn { height: 28px; font-size: 11px; }
 
   /* Category tabs: single-row horizontal scroll on mobile */
-  #category-tabs {
-    flex-wrap: nowrap !important;
-    overflow-x: auto !important;
-    justify-content: flex-start !important;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+  body #category-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
     padding-bottom: 4px;
   }
-  #category-tabs::-webkit-scrollbar { display: none; }
 
   /* Product grids: 2 columns */
-  #electronics-grid,
-  #food-grid,
-  #home-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 12px !important;
+  body #electronics-grid,
+  body #food-grid,
+  body #home-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
 
   /* Section headings: smaller on mobile */
@@ -701,11 +695,11 @@ svg.lucide.w-6  { width: 24px !important; height: 24px !important; }
   .footer-links { flex-direction: column; gap: 32px; }
 
   /* Newsletter: stack on mobile */
-  .footer-container .relative.flex.items-center.gap-2 {
+  body .footer-container .relative.flex.items-center.gap-2 {
     flex-direction: column;
     width: 100%;
   }
-  .footer-container .relative.flex.items-center.gap-2 input { width: 100% !important; }
+  body .footer-container .relative.flex.items-center.gap-2 input { width: 100%; }
 
   /* Compare drawer: sit above bottom nav */
   #compare-drawer.open { bottom: var(--mobile-bottom-nav-height); }
@@ -714,5 +708,5 @@ svg.lucide.w-6  { width: 24px !important; height: 24px !important; }
   #toast { right: 12px; left: 12px; max-width: none; }
 
   /* SEO text section: tighter padding */
-  .seo-section { padding: 24px 20px !important; }
+  body .seo-section { padding: 24px 20px; }
 }

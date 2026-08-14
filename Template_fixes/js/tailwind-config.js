@@ -1,5 +1,7 @@
 // Central Tailwind config for the CompareHub template
 // Included by HTML pages before loading the Tailwind CDN script
+// TODO: Drupal build — this is a CDN prototype configuration file.
+// In the final Drupal theme, migrate this into the theme's official tailwind.config.js for a proper PostCSS build.
 
 tailwind.config = {
   theme: {

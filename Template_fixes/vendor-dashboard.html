@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -78,7 +78,7 @@
               <span class="font-work font-medium text-[13px] text-[#364153]">Reports</span>
             </a>
             <hr class="border-[#f3f4f6] my-1">
-            <button onclick="CompareHub.vendor.signOut()" class="flex items-center gap-2.5 px-3 py-2 rounded-[10px] hover:bg-[#fff5f5] transition-colors w-full text-left">
+            <button id="vendor-signout-btn" class="flex items-center gap-2.5 px-3 py-2 rounded-[10px] hover:bg-[#fff5f5] transition-colors w-full text-left">
               <i data-lucide="log-out" class="w-4 h-4 text-[#ef4444] shrink-0" aria-hidden="true"></i>
               <span class="font-work font-medium text-[13px] text-[#ef4444]">Sign Out</span>
             </button>
@@ -321,19 +321,22 @@
       });
     }
 
-    window.CompareHub = window.CompareHub || { auth: {}, vendor: {}, compare: {}, ui: {} };\r\n    CompareHub.vendor.signOut = function() {
+    window.CompareHub = window.CompareHub || { auth: {}, vendor: {}, compare: {}, ui: {} };
+    CompareHub.vendor.signOut = function() {
       const vendor = JSON.parse(localStorage.getItem('ch_vendor'));
       vendor.isLoggedIn = false;
       localStorage.setItem('ch_vendor', JSON.stringify(vendor));
       window.location.href = 'index.html';
     }
 
+    const signoutBtn = document.getElementById('vendor-signout-btn');
+    if (signoutBtn) {
+      signoutBtn.addEventListener('click', CompareHub.vendor.signOut);
+    }
+
     initVendorDashboard();
   </script>
 </body>
-</html>
-
-
 
 
 

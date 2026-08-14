@@ -137,6 +137,19 @@ Other UI pages (toast updates)
   - Replaced external CDN URLs (`https://unpkg.com/lucide@0.441.0/dist/umd/lucide.min.js`) with relative local script paths (`js/lucide.min.js` or `../js/lucide.min.js`) across all 25 HTML pages.
   - Eliminates reliance on external third-party CDNs, improving security, resilience, and offline availability.
 
+- **Item 11: CSS Refactoring & `!important` Elimination**
+  - Removed `!important` from **12 responsive CSS rules** in [`css/styles.css`](file:///z:/home/ojchris/webworks/Comparehub/Template_fixes/css/styles.css) by raising selector specificity instead:
+    - `@media (max-width: 1024px)`: `.main-container` and `.footer-container` padding rules now prefixed with `body`.
+    - `@media (max-width: 640px)`: Container paddings, section spacing, `.space-y-12` margin, footer newsletter input width, `.seo-section` padding — all prefixed with `body`.
+    - `#category-tabs`, `#electronics-grid`, `#food-grid`, `#home-grid` mobile overrides now prefixed with `body`.
+  - Removed `!important` from **3 JS-toggled active state rules**:
+    - `.slider-dot.active` (hero slider active dot) — expanded to `.slider-dot.active, .hero-slider .slider-dot.active` for clean specificity.
+    - `.category-tab.active-tab` → `body .category-tab.active-tab`.
+    - `.mobile-cat-tab.active` → `body .mobile-cat-tab.active`.
+  - **Retained `!important` only where genuinely required** (2 groups):
+    - `svg.lucide.w-N` size overrides — must win over inline SVG `width`/`height` HTML attributes that Tailwind cannot remove.
+    - `@media (max-width: 640px) * { scrollbar-width: none }` — universal wildcard requires `!important` to suppress all OS/browser scrollbar defaults.
+
 ---
 
 ## Verification notes
@@ -158,3 +171,38 @@ Other UI pages (toast updates)
 
 If you want this changelog exported to a different filename or added to your repository root (instead of the Phase 1 folder), tell me where and I will move it.
 
+---
+
+
+## Phase 4 — Drupal-Aware Clean-up (Items 12 & 14)
+
+> Context: Items 15 and 16 were reviewed and **intentionally skipped** in light of the Drupal theme integration plan:
+> - **Item 15 (async error handling)** — all data in the current mockup is synchronous and hardcoded. The fetch/async layer will be introduced when Drupal views/REST endpoints replace the static data, at which point proper error handling will be written from scratch.
+> - **Item 16 (media query → Tailwind prefix migration)** — the `@media` block approach for component-layer CSS (`.main-container`, `.footer-container`) is *preferable* for Drupal since it keeps layout concerns in CSS rather than spreading responsive utility classes across many Twig templates.
+
+- **Item 12: Deduplicate Button Component Styling** (`css/styles.css`)
+  - `font-family: 'Inter', sans-serif`, `font-weight: 500`, `font-size: 12px`, `height: 32px`, `border-radius: 12px`, and `cursor: pointer` were duplicated verbatim in both `.compare-btn` and `.wishlist-btn`.
+  - Extracted the shared properties into a combined rule (`.compare-btn, .wishlist-btn { … }`) placed directly above the two individual rules.
+  - Each individual rule now only declares its unique properties: colors, border, width, and transition.
+  - Zero visual change — purely a CSS deduplication/maintainability improvement.
+
+- **Item 14: Remove Inline Event Handlers** (`vendor-dashboard.html`, `vendor-signup.html`)
+  - **`vendor-dashboard.html` (line 81)**: Removed `onclick="CompareHub.vendor.signOut()"` from the Sign Out button. Added `id="vendor-signout-btn"` to the button. Added a corresponding `addEventListener('click', CompareHub.vendor.signOut)` binding in the existing inline `<script>` block, after the `signOut` function definition.
+  - **`vendor-signup.html` (lines 63, 74)**: Removed `onclick="togglePassword('vendor-password','eye-pwd')"` and `onclick="togglePassword('vendor-confirm-password','eye-confirm')"` from the two password-visibility toggle buttons. Added `id="toggle-pwd-btn"` and `id="toggle-confirm-pwd-btn"` respectively. Wired both with `addEventListener('click', …)` calls appended at the end of the existing inline `<script>` block.
+  - `index.html` password toggle was already migrated to `addEventListener` in Phase 2 — no further action needed there.
+
+---
+
+## Phase 5 — Moderate Severity Clean-up (Items 18, 19, 20)
+
+> Note: Item 17 (Lucide CDN dependency) was already completed previously; icons are loaded from the local `js/lucide.min.js`.
+
+- **Item 18: Google Fonts Performance**
+  - Confirmed that `&display=swap` is already correctly appended to the Google Fonts URL across all HTML files, ensuring text remains visible during webfont load (preventing FOIT). No further action needed for the static template. (Self-hosting recommended during actual Drupal build).
+
+- **Item 19: Inconsistent Scrollbar Hiding Techniques** (`css/styles.css`)
+  - Cleaned up redundant CSS block rules `#brands-list::-webkit-scrollbar` and `#mobile-category-tabs::-webkit-scrollbar` as these elements already correctly leverage the reusable `.no-scrollbar` class in HTML.
+  - Simplified the global mobile scrollbar override (`@media (max-width: 640px) *`) to use standard `scrollbar-width: none` without `!important`, ensuring it respects standard CSS specificity while cleanly hiding scrollbars across the app experience on small screens.
+
+- **Item 20: Tailwind Config Duplication**
+  - Confirmed that the inline `tailwind.config = {...}` previously repeated in every HTML `<head>` has already been successfully extracted to `js/tailwind-config.js` and linked universally. This matches the report's recommendation and drastically cleans up the document heads.
