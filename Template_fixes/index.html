@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -215,7 +215,16 @@
     <div class="flash-deals-strip">
       <div class="flex items-center gap-3">
         <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center shrink-0">
-          <span class="text-[16px] leading-none">★</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="21.97" height="16" style="width: 21.97px !important; height: 16px !important; min-width: 21.97px; min-height: 16px;" viewBox="0 0 24 24" aria-hidden="true">
+            <defs>
+              <linearGradient id="flashGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#fcd34d" />
+                <stop offset="50%" stop-color="#fb923c" />
+                <stop offset="100%" stop-color="#c2410c" />
+              </linearGradient>
+            </defs>
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="url(#flashGradient)" stroke="url(#flashGradient)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></polygon>
+          </svg>
         </div>
         <div>
           <p class="font-work font-bold text-[14px] text-white leading-tight">Flash Deals</p>
@@ -224,7 +233,7 @@
       </div>
       <a href="category.html#cat=all" class="bg-white font-work font-semibold text-[12px] text-[#155dfc] rounded-full px-4 py-2 flex items-center gap-1 shrink-0">
         Shop now
-        <i data-lucide="chevron-right" class="w-3 h-3 text-[#155dfc]" aria-hidden="true"></i>
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-[#155dfc]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
       </a>
     </div>
   </section>
@@ -317,7 +326,94 @@
             <i data-lucide="chevron-right" class="w-4 h-4 text-[#155dfc]" aria-hidden="true"></i>
           </a>
         </div>
-        <div id="electronics-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8"></div>
+        <div id="electronics-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+          <!-- TODO (Drupal): Replace static cards below with Twig loop: {% for product in category.products %} -->
+          <div class="product-card" data-id="1" data-category="electronics" role="article">
+            <a href="product.html#id=1" class="card-image block"><img src="images/products/iphone-15-pro.jpg" alt="iPhone 15 Pro" loading="lazy" onerror="this.src='images/placeholder.jpg'"></a>
+            <div class="card-body">
+              <a href="product.html#id=1" class="block" style="text-decoration:none">
+                <a href="brand.html#brand=GADGETPRO" class="vendor-name" style="text-decoration:none" onclick="event.stopPropagation()">GADGETPRO</a>
+                <p class="product-name">iPhone 15 Pro Max</p>
+                <p class="product-unit">256GB / Titanium</p>
+              </a>
+              <div>
+                <p class="product-price">₦1,850,000</p>
+                <div style="display:flex;gap:8px;margin-top:8px">
+                  <button class="compare-btn" data-id="1" style="flex:1">+ Compare</button>
+                  <button class="wishlist-btn" data-id="1" style="flex:1;border:1px solid #e5e7eb;background:#f9fafb;color:#364153;font-weight:500;border-radius:8px;cursor:pointer">♡ Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="product-card" data-id="2" data-category="electronics" role="article">
+            <a href="product.html#id=2" class="card-image block"><img src="images/products/macbook-air-m3.jpg" alt="MacBook Air M3" loading="lazy" onerror="this.src='images/placeholder.jpg'"></a>
+            <div class="card-body">
+              <a href="product.html#id=2" class="block" style="text-decoration:none">
+                <a href="brand.html#brand=TECHSTORE" class="vendor-name" style="text-decoration:none" onclick="event.stopPropagation()">TECHSTORE</a>
+                <p class="product-name">MacBook Air M3</p>
+                <p class="product-unit">512GB / Space Gray</p>
+              </a>
+              <div>
+                <p class="product-price">₦2,150,000</p>
+                <div style="display:flex;gap:8px;margin-top:8px">
+                  <button class="compare-btn" data-id="2" style="flex:1">+ Compare</button>
+                  <button class="wishlist-btn" data-id="2" style="flex:1;border:1px solid #e5e7eb;background:#f9fafb;color:#364153;font-weight:500;border-radius:8px;cursor:pointer">♡ Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="product-card" data-id="3" data-category="electronics" role="article">
+            <a href="product.html#id=3" class="card-image block"><img src="images/products/playstation-5.jpg" alt="PlayStation 5" loading="lazy" onerror="this.src='images/placeholder.jpg'"></a>
+            <div class="card-body">
+              <a href="product.html#id=3" class="block" style="text-decoration:none">
+                <a href="brand.html#brand=DIGIZONE" class="vendor-name" style="text-decoration:none" onclick="event.stopPropagation()">DIGIZONE</a>
+                <p class="product-name">PlayStation 5</p>
+                <p class="product-unit">Standard Edition</p>
+              </a>
+              <div>
+                <p class="product-price">₦750,000</p>
+                <div style="display:flex;gap:8px;margin-top:8px">
+                  <button class="compare-btn" data-id="3" style="flex:1">+ Compare</button>
+                  <button class="wishlist-btn" data-id="3" style="flex:1;border:1px solid #e5e7eb;background:#f9fafb;color:#364153;font-weight:500;border-radius:8px;cursor:pointer">♡ Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="product-card" data-id="4" data-category="electronics" role="article">
+            <a href="product.html#id=4" class="card-image block"><img src="images/products/ipad-pro-12.jpg" alt="iPad Pro" loading="lazy" onerror="this.src='images/placeholder.jpg'"></a>
+            <div class="card-body">
+              <a href="product.html#id=4" class="block" style="text-decoration:none">
+                <a href="brand.html#brand=GADGETPRO" class="vendor-name" style="text-decoration:none" onclick="event.stopPropagation()">GADGETPRO</a>
+                <p class="product-name">iPad Pro 12.9"</p>
+                <p class="product-unit">256GB / Wi-Fi</p>
+              </a>
+              <div>
+                <p class="product-price">₦1,450,000</p>
+                <div style="display:flex;gap:8px;margin-top:8px">
+                  <button class="compare-btn" data-id="4" style="flex:1">+ Compare</button>
+                  <button class="wishlist-btn" data-id="4" style="flex:1;border:1px solid #e5e7eb;background:#f9fafb;color:#364153;font-weight:500;border-radius:8px;cursor:pointer">♡ Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="product-card" data-id="5" data-category="electronics" role="article">
+            <a href="product.html#id=5" class="card-image block"><img src="images/products/sony-wh1000xm5.jpg" alt="Sony Headphones" loading="lazy" onerror="this.src='images/placeholder.jpg'"></a>
+            <div class="card-body">
+              <a href="product.html#id=5" class="block" style="text-decoration:none">
+                <a href="brand.html#brand=SMARTBUY" class="vendor-name" style="text-decoration:none" onclick="event.stopPropagation()">SMARTBUY</a>
+                <p class="product-name">Sony WH-1000XM5</p>
+                <p class="product-unit">Black</p>
+              </a>
+              <div>
+                <p class="product-price">₦350,000</p>
+                <div style="display:flex;gap:8px;margin-top:8px">
+                  <button class="compare-btn" data-id="5" style="flex:1">+ Compare</button>
+                  <button class="wishlist-btn" data-id="5" style="flex:1;border:1px solid #e5e7eb;background:#f9fafb;color:#364153;font-weight:500;border-radius:8px;cursor:pointer">♡ Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       <!-- ---- Food & Drinks Section ---- -->
@@ -329,7 +425,94 @@
             <i data-lucide="chevron-right" class="w-4 h-4 text-[#155dfc]" aria-hidden="true"></i>
           </a>
         </div>
-        <div id="food-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8"></div>
+        <div id="food-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+          <!-- TODO (Drupal): Replace static cards below with Twig loop -->
+          <div class="product-card" data-id="6" data-category="food" role="article">
+            <a href="product.html#id=6" class="card-image block"><img src="images/products/white-rice.jpg" alt="Bag of Rice" loading="lazy" onerror="this.src='images/placeholder.jpg'"></a>
+            <div class="card-body">
+              <a href="product.html#id=6" class="block" style="text-decoration:none">
+                <a href="brand.html#brand=FOODHUB" class="vendor-name" style="text-decoration:none" onclick="event.stopPropagation()">FOODHUB</a>
+                <p class="product-name">Bag of Rice</p>
+                <p class="product-unit">50kg / Long Grain</p>
+              </a>
+              <div>
+                <p class="product-price">₦85,000</p>
+                <div style="display:flex;gap:8px;margin-top:8px">
+                  <button class="compare-btn" data-id="6" style="flex:1">+ Compare</button>
+                  <button class="wishlist-btn" data-id="6" style="flex:1;border:1px solid #e5e7eb;background:#f9fafb;color:#364153;font-weight:500;border-radius:8px;cursor:pointer">♡ Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="product-card" data-id="7" data-category="food" role="article">
+            <a href="product.html#id=7" class="card-image block"><img src="images/products/white-yam.jpg" alt="White Yam" loading="lazy" onerror="this.src='images/placeholder.jpg'"></a>
+            <div class="card-body">
+              <a href="product.html#id=7" class="block" style="text-decoration:none">
+                <a href="brand.html#brand=NAIJAFOODS" class="vendor-name" style="text-decoration:none" onclick="event.stopPropagation()">NAIJAFOODS</a>
+                <p class="product-name">White Yam</p>
+                <p class="product-unit">Large Tubers</p>
+              </a>
+              <div>
+                <p class="product-price">₦15,000</p>
+                <div style="display:flex;gap:8px;margin-top:8px">
+                  <button class="compare-btn" data-id="7" style="flex:1">+ Compare</button>
+                  <button class="wishlist-btn" data-id="7" style="flex:1;border:1px solid #e5e7eb;background:#f9fafb;color:#364153;font-weight:500;border-radius:8px;cursor:pointer">♡ Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="product-card" data-id="8" data-category="food" role="article">
+            <a href="product.html#id=8" class="card-image block"><img src="images/products/palm-oil.jpg" alt="Palm Oil" loading="lazy" onerror="this.src='images/placeholder.jpg'"></a>
+            <div class="card-body">
+              <a href="product.html#id=8" class="block" style="text-decoration:none">
+                <a href="brand.html#brand=GREENFARM" class="vendor-name" style="text-decoration:none" onclick="event.stopPropagation()">GREENFARM</a>
+                <p class="product-name">Palm Oil</p>
+                <p class="product-unit">5 Litres</p>
+              </a>
+              <div>
+                <p class="product-price">₦12,500</p>
+                <div style="display:flex;gap:8px;margin-top:8px">
+                  <button class="compare-btn" data-id="8" style="flex:1">+ Compare</button>
+                  <button class="wishlist-btn" data-id="8" style="flex:1;border:1px solid #e5e7eb;background:#f9fafb;color:#364153;font-weight:500;border-radius:8px;cursor:pointer">♡ Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="product-card" data-id="9" data-category="food" role="article">
+            <a href="product.html#id=9" class="card-image block"><img src="images/products/fresh-catfish.jpg" alt="Fresh Catfish" loading="lazy" onerror="this.src='images/placeholder.jpg'"></a>
+            <div class="card-body">
+              <a href="product.html#id=9" class="block" style="text-decoration:none">
+                <a href="brand.html#brand=FOODHUB" class="vendor-name" style="text-decoration:none" onclick="event.stopPropagation()">FOODHUB</a>
+                <p class="product-name">Fresh Catfish</p>
+                <p class="product-unit">per kg</p>
+              </a>
+              <div>
+                <p class="product-price">₦4,500</p>
+                <div style="display:flex;gap:8px;margin-top:8px">
+                  <button class="compare-btn" data-id="9" style="flex:1">+ Compare</button>
+                  <button class="wishlist-btn" data-id="9" style="flex:1;border:1px solid #e5e7eb;background:#f9fafb;color:#364153;font-weight:500;border-radius:8px;cursor:pointer">♡ Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="product-card" data-id="10" data-category="food" role="article">
+            <a href="product.html#id=10" class="card-image block"><img src="images/products/cow-leg.jpg" alt="Cow Leg" loading="lazy" onerror="this.src='images/placeholder.jpg'"></a>
+            <div class="card-body">
+              <a href="product.html#id=10" class="block" style="text-decoration:none">
+                <a href="brand.html#brand=NAIJAFOODS" class="vendor-name" style="text-decoration:none" onclick="event.stopPropagation()">NAIJAFOODS</a>
+                <p class="product-name">Cow Leg</p>
+                <p class="product-unit">per portion</p>
+              </a>
+              <div>
+                <p class="product-price">₦8,500</p>
+                <div style="display:flex;gap:8px;margin-top:8px">
+                  <button class="compare-btn" data-id="10" style="flex:1">+ Compare</button>
+                  <button class="wishlist-btn" data-id="10" style="flex:1;border:1px solid #e5e7eb;background:#f9fafb;color:#364153;font-weight:500;border-radius:8px;cursor:pointer">♡ Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       <!-- ---- Promotional Banners — desktop only ---- -->
@@ -393,7 +576,94 @@
             <i data-lucide="chevron-right" class="w-4 h-4 text-[#155dfc]" aria-hidden="true"></i>
           </a>
         </div>
-        <div id="home-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8"></div>
+        <div id="home-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+          <!-- TODO (Drupal): Replace static cards below with Twig loop -->
+          <div class="product-card" data-id="11" data-category="home" role="article">
+            <a href="product.html#id=11" class="card-image block"><img src="images/products/jbl-charge-5.jpg" alt="JBL Charge 5" loading="lazy" onerror="this.src='images/placeholder.jpg'"></a>
+            <div class="card-body">
+              <a href="product.html#id=11" class="block" style="text-decoration:none">
+                <a href="brand.html#brand=GADGETPRO" class="vendor-name" style="text-decoration:none" onclick="event.stopPropagation()">GADGETPRO</a>
+                <p class="product-name">JBL Charge 5</p>
+                <p class="product-unit">Bluetooth Speaker</p>
+              </a>
+              <div>
+                <p class="product-price">₦120,000</p>
+                <div style="display:flex;gap:8px;margin-top:8px">
+                  <button class="compare-btn" data-id="11" style="flex:1">+ Compare</button>
+                  <button class="wishlist-btn" data-id="11" style="flex:1;border:1px solid #e5e7eb;background:#f9fafb;color:#364153;font-weight:500;border-radius:8px;cursor:pointer">♡ Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="product-card" data-id="12" data-category="home" role="article">
+            <a href="product.html#id=12" class="card-image block"><img src="images/products/apple-watch-9.jpg" alt="Apple Watch S9" loading="lazy" onerror="this.src='images/placeholder.jpg'"></a>
+            <div class="card-body">
+              <a href="product.html#id=12" class="block" style="text-decoration:none">
+                <a href="brand.html#brand=TECHSTORE" class="vendor-name" style="text-decoration:none" onclick="event.stopPropagation()">TECHSTORE</a>
+                <p class="product-name">Apple Watch S9</p>
+                <p class="product-unit">45mm</p>
+              </a>
+              <div>
+                <p class="product-price">₦380,000</p>
+                <div style="display:flex;gap:8px;margin-top:8px">
+                  <button class="compare-btn" data-id="12" style="flex:1">+ Compare</button>
+                  <button class="wishlist-btn" data-id="12" style="flex:1;border:1px solid #e5e7eb;background:#f9fafb;color:#364153;font-weight:500;border-radius:8px;cursor:pointer">♡ Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="product-card" data-id="13" data-category="home" role="article">
+            <a href="product.html#id=13" class="card-image block"><img src="images/products/canon-eos-r50.jpg" alt="Canon EOS R50" loading="lazy" onerror="this.src='images/placeholder.jpg'"></a>
+            <div class="card-body">
+              <a href="product.html#id=13" class="block" style="text-decoration:none">
+                <a href="brand.html#brand=DIGIZONE" class="vendor-name" style="text-decoration:none" onclick="event.stopPropagation()">DIGIZONE</a>
+                <p class="product-name">Canon EOS R50</p>
+                <p class="product-unit">Mirrorless</p>
+              </a>
+              <div>
+                <p class="product-price">₦650,000</p>
+                <div style="display:flex;gap:8px;margin-top:8px">
+                  <button class="compare-btn" data-id="13" style="flex:1">+ Compare</button>
+                  <button class="wishlist-btn" data-id="13" style="flex:1;border:1px solid #e5e7eb;background:#f9fafb;color:#364153;font-weight:500;border-radius:8px;cursor:pointer">♡ Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="product-card" data-id="14" data-category="home" role="article">
+            <a href="product.html#id=14" class="card-image block"><img src="images/products/african-snail.jpg" alt="African Snail" loading="lazy" onerror="this.src='images/placeholder.jpg'"></a>
+            <div class="card-body">
+              <a href="product.html#id=14" class="block" style="text-decoration:none">
+                <a href="brand.html#brand=GREENFARM" class="vendor-name" style="text-decoration:none" onclick="event.stopPropagation()">GREENFARM</a>
+                <p class="product-name">African Snail</p>
+                <p class="product-unit">Jumbo Size</p>
+              </a>
+              <div>
+                <p class="product-price">₦15,000</p>
+                <div style="display:flex;gap:8px;margin-top:8px">
+                  <button class="compare-btn" data-id="14" style="flex:1">+ Compare</button>
+                  <button class="wishlist-btn" data-id="14" style="flex:1;border:1px solid #e5e7eb;background:#f9fafb;color:#364153;font-weight:500;border-radius:8px;cursor:pointer">♡ Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="product-card" data-id="15" data-category="home" role="article">
+            <a href="product.html#id=15" class="card-image block"><img src="images/products/ripe-plantain.jpg" alt="Ripe Plantain" loading="lazy" onerror="this.src='images/placeholder.jpg'"></a>
+            <div class="card-body">
+              <a href="product.html#id=15" class="block" style="text-decoration:none">
+                <a href="brand.html#brand=NAIJAFOODS" class="vendor-name" style="text-decoration:none" onclick="event.stopPropagation()">NAIJAFOODS</a>
+                <p class="product-name">Ripe Plantain</p>
+                <p class="product-unit">Large Bunch</p>
+              </a>
+              <div>
+                <p class="product-price">₦4,500</p>
+                <div style="display:flex;gap:8px;margin-top:8px">
+                  <button class="compare-btn" data-id="15" style="flex:1">+ Compare</button>
+                  <button class="wishlist-btn" data-id="15" style="flex:1;border:1px solid #e5e7eb;background:#f9fafb;color:#364153;font-weight:500;border-radius:8px;cursor:pointer">♡ Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       <!-- ---- SEO Text Section — desktop only ---- -->

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -113,7 +113,189 @@
       </div>
 
       <!-- Product grid -->
-      <div id="product-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-5"></div>
+        <div id="product-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-5">
+        <!-- TODO (Drupal): Replace static cards below with Twig loop: {% for product in category.products %} -->
+        <div class="bg-white rounded-[10px] overflow-hidden flex flex-col shadow-soft">
+          <a href="product.html#id=1" class="block overflow-hidden bg-[#f9fafb]" style="height:151px">
+            <img src="images/products/iphone-15-pro.jpg" alt="iPhone 15 Pro" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="this.src='images/placeholder.jpg'">
+          </a>
+          <div class="flex flex-col gap-2.5 p-4 flex-1">
+            <a href="product.html#id=1" class="flex flex-col gap-0.5 flex-1">
+              <p class="font-inter font-medium text-[11px] text-[#0f42b3] tracking-[0.06px] truncate">GADGETPRO</p>
+              <p class="font-inter font-semibold text-[13px] text-[#364153] leading-tight line-clamp-2">iPhone 15 Pro</p>
+              <p class="font-inter text-[10px] text-[#99a1af] tracking-[0.12px]">256GB / Titanium</p>
+            </a>
+            <div class="mt-auto">
+              <p class="font-inter font-bold text-[15px] text-[#364153] mb-2">₦1,850,000</p>
+              <button class="w-full bg-[#155dfc] text-white font-inter font-medium text-[12px] rounded-[12px] flex items-center justify-center hover:bg-[#1447e6] transition-colors" style="height:32px">
+                + Compare
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white rounded-[10px] overflow-hidden flex flex-col shadow-soft">
+          <a href="product.html#id=2" class="block overflow-hidden bg-[#f9fafb]" style="height:151px">
+            <img src="images/products/macbook-air-m3.jpg" alt="MacBook Air M3" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="this.src='images/placeholder.jpg'">
+          </a>
+          <div class="flex flex-col gap-2.5 p-4 flex-1">
+            <a href="product.html#id=2" class="flex flex-col gap-0.5 flex-1">
+              <p class="font-inter font-medium text-[11px] text-[#0f42b3] tracking-[0.06px] truncate">TECHSTORE</p>
+              <p class="font-inter font-semibold text-[13px] text-[#364153] leading-tight line-clamp-2">MacBook Air M3</p>
+              <p class="font-inter text-[10px] text-[#99a1af] tracking-[0.12px]">512GB / Space Gray</p>
+            </a>
+            <div class="mt-auto">
+              <p class="font-inter font-bold text-[15px] text-[#364153] mb-2">₦2,150,000</p>
+              <button class="w-full bg-[#155dfc] text-white font-inter font-medium text-[12px] rounded-[12px] flex items-center justify-center hover:bg-[#1447e6] transition-colors" style="height:32px">
+                + Compare
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white rounded-[10px] overflow-hidden flex flex-col shadow-soft">
+          <a href="product.html#id=3" class="block overflow-hidden bg-[#f9fafb]" style="height:151px">
+            <img src="images/products/playstation-5.jpg" alt="PlayStation 5" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="this.src='images/placeholder.jpg'">
+          </a>
+          <div class="flex flex-col gap-2.5 p-4 flex-1">
+            <a href="product.html#id=3" class="flex flex-col gap-0.5 flex-1">
+              <p class="font-inter font-medium text-[11px] text-[#0f42b3] tracking-[0.06px] truncate">DIGIZONE</p>
+              <p class="font-inter font-semibold text-[13px] text-[#364153] leading-tight line-clamp-2">PlayStation 5</p>
+              <p class="font-inter text-[10px] text-[#99a1af] tracking-[0.12px]">Standard Edition</p>
+            </a>
+            <div class="mt-auto">
+              <p class="font-inter font-bold text-[15px] text-[#364153] mb-2">₦750,000</p>
+              <button class="w-full bg-[#155dfc] text-white font-inter font-medium text-[12px] rounded-[12px] flex items-center justify-center hover:bg-[#1447e6] transition-colors" style="height:32px">
+                + Compare
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white rounded-[10px] overflow-hidden flex flex-col shadow-soft">
+          <a href="product.html#id=4" class="block overflow-hidden bg-[#f9fafb]" style="height:151px">
+            <img src="images/products/ipad-pro-12.jpg" alt="iPad Pro" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="this.src='images/placeholder.jpg'">
+          </a>
+          <div class="flex flex-col gap-2.5 p-4 flex-1">
+            <a href="product.html#id=4" class="flex flex-col gap-0.5 flex-1">
+              <p class="font-inter font-medium text-[11px] text-[#0f42b3] tracking-[0.06px] truncate">GADGETPRO</p>
+              <p class="font-inter font-semibold text-[13px] text-[#364153] leading-tight line-clamp-2">iPad Pro 12.9"</p>
+              <p class="font-inter text-[10px] text-[#99a1af] tracking-[0.12px]">256GB / Wi-Fi</p>
+            </a>
+            <div class="mt-auto">
+              <p class="font-inter font-bold text-[15px] text-[#364153] mb-2">₦1,450,000</p>
+              <button class="w-full bg-[#155dfc] text-white font-inter font-medium text-[12px] rounded-[12px] flex items-center justify-center hover:bg-[#1447e6] transition-colors" style="height:32px">
+                + Compare
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white rounded-[10px] overflow-hidden flex flex-col shadow-soft">
+          <a href="product.html#id=5" class="block overflow-hidden bg-[#f9fafb]" style="height:151px">
+            <img src="images/products/sony-wh1000xm5.jpg" alt="Sony Headphones" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="this.src='images/placeholder.jpg'">
+          </a>
+          <div class="flex flex-col gap-2.5 p-4 flex-1">
+            <a href="product.html#id=5" class="flex flex-col gap-0.5 flex-1">
+              <p class="font-inter font-medium text-[11px] text-[#0f42b3] tracking-[0.06px] truncate">SMARTBUY</p>
+              <p class="font-inter font-semibold text-[13px] text-[#364153] leading-tight line-clamp-2">Sony WH-1000XM5</p>
+              <p class="font-inter text-[10px] text-[#99a1af] tracking-[0.12px]">Black</p>
+            </a>
+            <div class="mt-auto">
+              <p class="font-inter font-bold text-[15px] text-[#364153] mb-2">₦350,000</p>
+              <button class="w-full bg-[#155dfc] text-white font-inter font-medium text-[12px] rounded-[12px] flex items-center justify-center hover:bg-[#1447e6] transition-colors" style="height:32px">
+                + Compare
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white rounded-[10px] overflow-hidden flex flex-col shadow-soft">
+          <a href="product.html#id=6" class="block overflow-hidden bg-[#f9fafb]" style="height:151px">
+            <img src="images/products/white-rice.jpg" alt="Bag of Rice" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="this.src='images/placeholder.jpg'">
+          </a>
+          <div class="flex flex-col gap-2.5 p-4 flex-1">
+            <a href="product.html#id=6" class="flex flex-col gap-0.5 flex-1">
+              <p class="font-inter font-medium text-[11px] text-[#0f42b3] tracking-[0.06px] truncate">FOODHUB</p>
+              <p class="font-inter font-semibold text-[13px] text-[#364153] leading-tight line-clamp-2">Bag of Rice</p>
+              <p class="font-inter text-[10px] text-[#99a1af] tracking-[0.12px]">50kg / Long Grain</p>
+            </a>
+            <div class="mt-auto">
+              <p class="font-inter font-bold text-[15px] text-[#364153] mb-2">₦85,000</p>
+              <button class="w-full bg-[#155dfc] text-white font-inter font-medium text-[12px] rounded-[12px] flex items-center justify-center hover:bg-[#1447e6] transition-colors" style="height:32px">
+                + Compare
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white rounded-[10px] overflow-hidden flex flex-col shadow-soft">
+          <a href="product.html#id=7" class="block overflow-hidden bg-[#f9fafb]" style="height:151px">
+            <img src="images/products/white-yam.jpg" alt="White Yam" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="this.src='images/placeholder.jpg'">
+          </a>
+          <div class="flex flex-col gap-2.5 p-4 flex-1">
+            <a href="product.html#id=7" class="flex flex-col gap-0.5 flex-1">
+              <p class="font-inter font-medium text-[11px] text-[#0f42b3] tracking-[0.06px] truncate">NAIJAFOODS</p>
+              <p class="font-inter font-semibold text-[13px] text-[#364153] leading-tight line-clamp-2">White Yam</p>
+              <p class="font-inter text-[10px] text-[#99a1af] tracking-[0.12px]">Large Tubers</p>
+            </a>
+            <div class="mt-auto">
+              <p class="font-inter font-bold text-[15px] text-[#364153] mb-2">₦15,000</p>
+              <button class="w-full bg-[#155dfc] text-white font-inter font-medium text-[12px] rounded-[12px] flex items-center justify-center hover:bg-[#1447e6] transition-colors" style="height:32px">
+                + Compare
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white rounded-[10px] overflow-hidden flex flex-col shadow-soft">
+          <a href="product.html#id=8" class="block overflow-hidden bg-[#f9fafb]" style="height:151px">
+            <img src="images/products/palm-oil.jpg" alt="Palm Oil" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="this.src='images/placeholder.jpg'">
+          </a>
+          <div class="flex flex-col gap-2.5 p-4 flex-1">
+            <a href="product.html#id=8" class="flex flex-col gap-0.5 flex-1">
+              <p class="font-inter font-medium text-[11px] text-[#0f42b3] tracking-[0.06px] truncate">GREENFARM</p>
+              <p class="font-inter font-semibold text-[13px] text-[#364153] leading-tight line-clamp-2">Palm Oil</p>
+              <p class="font-inter text-[10px] text-[#99a1af] tracking-[0.12px]">5 Litres</p>
+            </a>
+            <div class="mt-auto">
+              <p class="font-inter font-bold text-[15px] text-[#364153] mb-2">₦12,500</p>
+              <button class="w-full bg-[#155dfc] text-white font-inter font-medium text-[12px] rounded-[12px] flex items-center justify-center hover:bg-[#1447e6] transition-colors" style="height:32px">
+                + Compare
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white rounded-[10px] overflow-hidden flex flex-col shadow-soft">
+          <a href="product.html#id=9" class="block overflow-hidden bg-[#f9fafb]" style="height:151px">
+            <img src="images/products/fresh-catfish.jpg" alt="Fresh Catfish" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="this.src='images/placeholder.jpg'">
+          </a>
+          <div class="flex flex-col gap-2.5 p-4 flex-1">
+            <a href="product.html#id=9" class="flex flex-col gap-0.5 flex-1">
+              <p class="font-inter font-medium text-[11px] text-[#0f42b3] tracking-[0.06px] truncate">FOODHUB</p>
+              <p class="font-inter font-semibold text-[13px] text-[#364153] leading-tight line-clamp-2">Fresh Catfish</p>
+              <p class="font-inter text-[10px] text-[#99a1af] tracking-[0.12px]">per kg</p>
+            </a>
+            <div class="mt-auto">
+              <p class="font-inter font-bold text-[15px] text-[#364153] mb-2">₦4,500</p>
+              <button class="w-full bg-[#155dfc] text-white font-inter font-medium text-[12px] rounded-[12px] flex items-center justify-center hover:bg-[#1447e6] transition-colors" style="height:32px">
+                + Compare
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white rounded-[10px] overflow-hidden flex flex-col shadow-soft">
+          <a href="product.html#id=10" class="block overflow-hidden bg-[#f9fafb]" style="height:151px">
+            <img src="images/products/cow-leg.jpg" alt="Cow Leg" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="this.src='images/placeholder.jpg'">
+          </a>
+          <div class="flex flex-col gap-2.5 p-4 flex-1">
+            <a href="product.html#id=10" class="flex flex-col gap-0.5 flex-1">
+              <p class="font-inter font-medium text-[11px] text-[#0f42b3] tracking-[0.06px] truncate">NAIJAFOODS</p>
+              <p class="font-inter font-semibold text-[13px] text-[#364153] leading-tight line-clamp-2">Cow Leg</p>
+              <p class="font-inter text-[10px] text-[#99a1af] tracking-[0.12px]">per portion</p>
+            </a>
+            <div class="mt-auto">
+              <p class="font-inter font-bold text-[15px] text-[#364153] mb-2">₦8,500</p>
+              <button class="w-full bg-[#155dfc] text-white font-inter font-medium text-[12px] rounded-[12px] flex items-center justify-center hover:bg-[#1447e6] transition-colors" style="height:32px">
+                + Compare
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- Empty state -->
       <div id="empty-state" class="hidden flex-col items-center justify-center py-20 text-center">
@@ -192,6 +374,8 @@
     }
 
     function renderGrid() {
+      // TODO (Drupal): JS rendering disabled in favor of Twig server-side rendering
+      /*
       const products = getFilteredProducts();
       const grid  = document.getElementById('product-grid');
       const empty = document.getElementById('empty-state');
@@ -204,8 +388,8 @@
         empty.classList.remove('hidden');
         empty.classList.add('flex');
         document.getElementById('empty-message').textContent = activeSearch
-          ? `We couldn't find any products matching "${activeSearch}".`
-          : `No products in this category yet. Check back soon!`;
+          ? \`We couldn't find any products matching "\${activeSearch}".\`
+          : \`No products in this category yet. Check back soon!\`;
         renderIcons();
         return;
       }
@@ -214,27 +398,28 @@
       empty.classList.remove('flex');
 
       // Desktop card: matches Figma — image 151px, info panel below
-      grid.innerHTML = products.map(p => `
+      grid.innerHTML = products.map(p => \`
         <div class="bg-white rounded-[10px] overflow-hidden flex flex-col shadow-soft">
-          <a href="product.html#id=${p.id}" class="block overflow-hidden bg-[#f9fafb]" style="height:151px">
-            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="this.src='images/placeholder.jpg'">
+          <a href="product.html#id=\${p.id}" class="block overflow-hidden bg-[#f9fafb]" style="height:151px">
+            <img src="\${p.image}" alt="\${p.name}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="this.src='images/placeholder.jpg'">
           </a>
           <div class="flex flex-col gap-2.5 p-4 flex-1">
-            <a href="product.html#id=${p.id}" class="flex flex-col gap-0.5 flex-1">
-              <p class="font-inter font-medium text-[11px] text-[#0f42b3] tracking-[0.06px] truncate">${p.vendor}</p>
-              <p class="font-inter font-semibold text-[13px] text-[#364153] leading-tight line-clamp-2">${p.name}</p>
-              ${p.unit ? `<p class="font-inter text-[10px] text-[#99a1af] tracking-[0.12px]">${p.unit}</p>` : ''}
+            <a href="product.html#id=\${p.id}" class="flex flex-col gap-0.5 flex-1">
+              <p class="font-inter font-medium text-[11px] text-[#0f42b3] tracking-[0.06px] truncate">\${p.vendor}</p>
+              <p class="font-inter font-semibold text-[13px] text-[#364153] leading-tight line-clamp-2">\${p.name}</p>
+              \${p.unit ? \`<p class="font-inter text-[10px] text-[#99a1af] tracking-[0.12px]">\${p.unit}</p>\` : ''}
             </a>
             <div class="mt-auto">
-              <p class="font-inter font-bold text-[15px] text-[#364153] mb-2">${p.price}</p>
+              <p class="font-inter font-bold text-[15px] text-[#364153] mb-2">\${p.price}</p>
               <button class="w-full bg-[#155dfc] text-white font-inter font-medium text-[12px] rounded-[12px] flex items-center justify-center hover:bg-[#1447e6] transition-colors" style="height:32px">
                 + Compare
               </button>
             </div>
           </div>
         </div>
-      `).join('');
+      \`).join('');
       renderIcons();
+      */
     }
 
     function updatePageTitle() {
