@@ -526,10 +526,10 @@
 </div>`;
 
   /* ── Mount all components ── */
-  mountHeader();
-  mount('app-footer', FOOTER_HTML);
-  mount('app-mobile-nav', MOBILE_NAV_HTML);
-  document.body.insertAdjacentHTML('beforeend', AUTH_MODALS_HTML);
+  // mountHeader();
+  // mount('app-footer', FOOTER_HTML);
+  // mount('app-mobile-nav', MOBILE_NAV_HTML);
+  // document.body.insertAdjacentHTML('beforeend', AUTH_MODALS_HTML);
 
   // Re-render Lucide icons after injection
   if (typeof lucide !== 'undefined') {
