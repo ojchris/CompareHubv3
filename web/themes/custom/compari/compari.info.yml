@@ -1,7 +1,7 @@
 name: compari
 type: theme
 base theme: false
-description: A Tailwind-based theme built out as a HTML to Drupal template for CompareHUB
+description: 'A Tailwind-based theme for CompareHUB, successfully ported from the static HTML workspace.'
 package: CompareHub
 core_version_requirement: ^10 || ^11
 libraries:

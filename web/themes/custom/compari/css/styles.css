@@ -1,0 +1,712 @@
+/* ============================================
+   DESIGN TOKENS — CSS Custom Properties
+   Single source of truth. Change here → updates everywhere.
+   ============================================ */
+:root {
+  /* Colours */
+  --color-primary:       #155dfc;
+  --color-primary-hover: #1447e6;
+  --color-dark:          #181d25;
+  --color-body:          #364153;
+  --color-subtle:        #5a6372;
+  --color-muted:         #808793;
+  --color-border:        #e5e7eb;
+  --color-surface:       #f9fafb;
+  --color-light:         #e5edff;
+  --color-success:       #05df72;
+  --color-danger:        #ef4444;
+  --color-vendor:        #0f42b3;
+  --color-white:         #ffffff;
+  --color-surface-alt:   #f3f4f6;
+  --color-danger-light:  #fef2f2;
+  --color-success-bg:    #0d542b;
+  --color-scrollbar-track: #f1f5f9;
+
+  /* Border radius */
+  --radius-btn:    14px;
+  --radius-card:   10px;
+  --radius-panel:  16px;
+  --radius-drawer: 20px;
+  --radius-pill:   30px;
+
+  /* Typography */
+  --text-label:      11px;
+  --text-caption:    12px;
+  --text-body-sm:    13px;
+  --text-body:       14px;
+  --text-body-md:    15px;
+  --text-heading-sm: 18px;
+  --text-heading:    20px;
+  --text-heading-lg: 30px;
+  --text-hero:       45px;
+
+  /* Font families */
+  --font-work:  'Work Sans', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+
+  /* Shadows */
+  --shadow-card:      0 2px 4px rgba(0,0,0,0.06);
+  --shadow-card-hover:0 10px 28px rgba(0,0,0,0.1);
+  --shadow-header:    0 1px 12px rgba(0,0,0,0.08);
+  --shadow-drawer:    0 -8px 32px rgba(0,0,0,0.12);
+  --shadow-dropdown:  0 12px 32px rgba(0,0,0,0.12);
+
+  /* Spacing */
+  --spacing-section: 111px;
+  --spacing-section-v: 32px;
+  --max-width: 1290px;
+  --header-height: 70px;
+  --mobile-header-height: 128px;
+  --mobile-bottom-nav-height: 71px;
+}
+
+/* Utility helpers used to replace inline style attributes */
+.bg-brand-primary { background-color: var(--color-primary); }
+.bg-brand-dark { background-color: #032d71; }
+.bg-brand-gradient { background: linear-gradient(135deg, rgba(20,71,230,0.55) 0%, rgba(21,93,252,0.50) 50%, rgba(30,64,175,0.60) 100%); }
+.overlay-dark { background: linear-gradient(to top, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0.15) 70%); }
+.shadow-soft { box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
+.shadow-soft-sm { box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+.shadow-soft-md { box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+.shadow-soft-top { box-shadow: 0 -1px 8px rgba(0,0,0,0.07); }
+.shadow-strong { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+.no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.text-brand-primary { color: var(--color-primary); }
+.glass-panel { background: rgba(255,255,255,0.92); box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+.shadow-heavy { box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.1); }
+.shadow-xxl { box-shadow: 0 20px 60px rgba(0,0,0,0.18); }
+.shadow-brand { box-shadow: 0 10px 40px rgba(21,93,252,0.2); }
+.bg-primary-gradient-alt { background: linear-gradient(170deg, #155dfc 0%, #1447e6 100%); }
+.bg-brand-gradient-dark { background: linear-gradient(145deg, #1447e6 0%, #1d4ed8 60%, #1e1b4b 100%); }
+.card-shadow { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+.activity-icon { width: 2.5rem; height: 2.5rem; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.activity-product { background-color: #eff6ff; color: #155dfc; }
+.activity-event { background-color: #fef3c7; color: #d97706; }
+.activity-team { background-color: #f0fdf4; color: #16a34a; }
+.modal-backdrop-blur { backdrop-filter: blur(2px); }
+.link-plain { text-decoration: none; }
+.text-white { color: #ffffff; }
+
+/* ============================================
+CompareHub — Design System Styles
+   Tailwind config holds tokens (colours, radius,
+   font sizes, shadows). This file holds:
+     1. Reset / base
+     2. Lucide icon size fix
+     3. Reusable component classes
+     4. Header / nav states
+     5. Hero slider
+     6. Product cards
+     7. Compare drawer
+     8. Toast / utilities
+     9. Responsive overrides
+   ============================================ */
+
+
+/* ============================================
+   1. RESET / BASE
+   ============================================ */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: 'Work Sans', sans-serif;
+  background-color: var(--color-surface);
+  color: var(--color-body);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-scrollbar-track); }
+::-webkit-scrollbar-thumb { background: var(--color-primary); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-primary-hover); }
+
+/* Select reset */
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: none;
+}
+
+
+/* ============================================
+   2. LUCIDE ICONS — force CSS size over HTML attrs
+   ============================================ */
+svg.lucide {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+svg.lucide.w-3  { width: 12px !important; height: 12px !important; }
+svg.lucide.w-4  { width: 16px !important; height: 16px !important; }
+svg.lucide.w-5  { width: 20px !important; height: 20px !important; }
+svg.lucide.w-6  { width: 24px !important; height: 24px !important; }
+
+
+/* ============================================
+   3. REUSABLE COMPONENTS
+   ============================================ */
+
+/* ── Buttons ─────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.1s;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.btn:active { transform: scale(0.98); }
+
+/* Primary — blue fill */
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  padding: 10px 20px;
+}
+.btn-primary:hover { background-color: var(--color-primary-hover); }
+
+/* Outline — border only */
+.btn-outline {
+  background-color: transparent;
+  border: 1.5px solid var(--color-primary);
+  color: var(--color-primary);
+  padding: 9px 20px;
+}
+.btn-outline:hover { background-color: var(--color-light); }
+
+/* Ghost — no border, subtle hover */
+.btn-ghost {
+  background-color: transparent;
+  color: var(--color-body);
+  padding: 9px 16px;
+}
+.btn-ghost:hover { background-color: var(--color-surface-alt); }
+
+/* Danger ghost */
+.btn-danger {
+  background-color: transparent;
+  color: var(--color-danger);
+  padding: 9px 16px;
+}
+.btn-danger:hover { background-color: var(--color-danger-light); }
+
+/* Small size modifier */
+.btn-sm {
+  font-size: 12px;
+  padding: 6px 14px;
+  border-radius: 10px;
+}
+
+/* ── Badges ──────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  white-space: nowrap;
+}
+.badge-blue   { background: var(--color-light); color: var(--color-primary); }
+.badge-green  { background: #d1fae5; color: #059669; } /* green is not a brand token, intentional */
+.badge-red    { background: var(--color-danger-light); color: var(--color-danger); }
+.badge-dark   { background: var(--color-dark); color: var(--color-white); }
+.badge-nigeria { background: var(--color-success-bg); color: var(--color-success); }
+
+/* ── Section heading + View all row ─────── */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.section-title {
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--color-dark);
+  line-height: 30px;
+}
+.view-all-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.view-all-link:hover { opacity: 0.75; }
+
+/* ── Feature pill (features bar) ────────── */
+.feature-pill {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+.feature-icon {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: var(--color-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.feature-label {
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--color-body);
+  line-height: 1.4;
+}
+.feature-sublabel {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 14px;
+  color: var(--color-subtle);
+  line-height: 1.4;
+}
+
+/* ── Input ───────────────────────────────── */
+.input {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: var(--color-body);
+  background: var(--color-surface);
+  border: none;
+  border-radius: 14px;
+  padding: 0 16px;
+  height: 40px;
+  outline: none;
+  width: 100%;
+  transition: box-shadow 0.2s;
+}
+.input:focus { box-shadow: 0 0 0 2px var(--color-primary)40; }
+.input::placeholder { color: var(--color-muted); }
+
+/* ── Card ────────────────────────────────── */
+.card {
+  background: var(--color-white);
+  border-radius: 16px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+  overflow: hidden;
+}
+
+
+/* ============================================
+   4. HEADER & NAV
+   ============================================ */
+#site-header {
+  background: transparent;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+#site-header.scrolled {
+  background: var(--color-white);
+  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Nav links */
+#site-header .nav-link {
+  color: var(--color-white);
+  transition: color 0.3s;
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  text-decoration: none;
+}
+#site-header.scrolled .nav-link { color: var(--color-body); }
+#site-header .nav-link:hover { opacity: 0.75; }
+
+/* Sign in button */
+#site-header .sign-in-btn {
+  border-color: var(--color-white);
+  color: var(--color-white);
+  transition: border-color 0.3s, color 0.3s, background 0.2s;
+}
+#site-header.scrolled .sign-in-btn {
+  border-color: var(--color-body);
+  color: var(--color-body);
+}
+#site-header .sign-in-btn:hover { background: rgba(255,255,255,0.15); }
+#site-header.scrolled .sign-in-btn:hover { background: var(--color-surface-alt); }
+
+/* User dropdown */
+#user-dropdown {
+  position: absolute;
+  top: 62px;
+  right: 0;
+  min-width: 200px;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+  z-index: 100;
+  overflow: hidden;
+}
+#user-dropdown a,
+#user-dropdown button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 14px;
+  color: var(--color-body);
+  text-decoration: none;
+  transition: background 0.15s;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+#user-dropdown a:hover,
+#user-dropdown button:hover { background: var(--color-surface); }
+#user-dropdown .sign-out { color: var(--color-danger); }
+
+
+/* ============================================
+   5. HERO SLIDER
+   ============================================ */
+#slider-track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.slide {
+  min-width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.slider-dot {
+  border: none;
+  cursor: pointer;
+  transition: width 0.3s, opacity 0.3s, background 0.3s;
+  border-radius: 9999px;
+}
+.slider-dot.active,
+.hero-slider .slider-dot.active {
+  width: 24px;
+  background-color: var(--color-white);
+  opacity: 1;
+}
+
+
+/* ============================================
+   6. PRODUCT CARDS
+   ============================================ */
+.product-card {
+  background: var(--color-white);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.product-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.1);
+}
+.product-card .card-image {
+  height: 151px;
+  overflow: hidden;
+  position: relative;
+}
+.product-card .card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.product-card .card-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.product-card .vendor-name {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  color: var(--color-vendor);
+  letter-spacing: 0.06px;
+  line-height: 16.5px;
+}
+.product-card .product-name {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--color-body);
+  letter-spacing: -0.08px;
+  line-height: 19.5px;
+}
+.product-card .product-unit {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  color: var(--color-subtle);
+  line-height: 15px;
+}
+.product-card .product-price {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--color-body);
+  letter-spacing: -0.23px;
+  line-height: 22.5px;
+}
+
+/* Compare and Wishlist button shared base */
+.compare-btn,
+.wishlist-btn {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  height: 32px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+/* Compare button on card */
+.compare-btn {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+  width: 100%;
+  transition: background 0.2s;
+}
+.compare-btn:hover { background-color: var(--color-primary-hover); }
+.compare-btn.in-compare { background-color: var(--color-light); color: var(--color-primary); }
+.compare-btn.in-compare:hover { background-color: var(--color-danger-light); color: var(--color-danger); }
+
+/* Wishlist button on card */
+.wishlist-btn {
+  background-color: var(--color-surface);
+  color: var(--color-body);
+  border: 1px solid var(--color-border);
+  transition: all 0.2s;
+}
+.wishlist-btn:hover { background-color: var(--color-light); color: var(--color-primary); border-color: var(--color-primary); }
+.wishlist-btn.in-wishlist { background-color: #fce7f3; color: var(--color-danger); border-color: var(--color-danger); }
+.wishlist-btn.in-wishlist:hover { background-color: #fbcfe8; }
+
+/* Category tabs */
+.category-tab {
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+body .category-tab.active-tab {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-white);
+}
+.category-tab:hover:not(.active-tab) {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+
+
+/* ============================================
+   7. COMPARE DRAWER
+   ============================================ */
+#compare-drawer {
+  position: fixed;
+  bottom: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 780px;
+  background: var(--color-white);
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -8px 32px rgba(0,0,0,0.12);
+  padding: 24px;
+  z-index: 200;
+  transition: bottom 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+#compare-drawer.open { bottom: 0; }
+
+
+/* ============================================
+   8. TOAST NOTIFICATION
+   ============================================ */
+#toast {
+  position: fixed;
+  top: 84px;
+  right: 24px;
+  background: var(--color-dark);
+  color: white;
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  z-index: 9999;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.3s, transform 0.3s;
+  pointer-events: none;
+  max-width: 260px;
+}
+#toast.show { opacity: 1; transform: translateY(0); }
+
+
+/* ============================================
+   9. MOBILE BOTTOM NAV
+   ============================================ */
+#mobile-bottom-nav {
+  height: var(--mobile-bottom-nav-height);
+}
+.mobile-nav-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: background 0.15s;
+}
+.mobile-nav-tab:active { background: var(--color-surface-alt); }
+.mobile-nav-tab .nav-label {
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 1;
+  color: var(--color-muted);
+}
+.mobile-nav-tab.active svg { stroke: var(--color-primary); }
+.mobile-nav-tab.active .nav-label { color: var(--color-primary); }
+
+
+/* ============================================
+   10. MOBILE HERO BANNER
+   ============================================ */
+#mobile-hero {
+  overflow: hidden;
+  position: relative;
+}
+
+/* Mobile category pills */
+.mobile-cat-tab {
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+body .mobile-cat-tab.active {
+  background: var(--color-primary);
+  color: var(--color-white);
+  border-color: var(--color-primary);
+}
+
+
+/* ============================================
+   11. FLASH DEALS STRIP
+   ============================================ */
+.flash-deals-strip {
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+}
+
+
+/* ============================================
+   12. RESPONSIVE
+   ============================================ */
+@media (max-width: 1024px) {
+  body .main-container   { padding-left: 24px; padding-right: 24px; }
+  body .footer-container { padding-left: 24px; padding-right: 24px; }
+}
+
+@media (max-width: 640px) {
+  /* Hide all scrollbars — full app experience */
+  * { scrollbar-width: none; -ms-overflow-style: none; }
+  *::-webkit-scrollbar { display: none; }
+
+  /* Body spacing for fixed mobile header + bottom nav */
+  body {
+    padding-top: var(--mobile-header-height);
+    padding-bottom: var(--mobile-bottom-nav-height);
+  }
+
+  /* Tighter main padding on mobile */
+  body .main-container {
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 8px;
+  }
+
+  /* Tighter section spacing on mobile */
+  body .main-container > div,
+  body .main-container > section,
+  body .main-container > main { --tw-space-y-reverse: 0; }
+  body .main-container .space-y-12 > * + * { margin-top: 20px; }
+  body .footer-container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  /* Mobile product cards: smaller image, tighter body */
+  .product-card .card-image { height: 122px; }
+  .product-card .card-body  { padding: 10px 12px; gap: 6px; }
+  .product-card .product-name { font-size: 12px; line-height: 1.4; }
+  .product-card .product-price { font-size: 13px; }
+  .compare-btn { height: 28px; font-size: 11px; }
+  .wishlist-btn { height: 28px; font-size: 11px; }
+
+  /* Category tabs: single-row horizontal scroll on mobile */
+  body #category-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding-bottom: 4px;
+  }
+
+  /* Product grids: 2 columns */
+  body #electronics-grid,
+  body #food-grid,
+  body #home-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  /* Section headings: smaller on mobile */
+  .section-title { font-size: 16px; }
+
+  /* Footer links: stack on mobile */
+  .footer-links { flex-direction: column; gap: 32px; }
+
+  /* Newsletter: stack on mobile */
+  body .footer-container .relative.flex.items-center.gap-2 {
+    flex-direction: column;
+    width: 100%;
+  }
+  body .footer-container .relative.flex.items-center.gap-2 input { width: 100%; }
+
+  /* Compare drawer: sit above bottom nav */
+  #compare-drawer.open { bottom: var(--mobile-bottom-nav-height); }
+
+  /* Toast: adjust for mobile */
+  #toast { right: 12px; left: 12px; max-width: none; }
+
+  /* SEO text section: tighter padding */
+  body .seo-section { padding: 24px 20px; }
+}
