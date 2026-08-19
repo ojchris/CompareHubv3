@@ -27,3 +27,42 @@ function compari_preprocess_page(array &$variables): void {
 function compari_preprocess_node(array &$variables): void {
 
 }
+
+/**
+ * Implements hook_form_alter() for views exposed forms.
+ */
+function compari_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  // Check if this is the discover search form
+  if ($form['#id'] == 'views-exposed-form-discover-page-1' || $form['#id'] == 'views-exposed-form-discover-search') {
+    
+    // 1. Style the main form container (flex row, white bg, rounded corners)
+    $form['#attributes']['class'][] = 'bg-white/10 backdrop-blur-sm rounded-[30px] flex items-center gap-3 relative h-[66px] px-5 w-[min(760px,100%)]';
+
+    // 2. Define the input styling
+    $input_classes = 'bg-white rounded-[14px] pl-3 pr-8 font-work text-[#808793] outline-none cursor-pointer h-[32px] text-[14px] relative shrink-0 w-[131px]';
+    
+    // 3. Apply styles and placeholders to each field
+    $fields = [
+      'product_category' => 'Select Category...',
+      'brand_location' => 'Location...',
+      'product_source' => 'Enter Brand...',
+      'product_name' => 'Enter product name...'
+    ];
+
+    foreach ($fields as $field_name => $placeholder) {
+      if (isset($form[$field_name])) {
+        $form[$field_name]['#attributes']['class'][] = $input_classes;
+        $form[$field_name]['#attributes']['placeholder'] = t($placeholder);
+        
+        // Remove Drupal's default wrapper margins and make it flex-1
+        $form[$field_name]['#wrapper_attributes']['class'][] = 'w-full flex-1 m-0';
+      }
+    }
+
+    // 4. Style the Submit button and its wrapper
+    if (isset($form['actions']['submit'])) {
+      $form['actions']['submit']['#attributes']['class'][] = 'bg-[#155dfc] rounded-[14px] font-work font-medium text-white hover:bg-[#1447e6] transition-colors shrink-0 w-[141px] h-[32px] text-[12px]';
+      $form['actions']['#attributes']['class'][] = '';
+    }
+  }
+}

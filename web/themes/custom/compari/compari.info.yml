@@ -8,8 +8,8 @@ libraries:
   - compari/global
 regions:
   header: 'Header'
-  page_top: 'Page top'
-  page_bottom: 'Page bottom'
+  top_bar: 'Top Bar'
+  bottom_bar: 'Bottom Bar'
   featured: 'Featured'
   breadcrumb: 'Breadcrumb'
   content: 'Content'

@@ -1,45 +1,28 @@
 ﻿{#
+  page.html.twig
   Page template for the Compari theme.
-  Layout components are split into Twig includes under templates/includes/.
 #}
-<!DOCTYPE html>
-<html{{ html_attributes }} lang="en">
-  <head>
-    <head-placeholder token="{{ placeholder_token }}">
-    <title>{{ head_title|safe_join(' | ') }}</title>
-    {{ attach_library('compari/global') }}
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        if (typeof lucide !== 'undefined') {
-          lucide.createIcons({ attrs: { 'stroke-width': 1.8 } });
-        }
-      });
-    </script>
-    <css-placeholder token="{{ placeholder_token }}">
-    <js-placeholder token="{{ placeholder_token }}">
-  </head>
-  <body class="font-work bg-[#f9fafb]"{{ attributes }}>
 
-    {# ── Header (mobile + desktop) ── #}
-    {% include directory ~ '/templates/includes/header.html.twig' %}
-    {{ page.page_top }}
-    {{ page.featured }}
+{# ── Header (mobile + desktop) ── #}
+{% include directory ~ '/templates/includes/header.html.twig' %}
 
-    {# ── Main content region ── #}
-    <main class="mt-[70px] sm:mt-[70px]">
-      {{ page.content }}
-    </main>
+{# ── Hero / Top region ── #}
+{% if page.top_bar %}
+  <section class="hero-region {{ is_front ? 'hero-region--full' : 'hero-region--slim' }}">
+    {{ page.top_bar }}
+  </section>
+{% endif %}
 
-    {# ── Footer ── #}
-    {% include directory ~ '/templates/includes/footer.html.twig' %}
+{# ── Main content region ── #}
+<main id="main-content" class="mt-[70px] sm:mt-[70px]">
+  {{ page.content }}
+</main>
 
-    {# ── Mobile bottom nav ── #}
-    {% include directory ~ '/templates/includes/mobile_nav.html.twig' %}
+{# ── Footer ── #}
+{% include directory ~ '/templates/includes/footer.html.twig' %}
 
-    {# ── Auth modals (login, signup, OTP, forgot password) ── #}
-    {% include directory ~ '/templates/includes/auth_modals.html.twig' %}
+{# ── Mobile bottom nav ── #}
+{% include directory ~ '/templates/includes/mobile_nav.html.twig' %}
 
-    {{ page.bottom }}
-    <js-bottom-placeholder token="{{ placeholder_token }}">
-  </body>
-</html>
+{# ── Auth modals ── #}
+{% include directory ~ '/templates/includes/auth_modals.html.twig' %}
