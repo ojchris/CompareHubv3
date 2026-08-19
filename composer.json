@@ -21,6 +21,7 @@
         "drupal/commerce": "^3.0",
         "drupal/commerce_feeds": "^1.0@alpha",
         "drupal/commerce_variation_cart_form": "^1.5",
+        "drupal/content_filter": "^1.0",
         "drupal/core-composer-scaffold": "^11.4",
         "drupal/core-project-message": "^11.4",
         "drupal/core-recommended": "^11.4",
