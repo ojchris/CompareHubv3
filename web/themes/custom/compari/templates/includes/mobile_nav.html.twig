@@ -1,0 +1,26 @@
+﻿<nav class="sm:hidden fixed bottom-0 left-0 right-0 bg-white z-50 flex items-center" style="height:71px;border-top:1px solid #f3f4f6;box-shadow:0 -4px 20px rgba(0,0,0,0.07)">
+  <a href="{{ path('<front>') }}" class="flex flex-col items-center gap-[3px] py-2 flex-1">
+    <div class="w-[34px] h-[34px] flex items-center justify-center">
+      <i data-lucide="home" class="w-[22px] h-[22px] {{ active_page == '' ? 'text-[#155dfc]' : 'text-[#99a1af]' }}"></i>
+    </div>
+    <span class="font-inter font-semibold text-[10px] {{ active_page == '' ? 'text-[#155dfc]' : 'text-[#99a1af]' }}">Home</span>
+  </a>
+  <button id="mobile-nav-compare" class="flex flex-col items-center gap-[3px] py-2 flex-1">
+    <div class="w-[34px] h-[34px] flex items-center justify-center">
+      <i data-lucide="git-compare" class="w-[22px] h-[22px] {{ active_page == '' ? 'text-[#155dfc]' : 'text-[#99a1af]' }}"></i>
+    </div>
+    <span class="font-inter font-semibold text-[10px] {{ active_page == '' ? 'text-[#155dfc]' : 'text-[#99a1af]' }}">Compare</span>
+  </button>
+  <a href="{{ base_path ~ 'events' }}" class="flex flex-col items-center gap-[3px] py-2 flex-1">
+    <div class="w-[34px] h-[34px] flex items-center justify-center">
+      <i data-lucide="calendar" class="w-[22px] h-[22px] {{ active_page == '' ? 'text-[#155dfc]' : 'text-[#99a1af]' }}"></i>
+    </div>
+    <span class="font-inter font-semibold text-[10px] {{ active_page == '' ? 'text-[#155dfc]' : 'text-[#99a1af]' }}">Events</span>
+  </a>
+  <a href="{{ base_path ~ 'account-settings' }}" class="flex flex-col items-center gap-[3px] py-2 flex-1">
+    <div class="w-[34px] h-[34px] flex items-center justify-center">
+      <i data-lucide="user" class="w-[22px] h-[22px] {{ active_page == '' ? 'text-[#155dfc]' : 'text-[#99a1af]' }}"></i>
+    </div>
+    <span class="font-inter font-semibold text-[10px] {{ active_page == '' ? 'text-[#155dfc]' : 'text-[#99a1af]' }}">Account</span>
+  </a>
+</nav>
