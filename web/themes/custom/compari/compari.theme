@@ -39,23 +39,42 @@ function compari_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\FormSta
     $form['#attributes']['class'][] = 'bg-white/10 backdrop-blur-sm rounded-[30px] flex items-center gap-3 relative h-[66px] px-5 w-[min(760px,100%)]';
 
     // 2. Define the input styling
-    $input_classes = 'bg-white rounded-[14px] pl-3 pr-8 font-work text-[#808793] outline-none cursor-pointer h-[32px] text-[14px] relative shrink-0 w-[131px]';
+   // $input_classes = 'bg-white rounded-[14px] pl-3 pr-8 font-work text-[#808793] outline-none cursor-pointer h-[32px] text-[14px] relative shrink-0 w-[131px]';
+    $base_input_classes = ' pl-3 pr-8 py-1 border border-[#e5e7eb] rounded-[30px] font-work text-[14px] outline-none focus:border-[#155dfc] transition-colors bg-[#f9fafb] focus:bg-white';
     
     // 3. Apply styles and placeholders to each field
     $fields = [
-      'product_category' => 'Select Category...',
-      'brand_location' => 'Location...',
-      'product_source' => 'Enter Brand...',
-      'product_name' => 'Enter product name...'
+      'product_name' => [
+        'placeholder' => 'Enter product name...',
+        'width' => 'w-full sm:w-[313px]'
+      ],
+      'product_category' => [
+        'placeholder' => 'Start typing category...',
+        'width' => 'w-full sm:w-[131px]' // Wide on desktop, full on mobile
+      ],
+      'product_source' => [
+        'placeholder' => 'Enter Brand...',
+        'width' => 'w-full sm:w-[131px]'
+      ],
+      'brand_location' => [
+        'placeholder' => 'Type location...',
+        'width' => 'w-full sm:w-[131px]' // Narrow on desktop, full on mobile
+      ]                            
     ];
 
-    foreach ($fields as $field_name => $placeholder) {
+     foreach ($fields as $field_name => $config) {
       if (isset($form[$field_name])) {
-        $form[$field_name]['#attributes']['class'][] = $input_classes;
-        $form[$field_name]['#attributes']['placeholder'] = t($placeholder);
+        // Add the base classes
+        $form[$field_name]['#attributes']['class'][] = $base_input_classes;
         
-        // Remove Drupal's default wrapper margins and make it flex-1
-        $form[$field_name]['#wrapper_attributes']['class'][] = 'w-full flex-1 m-0';
+        // Add the specific width class for this input
+        $form[$field_name]['#attributes']['class'][] = $config['width'];
+        
+        // Set the placeholder
+        $form[$field_name]['#attributes']['placeholder'] = t($config['placeholder']);
+        
+        // Remove Drupal's default margins and ensure the wrapper takes the same width
+        $form[$field_name]['#wrapper_attributes']['class'][] = 'm-0 ' . $config['width'];
       }
     }
 
