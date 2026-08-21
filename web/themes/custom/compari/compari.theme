@@ -35,53 +35,44 @@ function compari_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\FormSta
   // Check if this is the discover search form
   if ($form['#id'] == 'views-exposed-form-discover-page-1' || $form['#id'] == 'views-exposed-form-discover-search') {
     
-    // 1. Style the main form container (flex row, white bg, rounded corners)
-    $form['#attributes']['class'][] = 'bg-white/10 backdrop-blur-sm rounded-[30px] flex items-center gap-3 relative h-[66px] px-5 w-[min(760px,100%)]';
+    // 1. Style the main form container — stacked on mobile, row on desktop
+    $form['#attributes']['class'][] = 'bg-white/10 backdrop-blur-sm rounded-[30px] flex flex-col sm:flex-row items-center gap-3 relative h-auto sm:h-[66px] p-4 sm:p-0 sm:px-5 w-full sm:w-[min(760px,100%)]';
 
     // 2. Define the input styling
-   // $input_classes = 'bg-white rounded-[14px] pl-3 pr-8 font-work text-[#808793] outline-none cursor-pointer h-[32px] text-[14px] relative shrink-0 w-[131px]';
-    $base_input_classes = ' pl-3 pr-8 py-1 border border-[#e5e7eb] rounded-[30px] font-work text-[14px] outline-none focus:border-[#155dfc] transition-colors bg-[#f9fafb] focus:bg-white';
-    
+    $base_input_classes = 'bg-[#f9fafb] rounded-[14px] px-4 font-work text-[#808793] outline-none border-none cursor-pointer text-[14px] h-[44px] sm:h-[32px] w-full';
+
     // 3. Apply styles and placeholders to each field
     $fields = [
       'product_name' => [
-        'placeholder' => 'Enter product name...',
-        'width' => 'w-full sm:w-[313px]'
+        'placeholder' => 'Search product name..',
+        'width' => 'w-full sm:flex-[1_1_313px]',
       ],
       'product_category' => [
-        'placeholder' => 'Start typing category...',
-        'width' => 'w-full sm:w-[131px]' // Wide on desktop, full on mobile
+        'placeholder' => 'By Category...',
+        'width' => 'w-full sm:w-[131px]',
       ],
       'product_source' => [
-        'placeholder' => 'Enter Brand...',
-        'width' => 'w-full sm:w-[131px]'
+        'placeholder' => 'By Brand...',
+        'width' => 'w-full sm:w-[131px]',
       ],
       'brand_location' => [
-        'placeholder' => 'Type location...',
-        'width' => 'w-full sm:w-[131px]' // Narrow on desktop, full on mobile
-      ]                            
+        'placeholder' => 'By Location...',
+        'width' => 'w-full sm:w-[131px]',
+      ],
     ];
 
      foreach ($fields as $field_name => $config) {
       if (isset($form[$field_name])) {
-        // Add the base classes
         $form[$field_name]['#attributes']['class'][] = $base_input_classes;
-        
-        // Add the specific width class for this input
-        $form[$field_name]['#attributes']['class'][] = $config['width'];
-        
-        // Set the placeholder
         $form[$field_name]['#attributes']['placeholder'] = t($config['placeholder']);
-        
-        // Remove Drupal's default margins and ensure the wrapper takes the same width
         $form[$field_name]['#wrapper_attributes']['class'][] = 'm-0 ' . $config['width'];
       }
     }
 
-    // 4. Style the Submit button and its wrapper
+    // 4. Style the Submit button — full width tap target on mobile, fixed width on desktop
     if (isset($form['actions']['submit'])) {
-      $form['actions']['submit']['#attributes']['class'][] = 'bg-[#155dfc] rounded-[14px] font-work font-medium text-white hover:bg-[#1447e6] transition-colors shrink-0 w-[141px] h-[32px] text-[12px]';
-      $form['actions']['#attributes']['class'][] = '';
+      $form['actions']['submit']['#attributes']['class'][] = 'bg-[#155dfc] rounded-[14px] font-work font-medium text-white hover:bg-[#1447e6] transition-colors shrink-0 w-full sm:w-[141px] h-[44px] sm:h-[32px] text-[14px] sm:text-[12px]';
+      $form['actions']['#attributes']['class'][] = 'w-full sm:w-auto';
     }
   }
 }

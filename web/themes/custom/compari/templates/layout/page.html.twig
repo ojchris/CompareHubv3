@@ -1,21 +1,22 @@
 ﻿{#
   page.html.twig
-  Page template for the Compari theme.
+  Generic page template for the Compari theme.
+  Front-page-specific layout lives in page--front.html.twig.
 #}
 
 {# ── Header (mobile + desktop) ── #}
 {% include directory ~ '/templates/includes/header.html.twig' %}
 
-{# ── Hero / Top region ── #}
+{# ── Top bar region (slim — breadcrumbs, page title, exposed filters, etc.) ── #}
 {% if page.top_bar %}
-  <section class="hero-region {{ is_front ? 'hero-region--full' : 'hero-region--slim' }}">
-    {{ page.top_bar }}
-  </section>
+  {{ page.top_bar }}
 {% endif %}
 
 {# ── Main content region ── #}
-<main id="main-content" class="mt-[70px] sm:mt-[70px]">
-  {{ page.content }}
+<main class="main-container bg-[#f9fafb] px-4 sm:px-8 lg:px-[111px] pt-8 pb-16">
+  <div class="max-w-[1290px] mx-auto space-y-12">
+    {{ page.content }}
+  </div>
 </main>
 
 {# ── Footer ── #}

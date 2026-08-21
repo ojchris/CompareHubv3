@@ -15,11 +15,11 @@
  */
 #}
 {% if content %}
-    
+
   <!-- ===================================================
-       HERO SLIDER — desktop only
+       HERO SLIDER — visible on all screen sizes
        =================================================== -->
-  <section id="hero" class="hidden sm:block relative overflow-hidden h-[680px]">
+  <section id="hero" class="relative overflow-hidden h-[600px] sm:h-[680px]">
     <div id="slider-track">
 
       <!-- Slide 1 — background only -->
@@ -35,19 +35,19 @@
     </div><!-- /slider-track -->
 
     <!-- Static content overlay — does NOT slide -->
-    <div class="absolute inset-x-0 bottom-0 top-[45%] flex flex-col items-center pb-[70px] z-10">
+    <div class="absolute inset-0 flex flex-col items-center justify-center z-10 pt-8 sm:pt-[140px] pb-10 sm:pb-0">
       <div class="flex flex-col items-center gap-[30px] text-center w-[min(790px,100%)] px-[24px]">
         <div class="flex flex-col items-center gap-2 w-[min(563px,100%)]">
-          <h1 class="font-work font-bold text-white text-center leading-tight text-[45px] w-[min(401px,100%)]">
+          <h1 class="font-work font-bold text-white text-center leading-tight text-[32px] sm:text-[45px] w-[min(401px,100%)]">
             Find the Best Price.Every Time.
           </h1>
-          <p class="font-work font-medium text-white/90 leading-[28px] tracking-[-0.44px] text-[18px] w-[min(563px,100%)]">
+          <p class="font-work font-medium text-white/90 leading-[20px] sm:leading-[28px] tracking-[-0.44px] text-[14px] sm:text-[18px] w-[min(563px,100%)] px-4 sm:px-0">
             CompareHub lets you search products and compare prices from multiple brands near you — so you always buy at the lowest price.
           </p>
         </div>
-        
-        <!-- Search bar -->
-        {# This prints the Views exposed form block! #}
+
+        <!-- Search bar — Drupal Views exposed form block -->
+        {# This prints the Views exposed form block #}
         {{ content }}
         <!-- end Search bar -->
       </div>
@@ -59,7 +59,14 @@
       <button class="slider-dot w-[6px] h-[6px] bg-[rgba(255,255,255,0.4)]" data-slide="1" aria-label="Slide 2"></button>
     </div>
 
+  </section>
 
+
+  <!-- ===================================================
+       MOBILE CATEGORY PILLS — right after hero, mobile only
+       =================================================== -->
+   <section class="sm:hidden px-4 pt-4 pb-1">
+    {{ drupal_view('browse_categories', 'block_2') }}
   </section>
 
 
@@ -86,15 +93,12 @@
           <p class="font-work text-[12px] leading-tight text-[rgba(255,255,255,0.75)]">Best prices, time-limited</p>
         </div>
       </div>
-      <a href="category.html#cat=all" class="bg-white font-work font-semibold text-[12px] text-[#155dfc] rounded-full px-4 py-2 flex items-center gap-1 shrink-0">
+      <a href="/category?cat=all" class="bg-white font-work font-semibold text-[12px] text-[#155dfc] rounded-full px-4 py-2 flex items-center gap-1 shrink-0">
         Shop now
         <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-[#155dfc]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
       </a>
     </div>
   </section>
 
-  <div{{ attributes }}>
-    {{ content }}
-  </div>
-
 {% endif %}
+
