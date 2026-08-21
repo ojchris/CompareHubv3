@@ -1,0 +1,10 @@
+{# Mobile Categories View Override #}
+<div id="mobile-category-tabs" class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+  {# Static "All" tab #}
+  <a href="/products" class="mobile-cat-tab flex-shrink-0 font-work font-semibold text-[13px] rounded-[20px] px-4 py-2 text-white bg-brand-primary">All</a>
+  
+  {# Dynamic Categories #}
+  {% for row in rows %}
+    {{ row.content }}
+  {% endfor %}
+</div>
