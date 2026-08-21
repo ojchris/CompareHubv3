@@ -1,0 +1,111 @@
+{#
+  page.html.twig
+  Page template for the Compari theme.
+#}
+
+{# ── Header (mobile + desktop) ── #}
+{% include directory ~ '/templates/includes/header.html.twig' %}
+
+{# ── Hero / Top region ── #}
+{% if page.top_bar %}
+  <section class="hero-region {{ is_front ? 'hero-region--full' : 'hero-region--slim' }}">
+    {{ page.top_bar }}
+  </section>
+{% endif %}
+
+
+  <!-- ===================================================
+       FEATURES BAR — desktop only
+       =================================================== -->
+  <section class="hidden sm:block bg-[#f9fafb] px-[111px] pt-8 pb-4">
+    <div class="max-w-[1290px] mx-auto">
+      <div class="features-bar bg-white rounded-[20px] px-10 py-5 flex flex-wrap items-center justify-between gap-6 shadow-sm">
+
+        <!-- Free Shipping -->
+        <div class="flex items-center gap-4 shrink-0">
+          <div class="w-[35px] h-[35px] shrink-0 flex items-center justify-center bg-[#e5edff] rounded-full">
+            <i data-lucide="truck" class="w-5 h-5 text-[#155dfc]" aria-hidden="true"></i>
+          </div>
+          <div>
+            <p class="font-work font-semibold text-[15px] text-[#364153] leading-normal">Free Shipping</p>
+            <p class="font-work text-[14px] text-[#5a6372] leading-normal">On order over ₦50k+</p>
+          </div>
+        </div>
+
+        <!-- Verified Nigerian -->
+        <div class="flex items-center gap-4 shrink-0">
+          <div class="w-[35px] h-[35px] shrink-0 flex items-center justify-center bg-[#e5edff] rounded-full">
+            <i data-lucide="badge-check" class="w-5 h-5 text-[#155dfc]" aria-hidden="true"></i>
+          </div>
+          <div>
+            <p class="font-work font-semibold text-[15px] text-[#364153] leading-normal">Verified Nigerian</p>
+            <p class="font-work text-[14px] text-[#5a6372] leading-normal">Vendors only</p>
+          </div>
+        </div>
+
+        <!-- Compare Prices -->
+        <div class="flex items-center gap-4 shrink-0">
+          <div class="w-[35px] h-[35px] shrink-0 flex items-center justify-center bg-[#e5edff] rounded-full">
+            <i data-lucide="bar-chart-2" class="w-5 h-5 text-[#155dfc]" aria-hidden="true"></i>
+          </div>
+          <div>
+            <p class="font-work font-semibold text-[15px] text-[#364153] leading-normal">Compare Prices</p>
+            <p class="font-work text-[14px] text-[#5a6372] leading-normal">Save up to 40%</p>
+          </div>
+        </div>
+
+        <!-- Secure Payment -->
+        <div class="flex items-center gap-4 shrink-0">
+          <div class="w-[35px] h-[35px] shrink-0 flex items-center justify-center bg-[#e5edff] rounded-full">
+            <i data-lucide="shield-check" class="w-5 h-5 text-[#155dfc]" aria-hidden="true"></i>
+          </div>
+          <div>
+            <p class="font-work font-semibold text-[15px] text-[#364153] leading-normal">Secure Payment</p>
+            <p class="font-work text-[14px] text-[#5a6372] leading-normal">100% Fast &amp; Secure Payment</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+{# ── Main content region ── #}
+<!-- ===================================================
+       MAIN CONTENT
+       =================================================== -->
+<main class="main-container bg-[#f9fafb] px-4 sm:px-8 lg:px-[111px] pt-8 pb-16">
+  <div class="max-w-[1290px] mx-auto space-y-12">
+
+    {{ page.content }}
+
+    <!-- ---- SEO Text Section ---- -->
+      <section class="bg-white border border-[#f3f4f6] rounded-[16px] px-5 py-8 sm:px-[70px] sm:py-[56px]">
+        <h2 class="font-work font-semibold text-[#181d25] leading-snug sm:leading-[36px] tracking-[0.4px] mb-4 text-[22px] sm:text-[30px]">
+          CompareHub Nigeria — Nigeria's No. 1 Price Comparison Marketplace
+        </h2>
+        <div class="space-y-3">
+          <h3 class="font-work font-semibold text-[16px] sm:text-[18px] text-[#181d25] leading-snug sm:leading-[28px] tracking-[-0.45px]">Compare Prices on Everything You Need</h3>
+          <p class="font-work text-[14px] text-[#364153] leading-[22.75px] tracking-[-0.15px] max-w-[1128px]">
+            CompareHub is Nigeria's largest price comparison platform. We help everyday Nigerians find the best deals on products from verified vendors across the country — all in one place. Whether you're shopping from the comfort of your home in Lagos, Abuja, Port Harcourt or anywhere in between, CompareHub lets you compare prices side-by-side and buy at the cheapest price without stress. Shop for smartphones, laptops, headphones, tablets, gaming consoles, or everyday food & groceries - and get the best price from our network of verified Nigerian vendors.  
+          </p>
+        </div>
+        <hr class="border-[#f3f4f6] my-6 sm:my-8">
+        <div class="space-y-3">
+          <h3 class="font-work font-semibold text-[16px] sm:text-[18px] text-[#364153] leading-snug sm:leading-[28px] tracking-[-0.45px]">Shop for Original Products at the Best Prices</h3>
+          <p class="font-work text-[14px] text-[#364153] leading-[22.75px] tracking-[-0.15px] max-w-[1128px]">
+            CompareHub prides itself on listing only genuine, verified products from trusted Nigerian vendors — guaranteed lowest prices on original products with exclusive access to Flash Deals.
+          </p>
+        </div>
+      </section>
+  </div>
+</main>
+
+{# ── Footer ── #}
+{% include directory ~ '/templates/includes/footer.html.twig' %}
+
+{# ── Mobile bottom nav ── #}
+{% include directory ~ '/templates/includes/mobile_nav.html.twig' %}
+
+{# ── Auth modals ── #}
+{% include directory ~ '/templates/includes/auth_modals.html.twig' %}
