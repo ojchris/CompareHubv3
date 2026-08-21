@@ -1,0 +1,23 @@
+{# 
+  Views Unformatted List Override for Browse Categories 
+  Overrides default views markup to match the Tailwind template
+#}
+<section class="hidden sm:block">
+  <div class="flex flex-col items-center gap-3 mb-10">
+    
+    {# You can hardcode the title or use {{ view.getTitle() }} #}
+    <h2 class="font-work font-semibold text-[18px] text-[#364153] text-center">{{ view.getTitle() }}</h2>
+    
+    <div class="flex flex-wrap items-center justify-center gap-2" id="category-tabs">
+      
+      {# Static "All" tab #}
+      <a href="/products" class="category-tab active-tab px-4 py-2 rounded-full border border-[#d1d5db] bg-white font-work font-medium text-[14px] text-[#364153] cursor-pointer">All</a>
+      
+      {# Dynamic Categories from View #}
+      {% for row in rows %}
+        {{ row.content }}
+      {% endfor %}
+      
+    </div>
+  </div>
+</section>
