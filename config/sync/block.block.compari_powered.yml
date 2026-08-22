@@ -1,0 +1,22 @@
+uuid: 93ac608f-505b-456a-ac35-096c1e53b512
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - compari
+_core:
+  default_config_hash: eYL19CLDyinGTWYQfBD1DswWzglEotE_kHnHx3AxTXM
+id: compari_powered
+theme: compari
+region: header
+weight: 0
+provider: null
+plugin: system_powered_by_block
+settings:
+  id: system_powered_by_block
+  label: 'Powered by Drupal'
+  label_display: '0'
+  provider: system
+visibility: {  }

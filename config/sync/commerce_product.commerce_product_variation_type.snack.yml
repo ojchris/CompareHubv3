@@ -1,0 +1,10 @@
+uuid: 79ea0440-7a41-420f-a99a-9c79a7cc9392
+langcode: en
+status: true
+dependencies: {  }
+id: snack
+label: Snack
+traits: {  }
+locked: false
+orderItemType: default
+generateTitle: true

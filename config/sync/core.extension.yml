@@ -26,6 +26,7 @@ module:
   commerce_variation_cart_form: 0
   config: 0
   contact: 0
+  content_filter: 0
   contextual: 0
   datetime: 0
   dblog: 0
@@ -96,4 +97,5 @@ theme:
   claro: 0
   stable9: 0
   comparenone: 0
+  compari: 0
 profile: standard

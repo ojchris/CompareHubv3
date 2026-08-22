@@ -1,0 +1,43 @@
+uuid: b7c78337-9973-4e2a-a320-efa30cc162ee
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.dinning
+    - core.entity_view_mode.commerce_product.browse
+    - field.field.commerce_product.dinning.body
+  module:
+    - commerce_product
+    - text
+id: commerce_product.dinning.browse
+targetEntityType: commerce_product
+bundle: dinning
+mode: browse
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 11
+    region: content
+  title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: -5
+    region: content
+  variations:
+    type: commerce_add_to_cart
+    label: above
+    settings:
+      combine: true
+    third_party_settings: {  }
+    weight: 10
+    region: content
+hidden:
+  created: true
+  stores: true
+  uid: true

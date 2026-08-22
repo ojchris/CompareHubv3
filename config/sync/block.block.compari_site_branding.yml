@@ -1,0 +1,25 @@
+uuid: 16da038d-794c-46d4-97fb-e6b646c1f056
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - compari
+_core:
+  default_config_hash: n_nlgjggHVfQt2H__zvLOKB2YtjPDbQ5tHijF9LE1aM
+id: compari_site_branding
+theme: compari
+region: header
+weight: 0
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'Site branding'
+  label_display: '0'
+  provider: system
+  use_site_logo: true
+  use_site_name: true
+  use_site_slogan: false
+visibility: {  }

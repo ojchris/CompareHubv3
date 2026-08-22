@@ -1,0 +1,44 @@
+uuid: 153f40f2-2fe1-4a79-96ad-0a17e04db542
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.snack
+    - core.entity_view_mode.commerce_product.browse
+    - field.field.commerce_product.snack.body
+  module:
+    - commerce_product
+    - text
+id: commerce_product.snack.browse
+targetEntityType: commerce_product
+bundle: snack
+mode: browse
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 11
+    region: content
+  title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+      link_rel: canonical
+    third_party_settings: {  }
+    weight: -5
+    region: content
+  variations:
+    type: commerce_add_to_cart
+    label: above
+    settings:
+      combine: true
+    third_party_settings: {  }
+    weight: 10
+    region: content
+hidden:
+  created: true
+  stores: true
+  uid: true

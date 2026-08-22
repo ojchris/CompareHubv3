@@ -1,0 +1,22 @@
+uuid: 68f9bf01-5ca5-4cb4-bff4-bbbcc1926872
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - compari
+_core:
+  default_config_hash: BZ5tpW7H8X4PVGRm3MImTIHd2tN0eF7zOtp4SpRYUA0
+id: compari_messages
+theme: compari
+region: header
+weight: -5
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  label_display: '0'
+  provider: system
+visibility: {  }

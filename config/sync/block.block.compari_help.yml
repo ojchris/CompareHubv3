@@ -1,0 +1,22 @@
+uuid: dc55e624-5dfb-4e27-bd9c-1ef3c1f78a41
+langcode: en
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - compari
+_core:
+  default_config_hash: VfPFqqxfkomud5CO8DUijw85QIl9GIxh_nIxLOYESxg
+id: compari_help
+theme: compari
+region: header
+weight: 0
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  label_display: '0'
+  provider: help
+visibility: {  }

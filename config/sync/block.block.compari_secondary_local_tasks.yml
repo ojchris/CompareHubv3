@@ -1,0 +1,22 @@
+uuid: 7973e47b-93a8-406b-9816-494d8da1b8e2
+langcode: en
+status: true
+dependencies:
+  theme:
+    - compari
+_core:
+  default_config_hash: ydSxdq7R66I8UMC460rOzlfzvlUL4VRbdwc6z9DWaUI
+id: compari_secondary_local_tasks
+theme: compari
+region: header
+weight: -2
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: 'Secondary tabs'
+  label_display: '0'
+  provider: core
+  primary: false
+  secondary: true
+visibility: {  }

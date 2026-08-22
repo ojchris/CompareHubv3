@@ -1,0 +1,67 @@
+uuid: e3c08e69-f0b0-4953-b76b-e81f5685a2d8
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.food
+    - core.entity_view_mode.commerce_product.browse
+    - field.field.commerce_product.food.feeds_item
+    - field.field.commerce_product.food.field_description
+    - field.field.commerce_product.food.field_image
+    - field.field.commerce_product.food.field_product_brand
+    - field.field.commerce_product.food.field_product_category
+  module:
+    - commerce_product
+    - text
+id: commerce_product.food.browse
+targetEntityType: commerce_product
+bundle: food
+mode: browse
+content:
+  field_description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_product_brand:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings:
+      field_formatter_class:
+        class: product-brand
+    weight: 1
+    region: content
+  field_product_category:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  variations:
+    type: commerce_add_to_cart
+    label: hidden
+    settings:
+      combine: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+hidden:
+  created: true
+  feeds_item: true
+  field_image: true
+  stores: true
+  uid: true

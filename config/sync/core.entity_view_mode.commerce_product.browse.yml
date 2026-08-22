@@ -1,0 +1,11 @@
+uuid: ff979fec-6707-472a-99da-c1ab5f7cbaf1
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_product
+id: commerce_product.browse
+label: Browse
+description: 'For product listing on homepage and category pages'
+targetEntityType: commerce_product
+cache: true

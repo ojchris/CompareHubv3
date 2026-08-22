@@ -1,0 +1,26 @@
+uuid: 21186586-6d87-4e19-98e5-0f17185a0226
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - compari
+id: compari_messages_2
+theme: compari
+region: breadcrumb
+weight: 0
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: Messages
+  label_display: '0'
+  provider: system
+visibility:
+  response_status:
+    id: response_status
+    negate: false
+    status_codes:
+      - 200
+      - 403

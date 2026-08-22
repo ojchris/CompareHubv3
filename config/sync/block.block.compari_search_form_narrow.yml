@@ -1,0 +1,23 @@
+uuid: 042722ae-6853-4e80-80eb-fa8d1d10d920
+langcode: en
+status: false
+dependencies:
+  module:
+    - search
+  theme:
+    - compari
+_core:
+  default_config_hash: yEBET0cqDbk8dkWzaJw-8CKft0961VBflsISoSR6Lj8
+id: compari_search_form_narrow
+theme: compari
+region: header
+weight: -4
+provider: null
+plugin: search_form_block
+settings:
+  id: search_form_block
+  label: 'Search form (narrow)'
+  label_display: '0'
+  provider: search
+  page_id: null
+visibility: {  }

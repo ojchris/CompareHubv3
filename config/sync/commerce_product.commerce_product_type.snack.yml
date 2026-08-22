@@ -1,0 +1,13 @@
+uuid: d81536a5-7331-413d-a15b-3e8382606793
+langcode: en
+status: true
+dependencies: {  }
+id: snack
+label: Snack
+traits: {  }
+locked: false
+description: ''
+variationTypes:
+  - snack
+multipleVariations: true
+injectVariationFields: true

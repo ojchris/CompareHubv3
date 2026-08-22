@@ -1,0 +1,10 @@
+_core:
+  default_config_hash: dunaQ41SUePOcb12zju2u2HKiFunxHYXixOChjiNMt0
+content_filter_bundles:
+  - '0'
+  - '0'
+  - brand
+  - event
+  - page
+content_filter_filters: {  }
+content_filter_menus: true
