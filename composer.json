@@ -30,6 +30,7 @@
         "drupal/easy_carousel": "^1.2",
         "drupal/feeds": "^3.0",
         "drupal/field_formatter_class": "^1.8",
+        "drupal/flag": "^5.0",
         "drupal/fullcalendar": "^3.0",
         "drupal/fullcalendar_view": "^5.2",
         "drupal/inline_entity_form": "^3.0@RC",
