@@ -1,0 +1,79 @@
+﻿{#
+  views-view-fields--homepage-products.html.twig
+  Renders a single product card for the homepage product grids.
+#}
+
+{% set product_id = fields.product_id.content|striptags|trim %}
+
+<div class="product-card" role="article">
+
+  {# Image #}
+  {% if product_id %}
+    <a href="/product/{{ product_id }}" class="card-image block" tabindex="-1" aria-hidden="true">
+  {% else %}
+    <div class="card-image">
+  {% endif %}
+
+    {% set image_content = fields.field_product_image.content|striptags('<img><picture><source>')|trim %}
+    {% if image_content is not empty %}
+      {{ fields.field_product_image.content }}
+    {% else %}
+      <img src="/themes/custom/compari/images/placeholder.jpg" alt="{{ fields.title.content|striptags|trim }}" loading="lazy">
+    {% endif %}
+
+  {% if product_id %}
+    </a>
+  {% else %}
+    </div>
+  {% endif %}
+
+  {# Card Body #}
+  <div class="card-body">
+
+    {% if product_id %}
+      <a href="/product/{{ product_id }}" class="block" style="text-decoration:none">
+    {% else %}
+      <div>
+    {% endif %}
+
+      <p class="product-name">{{ fields.title.content }}</p>
+
+      {% if fields.field_unit_variant is not empty %}
+        <p class="product-unit">{{ fields.field_unit_variant.content }}</p>
+      {% endif %}
+
+    {% if product_id %}
+      </a>
+    {% else %}
+      </div>
+    {% endif %}
+
+    {# Price + Buttons #}
+    <div>
+      <p class="product-price">{{ fields.price__number.content }}</p>
+      
+      <div style="display:flex;gap:8px;margin-top:8px">
+        
+        {# Compare Flag #}
+        <div style="flex:1;">
+          {% if fields.link_flag is not empty %}
+            {{ fields.link_flag.content }}
+          {% else %}
+            <button class="compare-btn w-full">+ Compare</button>
+          {% endif %}
+        </div>
+
+        {# Save / Wishlist Flag #}
+        <div style="flex:1;">
+          {% if fields.link_flag_1 is not empty %}
+            {{ fields.link_flag_1.content }}
+          {% else %}
+            <button class="wishlist-btn w-full">&#9825; Save</button>
+          {% endif %}
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

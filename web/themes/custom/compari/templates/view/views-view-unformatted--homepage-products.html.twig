@@ -1,0 +1,42 @@
+﻿{#
+  views-view-unformatted--homepage-products.html.twig
+  Wrapper for each homepage product section.
+#}
+
+{# Map the View's block ID to the correct Title and URL #}
+{% set view_all_link = '#' %}
+{% set section_title = title %}
+
+{% if view.current_display == 'block_electronics' %}
+  {% set view_all_link = '/category/electronics' %}
+  {% set section_title = 'Electronics' %}
+{% elseif view.current_display == 'block_food' %}
+  {% set view_all_link = '/category/food' %}
+  {% set section_title = 'Food & Drinks' %}
+{% elseif view.current_display == 'block_home' %}
+  {% set view_all_link = '/category/home-kitchen' %}
+  {% set section_title = 'Home & Kitchen' %}
+{% endif %}
+
+<section class="product-section">
+
+  {# Section header #}
+  <div class="flex items-center justify-between mb-5">
+    <h3 class="font-work font-semibold text-[20px] text-[#181d25] leading-[30px]">
+      {{ section_title }}
+    </h3>
+    <a href="{{ view_all_link }}" class="flex items-center gap-1 font-work font-medium text-[14px] text-[#155dfc] hover:underline">
+      View all
+      <i data-lucide="chevron-right" class="w-4 h-4 text-[#155dfc]" aria-hidden="true"></i>
+    </a>
+  </div>
+
+  <div class="flex flex-wrap gap-4 items-start justify-start">
+    {% for row in rows %}
+      <div class="w-[calc(50%-0.5rem)] md:w-[calc(33.333%-0.75rem)] lg:w-[calc(20%-0.85rem)] shrink-0">
+        {{ row.content }}
+      </div>
+    {% endfor %}
+  </div>
+
+</section>

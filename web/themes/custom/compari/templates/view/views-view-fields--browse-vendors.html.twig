@@ -1,0 +1,22 @@
+﻿{#
+  views-view-fields--browse-vendors.html.twig
+  Renders a single vendor pill.
+#}
+
+{# Dynamically find the fields regardless of their exact machine names #}
+{% set store_name = '' %}
+{% set store_id = '' %}
+
+{% for key, field in fields %}
+  {% if 'id' in key|lower %}
+    {% set store_id = field.content|striptags|trim %}
+  {% else %}
+    {% set store_name = field.content|striptags|trim %}
+  {% endif %}
+{% endfor %}
+
+<a href="/store/{{ store_id }}" 
+   class="shrink-0 bg-white border border-[#f3f4f6] font-work font-medium text-[14px] text-[#364153] px-3 py-1.5 rounded-2xl hover:border-[#155dfc] hover:text-[#155dfc] transition-colors whitespace-nowrap" 
+   style="text-decoration:none; display:inline-block;">
+  {{ store_name }}
+</a>

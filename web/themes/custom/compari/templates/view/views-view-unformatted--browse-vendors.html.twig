@@ -1,0 +1,50 @@
+﻿{#
+  views-view-unformatted--browse-vendors.html.twig
+  Wrapper for the "Browse Brands" / Vendors row.
+  Uses a pure CSS infinite marquee animation.
+#}
+<style>
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .animate-marquee {
+    animation: marquee 25s linear infinite;
+    /* Forces hardware acceleration for smooth scrolling */
+    will-change: transform; 
+  }
+  /* Pause the animation when a user hovers over it to click a brand */
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
+</style>
+
+<section>
+  <div class="flex items-center justify-between mb-4">
+    <h3 class="font-work font-semibold text-[18px] text-[#181d25]">Browse Brands</h3>
+  </div>
+  
+  {# Marquee Container (Hides overflow) #}
+  <div class="relative w-full overflow-hidden flex items-center">
+    
+    {# 
+      Marquee Track (Moves left). 
+      Contains TWO sets of the items to create a seamless infinite loop.
+      Translates by -50% to reset perfectly.
+    #}
+    <div class="flex gap-2.5 w-max animate-marquee pb-2 pt-1">
+      
+      {# Set 1 #}
+      {% for row in rows %}
+        {{- row.content -}}
+      {% endfor %}
+      
+      {# Set 2 (Duplicate for seamless scroll) #}
+      {% for row in rows %}
+        {{- row.content -}}
+      {% endfor %}
+      
+    </div>
+    
+  </div>
+</section>
