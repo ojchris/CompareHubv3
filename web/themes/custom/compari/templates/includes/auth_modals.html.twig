@@ -1,4 +1,10 @@
-<!-- ── LOGIN MODAL ─────────────────────────────────────── -->
+﻿{# ============================================================
+   auth_modals.html.twig
+   Embeds Drupal's real user forms inside the designer modal shells.
+   drupal_form() handles CSRF tokens, validation and error messages.
+   ============================================================ #}
+
+{# ── LOGIN MODAL ─────────────────────────────────────────── #}
 <div id="auth-login" class="hidden fixed inset-0 z-[201] flex items-center justify-center px-4 overflow-y-auto py-8" style="background:rgba(0,0,0,0.5)" onclick="CompareHub.auth.close()">
   <div class="relative bg-white rounded-[20px] w-full max-w-[400px] p-8 flex flex-col gap-4 my-auto" style="box-shadow:0 24px 64px rgba(0,0,0,0.2)" onclick="event.stopPropagation()">
     <button onclick="CompareHub.auth.close()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#f3f4f6] flex items-center justify-center hover:bg-[#e5e7eb] transition-colors" title="Close">
@@ -8,37 +14,17 @@
       <h2 class="font-work font-bold text-[22px] text-[#101828]">Welcome</h2>
       <p class="font-work text-[13px] text-[#99a1af] mt-1">Start comparing products and save more</p>
     </div>
-    <form id="login-form" method="POST" action="/user/login" class="flex flex-col gap-3">
-      <input type="hidden" name="_csrf" value="">
-      <div>
-        <label class="block font-work font-medium text-[12px] text-[#364153] mb-1.5">Email Address / Phone</label>
-        <input id="login-identifier" name="name" type="text" placeholder="Enter email or phone number" autocomplete="username" class="auth-input w-full border border-[#e5e7eb] rounded-[12px] px-4 py-3 font-work text-[14px] text-[#101828] outline-none focus:border-[#155dfc] transition-colors">
-        <p id="login-identifier-err" class="auth-err hidden font-work text-[11px] text-[#ef4444] mt-1"></p>
-      </div>
-      <div>
-        <label class="block font-work font-medium text-[12px] text-[#364153] mb-1.5">Password</label>
-        <div class="relative">
-          <input id="login-password" name="pass" type="password" placeholder="••••••••••" autocomplete="current-password" class="auth-input w-full border border-[#e5e7eb] rounded-[12px] px-4 py-3 font-work text-[14px] text-[#101828] outline-none focus:border-[#155dfc] transition-colors pr-11">
-          <button type="button" onclick="CompareHub.auth.togglePwd('login-password',this)" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#99a1af] hover:text-[#6a7282]">
-            <i data-lucide="eye" class="w-4 h-4"></i>
-          </button>
-        </div>
-        <p id="login-password-err" class="auth-err hidden font-work text-[11px] text-[#ef4444] mt-1"></p>
-        <div class="text-right mt-1.5">
-          <button type="button" onclick="CompareHub.auth.show('forgot')" class="font-work font-medium text-[12px] text-[#155dfc] hover:underline">Forgot Password?</button>
-        </div>
-      </div>
-      <button type="submit" class="w-full bg-[#155dfc] text-white font-work font-semibold text-[15px] py-3 rounded-[12px] hover:bg-[#1447e6] transition-colors">Sign In</button>
-    </form>
-    <button type="button" onclick="CompareHub.auth.googleSignIn()" class="w-full flex items-center justify-center gap-2 border border-[#e5e7eb] text-[#364153] font-work font-semibold text-[14px] py-3 rounded-[12px] hover:bg-[#f9fafb] transition-colors">
-      <svg width="18" height="18" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.47 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-      Continue with Google
-    </button>
+
+    {# Drupal login form — handles CSRF, validation, redirects #}
+    <div class="ch-auth-form ch-login-form">
+      {{ drupal_form('Drupal\\user\\Form\\UserLoginForm') }}
+    </div>
+
     <p class="text-center font-work text-[13px] text-[#6a7282]">Don't have an account? <button type="button" onclick="CompareHub.auth.show('signup')" class="text-[#155dfc] font-semibold hover:underline">Sign Up</button></p>
   </div>
 </div>
 
-<!-- ── CREATE ACCOUNT MODAL ────────────────────────────── -->
+{# ── CREATE ACCOUNT MODAL ─────────────────────────────────── #}
 <div id="auth-signup" class="hidden fixed inset-0 z-[201] flex items-center justify-center px-4 overflow-y-auto py-8" style="background:rgba(0,0,0,0.5)" onclick="CompareHub.auth.close()">
   <div class="relative bg-white rounded-[20px] w-full max-w-[400px] p-8 flex flex-col gap-4 my-auto" style="box-shadow:0 24px 64px rgba(0,0,0,0.2)" onclick="event.stopPropagation()">
     <button onclick="CompareHub.auth.close()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#f3f4f6] flex items-center justify-center hover:bg-[#e5e7eb] transition-colors" title="Close">
@@ -48,75 +34,17 @@
       <h2 class="font-work font-bold text-[22px] text-[#101828]">Create Account</h2>
       <p class="font-work text-[13px] text-[#99a1af] mt-1">Let's create your account right away.</p>
     </div>
-    <div class="flex flex-col gap-3">
-      <div>
-        <label class="block font-work font-medium text-[12px] text-[#364153] mb-1.5">Full Name</label>
-        <input id="signup-name" type="text" placeholder="Your full name" class="auth-input w-full border border-[#e5e7eb] rounded-[12px] px-4 py-3 font-work text-[14px] text-[#101828] outline-none focus:border-[#155dfc] transition-colors">
-        <p id="signup-name-err" class="auth-err hidden font-work text-[11px] text-[#ef4444] mt-1"></p>
-      </div>
-      <div>
-        <label class="block font-work font-medium text-[12px] text-[#364153] mb-1.5">Email Address</label>
-        <input id="signup-email" type="email" placeholder="your@email.com" class="auth-input w-full border border-[#e5e7eb] rounded-[12px] px-4 py-3 font-work text-[14px] text-[#101828] outline-none focus:border-[#155dfc] transition-colors">
-        <p id="signup-email-err" class="auth-err hidden font-work text-[11px] text-[#ef4444] mt-1"></p>
-      </div>
-      <div>
-        <label class="block font-work font-medium text-[12px] text-[#364153] mb-1.5">Phone Number</label>
-        <div class="flex items-center border border-[#e5e7eb] rounded-[12px] overflow-hidden focus-within:border-[#155dfc] transition-colors" id="signup-phone-wrap">
-          <div class="flex items-center gap-1.5 px-3 border-r border-[#e5e7eb] shrink-0 h-[50px]">
-            <span>🇳🇬</span>
-            <span class="font-work text-[14px] text-[#364153]">+234</span>
-          </div>
-          <input id="signup-phone" type="tel" placeholder="800 000 0000" class="flex-1 px-3 py-3 font-work text-[14px] text-[#101828] outline-none">
-        </div>
-        <p id="signup-phone-err" class="auth-err hidden font-work text-[11px] text-[#ef4444] mt-1"></p>
-      </div>
-      <div>
-        <label class="block font-work font-medium text-[12px] text-[#364153] mb-1.5">Password</label>
-        <div class="relative">
-          <input id="signup-password" type="password" placeholder="Min. 6 characters" class="auth-input w-full border border-[#e5e7eb] rounded-[12px] px-4 py-3 font-work text-[14px] text-[#101828] outline-none focus:border-[#155dfc] transition-colors pr-11">
-          <button type="button" onclick="CompareHub.auth.togglePwd('signup-password',this)" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#99a1af] hover:text-[#6a7282]">
-            <i data-lucide="eye" class="w-4 h-4"></i>
-          </button>
-        </div>
-        <p id="signup-password-err" class="auth-err hidden font-work text-[11px] text-[#ef4444] mt-1"></p>
-      </div>
+
+    {# Drupal register form — handles CSRF, validation, email verification #}
+    <div class="ch-auth-form ch-register-form">
+      {{ drupal_form('Drupal\\user\\RegisterForm') }}
     </div>
-    <button onclick="CompareHub.auth.doSignUp()" class="w-full bg-[#155dfc] text-white font-work font-semibold text-[15px] py-3 rounded-[12px] hover:bg-[#1447e6] transition-colors">Continue</button>
-    <button onclick="CompareHub.auth.googleSignIn()" class="w-full flex items-center justify-center gap-2 border border-[#e5e7eb] text-[#364153] font-work font-semibold text-[14px] py-3 rounded-[12px] hover:bg-[#f9fafb] transition-colors">
-      <svg width="18" height="18" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.47 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-      Continue with Google
-    </button>
+
     <p class="text-center font-work text-[13px] text-[#6a7282]">Already have an account? <button onclick="CompareHub.auth.show('login')" class="text-[#155dfc] font-semibold hover:underline">Sign In</button></p>
   </div>
 </div>
 
-<!-- ── OTP MODAL (Sign Up) ─────────────────────────────── -->
-<div id="auth-otp" class="hidden fixed inset-0 z-[201] flex items-center justify-center px-4" style="background:rgba(0,0,0,0.5)" onclick="CompareHub.auth.close()">
-  <div class="relative bg-white rounded-[20px] w-full max-w-[380px] p-8 flex flex-col items-center gap-5" style="box-shadow:0 24px 64px rgba(0,0,0,0.2)" onclick="event.stopPropagation()">
-    <button onclick="CompareHub.auth.close()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#f3f4f6] flex items-center justify-center hover:bg-[#e5e7eb] transition-colors" title="Close">
-      <i data-lucide="x" class="w-4 h-4 text-[#6a7282]"></i>
-    </button>
-    <div class="w-16 h-16 rounded-full bg-[#eff6ff] flex items-center justify-center">
-      <i data-lucide="phone" class="w-7 h-7 text-[#155dfc]"></i>
-    </div>
-    <div class="text-center">
-      <h2 class="font-work font-bold text-[20px] text-[#101828]">Verify your phone number</h2>
-      <p class="font-work text-[13px] text-[#6a7282] mt-1.5">Enter the 5-digit code sent to<br><span class="text-[#101828] font-medium">all*******@gmail.com</span></p>
-    </div>
-    <div class="flex items-center gap-3">
-      <input type="text" maxlength="1" oninput="CompareHub.auth.otpNext(this,0,'otp-inputs')" onkeydown="CompareHub.auth.otpBack(event,this)" class="otp-box w-12 h-14 text-center border border-[#e5e7eb] rounded-[12px] font-work font-bold text-[22px] text-[#101828] outline-none focus:border-[#155dfc] transition-colors">
-      <input type="text" maxlength="1" oninput="CompareHub.auth.otpNext(this,1,'otp-inputs')" onkeydown="CompareHub.auth.otpBack(event,this)" class="otp-box w-12 h-14 text-center border border-[#e5e7eb] rounded-[12px] font-work font-bold text-[22px] text-[#101828] outline-none focus:border-[#155dfc] transition-colors">
-      <input type="text" maxlength="1" oninput="CompareHub.auth.otpNext(this,2,'otp-inputs')" onkeydown="CompareHub.auth.otpBack(event,this)" class="otp-box w-12 h-14 text-center border border-[#e5e7eb] rounded-[12px] font-work font-bold text-[22px] text-[#101828] outline-none focus:border-[#155dfc] transition-colors">
-      <input type="text" maxlength="1" oninput="CompareHub.auth.otpNext(this,3,'otp-inputs')" onkeydown="CompareHub.auth.otpBack(event,this)" class="otp-box w-12 h-14 text-center border border-[#e5e7eb] rounded-[12px] font-work font-bold text-[22px] text-[#101828] outline-none focus:border-[#155dfc] transition-colors">
-      <input type="text" maxlength="1" oninput="CompareHub.auth.otpNext(this,4,'otp-inputs')" onkeydown="CompareHub.auth.otpBack(event,this)" class="otp-box w-12 h-14 text-center border border-[#e5e7eb] rounded-[12px] font-work font-bold text-[22px] text-[#101828] outline-none focus:border-[#155dfc] transition-colors">
-    </div>
-    <p id="otp-err" class="auth-err hidden font-work text-[11px] text-[#ef4444] -mt-2"></p>
-    <button onclick="CompareHub.auth.doOTP('otp-inputs','dashboard')" class="w-full bg-[#155dfc] text-white font-work font-semibold text-[15px] py-3 rounded-[12px] hover:bg-[#1447e6] transition-colors">Verify</button>
-    <p class="font-work text-[13px] text-[#6a7282]">Resend in <span id="otp-timer" class="text-[#155dfc] font-semibold underline cursor-pointer">04:59</span></p>
-  </div>
-</div>
-
-<!-- ── FORGOT PASSWORD — EMAIL ─────────────────────────── -->
+{# ── FORGOT PASSWORD MODAL ────────────────────────────────── #}
 <div id="auth-forgot" class="hidden fixed inset-0 z-[201] flex items-center justify-center px-4" style="background:rgba(0,0,0,0.5)" onclick="CompareHub.auth.close()">
   <div class="relative bg-white rounded-[20px] w-full max-w-[400px] p-8 flex flex-col gap-5" style="box-shadow:0 24px 64px rgba(0,0,0,0.2)" onclick="event.stopPropagation()">
     <button onclick="CompareHub.auth.close()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#f3f4f6] flex items-center justify-center hover:bg-[#e5e7eb] transition-colors" title="Close">
@@ -131,95 +59,12 @@
         <i data-lucide="mail" class="w-6 h-6 text-[#155dfc]"></i>
       </div>
       <h2 class="font-work font-bold text-[22px] text-[#101828]">Forgot Password?</h2>
-      <p class="font-work text-[13px] text-[#99a1af] mt-1">Enter your email and we'll send a reset code</p>
+      <p class="font-work text-[13px] text-[#99a1af] mt-1">Enter your email and we'll send a reset link</p>
     </div>
-    <div>
-      <label class="block font-work font-medium text-[12px] text-[#364153] mb-1.5">Email Address</label>
-      <input id="forgot-email" type="email" placeholder="your@email.com" class="auth-input w-full border border-[#e5e7eb] rounded-[12px] px-4 py-3 font-work text-[14px] text-[#101828] outline-none focus:border-[#155dfc] transition-colors">
-      <p id="forgot-email-err" class="auth-err hidden font-work text-[11px] text-[#ef4444] mt-1"></p>
-    </div>
-    <button onclick="CompareHub.auth.doForgot()" class="w-full bg-[#155dfc] text-white font-work font-semibold text-[15px] py-3 rounded-[12px] hover:bg-[#1447e6] transition-colors">Send Reset Code</button>
-  </div>
-</div>
 
-<!-- ── FORGOT PASSWORD — OTP ───────────────────────────── -->
-<div id="auth-forgot-otp" class="hidden fixed inset-0 z-[201] flex items-center justify-center px-4" style="background:rgba(0,0,0,0.5)" onclick="CompareHub.auth.close()">
-  <div class="relative bg-white rounded-[20px] w-full max-w-[380px] p-8 flex flex-col items-center gap-5" style="box-shadow:0 24px 64px rgba(0,0,0,0.2)" onclick="event.stopPropagation()">
-    <button onclick="CompareHub.auth.close()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#f3f4f6] flex items-center justify-center hover:bg-[#e5e7eb] transition-colors" title="Close">
-      <i data-lucide="x" class="w-4 h-4 text-[#6a7282]"></i>
-    </button>
-    <div class="w-16 h-16 rounded-full bg-[#eff6ff] flex items-center justify-center">
-      <i data-lucide="mail" class="w-7 h-7 text-[#155dfc]"></i>
+    {# Drupal password reset form #}
+    <div class="ch-auth-form ch-forgot-form">
+      {{ drupal_form('Drupal\\user\\Form\\UserPasswordForm') }}
     </div>
-    <div class="text-center">
-      <h2 class="font-work font-bold text-[20px] text-[#101828]">Check your email</h2>
-      <p class="font-work text-[13px] text-[#6a7282] mt-1.5">Enter the 5-digit code sent to<br><span id="forgot-otp-email" class="text-[#101828] font-medium">your@email.com</span></p>
-    </div>
-    <div class="flex items-center gap-3">
-      <input type="text" maxlength="1" oninput="CompareHub.auth.otpNext(this,0,'forgot-otp-inputs')" onkeydown="CompareHub.auth.otpBack(event,this)" class="fotp-box w-12 h-14 text-center border border-[#e5e7eb] rounded-[12px] font-work font-bold text-[22px] text-[#101828] outline-none focus:border-[#155dfc] transition-colors">
-      <input type="text" maxlength="1" oninput="CompareHub.auth.otpNext(this,1,'forgot-otp-inputs')" onkeydown="CompareHub.auth.otpBack(event,this)" class="fotp-box w-12 h-14 text-center border border-[#e5e7eb] rounded-[12px] font-work font-bold text-[22px] text-[#101828] outline-none focus:border-[#155dfc] transition-colors">
-      <input type="text" maxlength="1" oninput="CompareHub.auth.otpNext(this,2,'forgot-otp-inputs')" onkeydown="CompareHub.auth.otpBack(event,this)" class="fotp-box w-12 h-14 text-center border border-[#e5e7eb] rounded-[12px] font-work font-bold text-[22px] text-[#101828] outline-none focus:border-[#155dfc] transition-colors">
-      <input type="text" maxlength="1" oninput="CompareHub.auth.otpNext(this,3,'forgot-otp-inputs')" onkeydown="CompareHub.auth.otpBack(event,this)" class="fotp-box w-12 h-14 text-center border border-[#e5e7eb] rounded-[12px] font-work font-bold text-[22px] text-[#101828] outline-none focus:border-[#155dfc] transition-colors">
-      <input type="text" maxlength="1" oninput="CompareHub.auth.otpNext(this,4,'forgot-otp-inputs')" onkeydown="CompareHub.auth.otpBack(event,this)" class="fotp-box w-12 h-14 text-center border border-[#e5e7eb] rounded-[12px] font-work font-bold text-[22px] text-[#101828] outline-none focus:border-[#155dfc] transition-colors">
-    </div>
-    <p id="fotp-err" class="auth-err hidden font-work text-[11px] text-[#ef4444] -mt-2"></p>
-    <button onclick="CompareHub.auth.doOTP('forgot-otp-inputs','forgot-success')" class="w-full bg-[#155dfc] text-white font-work font-semibold text-[15px] py-3 rounded-[12px] hover:bg-[#1447e6] transition-colors">Verify Code</button>
-    <p class="font-work text-[13px] text-[#6a7282]">Resend in <span id="fotp-timer" class="text-[#155dfc] font-semibold underline cursor-pointer">04:59</span></p>
-  </div>
-</div>
-
-<!-- ── FORGOT PASSWORD — SUCCESS ──────────────────────── -->
-<div id="auth-forgot-success" class="hidden fixed inset-0 z-[201] flex items-center justify-center px-4" style="background:rgba(0,0,0,0.5)" onclick="CompareHub.auth.close()">
-  <div class="relative bg-white rounded-[20px] w-full max-w-[380px] p-8 flex flex-col items-center gap-5 text-center" style="box-shadow:0 24px 64px rgba(0,0,0,0.2)" onclick="event.stopPropagation()">
-    <button onclick="CompareHub.auth.close()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#f3f4f6] flex items-center justify-center hover:bg-[#e5e7eb] transition-colors" title="Close">
-      <i data-lucide="x" class="w-4 h-4 text-[#6a7282]"></i>
-    </button>
-    <div class="w-16 h-16 rounded-full bg-[#dcfce7] flex items-center justify-center">
-      <i data-lucide="check" class="w-7 h-7 text-[#16a34a]"></i>
-    </div>
-    <div>
-      <h2 class="font-work font-bold text-[22px] text-[#101828]">Code Verified!</h2>
-      <p class="font-work text-[13px] text-[#99a1af] mt-1.5">Your identity has been confirmed. Now set your new password.</p>
-    </div>
-    <button onclick="CompareHub.auth.show('new-password')" class="w-full bg-[#155dfc] text-white font-work font-semibold text-[15px] py-3 rounded-[12px] hover:bg-[#1447e6] transition-colors">Set New Password</button>
-  </div>
-</div>
-
-<!-- ── FORGOT PASSWORD — CHANGE PASSWORD ──────────────── -->
-<div id="auth-new-password" class="hidden fixed inset-0 z-[201] flex items-center justify-center px-4" style="background:rgba(0,0,0,0.5)" onclick="CompareHub.auth.close()">
-  <div class="relative bg-white rounded-[20px] w-full max-w-[400px] p-8 flex flex-col gap-5" style="box-shadow:0 24px 64px rgba(0,0,0,0.2)" onclick="event.stopPropagation()">
-    <button onclick="CompareHub.auth.close()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#f3f4f6] flex items-center justify-center hover:bg-[#e5e7eb] transition-colors" title="Close">
-      <i data-lucide="x" class="w-4 h-4 text-[#6a7282]"></i>
-    </button>
-    <div class="text-center">
-      <div class="w-14 h-14 rounded-full bg-[#eff6ff] flex items-center justify-center mx-auto mb-3">
-        <i data-lucide="lock" class="w-6 h-6 text-[#155dfc]"></i>
-      </div>
-      <h2 class="font-work font-bold text-[22px] text-[#101828]">Set New Password</h2>
-      <p class="font-work text-[13px] text-[#99a1af] mt-1">Choose a strong password you haven't used before</p>
-    </div>
-    <div class="flex flex-col gap-3">
-      <div>
-        <label class="block font-work font-medium text-[12px] text-[#364153] mb-1.5">New Password</label>
-        <div class="relative">
-          <input id="newpwd-new" type="password" placeholder="Min. 6 characters" class="auth-input w-full border border-[#e5e7eb] rounded-[12px] px-4 py-3 font-work text-[14px] text-[#101828] outline-none focus:border-[#155dfc] transition-colors pr-11">
-          <button type="button" onclick="CompareHub.auth.togglePwd('newpwd-new',this)" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#99a1af] hover:text-[#6a7282]">
-            <i data-lucide="eye" class="w-4 h-4"></i>
-          </button>
-        </div>
-        <p id="newpwd-new-err" class="auth-err hidden font-work text-[11px] text-[#ef4444] mt-1"></p>
-      </div>
-      <div>
-        <label class="block font-work font-medium text-[12px] text-[#364153] mb-1.5">Confirm New Password</label>
-        <div class="relative">
-          <input id="newpwd-confirm" type="password" placeholder="Re-enter password" class="auth-input w-full border border-[#e5e7eb] rounded-[12px] px-4 py-3 font-work text-[14px] text-[#101828] outline-none focus:border-[#155dfc] transition-colors pr-11">
-          <button type="button" onclick="CompareHub.auth.togglePwd('newpwd-confirm',this)" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#99a1af] hover:text-[#6a7282]">
-            <i data-lucide="eye" class="w-4 h-4"></i>
-          </button>
-        </div>
-        <p id="newpwd-confirm-err" class="auth-err hidden font-work text-[11px] text-[#ef4444] mt-1"></p>
-      </div>
-    </div>
-    <button onclick="CompareHub.auth.doNewPassword()" class="w-full bg-[#155dfc] text-white font-work font-semibold text-[15px] py-3 rounded-[12px] hover:bg-[#1447e6] transition-colors">Update Password</button>
   </div>
 </div>

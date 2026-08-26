@@ -710,3 +710,235 @@ body .mobile-cat-tab.active {
   /* SEO text section: tighter padding */
   body .seo-section { padding: 24px 20px; }
 }
+
+/* =========================================================
+   Auth Modals — Drupal form elements styled to match design
+   Scoped under .ch-auth-form to avoid affecting other forms
+   ========================================================= */
+
+/* Labels */
+.ch-auth-form .form-item__label,
+.ch-auth-form label {
+  display: block;
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  color: #364153;
+  margin-bottom: 6px;
+}
+
+/* Text / Email / Password inputs */
+.ch-auth-form input[type="text"],
+.ch-auth-form input[type="email"],
+.ch-auth-form input[type="password"] {
+  width: 100%;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 14px;
+  color: #101828;
+  outline: none;
+  transition: border-color 0.2s;
+  background: #fff;
+  box-sizing: border-box;
+}
+.ch-auth-form input[type="text"]:focus,
+.ch-auth-form input[type="email"]:focus,
+.ch-auth-form input[type="password"]:focus {
+  border-color: #155dfc;
+}
+
+/* Form items spacing */
+.ch-auth-form .form-item {
+  margin-bottom: 12px;
+}
+
+/* Field descriptions — keep small and subtle */
+.ch-auth-form .form-item__description,
+.ch-auth-form .description {
+  font-size: 11px;
+  color: #99a1af;
+  margin-top: 4px;
+  font-family: 'Work Sans', sans-serif;
+}
+
+/* Inline validation errors */
+.ch-auth-form .form-item--error input {
+  border-color: #ef4444;
+}
+.ch-auth-form .form-item__error-message,
+.ch-auth-form .form-item .error {
+  font-size: 11px;
+  color: #ef4444;
+  margin-top: 4px;
+  font-family: 'Work Sans', sans-serif;
+}
+
+/* Submit button */
+.ch-auth-form .form-submit,
+.ch-auth-form input[type="submit"],
+.ch-auth-form button[type="submit"] {
+  width: 100%;
+  background-color: #155dfc;
+  color: #fff;
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 4px;
+}
+.ch-auth-form .form-submit:hover,
+.ch-auth-form input[type="submit"]:hover {
+  background-color: #1447e6;
+}
+
+/* Hide Drupal's default fieldset wrappers on login form */
+.ch-auth-form fieldset.user-login-form,
+.ch-auth-form .fieldset-wrapper {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+.ch-auth-form legend { display: none; }
+
+/* Hide the "Enter your username" helper text on the name field */
+.ch-login-form #edit-name--description { display: none; }
+
+/* Forgot password link — shown inline on login form */
+.ch-login-form .js-form-item-pass::after {
+  content: 'Forgot Password?';
+  display: block;
+  text-align: right;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #155dfc;
+  margin-top: 6px;
+  cursor: pointer;
+}
+
+/* =========================================================
+   Flag module default output — mapped to button styles
+   Drupal outputs: <span class="flag flag-compare ..."><a ...>
+   We style the <a> to look like our compare-btn / wishlist-btn
+   ========================================================= */
+
+/* Shared base for both flag links */
+.flag-compare a,
+.flag-save a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 32px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+/* Compare flag link — same as .compare-btn */
+.flag-compare a {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+}
+.flag-compare a:hover { background-color: var(--color-primary-hover); }
+.flag-compare.action-unflag a {
+  background-color: var(--color-light);
+  color: var(--color-primary);
+}
+.flag-compare.action-unflag a:hover {
+  background-color: var(--color-danger-light);
+  color: var(--color-danger);
+}
+
+/* Save flag link — same as .wishlist-btn */
+.flag-save a {
+  background-color: var(--color-surface);
+  color: var(--color-body);
+  border: 1px solid var(--color-border);
+}
+.flag-save a:hover {
+  background-color: var(--color-light);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+.flag-save.action-unflag a {
+  background-color: #fce7f3;
+  color: var(--color-danger);
+  border-color: var(--color-danger);
+}
+.flag-save.action-unflag a:hover { background-color: #fbcfe8; }
+
+/* Remove default span wrapper display issues */
+.flag-compare,
+.flag-save {
+  display: block;
+  width: 100%;
+}
+
+/* Mobile tweaks */
+@media (max-width: 640px) {
+  .flag-compare a,
+  .flag-save a {
+    height: 28px;
+    font-size: 11px;
+  }
+}
+
+/* =========================================================
+   Toast notification (matches designer template)
+   ========================================================= */
+#toast {
+  position: fixed;
+  top: 84px;
+  right: 24px;
+  background: var(--color-dark, #181d25);
+  color: #fff;
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  z-index: 9999;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.3s, transform 0.3s;
+  pointer-events: none;
+  max-width: 260px;
+}
+#toast.show { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 640px) {
+  #toast { right: 12px; left: 12px; max-width: none; }
+}
+
+/* =========================================================
+   Drupal status messages — hide when toast handles the UX
+   ========================================================= */
+.messages,
+.messages--status,
+.messages--warning,
+.messages--error {
+  font-size: 12px !important;
+  line-height: 1.5;
+  padding: 8px 12px !important;
+  border-radius: 8px;
+}
+
+.messages__list {
+  font-size: 12px !important;
+}
+
+.messages__item {
+  font-size: 12px !important;
+}

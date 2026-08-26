@@ -77,6 +77,25 @@
 <main class="main-container bg-[#f9fafb] px-4 sm:px-8 lg:px-[111px] pt-8 pb-16">
   <div class="max-w-[1290px] mx-auto space-y-12">
 
+    {# ── Desktop Browse Categories ── #}
+    {{ drupal_view('browse_categories', 'block_1') }}
+
+    {# ── Electronics Product Grid ── #}
+    {{ drupal_view('homepage_products', 'block_electronics') }}
+
+    {# ── Food & Drinks Product Grid ── #}
+    {{ drupal_view('homepage_products', 'block_food_drink') }}
+
+    {# ── Promotional Banners — desktop only ── #}
+    {% include directory ~ '/templates/includes/promo-banners.html.twig' %}
+
+    {# ── Browse Vendors / Stores ── #}
+    {{ drupal_view('browse_vendors', 'block_1') }}
+
+    {# ── Home & Kitchen Product Grid ── #}
+    {{ drupal_view('homepage_products', 'block_snack') }}
+
+    {# ── Any other blocks assigned to the content region ── #}
     {{ page.content }}
 
     <!-- ---- SEO Text Section ---- -->
@@ -87,7 +106,7 @@
         <div class="space-y-3">
           <h3 class="font-work font-semibold text-[16px] sm:text-[18px] text-[#181d25] leading-snug sm:leading-[28px] tracking-[-0.45px]">Compare Prices on Everything You Need</h3>
           <p class="font-work text-[14px] text-[#364153] leading-[22.75px] tracking-[-0.15px] max-w-[1128px]">
-            CompareHub is Nigeria's largest price comparison platform. We help everyday Nigerians find the best deals on products from verified vendors across the country — all in one place. Whether you're shopping from the comfort of your home in Lagos, Abuja, Port Harcourt or anywhere in between, CompareHub lets you compare prices side-by-side and buy at the cheapest price without stress. Shop for smartphones, laptops, headphones, tablets, gaming consoles, or everyday food & groceries - and get the best price from our network of verified Nigerian vendors.  
+            CompareHub is Nigeria's largest price comparison platform. We help everyday Nigerians find the best deals on products from verified vendors across the country — all in one place. Whether you're shopping from the comfort of your home in Lagos, Abuja, Port Harcourt or anywhere in between, CompareHub lets you compare prices side-by-side and buy at the cheapest price without stress. Shop for smartphones, laptops, headphones, tablets, gaming consoles, or everyday food & groceries - and get the best price from our network of verified Nigerian vendors.
           </p>
         </div>
         <hr class="border-[#f3f4f6] my-6 sm:my-8">
@@ -109,3 +128,45 @@
 
 {# ── Auth modals ── #}
 {% include directory ~ '/templates/includes/auth_modals.html.twig' %}
+
+{# ── Toast notification ── #}
+<div id="toast"></div>
+
+<script>
+window.addEventListener('load', function () {
+  if (typeof Drupal === 'undefined' || typeof Drupal.Ajax === 'undefined') return;
+
+  var origSuccess = Drupal.Ajax.prototype.success;
+  Drupal.Ajax.prototype.success = function (response, status) {
+    var url = this.url || '';
+    origSuccess.call(this, response, status);
+
+    if (url.indexOf('/flag/') === -1) return;
+
+    var toast = document.getElementById('toast');
+    if (!toast) return;
+
+    var message = '';
+    if (url.indexOf('/flag/flag/') !== -1) {
+      if (url.indexOf('/compare/') !== -1) message = 'Added to your comparison list.';
+      else if (url.indexOf('/save/') !== -1) message = 'Saved for later.';
+    } else if (url.indexOf('/flag/unflag/') !== -1) {
+      if (url.indexOf('/compare/') !== -1) message = 'Removed from comparison list.';
+      else if (url.indexOf('/save/') !== -1) message = 'Removed from saved items.';
+    }
+
+    if (message) {
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(function () { toast.classList.remove('show'); }, 2500);
+    }
+
+    // Hide Drupal's own status messages
+    setTimeout(function () {
+      document.querySelectorAll('.messages--status, .messages--warning').forEach(function (el) {
+        el.style.display = 'none';
+      });
+    }, 50);
+  };
+});
+</script>
