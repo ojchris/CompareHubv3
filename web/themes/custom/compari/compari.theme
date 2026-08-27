@@ -14,12 +14,6 @@ function compari_preprocess_html(array &$variables): void {
 
 }
 
-/**
- * Implements hook_preprocess_HOOK() for page.html.twig.
- */
-function compari_preprocess_page(array &$variables): void {
-
-}
 
 /**
  * Implements hook_preprocess_HOOK() for node.html.twig.
@@ -74,5 +68,60 @@ function compari_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\FormSta
       $form['actions']['submit']['#attributes']['class'][] = 'bg-[#155dfc] rounded-[14px] font-work font-medium text-white hover:bg-[#1447e6] transition-colors shrink-0 w-full sm:w-[141px] h-[44px] sm:h-[32px] text-[14px] sm:text-[12px]';
       $form['actions']['#attributes']['class'][] = 'w-full sm:w-auto';
     }
+  }
+}
+
+/**
+ * Implements hook_preprocess_page().
+ * Passes the current user's display name and first name to all page templates.
+ */
+function compari_preprocess_page(array &$variables): void {
+  $account = \Drupal::currentUser();
+  if ($account->isAuthenticated()) {
+    $name = $account->getDisplayName();
+    $variables['current_user_name'] = $name;
+    // First name only (everything before the first space)
+    $parts = explode(' ', $name);
+    $variables['current_user_first_name'] = $parts[0];
+    // Two-letter initials: first char of first + last word
+    $first = mb_substr($parts[0], 0, 1);
+    $last  = count($parts) > 1 ? mb_substr(end($parts), 0, 1) : '';
+    $variables['current_user_initials'] = mb_strtoupper($first . $last);
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for user_login_form.
+ */
+function compari_form_user_login_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  // If the login form is rendered inside the modal on another page, force it to POST
+  // to /user/login. This ensures that on a wrong password, the user is taken to the
+  // standalone login page where the error message is visible, instead of the form
+  // failing silently in the background on the current page.
+  $current_path = \Drupal::service('path.current')->getPath();
+  if ($current_path !== '/user/login') {
+    $form['#action'] = \Drupal\Core\Url::fromRoute('user.login')->toString();
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_page_alter().
+ */
+function compari_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+  // Allow page templates based on the URL alias or path (e.g. page--how-it-works.html.twig or page--events.html.twig)
+  $current_path = \Drupal::service('path.current')->getPath();
+  $alias = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
+  
+  $path_to_use = ($alias != $current_path) ? $alias : $current_path;
+  $path_to_use = ltrim($path_to_use, '/');
+  
+  if (!empty($path_to_use)) {
+    // Convert /how-it-works to how_it_works
+    $alias_clean = str_replace(['/', '-'], '_', $path_to_use);
+    $suggestions[] = 'page__' . $alias_clean;
+    
+    // Also support hyphenated filenames like page--how-it-works
+    $alias_hyphen = str_replace('/', '', $path_to_use);
+    $suggestions[] = 'page__' . $alias_hyphen;
   }
 }
