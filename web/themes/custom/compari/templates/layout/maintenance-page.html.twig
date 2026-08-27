@@ -1,0 +1,51 @@
+{#
+  maintenance-page.html.twig
+  Custom maintenance/error page for the Compari theme.
+  In Drupal, maintenance pages do NOT inherit from html.html.twig or page.html.twig,
+  they are completely standalone. So we include the head, header, and footer manually here.
+#}
+<!DOCTYPE html>
+<html{{ html_attributes }} lang="en">
+  <head>
+    <head-placeholder token="{{ placeholder_token }}">
+    <title>{{ head_title|safe_join(' | ') }}</title>
+    <css-placeholder token="{{ placeholder_token }}">
+    <js-placeholder token="{{ placeholder_token }}">
+    {{ attach_library('compari/global') }}
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        if (typeof lucide !== 'undefined') {
+          lucide.createIcons({ attrs: { 'stroke-width': 1.8 } });
+        }
+      });
+    </script>
+  </head>
+  <body class="font-work bg-[#f9fafb]"{{ attributes }}>
+    
+    {# ── Header (mobile + desktop) ── #}
+    {% include directory ~ '/templates/includes/header.html.twig' %}
+
+    {# ── Main content region ── #}
+    <main class="main-container bg-[#f9fafb] px-4 sm:px-8 lg:px-[111px] pt-[calc(65px+2rem)] sm:pt-[calc(70px+2rem)] pb-16 min-h-[60vh]">
+      <div class="max-w-[1290px] mx-auto space-y-12">
+        <div class="bg-white p-8 md:p-12 rounded-[20px] shadow-sm max-w-[600px] mx-auto text-center border border-[#f3f4f6] mt-8">
+          {% if title %}
+            <h1 class="font-work font-bold text-[28px] text-[#101828] mb-4">{{ title }}</h1>
+          {% endif %}
+          
+          <div class="font-work text-[15px] text-[#6a7282] leading-relaxed">
+            {{ page.content }}
+          </div>
+        </div>
+      </div>
+    </main>
+
+    {# ── Footer ── #}
+    {% include directory ~ '/templates/includes/footer.html.twig' %}
+
+    {# ── Mobile bottom nav ── #}
+    {% include directory ~ '/templates/includes/mobile_nav.html.twig' %}
+
+    <js-bottom-placeholder token="{{ placeholder_token }}">
+  </body>
+</html>

@@ -1,0 +1,118 @@
+{#
+  page--events.html.twig
+  Events page template for the Compari theme.
+
+  The Horizontal Event Calendar block is placed in the Content region
+  and appears via {{ page.content }} below.
+  The block renders <div data-hec-mount></div> which the JS turns into
+  the full interactive calendar UI.
+#}
+
+{# ── Extra styles for filter tabs ── #}
+<style>
+  .tab-btn {
+    color: #364153;
+    border-color: #e5e7eb;
+    background: #fff;
+  }
+  .tab-btn:hover {
+    background: #eff6ff;
+    color: #155dfc;
+    border-color: #155dfc;
+  }
+  .tab-btn.active {
+    background: #155dfc;
+    color: #fff;
+    border-color: #155dfc;
+  }
+</style>
+
+{# ── Header (mobile + desktop) ── #}
+{% include directory ~ '/templates/includes/header.html.twig' %}
+
+{# ── Hero Section (matches static design) ── #}
+<section class="sm:mt-[70px] mt-[65px] relative overflow-hidden sm:h-[296px]">
+
+  {# Desktop: photo + dark overlay #}
+  <img src="{{ base_path ~ directory }}/images/pages/events-hero-bg.jpg"
+       alt="" class="hidden sm:block absolute inset-0 w-full h-full object-cover" aria-hidden="true">
+  <div class="hidden sm:block absolute inset-0" style="background:rgba(0,0,0,0.72)"></div>
+
+  {# Mobile: solid blue bg #}
+  <div class="sm:hidden absolute inset-0" style="background:#1447e6"></div>
+
+  <div class="relative z-10 flex flex-col sm:h-full">
+
+    {# ── Desktop: title + search ── #}
+    <div class="hidden sm:flex flex-1 max-w-[1512px] w-full mx-auto px-[140px] items-end justify-between pb-6">
+      <div class="flex flex-col gap-1.5">
+        <h1 class="font-inter font-bold text-[30px] text-white leading-[37.5px] tracking-[0.40px]">
+          Tech Events in Nigeria
+        </h1>
+        <p class="font-inter text-[14px] text-[rgba(219,234,254,0.7)] leading-[20px]">
+          Discover upcoming events from top brands &amp; vendors
+        </p>
+      </div>
+    </div>
+
+    {# ── Mobile: location + title ── #}
+    <div class="sm:hidden flex flex-col px-5 pt-14 pb-4 gap-1">
+      <div class="flex items-center gap-1.5">
+        <i data-lucide="map-pin" class="w-3.5 h-3.5 text-white/70 shrink-0" aria-hidden="true"></i>
+        <span class="font-inter font-semibold text-[13px] text-white">Nigeria</span>
+      </div>
+      <h1 class="font-inter font-bold text-[22px] text-white leading-tight mt-1">
+        Tech Events in Nigeria
+      </h1>
+    </div>
+
+  </div>
+</section>
+
+{# ── Filter Tabs (Desktop) ── #}
+<section class="bg-white border-b border-[#f3f4f6] sticky top-[70px] z-40 hidden sm:block shadow-sm">
+  <div class="max-w-[1272px] mx-auto px-8">
+    <div class="flex items-center gap-2 py-3 overflow-x-auto">
+      <button class="tab-btn active font-work font-medium text-[13px] px-4 py-2 rounded-[10px] border whitespace-nowrap transition-colors">All Events</button>
+      <button class="tab-btn font-work font-medium text-[13px] px-4 py-2 rounded-[10px] border whitespace-nowrap transition-colors">Tech</button>
+      <button class="tab-btn font-work font-medium text-[13px] px-4 py-2 rounded-[10px] border whitespace-nowrap transition-colors">Launch</button>
+      <button class="tab-btn font-work font-medium text-[13px] px-4 py-2 rounded-[10px] border whitespace-nowrap transition-colors">Gaming</button>
+      <button class="tab-btn font-work font-medium text-[13px] px-4 py-2 rounded-[10px] border whitespace-nowrap transition-colors">Sale</button>
+      <button class="tab-btn font-work font-medium text-[13px] px-4 py-2 rounded-[10px] border whitespace-nowrap transition-colors">Audio</button>
+      <button class="tab-btn font-work font-medium text-[13px] px-4 py-2 rounded-[10px] border whitespace-nowrap transition-colors">AI</button>
+      <button class="tab-btn font-work font-medium text-[13px] px-4 py-2 rounded-[10px] border whitespace-nowrap transition-colors">SmartHome</button>
+    </div>
+  </div>
+</section>
+
+{# ── Filter Tabs (Mobile) ── #}
+<section class="sm:hidden bg-white border-b border-[#f3f4f6]">
+  <div class="flex items-center gap-2 px-4 py-3 overflow-x-auto">
+    <button class="tab-btn active font-work font-medium text-[12px] px-3 py-1.5 rounded-[8px] border whitespace-nowrap">All Events</button>
+    <button class="tab-btn font-work font-medium text-[12px] px-3 py-1.5 rounded-[8px] border whitespace-nowrap">Tech</button>
+    <button class="tab-btn font-work font-medium text-[12px] px-3 py-1.5 rounded-[8px] border whitespace-nowrap">Launch</button>
+    <button class="tab-btn font-work font-medium text-[12px] px-3 py-1.5 rounded-[8px] border whitespace-nowrap">Gaming</button>
+    <button class="tab-btn font-work font-medium text-[12px] px-3 py-1.5 rounded-[8px] border whitespace-nowrap">Sale</button>
+    <button class="tab-btn font-work font-medium text-[12px] px-3 py-1.5 rounded-[8px] border whitespace-nowrap">Audio</button>
+    <button class="tab-btn font-work font-medium text-[12px] px-3 py-1.5 rounded-[8px] border whitespace-nowrap">AI</button>
+  </div>
+</section>
+
+{# ── Main Content: Horizontal Event Calendar block renders here ── #}
+<main class="bg-[#f9fafb] pb-16">
+  {% if page.highlighted %}
+    <div class="max-w-[1272px] mx-auto px-4 sm:px-8 pt-6">
+      {{ page.highlighted }}
+    </div>
+  {% endif %}
+  {{ page.content }}
+</main>
+
+{# ── Footer ── #}
+{% include directory ~ '/templates/includes/footer.html.twig' %}
+
+{# ── Mobile bottom nav ── #}
+{% include directory ~ '/templates/includes/mobile_nav.html.twig' %}
+
+{# ── Auth modals ── #}
+{% include directory ~ '/templates/includes/auth_modals.html.twig' %}
