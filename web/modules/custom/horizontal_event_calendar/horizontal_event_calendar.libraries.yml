@@ -1,0 +1,12 @@
+horizontal_event_calendar:
+  version: 1.0
+  js:
+    js/horizontal_event_calendar.js: {}
+  css:
+    theme:
+      css/style.css: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/drupalSettings
+    - core/once

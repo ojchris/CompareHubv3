@@ -1,0 +1,15 @@
+horizontal_event_calendar.events_json:
+  path: '/hec/events.json'
+  defaults:
+    _controller: '\Drupal\horizontal_event_calendar\Controller\EventsJsonController::list'
+    _format: 'json'
+  requirements:
+    _permission: 'access content'
+
+horizontal_event_calendar.event_cards:
+  path: '/hec/cards/{date}'
+  defaults:
+    _controller: '\Drupal\horizontal_event_calendar\Controller\EventCardsController::render'
+  requirements:
+    _permission: 'access content'
+    date: '^\d{4}-\d{2}-\d{2}$'

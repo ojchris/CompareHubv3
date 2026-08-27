@@ -1,0 +1,11 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Horizontal Event Calendar module.
+ *
+ * The calendar is delivered via a Block plugin (HorizontalEventCalendarBlock)
+ * which can be placed on any page through the standard Drupal block UI.
+ * The library is attached by the block itself — not globally — so it only
+ * loads on pages where the block is actually placed.
+ */

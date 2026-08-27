@@ -1,0 +1,5 @@
+name: 'Horizontal Event Calendar'
+type: module
+description: 'A theme-agnostic horizontal date-strip calendar for events pages. Provides a Block plugin that can be placed anywhere via the block UI. Event cards are fetched from the event_list_date_controlled view via AJAX.'
+package: Compare Hub
+core_version_requirement: ^10 || ^11

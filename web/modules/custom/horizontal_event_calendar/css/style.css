@@ -1,0 +1,295 @@
+/* ==========================================================================
+   Horizontal Event Calendar — styles
+   Theme-agnostic: all selectors use the epc- prefix namespace.
+   ========================================================================== */
+
+/* ── Hero Strip ── */
+.epc-hero {
+  background: linear-gradient(90deg, rgba(106, 27, 77, 0.85), rgba(142, 36, 95, 0.85));
+  color: #fff;
+  font-family: 'Inter', 'Work Sans', sans-serif;
+  margin-bottom: 24px;
+}
+
+/* ── Top Bar (Title + Search) ── */
+.epc-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 24px 20px 16px;
+  max-width: 1512px;
+  margin: 0 auto;
+}
+
+.epc-topbar-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.epc-title {
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 1.25;
+  letter-spacing: 0.4px;
+  margin: 0;
+}
+
+.epc-search-bar {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 14px;
+  padding: 0 16px;
+  height: 42px;
+  width: 200px;
+}
+
+.epc-search-icon {
+  color: rgba(255, 255, 255, 0.6);
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+.epc-search-bar input {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-family: inherit;
+  font-size: 14px;
+  width: 100%;
+  outline: none;
+}
+
+.epc-search-bar input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* ── Month Row ── */
+.epc-month-row-wrapper {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.epc-month-row {
+  display: flex;
+  align-items: center;
+  max-width: 1512px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 50px;
+}
+
+.epc-year-nav {
+  display: flex;
+  align-items: center;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  padding-right: 16px;
+  margin-right: 8px;
+  height: 100%;
+  flex-shrink: 0;
+}
+
+.epc-year-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  line-height: 1;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+  transition: opacity 0.2s, background 0.2s;
+}
+
+.epc-year-btn:hover {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.epc-year-label {
+  font-weight: 700;
+  font-size: 14px;
+  padding: 0 8px;
+  min-width: 42px;
+  text-align: center;
+}
+
+.epc-months {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  flex: 1;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.epc-months::-webkit-scrollbar { display: none; }
+
+.epc-month-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  height: 100%;
+  padding: 0 14px;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.15s;
+  white-space: nowrap;
+}
+
+.epc-month-btn:hover,
+.epc-month-btn.is-active { color: #fff; }
+
+.epc-month-underline {
+  position: absolute;
+  bottom: 2px;
+  left: 12px;
+  right: 12px;
+  height: 3px;
+  background: #fff;
+  border-radius: 99px;
+}
+
+/* ── Date Scroller ── */
+.epc-dates-row-wrapper {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.epc-dates-row {
+  max-width: 1512px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  height: 89px;
+}
+
+.epc-scroll-arrow {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  opacity: 0.6;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+}
+.epc-scroll-arrow:hover { opacity: 1; }
+
+.epc-dates-track {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  flex: 1;
+  padding: 0 8px;
+  scroll-behavior: smooth;
+}
+.epc-dates-track::-webkit-scrollbar { display: none; }
+
+/* ── Date Pill ── */
+.epc-date-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 52px;
+  height: 64px;
+  border-radius: 14px;
+  border: none;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  flex-shrink: 0;
+  padding: 8px 0;
+}
+
+.epc-date-pill:hover { background: rgba(255, 255, 255, 0.1); }
+.epc-date-pill.is-today { background: rgba(255, 255, 255, 0.2); }
+.epc-date-pill.is-selected { background: rgba(255, 255, 255, 0.35); transform: scale(1.05); }
+.epc-date-pill.is-dim { opacity: 0.4; }
+
+.epc-pill-dow { font-size: 10px; font-weight: 600; letter-spacing: 0.6px; text-transform: uppercase; }
+.epc-pill-num { font-size: 16px; font-weight: 900; line-height: 1.2; letter-spacing: -0.3px; margin-top: 2px; }
+
+.epc-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  margin-top: 4px;
+  background: transparent;
+}
+.epc-dot.has-event { background: rgba(255, 255, 255, 0.75); }
+.epc-date-pill.is-selected .epc-dot.has-event { background: #fff; }
+
+/* ── Cards Area ── */
+.epc-cards-wrap {
+  max-width: 1272px;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+  font-family: 'Work Sans', sans-serif;
+}
+
+.epc-cards-header {
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.epc-cards-date-label { font-weight: 700; font-size: 20px; color: #101828; }
+
+.epc-loading-msg { text-align: center; padding: 40px; color: #6a7282; font-size: 15px; }
+
+.epc-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 20px;
+  text-align: center;
+  background: #f9fafb;
+  border-radius: 16px;
+  border: 1px dashed #e5e7eb;
+}
+
+.epc-empty-icon {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  color: #155dfc;
+}
+
+.epc-empty-title { font-size: 17px; font-weight: 600; color: #101828; margin: 0 0 8px; }
+.epc-empty-desc  { font-size: 14px; color: #6a7282; margin: 0; }
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .epc-topbar { flex-direction: column; align-items: flex-start; gap: 16px; padding: 16px 20px; }
+  .epc-search-bar { width: 100%; }
+  .epc-year-nav { border-right: none; padding-right: 8px; }
+  .epc-scroll-arrow { display: none; }
+  .epc-dates-row { padding: 0 8px; }
+}
