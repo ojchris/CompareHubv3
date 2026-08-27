@@ -11,6 +11,7 @@ regions:
   top_bar: 'Top Bar'
   bottom_bar: 'Bottom Bar'
   featured: 'Featured'
+  highlighted: 'Highlighted'
   breadcrumb: 'Breadcrumb'
   content: 'Content'
   sidebar_first: 'Sidebar first'
