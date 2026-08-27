@@ -712,13 +712,16 @@ body .mobile-cat-tab.active {
 }
 
 /* =========================================================
-   Auth Modals — Drupal form elements styled to match design
-   Scoped under .ch-auth-form to avoid affecting other forms
+   Auth Modals & Pages — Drupal form elements styled to match design
    ========================================================= */
 
 /* Labels */
 .ch-auth-form .form-item__label,
-.ch-auth-form label {
+.ch-auth-form label,
+.user-login-form label,
+.user-register-form label,
+.user-pass label,
+#user-logout-confirm label {
   display: block;
   font-family: 'Work Sans', sans-serif;
   font-weight: 500;
@@ -730,7 +733,15 @@ body .mobile-cat-tab.active {
 /* Text / Email / Password inputs */
 .ch-auth-form input[type="text"],
 .ch-auth-form input[type="email"],
-.ch-auth-form input[type="password"] {
+.ch-auth-form input[type="password"],
+.user-login-form input[type="text"],
+.user-login-form input[type="email"],
+.user-login-form input[type="password"],
+.user-register-form input[type="text"],
+.user-register-form input[type="email"],
+.user-register-form input[type="password"],
+.user-pass input[type="text"],
+.user-pass input[type="email"] {
   width: 100%;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
@@ -743,20 +754,32 @@ body .mobile-cat-tab.active {
   background: #fff;
   box-sizing: border-box;
 }
+
 .ch-auth-form input[type="text"]:focus,
 .ch-auth-form input[type="email"]:focus,
-.ch-auth-form input[type="password"]:focus {
+.ch-auth-form input[type="password"]:focus,
+.user-login-form input[type="text"]:focus,
+.user-login-form input[type="password"]:focus,
+.user-register-form input[type="text"]:focus,
+.user-register-form input[type="email"]:focus,
+.user-register-form input[type="password"]:focus {
   border-color: #155dfc;
 }
 
 /* Form items spacing */
-.ch-auth-form .form-item {
+.ch-auth-form .form-item,
+.user-login-form .form-item,
+.user-register-form .form-item,
+.user-pass .form-item {
   margin-bottom: 12px;
 }
 
 /* Field descriptions — keep small and subtle */
 .ch-auth-form .form-item__description,
-.ch-auth-form .description {
+.ch-auth-form .description,
+.user-login-form .description,
+.user-register-form .description,
+.user-pass .description {
   font-size: 11px;
   color: #99a1af;
   margin-top: 4px;
@@ -764,11 +787,15 @@ body .mobile-cat-tab.active {
 }
 
 /* Inline validation errors */
-.ch-auth-form .form-item--error input {
+.ch-auth-form .form-item--error input,
+.user-login-form .form-item--error input,
+.user-register-form .form-item--error input {
   border-color: #ef4444;
 }
 .ch-auth-form .form-item__error-message,
-.ch-auth-form .form-item .error {
+.ch-auth-form .form-item .error,
+.user-login-form .error,
+.user-register-form .error {
   font-size: 11px;
   color: #ef4444;
   margin-top: 4px;
@@ -778,7 +805,12 @@ body .mobile-cat-tab.active {
 /* Submit button */
 .ch-auth-form .form-submit,
 .ch-auth-form input[type="submit"],
-.ch-auth-form button[type="submit"] {
+.ch-auth-form button[type="submit"],
+.user-login-form input[type="submit"],
+.user-register-form input[type="submit"],
+.user-pass input[type="submit"],
+#user-logout-confirm input[type="submit"],
+.button--primary {
   width: 100%;
   background-color: #155dfc;
   color: #fff;
@@ -791,26 +823,61 @@ body .mobile-cat-tab.active {
   cursor: pointer;
   transition: background-color 0.2s;
   margin-top: 4px;
+  text-align: center;
+  display: inline-block;
 }
 .ch-auth-form .form-submit:hover,
-.ch-auth-form input[type="submit"]:hover {
+.ch-auth-form input[type="submit"]:hover,
+.user-login-form input[type="submit"]:hover,
+.user-register-form input[type="submit"]:hover,
+.user-pass input[type="submit"]:hover,
+#user-logout-confirm input[type="submit"]:hover,
+.button--primary:hover {
   background-color: #1447e6;
+}
+
+/* Cancel button on confirm pages */
+#user-logout-confirm a.button {
+  display: block;
+  width: 100%;
+  background-color: #f3f4f6;
+  color: #364153;
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 8px;
+  text-align: center;
+  text-decoration: none;
+}
+#user-logout-confirm a.button:hover {
+  background-color: #e5e7eb;
 }
 
 /* Hide Drupal's default fieldset wrappers on login form */
 .ch-auth-form fieldset.user-login-form,
-.ch-auth-form .fieldset-wrapper {
+.ch-auth-form .fieldset-wrapper,
+.user-login-form fieldset,
+.user-register-form fieldset {
   border: none;
   padding: 0;
   margin: 0;
 }
-.ch-auth-form legend { display: none; }
+.ch-auth-form legend,
+.user-login-form legend,
+.user-register-form legend { display: none; }
 
 /* Hide the "Enter your username" helper text on the name field */
-.ch-login-form #edit-name--description { display: none; }
+.ch-login-form #edit-name--description,
+.user-login-form #edit-name--description { display: none; }
 
 /* Forgot password link — shown inline on login form */
-.ch-login-form .js-form-item-pass::after {
+.ch-login-form .js-form-item-pass::after,
+.user-login-form .js-form-item-pass::after {
   content: 'Forgot Password?';
   display: block;
   text-align: right;
@@ -821,6 +888,60 @@ body .mobile-cat-tab.active {
   margin-top: 6px;
   cursor: pointer;
 }
+
+/* Max width for standalone auth pages to match the modal look */
+.main-container .user-login-form,
+.main-container .user-register-form,
+.main-container .user-pass,
+.main-container #user-logout-confirm {
+  max-width: 400px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 32px;
+  border-radius: 20px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+}
+
+/* =========================================================
+   Drupal Status Messages (Errors, Warnings, Success)
+   ========================================================= */
+.messages {
+  padding: 16px 20px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  border-left: 4px solid;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  list-style: none;
+}
+.messages--error {
+  background-color: #fef2f2;
+  color: #ef4444;
+  border-left-color: #ef4444;
+}
+.messages--status {
+  background-color: #e5edff; /* Very light shade of the blue login button */
+  color: #155dfc;
+  border-left-color: #155dfc;
+}
+.messages--warning {
+  background-color: #fffbeb;
+  color: #f59e0b;
+  border-left-color: #f59e0b;
+}
+.messages ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.messages h2.visually-hidden {
+  display: none;
+}
+
 
 /* =========================================================
    Flag module default output — mapped to button styles

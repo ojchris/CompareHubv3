@@ -2,7 +2,7 @@
 <header class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#f3f4f6] h-[65px] shadow-[0_1px_8px_rgba(0,0,0,0.07)]">
   <div class="flex items-center gap-2 px-4 h-full">
     <a href="{{ base_path }}" class="shrink-0">
-      <img src="{{ directory }}/images/logos/logo-dark.svg" alt="CompareHub" class="h-5 w-auto">
+      <img src="{{ base_path ~ directory }}/images/logos/logo-dark.svg" alt="CompareHub" class="h-5 w-auto">
     </a>
     <div class="flex-1"></div>
     <button id="mobile-menu-btn" aria-label="Open mobile menu" class="w-9 h-9 border border-[#e5e7eb] rounded-[8px] flex items-center justify-center hover:bg-[#f9fafb] transition-colors shrink-0">
@@ -25,7 +25,7 @@
 <header class="hidden sm:flex fixed top-0 left-0 right-0 z-50 h-[70px] items-center bg-white border-b border-[#f3f4f6]" style="box-shadow:0 2px 4px rgba(0,0,0,0.06)">
   <div class="w-full max-w-[1290px] mx-auto px-8 flex items-center justify-between">
     <a href="{{ base_path }}" class="flex items-center gap-2 shrink-0">
-      <img src="{{ directory }}/images/logos/logo-dark.svg" alt="CompareHub" class="h-8 w-auto">
+      <img src="{{ base_path ~ directory }}/images/logos/logo-dark.svg" alt="CompareHub" class="h-8 w-auto">
     </a>
     <div class="flex items-center gap-8">
       <nav class="flex items-center gap-8">
@@ -37,29 +37,39 @@
         <button id="open-compare-drawer" class="flex items-center gap-1.5 bg-[#155dfc] text-white font-work font-medium text-[14px] px-3 py-2 rounded-[14px] hover:bg-[#1447e6] transition-colors">
           <i data-lucide="git-compare" class="w-4 h-4" aria-hidden="true"></i> Compare
         </button>
-        {# Guest sign-in button – shown when not logged in #}
-        <button id="header-sign-in-btn" class="border border-[#e5e7eb] text-[#364153] font-work font-medium text-[14px] px-4 py-1.5 rounded-[14px] hover:bg-[#f9fafb] transition-colors">Sign in</button>
-        {# Authenticated user area – hidden by default, toggled via JS #}
-        <div id="header-user-area" class="hidden relative">
-          <button id="header-user-btn" class="flex items-center gap-2 pl-1.5 pr-3 py-1.5 rounded-[14px] hover:bg-[#f9fafb] transition-colors border border-[#e5e7eb]">
-            <div class="w-7 h-7 rounded-[8px] bg-[#155dfc] flex items-center justify-center shrink-0">
-              <span id="header-user-initials" class="font-inter font-bold text-[11px] text-white leading-none">AB</span>
+
+        {% if logged_in %}
+          {# ── Authenticated user area ── #}
+          <div id="header-user-area" class="relative">
+            <button id="header-user-btn" class="flex items-center gap-2 pl-1.5 pr-3 py-1.5 rounded-[14px] hover:bg-[#f9fafb] transition-colors border border-[#e5e7eb]">
+              <div class="w-7 h-7 rounded-[8px] bg-[#155dfc] flex items-center justify-center shrink-0">
+                <span class="font-inter font-bold text-[11px] text-white leading-none">{{ current_user_initials }}</span>
+              </div>
+              <span class="font-work font-medium text-[14px] text-[#364153]">{{ current_user_first_name }}</span>
+              <i data-lucide="chevron-down" id="header-user-chevron" class="w-3.5 h-3.5 text-[#6a7282]" style="transition:transform 0.2s" aria-hidden="true"></i>
+            </button>
+            <div id="header-user-dropdown" class="hidden absolute right-0 top-[calc(100%+8px)] w-[200px] bg-white rounded-[14px] border border-[#f3f4f6] py-1.5 z-50" style="box-shadow:0 8px 24px rgba(0,0,0,0.12)">
+              <a href="{{ base_path ~ 'user' }}" class="flex items-center gap-2.5 px-4 py-2.5 font-work font-medium text-[13px] text-[#364153] hover:bg-[#f9fafb] transition-colors" style="text-decoration:none">
+                <i data-lucide="user" class="w-3.5 h-3.5 text-[#6a7282] shrink-0" aria-hidden="true"></i> My Account
+              </a>
+              <a href="{{ base_path ~ 'dashboard' }}" class="flex items-center gap-2.5 px-4 py-2.5 font-work font-medium text-[13px] text-[#364153] hover:bg-[#f9fafb] transition-colors" style="text-decoration:none">
+                <i data-lucide="layout-dashboard" class="w-3.5 h-3.5 text-[#6a7282] shrink-0" aria-hidden="true"></i> Dashboard
+              </a>
+              <a href="{{ base_path ~ 'wishlist' }}" class="flex items-center gap-2.5 px-4 py-2.5 font-work font-medium text-[13px] text-[#364153] hover:bg-[#f9fafb] transition-colors" style="text-decoration:none">
+                <i data-lucide="heart" class="w-3.5 h-3.5 text-[#6a7282] shrink-0" aria-hidden="true"></i> Saved Items
+              </a>
+              <hr class="border-[#f3f4f6] my-1">
+              <a href="{{ base_path ~ 'user/logout' }}" class="flex items-center gap-2.5 px-4 py-2.5 font-work font-medium text-[13px] text-[#ef4444] hover:bg-[#fff5f5] transition-colors" style="text-decoration:none">
+                <i data-lucide="log-out" class="w-3.5 h-3.5 shrink-0" aria-hidden="true"></i> Sign Out
+              </a>
             </div>
-            <span id="header-user-first-name" class="font-work font-medium text-[14px] text-[#364153]">User</span>
-            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-[#6a7282]" style="transition:transform 0.2s" aria-hidden="true"></i>
-          </button>
-          <div id="header-user-dropdown" class="hidden absolute right-0 top-[calc(100%+8px)] w-[200px] bg-white rounded-[14px] border border-[#f3f4f6] py-1.5 z-50" style="box-shadow:0 8px 24px rgba(0,0,0,0.12)">
-            <a href="{{ base_path ~ 'dashboard' }}" class="flex items-center gap-2.5 px-4 py-2.5 font-work font-medium text-[13px] text-[#364153] hover:bg-[#f9fafb] transition-colors" style="text-decoration:none">
-              <i data-lucide="layout-dashboard" class="w-3.5 h-3.5 text-[#6a7282] shrink-0" aria-hidden="true"></i> Dashboard
-            </a>
-            <a href="{{ base_path ~ 'wishlist' }}" class="flex items-center gap-2.5 px-4 py-2.5 font-work font-medium text-[13px] text-[#364153] hover:bg-[#f9fafb] transition-colors" style="text-decoration:none">
-              <i data-lucide="heart" class="w-3.5 h-3.5 text-[#6a7282] shrink-0" aria-hidden="true"></i> Wishlist
-            </a>
-            <hr class="border-[#f3f4f6] my-1">
-            <button onclick="CompareHub.auth.signOut()" class="flex items-center gap-2.5 px-4 py-2.5 font-work font-medium text-[13px] text-[#ef4444] hover:bg-[#fff5f5] transition-colors w-full text-left">Sign Out</button>
           </div>
-        </div>
+        {% else %}
+          {# ── Guest sign-in button ── #}
+          <button id="header-sign-in-btn" onclick="CompareHub.auth.show('login')" class="border border-[#e5e7eb] text-[#364153] font-work font-medium text-[14px] px-4 py-1.5 rounded-[14px] hover:bg-[#f9fafb] transition-colors">Sign in</button>
+        {% endif %}
       </div>
     </div>
   </div>
 </header>
+

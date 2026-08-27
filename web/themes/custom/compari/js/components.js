@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    CompareHub — components.js
    Reusable header, footer, and mobile nav components.
    Each page sets window.PAGE_CONFIG before loading this script.
@@ -625,13 +625,15 @@
     });
   }
 
-  // Run on every page load
+  // Run on every page load.
+  // NOTE: Header auth state (sign-in btn vs user area) is now rendered server-side
+  // by Twig using Drupal's logged_in variable — authUpdateHeader() must NOT run on
+  // page load or it will hide the server-rendered user area (localStorage is empty).
   const vendor = getStoredVendor();
   if (vendor && vendor.isLoggedIn) {
     initVendorHeader();
   } else {
-    authUpdateHeader();
-    initHeaderDropdown();
+    initHeaderDropdown(); // wire up the dropdown toggle only
   }
 
   /* ──────────────────────────────────────────────────────────

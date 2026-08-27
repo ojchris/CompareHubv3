@@ -1,4 +1,4 @@
-﻿{#
+{#
   page.html.twig
   Generic page template for the Compari theme.
   Front-page-specific layout lives in page--front.html.twig.
@@ -13,8 +13,11 @@
 {% endif %}
 
 {# ── Main content region ── #}
-<main class="main-container bg-[#f9fafb] px-4 sm:px-8 lg:px-[111px] pt-8 pb-16">
+<main class="main-container bg-[#f9fafb] px-4 sm:px-8 lg:px-[111px] pt-[calc(65px+2rem)] sm:pt-[calc(70px+2rem)] pb-16">
   <div class="max-w-[1290px] mx-auto space-y-12">
+    {% if page.highlighted %}
+      {{ page.highlighted }}
+    {% endif %}
     {{ page.content }}
   </div>
 </main>

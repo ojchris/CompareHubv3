@@ -1,7 +1,5 @@
 ﻿{# ============================================================
    auth_modals.html.twig
-   Embeds Drupal's real user forms inside the designer modal shells.
-   drupal_form() handles CSRF tokens, validation and error messages.
    ============================================================ #}
 
 {# ── LOGIN MODAL ─────────────────────────────────────────── #}
@@ -14,33 +12,31 @@
       <h2 class="font-work font-bold text-[22px] text-[#101828]">Welcome</h2>
       <p class="font-work text-[13px] text-[#99a1af] mt-1">Start comparing products and save more</p>
     </div>
-
-    {# Drupal login form — handles CSRF, validation, redirects #}
     <div class="ch-auth-form ch-login-form">
       {{ drupal_form('Drupal\\user\\Form\\UserLoginForm') }}
     </div>
-
-    <p class="text-center font-work text-[13px] text-[#6a7282]">Don't have an account? <button type="button" onclick="CompareHub.auth.show('signup')" class="text-[#155dfc] font-semibold hover:underline">Sign Up</button></p>
+    <p class="text-center font-work text-[13px] text-[#6a7282]">Don't have an account? <a href="/user/register" class="text-[#155dfc] font-semibold hover:underline">Sign Up</a></p>
   </div>
 </div>
 
 {# ── CREATE ACCOUNT MODAL ─────────────────────────────────── #}
+{# Register is an EntityForm and needs a User entity — rendered as a full page at /user/register #}
 <div id="auth-signup" class="hidden fixed inset-0 z-[201] flex items-center justify-center px-4 overflow-y-auto py-8" style="background:rgba(0,0,0,0.5)" onclick="CompareHub.auth.close()">
-  <div class="relative bg-white rounded-[20px] w-full max-w-[400px] p-8 flex flex-col gap-4 my-auto" style="box-shadow:0 24px 64px rgba(0,0,0,0.2)" onclick="event.stopPropagation()">
+  <div class="relative bg-white rounded-[20px] w-full max-w-[400px] p-8 flex flex-col gap-4 my-auto text-center" style="box-shadow:0 24px 64px rgba(0,0,0,0.2)" onclick="event.stopPropagation()">
     <button onclick="CompareHub.auth.close()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#f3f4f6] flex items-center justify-center hover:bg-[#e5e7eb] transition-colors" title="Close">
       <i data-lucide="x" class="w-4 h-4 text-[#6a7282]"></i>
     </button>
-    <div class="text-center">
+    <div class="w-14 h-14 rounded-full bg-[#eff6ff] flex items-center justify-center mx-auto">
+      <i data-lucide="user-plus" class="w-6 h-6 text-[#155dfc]"></i>
+    </div>
+    <div>
       <h2 class="font-work font-bold text-[22px] text-[#101828]">Create Account</h2>
-      <p class="font-work text-[13px] text-[#99a1af] mt-1">Let's create your account right away.</p>
+      <p class="font-work text-[13px] text-[#99a1af] mt-1">Complete your registration on the next page.</p>
     </div>
-
-    {# Drupal register form — handles CSRF, validation, email verification #}
-    <div class="ch-auth-form ch-register-form">
-      {{ drupal_form('Drupal\\user\\RegisterForm') }}
-    </div>
-
-    <p class="text-center font-work text-[13px] text-[#6a7282]">Already have an account? <button onclick="CompareHub.auth.show('login')" class="text-[#155dfc] font-semibold hover:underline">Sign In</button></p>
+    <a href="/user/register" class="w-full bg-[#155dfc] text-white font-work font-semibold text-[15px] py-3 rounded-[12px] hover:bg-[#1447e6] transition-colors block" style="text-decoration:none">
+      Continue to Sign Up
+    </a>
+    <p class="font-work text-[13px] text-[#6a7282]">Already have an account? <button onclick="CompareHub.auth.show('login')" class="text-[#155dfc] font-semibold hover:underline">Sign In</button></p>
   </div>
 </div>
 
@@ -61,8 +57,6 @@
       <h2 class="font-work font-bold text-[22px] text-[#101828]">Forgot Password?</h2>
       <p class="font-work text-[13px] text-[#99a1af] mt-1">Enter your email and we'll send a reset link</p>
     </div>
-
-    {# Drupal password reset form #}
     <div class="ch-auth-form ch-forgot-form">
       {{ drupal_form('Drupal\\user\\Form\\UserPasswordForm') }}
     </div>
