@@ -37,6 +37,7 @@
         "drupal/jquery_ui": "^1.8",
         "drupal/kint-kint": "^2.1",
         "drupal/paragraphs": "^1.19",
+        "drupal/pathauto": "^1.15",
         "drupal/recently_read": "^1.5",
         "drupal/slick": "^3.0",
         "drupal/slick_extras": "^2.0",
@@ -44,6 +45,7 @@
         "drupal/smart_date": "^4.2",
         "drupal/splide": "^2.0",
         "drupal/stable": "^2.1",
+        "drupal/token": "^1.17",
         "drupal/twig_tweak": "^3.4",
         "drupal/views_ajax_history": "^1.8",
         "drush/drush": "^13.3"
