@@ -74,9 +74,9 @@
 .epc-month-row {
   display: flex;
   align-items: center;
-  max-width: 1512px;
+  max-width: 1290px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 22px;
   height: 50px;
 }
 
@@ -118,6 +118,7 @@
   padding: 0 8px;
   min-width: 42px;
   text-align: center;
+  color: #fff;
 }
 
 .epc-months {
@@ -166,11 +167,11 @@
 }
 
 .epc-dates-row {
-  max-width: 1512px;
+  max-width: 1290px;
   margin: 0 auto;
   display: flex;
   align-items: center;
-  padding: 0 12px;
+  padding: 0 22px;
   height: 89px;
 }
 
@@ -227,8 +228,16 @@
 .epc-date-pill.is-selected { background: rgba(255, 255, 255, 0.35); transform: scale(1.05); }
 .epc-date-pill.is-dim { opacity: 0.4; }
 
-.epc-pill-dow { font-size: 10px; font-weight: 600; letter-spacing: 0.6px; text-transform: uppercase; }
-.epc-pill-num { font-size: 16px; font-weight: 900; line-height: 1.2; letter-spacing: -0.3px; margin-top: 2px; }
+.epc-pill-dow { font-size: 10px; font-weight: 400; letter-spacing: 0.6px; text-transform: uppercase; }
+.epc-pill-num { font-size: 16px; font-weight: 500; line-height: 1.2; letter-spacing: -0.3px; margin-top: 2px; }
+
+.epc-date-pill.has-event .epc-pill-dow,
+.epc-date-pill.is-today .epc-pill-dow,
+.epc-date-pill.is-selected .epc-pill-dow { font-weight: 600; }
+
+.epc-date-pill.has-event .epc-pill-num,
+.epc-date-pill.is-today .epc-pill-num,
+.epc-date-pill.is-selected .epc-pill-num { font-weight: 900; }
 
 .epc-dot {
   width: 4px;
@@ -244,7 +253,7 @@
 .epc-cards-wrap {
   max-width: 1272px;
   margin: 0 auto;
-  padding: 0 20px 40px;
+  padding: 32px 20px 40px;
   font-family: 'Work Sans', sans-serif;
 }
 
@@ -256,6 +265,7 @@
 
 .epc-cards-date-label { font-weight: 700; font-size: 20px; color: #101828; }
 
+/* ── View header & empty state styles are defined in the Event Cards Grid section below ── */
 .epc-loading-msg { text-align: center; padding: 40px; color: #6a7282; font-size: 15px; }
 
 .epc-empty-state {
@@ -292,4 +302,87 @@
   .epc-year-nav { border-right: none; padding-right: 8px; }
   .epc-scroll-arrow { display: none; }
   .epc-dates-row { padding: 0 8px; }
+}
+
+/* ── Event Cards Grid ── */
+.epc-event-cards {
+  position: relative;
+  min-height: 100px;
+}
+
+/* The View wrapper becomes the grid — Drupal sometimes skips .view-content */
+.epc-event-cards .view-event-list-date-controlled {
+  display: contents; /* let header stay outside the grid */
+}
+
+/* Use a sub-grid approach: target the container and use grid on the View div */
+.epc-event-cards .views-element-container {
+  display: block;
+}
+
+/* ── Style the View's own header ── */
+.epc-event-cards header {
+  display: block;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f3f4f6;
+  line-height: 1.4;
+}
+
+/* Small grey superscript: "Displaying X event(s) happening on" */
+.epc-event-cards .hec-header-sub {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: #6a7282;
+  margin-bottom: 2px;
+}
+
+/* Large bold date */
+.epc-event-cards .hec-header-date {
+  display: block;
+  font-weight: 700;
+  font-size: 20px;
+  color: #101828;
+}
+
+/* "No events" message from View */
+.epc-event-cards p.branding-partnership-heading {
+  text-align: center;
+  padding: 40px;
+  color: #6a7282;
+  font-size: 15px;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* All .views-row siblings inside the view become a grid */
+.epc-event-cards .view-content,
+.epc-event-cards .view-event-list-date-controlled > .views-row {
+  /* fallback — handled via JS wrapper below */
+}
+
+/* JS wraps the rows in a .hec-grid-wrap div — style that */
+.hec-grid-wrap {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+@media (min-width: 640px) {
+  .hec-grid-wrap {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.hec-grid-wrap .views-row {
+  display: block;
+  min-width: 0;
+}
+
+.hec-grid-wrap .event-small-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }

@@ -1,12 +1,10 @@
 {#
   page--events.html.twig
   Events page template for the Compari theme.
-
-  The Horizontal Event Calendar block is placed in the Content region
-  and appears via {{ page.content }} below.
-  The block renders <div data-hec-mount></div> which the JS turns into
-  the full interactive calendar UI.
 #}
+
+{# Attach the module library directly #}
+{{ attach_library('horizontal_event_calendar/horizontal_event_calendar') }}
 
 {# ── Extra styles for filter tabs ── #}
 <style>
@@ -31,7 +29,7 @@
 {% include directory ~ '/templates/includes/header.html.twig' %}
 
 {# ── Hero Section (matches static design) ── #}
-<section class="sm:mt-[70px] mt-[65px] relative overflow-hidden sm:h-[296px]">
+<section class="sm:mt-[70px] mt-[65px] relative overflow-hidden">
 
   {# Desktop: photo + dark overlay #}
   <img src="{{ base_path ~ directory }}/images/pages/events-hero-bg.jpg"
@@ -41,10 +39,10 @@
   {# Mobile: solid blue bg #}
   <div class="sm:hidden absolute inset-0" style="background:#1447e6"></div>
 
-  <div class="relative z-10 flex flex-col sm:h-full">
+  <div class="relative z-10 flex flex-col sm:h-full pb-4">
 
     {# ── Desktop: title + search ── #}
-    <div class="hidden sm:flex flex-1 max-w-[1512px] w-full mx-auto px-[140px] items-end justify-between pb-6">
+    <div class="hidden sm:flex flex-1 max-w-[1290px] w-full mx-auto px-8 items-end justify-between pb-6 pt-12">
       <div class="flex flex-col gap-1.5">
         <h1 class="font-inter font-bold text-[30px] text-white leading-[37.5px] tracking-[0.40px]">
           Tech Events in Nigeria
@@ -65,6 +63,9 @@
         Tech Events in Nigeria
       </h1>
     </div>
+
+    {# ── Calendar Strip Mount (Inside Hero) ── #}
+    <div data-hec-strip class="w-full"></div>
 
   </div>
 </section>
@@ -98,13 +99,17 @@
   </div>
 </section>
 
-{# ── Main Content: Horizontal Event Calendar block renders here ── #}
+{# ── Main Content: Event Cards Mount ── #}
 <main class="bg-[#f9fafb] pb-16">
   {% if page.highlighted %}
     <div class="max-w-[1272px] mx-auto px-4 sm:px-8 pt-6">
       {{ page.highlighted }}
     </div>
   {% endif %}
+  
+  {# This is where the actual event cards will load #}
+  <div data-hec-cards></div>
+  
   {{ page.content }}
 </main>
 
@@ -116,3 +121,4 @@
 
 {# ── Auth modals ── #}
 {% include directory ~ '/templates/includes/auth_modals.html.twig' %}
+
