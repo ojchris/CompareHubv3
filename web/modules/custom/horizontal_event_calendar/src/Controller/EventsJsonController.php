@@ -45,12 +45,18 @@ class EventsJsonController extends ControllerBase {
           $start = $raw['value'] ?? NULL;
 
           if ($start) {
-            try {
-              $dt   = new DrupalDateTime($start);
-              $date = $dt->format('Y-m-d');
+            // field_scheduled_date (SmartDate) stores Unix timestamps.
+            if (is_numeric($start)) {
+              $date = (new \DateTime('@' . $start))->format('Y-m-d');
             }
-            catch (\Exception $e) {
-              $date = substr($start, 0, 10);
+            else {
+              try {
+                $dt   = new DrupalDateTime($start);
+                $date = $dt->format('Y-m-d');
+              }
+              catch (\Exception $e) {
+                $date = substr($start, 0, 10);
+              }
             }
 
             $items[] = [

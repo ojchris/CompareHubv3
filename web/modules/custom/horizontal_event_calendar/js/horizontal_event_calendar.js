@@ -47,51 +47,31 @@
     });
   }
 
-  // ── DOM Builder ──────────────────────────────────────────────────────────
-
-  function buildCalendarUI($mount) {
+  function buildStripUI($strip) {
     const html = `
-      <div id="hec-hero" class="epc-hero" role="navigation" aria-label="Event calendar">
-
-        <!-- Top bar: Title on left, Search on right -->
-        <div class="epc-topbar">
-          <div class="epc-topbar-left">
-            <h1 class="epc-title">Events Calendar</h1>
+      <div class="epc-month-row-wrapper">
+        <div class="epc-month-row" role="tablist" aria-label="Month selector">
+          <div class="epc-year-nav" aria-label="Year navigation">
+            <button class="epc-year-btn" id="hec-prev-year" aria-label="Previous year">&#8249;</button>
+            <span class="epc-year-label" id="hec-year-label"></span>
+            <button class="epc-year-btn" id="hec-next-year" aria-label="Next year">&#8250;</button>
           </div>
-          <div class="epc-search-bar">
-            <svg class="epc-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                 stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-            <input type="text" id="hec-search-input" placeholder="Search events..." />
-          </div>
+          <div class="epc-months" id="hec-months"></div>
         </div>
-
-        <!-- Month picker row -->
-        <div class="epc-month-row-wrapper">
-          <div class="epc-month-row" role="tablist" aria-label="Month selector">
-            <div class="epc-year-nav" aria-label="Year navigation">
-              <button class="epc-year-btn" id="hec-prev-year" aria-label="Previous year">&#8249;</button>
-              <span class="epc-year-label" id="hec-year-label"></span>
-              <button class="epc-year-btn" id="hec-next-year" aria-label="Next year">&#8250;</button>
-            </div>
-            <div class="epc-months" id="hec-months"></div>
-          </div>
-        </div>
-
-        <!-- Date scroller row -->
-        <div class="epc-dates-row-wrapper">
-          <div class="epc-dates-row">
-            <button class="epc-scroll-arrow epc-arrow-left" id="hec-arrow-left" aria-label="Scroll dates left">&#8249;</button>
-            <div class="epc-dates-track" id="hec-dates" role="listbox" aria-label="Date selector"></div>
-            <button class="epc-scroll-arrow epc-arrow-right" id="hec-arrow-right" aria-label="Scroll dates right">&#8250;</button>
-          </div>
-        </div>
-
       </div>
+      <div class="epc-dates-row-wrapper">
+        <div class="epc-dates-row">
+          <button class="epc-scroll-arrow epc-arrow-left" id="hec-arrow-left" aria-label="Scroll dates left">&#8249;</button>
+          <div class="epc-dates-track" id="hec-dates" role="listbox" aria-label="Date selector"></div>
+          <button class="epc-scroll-arrow epc-arrow-right" id="hec-arrow-right" aria-label="Scroll dates right">&#8250;</button>
+        </div>
+      </div>
+    `;
+    $strip.html(html);
+  }
 
+  function buildCardsUI($cardsWrap) {
+    const html = `
       <div class="epc-cards-wrap">
         <div class="epc-cards-header" id="hec-cards-header" style="display:none">
           <span class="epc-cards-date-label" id="hec-cards-date-label"></span>
@@ -103,19 +83,7 @@
         </div>
       </div>
     `;
-
-    $mount.html(html);
-
-    return {
-      $hero:       $('#hec-hero'),
-      $months:     $('#hec-months'),
-      $dates:      $('#hec-dates'),
-      $yearLabel:  $('#hec-year-label'),
-      $searchInput:$('#hec-search-input'),
-      $cards:      $('#hec-event-cards'),
-      $header:     $('#hec-cards-header'),
-      $dateLabel:  $('#hec-cards-date-label'),
-    };
+    $cardsWrap.html(html);
   }
 
   // ── Calendar Logic ────────────────────────────────────────────────────────
@@ -181,6 +149,7 @@
 
       if (isToday)    $pill.addClass('is-today');
       if (isSelected) $pill.addClass('is-selected');
+      if (hasEvent)   $pill.addClass('has-event');
       if (!hasEvent && !isToday && !isSelected) $pill.addClass('is-dim');
 
       $pill.on('click', function () { onDateClick(dateKey); });
@@ -195,6 +164,7 @@
 
   function refreshUI(refs, state, eventDatesMap, onMonthClick, onDateClick) {
     refs.$yearLabel.text(state.currentYear);
+    
     buildMonthPicker(refs.$months, state, onMonthClick);
     buildDateScroller(refs.$dates, state, eventDatesMap, onDateClick);
   }
@@ -225,11 +195,29 @@
 
   Drupal.behaviors.horizontalEventCalendar = {
     attach: function (context) {
-      // Attach to every [data-hec-mount] element — completely theme-agnostic.
-      once('horizontalEventCalendar', '[data-hec-mount]', context).forEach(function (mountEl) {
+      // Find the strip and cards wrappers (theme-agnostic, decoupled)
+      once('horizontalEventCalendar', '[data-hec-strip]', context).forEach(function (stripEl) {
+        
+        const $strip = $(stripEl);
+        // Look for the cards container anywhere on the page
+        const $cardsWrap = $('[data-hec-cards]');
+        
+        if (!$cardsWrap.length) return;
 
-        const $mount = $(mountEl);
-        const refs   = buildCalendarUI($mount);
+        const refs = {
+          $strip:      $strip,
+          $cardsWrap:  $cardsWrap
+        };
+        
+        buildStripUI($strip);
+        buildCardsUI($cardsWrap);
+
+        refs.$months     = $strip.find('#hec-months');
+        refs.$dates      = $strip.find('#hec-dates');
+        refs.$yearLabel  = $strip.find('#hec-year-label');
+        refs.$cards      = $cardsWrap.find('#hec-event-cards');
+        refs.$header     = $cardsWrap.find('#hec-cards-header');
+        refs.$dateLabel  = $cardsWrap.find('#hec-cards-date-label');
 
         const now = new Date();
         const state = {
@@ -244,7 +232,10 @@
         $.getJSON('/hec/events.json')
           .done(function (data) {
             (data.events || []).forEach(function (ev) {
-              eventDatesMap[ev.date] = true;
+              if (!eventDatesMap[ev.date]) {
+                eventDatesMap[ev.date] = 0;
+              }
+              eventDatesMap[ev.date]++;
             });
             refreshUI(refs, state, eventDatesMap, onMonthClick, onDateClick);
           })
@@ -263,8 +254,8 @@
           state.selectedDate = dateKey;
           buildDateScroller(refs.$dates, state, eventDatesMap, onDateClick);
 
-          refs.$dateLabel.text(readableDate(dateKey));
-          refs.$header.show();
+          // Hide our own custom header — the View's header already shows count + date.
+          refs.$header.hide();
           refs.$cards.html('<div class="epc-loading-msg"><p>Loading events&hellip;</p></div>');
 
           $.get('/hec/cards/' + dateKey)
@@ -273,6 +264,20 @@
                 showEmptyState(refs.$cards, dateKey);
               } else {
                 refs.$cards.html(html);
+                // Restructure the View's header into two clean lines.
+                var $header = refs.$cards.find('header');
+                if ($header.length) {
+                  var countText = $header.find('.special-branding-text-highlight').text();
+                  $header.html(
+                    '<span class="hec-header-sub">' + countText + ' happening on</span>' +
+                    '<span class="hec-header-date">' + readableDate(dateKey) + '</span>'
+                  );
+                }
+                // Wrap all .views-row elements in a grid wrapper.
+                var $rows = refs.$cards.find('.views-row');
+                if ($rows.length && !refs.$cards.find('.hec-grid-wrap').length) {
+                  $rows.wrapAll('<div class="hec-grid-wrap"></div>');
+                }
                 forceBlazy(refs.$cards[0]);
                 Drupal.attachBehaviors(refs.$cards[0]);
                 setTimeout(function () { forceBlazy(refs.$cards[0]); }, 100);
@@ -285,36 +290,30 @@
         }
 
         // ── Year nav ──────────────────────────────────────────────────────
-        refs.$hero.on('click', '#hec-prev-year', function () {
+        refs.$strip.on('click', '#hec-prev-year', function () {
           state.currentYear--;
           state.selectedDate = null;
           refreshUI(refs, state, eventDatesMap, onMonthClick, onDateClick);
         });
 
-        refs.$hero.on('click', '#hec-next-year', function () {
+        refs.$strip.on('click', '#hec-next-year', function () {
           state.currentYear++;
           state.selectedDate = null;
           refreshUI(refs, state, eventDatesMap, onMonthClick, onDateClick);
         });
 
         // ── Date strip scroll arrows ──────────────────────────────────────
-        refs.$hero.on('click', '#hec-arrow-left', function () {
+        refs.$strip.on('click', '#hec-arrow-left', function () {
           refs.$dates[0].scrollBy({ left: -260, behavior: 'smooth' });
         });
 
-        refs.$hero.on('click', '#hec-arrow-right', function () {
+        refs.$strip.on('click', '#hec-arrow-right', function () {
           refs.$dates[0].scrollBy({ left: 260, behavior: 'smooth' });
         });
 
         // ── Search ────────────────────────────────────────────────────────
-        refs.$searchInput.on('input', function () {
-          const term = $(this).val().toLowerCase();
-          refs.$cards.find('.views-row').each(function () {
-            const text = $(this).text().toLowerCase();
-            $(this).toggle(text.includes(term));
-          });
-        });
-
+        // (If you want search back, you can add [data-hec-search] somewhere and hook it here)
+        
       });
     }
   };
