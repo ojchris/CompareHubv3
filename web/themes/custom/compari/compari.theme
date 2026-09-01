@@ -19,7 +19,44 @@ function compari_preprocess_html(array &$variables): void {
  * Implements hook_preprocess_HOOK() for node.html.twig.
  */
 function compari_preprocess_node(array &$variables): void {
+  /** @var \Drupal\node\Entity\Node $node */
+  $node = $variables['node'];
 
+  // Only run for Brand nodes on the full view mode.
+  if ($node->bundle() === 'brand' && $variables['view_mode'] === 'full') {
+    $variables['store_products'] = NULL;
+    $variables['store_product_count'] = 0;
+
+    // Check if the Brand has a store referenced.
+    if ($node->hasField('field_store') && !$node->get('field_store')->isEmpty()) {
+      $store_id = (int) $node->get('field_store')->target_id;
+
+      // Run the homepage_products view, overriding filters at runtime.
+      $view = \Drupal\views\Views::getView('homepage_products');
+      if ($view) {
+        $view->setDisplay('default');
+
+        // Remove the category filter so we see all products for this store.
+        $view->removeHandler('default', 'filter', 'field_category_target_id');
+        
+        // Add a runtime filter on the stores entity reference field.
+        $view->addHandler('default', 'filter', 'commerce_product__stores', 'stores_target_id', [
+          'id'       => 'stores_target_id',
+          'table'    => 'commerce_product__stores',
+          'field'    => 'stores_target_id',
+          'value'    => ['value' => $store_id],
+          'operator' => '=',
+          'group'    => 1,
+          'exposed'  => FALSE,
+        ]);
+
+        $view->execute();
+
+        $variables['store_products'] = $view->render();
+        $variables['store_product_count'] = count($view->result);
+      }
+    }
+  }
 }
 
 /**
@@ -124,4 +161,189 @@ function compari_theme_suggestions_page_alter(array &$suggestions, array $variab
     $alias_hyphen = str_replace('/', '', $path_to_use);
     $suggestions[] = 'page__' . $alias_hyphen;
   }
+}
+
+/**
+ * Implements hook_preprocess_commerce_store().
+ *
+ * On the full view mode (store detail page), loads store products from the
+ * homepage_products view filtered by this store's ID, passing them to the
+ * Twig template as $store_products.
+ */
+function compari_preprocess_commerce_store(array &$variables): void {
+  if ($variables['view_mode'] !== 'full') {
+    return;
+  }
+
+  /** @var \Drupal\commerce_store\Entity\Store $store */
+  $store = $variables['commerce_store'];
+  $store_id = (int) $store->id();
+
+  // Run the homepage_products view, overriding filters at runtime.
+  $view = \Drupal\views\Views::getView('homepage_products');
+  if (!$view) {
+    $variables['store_products'] = NULL;
+    $variables['store_product_count'] = 0;
+    return;
+  }
+
+  $view->setDisplay('default');
+
+  // Remove the category filter so we see all products for this store.
+  $view->removeHandler('default', 'filter', 'field_category_target_id');
+
+  // Add a runtime filter on the stores entity reference field.
+  $view->addHandler('default', 'filter', 'commerce_product__stores', 'stores_target_id', [
+    'id'       => 'stores_target_id',
+    'table'    => 'commerce_product__stores',
+    'field'    => 'stores_target_id',
+    'value'    => ['value' => $store_id],
+    'operator' => '=',
+    'group'    => 1,
+    'exposed'  => FALSE,
+  ]);
+
+  $view->execute();
+
+  $variables['store_products']      = $view->render();
+  $variables['store_product_count'] = count($view->result);
+}
+
+/**
+ * Implements hook_preprocess_views_view_fields().
+ * For the homepage_products view, find the associated Brand node for the product's store.
+ */
+function compari_preprocess_views_view_fields__homepage_products(array &$variables): void {
+  /** @var \Drupal\views\ResultRow $row */
+  $row = $variables['row'];
+  
+  if (isset($row->_entity) && $row->_entity instanceof \Drupal\commerce_product\Entity\ProductInterface) {
+    $product = $row->_entity;
+    
+    // Get the store referenced by the product.
+    if ($product->hasField('stores') && !$product->get('stores')->isEmpty()) {
+      $store_id = $product->get('stores')->target_id;
+      
+      // Look up the Brand node that references this store.
+      $nids = \Drupal::entityQuery('node')
+        ->condition('type', 'brand')
+        ->condition('status', 1)
+        ->condition('field_store', $store_id)
+        ->accessCheck(FALSE)
+        ->range(0, 1)
+        ->execute();
+        
+      if (!empty($nids)) {
+        $brand_nid = reset($nids);
+        $brand = \Drupal\node\Entity\Node::load($brand_nid);
+        if ($brand) {
+          $variables['brand_name'] = $brand->label();
+          $variables['brand_url'] = \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $brand_nid);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_commerce_product().
+ * Prepares brand, image, category, and price data for the styled product page.
+ */
+function compari_preprocess_commerce_product(array &$variables): void {
+  /** @var \Drupal\commerce_product\Entity\ProductInterface $product */
+  $product = $variables['product_entity'];
+
+  if (!$product || $variables['view_mode'] !== 'full') {
+    return;
+  }
+
+  // --- Image ---
+  $variables['product_image_url'] = '';
+  if ($product->hasField('field_product_image') && !$product->get('field_product_image')->isEmpty()) {
+    $img_entity = $product->get('field_product_image')->entity;
+    if ($img_entity) {
+      $uri = method_exists($img_entity, 'getFileUri')
+        ? $img_entity->getFileUri()
+        : ($img_entity->hasField('field_media_image') ? $img_entity->get('field_media_image')->entity->getFileUri() : null);
+      if ($uri) {
+        $variables['product_image_url'] = \Drupal::service('file_url_generator')->generateAbsoluteString($uri);
+      }
+    }
+  }
+
+  // --- Category ---
+  $variables['product_category'] = '';
+  if ($product->hasField('field_category') && !$product->get('field_category')->isEmpty()) {
+    $variables['product_category'] = $product->get('field_category')->entity->label();
+  }
+
+  // --- Brand via store ---
+  $variables['brand_name'] = '';
+  $variables['brand_url'] = '';
+  if ($product->hasField('stores') && !$product->get('stores')->isEmpty()) {
+    $store_id = $product->get('stores')->target_id;
+    $brand_nids = \Drupal::entityQuery('node')
+      ->condition('type', 'brand')
+      ->condition('status', 1)
+      ->condition('field_store', $store_id)
+      ->accessCheck(FALSE)
+      ->range(0, 1)
+      ->execute();
+    if (!empty($brand_nids)) {
+      $brand_nid = reset($brand_nids);
+      $brand = \Drupal::entityTypeManager()->getStorage('node')->load($brand_nid);
+      if ($brand) {
+        $variables['brand_name'] = $brand->label();
+        $variables['brand_url'] = \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $brand_nid);
+      }
+    }
+  }
+
+  // --- Best price from default variation ---
+  $variables['product_price'] = '';
+  $variables['product_price_raw'] = 0;
+  $default_variation = $product->getDefaultVariation();
+  if ($default_variation) {
+    $price = $default_variation->getPrice();
+    if ($price) {
+      $variables['product_price_raw'] = (float) $price->getNumber();
+      $formatted = \Drupal::service('commerce_price.currency_formatter')->format(
+        $price->getNumber(),
+        $price->getCurrencyCode()
+      );
+      $variables['product_price'] = $formatted;
+    }
+  }
+
+  // --- All variations with prices for the vendor comparison table ---
+  $variables['product_variations'] = [];
+  foreach ($product->getVariations() as $variation) {
+    $price = $variation->getPrice();
+    $vendor_brand_name = '';
+    $vendor_brand_url = '';
+    if ($variation->hasField('field_vendor_brand') && !$variation->get('field_vendor_brand')->isEmpty()) {
+      $vb = $variation->get('field_vendor_brand')->entity;
+      if ($vb) {
+        $vendor_brand_name = $vb->label();
+        $vendor_nid = $vb->id();
+        $vendor_brand_url = \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $vendor_nid);
+      }
+    }
+    // Fall back to the store-derived brand if variation has no brand.
+    if (!$vendor_brand_name) {
+      $vendor_brand_name = $variables['brand_name'];
+      $vendor_brand_url = $variables['brand_url'];
+    }
+    $variables['product_variations'][] = [
+      'sku'        => $variation->getSku(),
+      'title'      => $variation->getTitle(),
+      'price_raw'  => $price ? (float) $price->getNumber() : 0,
+      'price'      => $price ? \Drupal::service('commerce_price.currency_formatter')->format($price->getNumber(), $price->getCurrencyCode()) : '',
+      'brand_name' => $vendor_brand_name,
+      'brand_url'  => $vendor_brand_url,
+    ];
+  }
+
+  // Sort variations cheapest first.
+  usort($variables['product_variations'], fn($a, $b) => $a['price_raw'] <=> $b['price_raw']);
 }
