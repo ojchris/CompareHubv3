@@ -3,9 +3,12 @@
   Renders a single product card for the homepage product grids.
 #}
 
-{% set product_id = row.product_id|default(row.product_id_1)|default(fields.product_id.content|striptags|trim) %}
+{% set product_id = row.product_id|default(row.product_id_1|default('')) %}
+{% if product_id is iterable %}
+  {% set product_id = product_id|render|trim %}
+{% endif %}
 
-<div class="product-card" role="article">
+<div class="product-card" role="article" data-id="{{ product_id }}">
 
   {# Image #}
   {% if product_id %}
@@ -14,9 +17,13 @@
     <div class="card-image">
   {% endif %}
 
-    {% set image_content = fields.field_product_image.content|striptags('<img><picture><source>')|trim %}
+    {% set image_field = fields.field_image is defined ? fields.field_image : (fields.field_product_image is defined ? fields.field_product_image : null) %}
+    {% set image_content = '' %}
+    {% if image_field is not null and image_field.content is defined %}
+      {% set image_content = image_field.content is iterable ? image_field.content|render|trim : image_field.content %}
+    {% endif %}
     {% if image_content is not empty %}
-      {{ fields.field_product_image.content }}
+      {{ image_field.content }}
     {% else %}
       <div class="w-full h-full bg-[#f3f4f6] flex items-center justify-center">
         <i data-lucide="image" class="w-8 h-8 text-[#d1d5db]"></i>
@@ -60,22 +67,14 @@
       
       <div style="display:flex;gap:8px;margin-top:8px">
         
-        {# Compare Flag #}
+        {# Keep native controls so app.js can manage localStorage state consistently. #}
         <div style="flex:1;">
-          {% if fields.link_flag is not empty %}
-            {{ fields.link_flag.content }}
-          {% else %}
-            <button class="compare-btn w-full">+ Compare</button>
-          {% endif %}
+          <button type="button" class="compare-btn w-full" data-id="{{ product_id }}">+ Compare</button>
         </div>
 
-        {# Save / Wishlist Flag #}
+        {# Save / Wishlist #}
         <div style="flex:1;">
-          {% if fields.link_flag_1 is not empty %}
-            {{ fields.link_flag_1.content }}
-          {% else %}
-            <button class="wishlist-btn w-full">&#9825; Save</button>
-          {% endif %}
+          <button type="button" class="wishlist-btn w-full" data-id="{{ product_id }}">&#9825; Save</button>
         </div>
 
       </div>

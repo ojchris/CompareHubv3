@@ -1,0 +1,15 @@
+{#
+/**
+ * views-view-unformatted--homepage-products--default.html.twig
+ *
+ * Used when the default display of homepage_products is embedded in the
+ * store detail page. No section header needed — just a clean product grid.
+ */
+#}
+<div class="flex flex-wrap gap-4 items-start justify-start">
+  {% for row in rows %}
+    <div class="w-[calc(50%-0.5rem)] md:w-[calc(33.333%-0.75rem)] lg:w-[calc(20%-0.85rem)] shrink-0">
+      {{ row.content }}
+    </div>
+  {% endfor %}
+</div>
