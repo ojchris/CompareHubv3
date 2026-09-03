@@ -171,7 +171,7 @@ function compari_theme_suggestions_page_alter(array &$suggestions, array $variab
  * Twig template as $store_products.
  */
 function compari_preprocess_commerce_store(array &$variables): void {
-  if ($variables['view_mode'] !== 'full') {
+  if (!isset($variables['view_mode']) || $variables['view_mode'] !== 'full') {
     return;
   }
 
@@ -251,36 +251,81 @@ function compari_preprocess_views_view_fields__homepage_products(array &$variabl
  */
 function compari_preprocess_commerce_product(array &$variables): void {
   /** @var \Drupal\commerce_product\Entity\ProductInterface $product */
-  $product = $variables['product_entity'];
+  $product = $variables['product_entity'] ?? NULL;
+  $view_mode = $variables['view_mode'] ?? 'full';
 
-  if (!$product || $variables['view_mode'] !== 'full') {
+  if (!$product || $view_mode !== 'full') {
     return;
   }
 
+  $get_image_url = static function ($entity): string {
+    if (!$entity) {
+      return '';
+    }
+    if ($entity instanceof \Drupal\file\FileInterface) {
+      return \Drupal::service('file_url_generator')->generateAbsoluteString($entity->getFileUri());
+    }
+    foreach (['field_media_image', 'field_product_image', 'field_image'] as $field_name) {
+      if ($entity->hasField($field_name) && !$entity->get($field_name)->isEmpty()) {
+        $file = $entity->get($field_name)->entity;
+        if ($file) {
+          return \Drupal::service('file_url_generator')->generateAbsoluteString($file->getFileUri());
+        }
+      }
+    }
+    return '';
+  };
+
   // --- Image ---
   $variables['product_image_url'] = '';
-  if ($product->hasField('field_product_image') && !$product->get('field_product_image')->isEmpty()) {
-    $img_entity = $product->get('field_product_image')->entity;
-    if ($img_entity) {
-      $uri = method_exists($img_entity, 'getFileUri')
-        ? $img_entity->getFileUri()
-        : ($img_entity->hasField('field_media_image') ? $img_entity->get('field_media_image')->entity->getFileUri() : null);
-      if ($uri) {
-        $variables['product_image_url'] = \Drupal::service('file_url_generator')->generateAbsoluteString($uri);
+  foreach (['field_product_image', 'field_image', 'field_media_image'] as $field_name) {
+    if (!$product->hasField($field_name) || $product->get($field_name)->isEmpty()) {
+      continue;
+    }
+    $variables['product_image_url'] = $get_image_url($product->get($field_name)->entity);
+    if ($variables['product_image_url']) {
+      break;
+    }
+  }
+
+  // --- Description ---
+  $variables['product_description'] = '';
+  foreach (['body', 'field_description'] as $field_name) {
+    if ($product->hasField($field_name) && !$product->get($field_name)->isEmpty()) {
+      $variables['product_description'] = trim(strip_tags((string) $product->get($field_name)->value));
+      if ($variables['product_description']) {
+        break;
       }
     }
   }
 
   // --- Category ---
   $variables['product_category'] = '';
-  if ($product->hasField('field_category') && !$product->get('field_category')->isEmpty()) {
-    $variables['product_category'] = $product->get('field_category')->entity->label();
+  $category_id = 0;
+  if ($product->hasField('field_product_category') && !$product->get('field_product_category')->isEmpty()) {
+    $category_item = $product->get('field_product_category')->first();
+    $category_id = (int) ($category_item->target_id ?? 0);
+    $category = $category_item->entity;
+    if (!$category && $category_id) {
+      $category = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($category_id);
+    }
+    if ($category) {
+      $category_id = (int) $category->id();
+      $variables['product_category'] = $category->label();
+    }
   }
 
-  // --- Brand via store ---
+  // --- Brand ---
   $variables['brand_name'] = '';
   $variables['brand_url'] = '';
-  if ($product->hasField('stores') && !$product->get('stores')->isEmpty()) {
+  if ($product->hasField('field_product_brand') && !$product->get('field_product_brand')->isEmpty()) {
+    $brand = $product->get('field_product_brand')->entity;
+    if ($brand) {
+      $variables['brand_name'] = $brand->label();
+      $variables['brand_url'] = $brand->toUrl()->toString();
+    }
+  }
+  elseif ($product->hasField('stores') && !$product->get('stores')->isEmpty()) {
     $store_id = $product->get('stores')->target_id;
     $brand_nids = \Drupal::entityQuery('node')
       ->condition('type', 'brand')
@@ -346,4 +391,34 @@ function compari_preprocess_commerce_product(array &$variables): void {
 
   // Sort variations cheapest first.
   usort($variables['product_variations'], fn($a, $b) => $a['price_raw'] <=> $b['price_raw']);
+
+  // --- Related products for the You May Check section ---
+  $variables['related_products'] = [];
+  if ($category_id) {
+    $related_ids = \Drupal::entityQuery('commerce_product')
+      ->condition('field_product_category', $category_id)
+      ->condition('product_id', $product->id(), '<>')
+      ->accessCheck(TRUE)
+      ->range(0, 5)
+      ->execute();
+    foreach (\Drupal::entityTypeManager()->getStorage('commerce_product')->loadMultiple($related_ids) as $related) {
+      $related_variation = $related->getDefaultVariation();
+      $related_price = $related_variation ? $related_variation->getPrice() : NULL;
+      $related_image_url = '';
+      foreach (['field_product_image', 'field_image', 'field_media_image'] as $field_name) {
+        if ($related->hasField($field_name) && !$related->get($field_name)->isEmpty()) {
+          $related_image_url = $get_image_url($related->get($field_name)->entity);
+          if ($related_image_url) {
+            break;
+          }
+        }
+      }
+      $variables['related_products'][] = [
+        'id' => $related->id(),
+        'title' => $related->label(),
+        'image_url' => $related_image_url,
+        'price' => $related_price ? \Drupal::service('commerce_price.currency_formatter')->format($related_price->getNumber(), $related_price->getCurrencyCode()) : '',
+      ];
+    }
+  }
 }

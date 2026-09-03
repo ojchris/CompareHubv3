@@ -31,6 +31,63 @@ window.CompareHub.compare = window.CompareHub.compare || {};
 window.CompareHub.ui = window.CompareHub.ui || {};
 const CH = window.CompareHub;
 
+const COMPARE_STORAGE_KEY = 'comparehub_compare_ids';
+const COMPARE_META_KEY = 'comparehub_compare_meta';
+
+function getCompareIds() {
+  try {
+    const ids = JSON.parse(localStorage.getItem(COMPARE_STORAGE_KEY) || '[]');
+    return ids.map(id => Number(id)).filter(id => Number.isFinite(id) && id > 0);
+  } catch (error) {
+    return [];
+  }
+}
+
+function setCompareIds(ids) {
+  const unique = [...new Set(ids.map(id => Number(id)).filter(id => Number.isFinite(id) && id > 0))];
+  localStorage.setItem(COMPARE_STORAGE_KEY, JSON.stringify(unique));
+  compareList = unique;
+  return unique;
+}
+
+function getCompareMeta() {
+  try {
+    return JSON.parse(localStorage.getItem(COMPARE_META_KEY) || '{}');
+  } catch (error) {
+    return {};
+  }
+}
+
+function setCompareMeta(id, payload) {
+  const meta = getCompareMeta();
+  meta[id] = payload;
+  localStorage.setItem(COMPARE_META_KEY, JSON.stringify(meta));
+}
+
+function removeCompareMeta(id) {
+  const meta = getCompareMeta();
+  delete meta[id];
+  localStorage.setItem(COMPARE_META_KEY, JSON.stringify(meta));
+}
+
+function getProductSummaryFromNode(node) {
+  const card = node?.closest('.product-card') || node?.closest('[data-product-id]');
+  const id = Number(node?.dataset?.id || card?.dataset?.productId || card?.dataset?.id || 0);
+  const name = card?.querySelector('.product-name, [class*="product-name"]')?.textContent?.trim() || 'Product';
+  const price = card?.querySelector('.product-price, [class*="product-price"]')?.textContent?.trim() || '';
+  const image = card?.querySelector('img')?.src || '';
+  const brand = card?.querySelector('.vendor-name, [class*="vendor"]')?.textContent?.trim() || '';
+  const location = card?.querySelector('.vendor-location, .product-location, [class*="location"]')?.textContent?.trim() || 'Online';
+
+  return { id, name, price, image, brand, location, listings: [{ name: brand || 'Vendor', price, location }] };
+}
+
+function goToComparePage() {
+  const ids = getCompareIds();
+  const hash = ids.length ? `#ids=${ids.join(',')}` : '';
+  const target = '/compare' + hash;
+  window.location.href = target;
+}
 
 // ── Lucide helper — call after any DOM change ────────────────
 function renderIcons() {
@@ -78,10 +135,13 @@ window.showToast = CH.ui.showToast;
 // ============================================================
 
 function refreshCompareButtons() {
+  const activeIds = getCompareIds();
   $$('.compare-btn').forEach(btn => {
-    const id = parseInt(btn.dataset.id, 10);
-    const inList = compareList.includes(id);
-    btn.textContent = inList ? '✓ Added' : '+ Compare';
+    const id = Number(btn.dataset.id || btn.dataset.productId || 0);
+    const inList = activeIds.includes(id);
+    btn.textContent = inList ? 'Added' : '+ Compare';
+    btn.disabled = inList;
+    btn.setAttribute('aria-pressed', String(inList));
     btn.classList.toggle('in-compare', inList);
   });
 }
@@ -95,7 +155,8 @@ function refreshWishlistButtons() {
     if (!btn.dataset.id) return;
     const id = parseInt(btn.dataset.id, 10);
     const inList = savedIds.includes(id);
-    btn.textContent = inList ? '❤️ Saved' : '♡ Save';
+    btn.textContent = inList ? '♡ Saved' : '♡ Save';
+    btn.setAttribute('aria-pressed', String(inList));
     btn.classList.toggle('in-wishlist', inList);
   });
 }
@@ -123,56 +184,47 @@ function toggleWishlistId(id) {
 
 function initProductCards() {
   document.addEventListener('click', e => {
-    // Handle compare button
     const compareBtn = e.target.closest('.compare-btn');
     if (compareBtn) {
       e.preventDefault();
 
-      const id = parseInt(compareBtn.dataset.id, 10);
-      const idx = compareList.indexOf(id);
-      const productName = compareBtn.closest('.product-card, [data-id]')
-        ?.querySelector('.product-name, [class*="product-name"]')?.textContent?.trim() || `Product #${id}`;
+      const id = Number(compareBtn.dataset.id || compareBtn.dataset.productId || 0);
+      const product = getProductSummaryFromNode(compareBtn);
+      const existing = getCompareIds();
+      const idx = existing.indexOf(id);
 
       if (idx > -1) {
-        compareList.splice(idx, 1);
-        CH.ui.showToast(`"${productName}" removed from compare`);
+        existing.splice(idx, 1);
+        removeCompareMeta(id);
+        CH.ui.showToast(`"${product.name}" removed from compare`);
       } else {
-        if (compareList.length >= 4) {
+        if (existing.length >= 4) {
           CH.ui.showToast('⚠️ You can compare up to 4 products at a time');
           return;
         }
-        compareList.push(id);
-        CH.ui.showToast(`"${productName}" added to compare`);
+        existing.push(id);
+        if (id && product.name) {
+          setCompareMeta(id, product);
+        }
+        CH.ui.showToast(`"${product.name}" added to compare`);
       }
 
+      setCompareIds(existing);
+      compareList = existing;
       refreshCompareButtons();
       updateCompareBadge();
       renderCompareDrawer();
       return;
     }
 
-    // Handle wishlist button
     const wishlistBtn = e.target.closest('.wishlist-btn');
     if (wishlistBtn) {
       e.preventDefault();
-
-      // Icon-only wishlist buttons (e.g. product page header) have no data-id
-      // and handle their own toggle — let them through without this handler.
       if (!wishlistBtn.dataset.id) return;
 
-      const id = parseInt(wishlistBtn.dataset.id, 10);
-      const productName = wishlistBtn.closest('.product-card, [data-id]')
-        ?.querySelector('.product-name, [class*="product-name"]')?.textContent?.trim() || 'product';
-
+      const id = Number(wishlistBtn.dataset.id || 0);
       const wasAdded = toggleWishlistId(id);
-      CH.ui.showToast(wasAdded
-        ? `Added to wishlist`
-        : `Removed from wishlist`
-      );
-
-      // TODO (Drupal): Fire AJAX request to Drupal flag module here
-      // e.g. fetch(`/flag/flag/wishlist/${id}`, { method: 'POST' })
-
+      CH.ui.showToast(wasAdded ? 'Added to wishlist' : 'Removed from wishlist');
       refreshWishlistButtons();
       return;
     }
@@ -258,11 +310,15 @@ function renderCompareDrawer() {
 }
 
 CH.compare.removeFromCompare = function(id) {
-  const idx = compareList.indexOf(id);
-  if (idx > -1) compareList.splice(idx, 1);
+  const ids = getCompareIds();
+  const idx = ids.indexOf(Number(id));
+  if (idx > -1) ids.splice(idx, 1);
+  setCompareIds(ids);
+  removeCompareMeta(Number(id));
   refreshCompareButtons();
   updateCompareBadge();
   renderCompareDrawer();
+  renderComparePage();
   if (compareList.length === 0) closeCompareDrawer();
 };
 
@@ -271,16 +327,26 @@ function navigateToCompare() {
     CH.ui.showToast('Add products to compare first');
     return;
   }
-  window.location.href = `compare.html#ids=${compareList.join(',')}`;
+  goToComparePage();
 }
 
 function openCompareDrawer() {
   renderCompareDrawer();
-  document.getElementById('compare-drawer').classList.add('open');
+  const drawer = document.getElementById('compare-drawer');
+  const backdrop = document.getElementById('compare-drawer-backdrop');
+  if (!drawer) return;
+  drawer.classList.add('open');
+  if (backdrop) backdrop.classList.add('open');
+  drawer.setAttribute('aria-hidden', 'false');
 }
 
 function closeCompareDrawer() {
-  document.getElementById('compare-drawer').classList.remove('open');
+  const drawer = document.getElementById('compare-drawer');
+  const backdrop = document.getElementById('compare-drawer-backdrop');
+  if (!drawer) return;
+  drawer.classList.remove('open');
+  if (backdrop) backdrop.classList.remove('open');
+  drawer.setAttribute('aria-hidden', 'true');
 }
 
 function initCompareDrawer() {
@@ -292,19 +358,18 @@ function initCompareDrawer() {
 
   if (!openDrawer || !closeDrawer || !clearBtn || !compareBtn || !drawer) return;
 
+  const backdrop = document.getElementById('compare-drawer-backdrop');
+
   openDrawer.addEventListener('click', e => {
     e.preventDefault();
-    if (compareList.length === 0) {
-      CH.ui.showToast('Add products to compare first');
-      return;
-    }
     openCompareDrawer();
   });
 
   closeDrawer.addEventListener('click', closeCompareDrawer);
+  if (backdrop) backdrop.addEventListener('click', closeCompareDrawer);
 
   clearBtn.addEventListener('click', () => {
-    compareList = [];
+    setCompareIds([]);
     refreshCompareButtons();
     updateCompareBadge();
     renderCompareDrawer();
@@ -317,7 +382,7 @@ function initCompareDrawer() {
       CH.ui.showToast('Add at least 2 products to compare');
       return;
     }
-    window.location.href = `compare.html#ids=${compareList.join(',')}`;
+    goToComparePage();
   });
 
   // Close on backdrop click
@@ -743,7 +808,7 @@ function initMobileBottomNav() {
         CH.ui.showToast('Add products to compare first');
         return;
       }
-      window.location.href = `compare.html#ids=${compareList.join(',')}`;
+      goToComparePage();
     });
   }
 
@@ -785,7 +850,104 @@ function initMobileBottomNav() {
 // INIT
 // ============================================================
 
+function renderComparePage() {
+  const root = document.getElementById('compare-page-root');
+  if (!root) return;
+
+  const ids = getCompareIds();
+  const meta = getCompareMeta();
+
+  if (!ids.length) {
+    root.innerHTML = `
+      <section class="mx-auto max-w-3xl rounded-[16px] border border-dashed border-[#d1d5db] bg-white px-6 py-16 text-center shadow-sm">
+        <div class="mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-full bg-[#f3f4f6] text-[#808793]">
+          <i data-lucide="git-compare" class="h-8 w-8"></i>
+        </div>
+        <h1 class="font-inter text-xl font-bold text-[#181d25]">Your compare cart is empty</h1>
+        <p class="mx-auto mt-2 max-w-[280px] text-sm text-[#808793]">Add products from the homepage or category pages to compare prices across vendors.</p>
+        <a href="/" class="mt-6 inline-flex items-center gap-2 rounded-[14px] bg-[#155dfc] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1447e6]"><i data-lucide="arrow-left" class="h-4 w-4"></i>Browse products</a>
+      </section>
+    `;
+    renderIcons();
+    return;
+  }
+
+  const formatPrice = value => {
+    const amount = Number(value) || 0;
+    return `₦${amount.toLocaleString('en-NG')}`;
+  };
+  const getListings = item => {
+    const listings = Array.isArray(item.listings) ? item.listings : [];
+    if (listings.length) return listings.filter(listing => Number.isFinite(Number(listing.price)));
+    const amount = Number(String(item.price || '').replace(/[^\d.-]/g, ''));
+    return Number.isFinite(amount) && amount > 0 ? [{ name: item.brand || 'Vendor', price: amount, location: item.location || 'Online' }] : [];
+  };
+
+  let totalBest = 0;
+  let totalHighest = 0;
+  const products = ids.map(id => {
+    const item = meta[id] || { id, name: `Product #${id}`, price: '', image: '', brand: 'Vendor', location: 'Online' };
+    const listings = getListings(item).sort((a, b) => Number(a.price) - Number(b.price));
+    if (listings.length) {
+      totalBest += Number(listings[0].price);
+      totalHighest += Number(listings[listings.length - 1].price);
+    }
+    return { id, item, listings };
+  });
+  const totalSavings = totalHighest - totalBest;
+  const totalListings = products.reduce((count, product) => count + product.listings.length, 0);
+
+  root.innerHTML = `
+    <section class="space-y-6">
+      <div class="flex items-center gap-3 border-b border-[#f3f4f6] pb-4">
+        <i data-lucide="git-compare" class="h-5 w-5 text-[#364153]"></i>
+        <div>
+          <p class="font-inter text-lg font-medium text-[#101828]">Compare Cart</p>
+          <p class="font-inter text-xs text-[#99a1af]">${totalListings} listing${totalListings === 1 ? '' : 's'} across ${ids.length} product${ids.length === 1 ? '' : 's'}</p>
+        </div>
+      </div>
+      <div class="flex flex-col items-start gap-6 lg:flex-row">
+        <div class="flex min-w-0 flex-1 flex-col gap-5">
+        ${products.map(({ id, item, listings }) => {
+          const cheapest = listings[0];
+          const highest = listings[listings.length - 1];
+          const savings = listings.length > 1 ? Number(highest.price) - Number(cheapest.price) : 0;
+          return `
+            <article class="overflow-hidden rounded-[16px] border border-[#f3f4f6] bg-white shadow-sm">
+              <div class="flex items-center gap-4 border-b border-[#f3f4f6] px-5 py-4">
+                <a href="/product/${id}" class="h-14 w-14 shrink-0 overflow-hidden rounded-[14px] bg-[#f3f4f6]">
+                  ${item.image ? `<img src="${item.image}" alt="${item.name}" class="h-full w-full object-cover" />` : '<span class="flex h-full items-center justify-center text-[#9ca3af]"><i data-lucide="image" class="h-6 w-6"></i></span>'}
+                </a>
+                <div class="min-w-0 flex-1"><h2 class="truncate font-work text-lg font-semibold text-[#181d25]">${item.name}</h2><p class="font-inter text-xs text-[#808793]">${savings ? `Save up to ${formatPrice(savings)}` : 'Best available listing'}</p><p class="font-inter text-xs text-[#99a1af]">${listings.length} vendor${listings.length === 1 ? '' : 's'} carrying this item</p></div>
+                <button type="button" class="remove-compare-page-item rounded-[10px] p-2 text-[#99a1af] hover:bg-[#fff1f2] hover:text-[#fb2c36]" data-compare-id="${id}" aria-label="Remove ${item.name}"><i data-lucide="trash-2" class="h-4 w-4"></i></button>
+              </div>
+              <div class="overflow-x-auto"><table class="w-full min-w-[560px] text-left"><thead class="bg-[#f9fafb]"><tr><th class="px-5 py-3 font-inter text-[11px] font-semibold uppercase tracking-wide text-[#99a1af]">Vendor</th><th class="px-5 py-3 font-inter text-[11px] font-semibold uppercase tracking-wide text-[#99a1af]">Price</th><th class="px-5 py-3 font-inter text-[11px] font-semibold uppercase tracking-wide text-[#99a1af]">Location</th><th class="px-5 py-3 text-right font-inter text-[11px] font-semibold uppercase tracking-wide text-[#99a1af]">Action</th></tr></thead><tbody>${listings.length ? listings.map((listing, index) => `<tr class="border-t border-[#f3f4f6] ${index === 0 ? 'bg-[rgba(239,246,255,0.5)]' : ''}"><td class="px-5 py-4"><span class="font-work text-sm font-medium text-[#364153]">${listing.name || 'Vendor'}</span>${index === 0 ? '<span class="ml-2 rounded-full bg-[#e5edff] px-2 py-1 font-inter text-[10px] font-semibold text-[#155dfc]">Best price</span>' : ''}</td><td class="px-5 py-4 font-inter text-sm font-bold ${index === 0 ? 'text-[#155dfc]' : 'text-[#364153]'}">${formatPrice(listing.price)}</td><td class="px-5 py-4 font-inter text-sm text-[#6a7282]">${listing.location || 'Online'}</td><td class="px-5 py-4 text-right"><div class="inline-flex items-center gap-2"><a href="/product/${id}" class="rounded-[10px] bg-[#155dfc] px-3 py-2 font-inter text-xs font-semibold text-white hover:bg-[#1447e6]">Buy now</a><button type="button" class="remove-compare-page-item rounded-[10px] p-2 text-[#99a1af] hover:bg-[#fff1f2] hover:text-[#fb2c36]" data-compare-id="${id}" aria-label="Remove ${item.name}"><i data-lucide="x" class="h-4 w-4"></i></button></div></td></tr>`).join('') : '<tr><td colspan="4" class="px-5 py-6 text-center font-inter text-sm text-[#808793]">No vendor listings available</td></tr>'}</tbody></table></div>
+            </article>
+          `;
+        }).join('')}
+        </div>
+        <aside class="w-full shrink-0 overflow-hidden rounded-[16px] bg-[#155dfc] text-white shadow-sm lg:sticky lg:top-[132px] lg:w-[320px]">
+          <div class="px-5 py-5"><p class="font-inter text-[11px] font-semibold uppercase tracking-[0.8px] text-[#dbeafe]">You're saving with CompareHub</p><p class="mt-2 font-inter text-3xl font-bold">${formatPrice(totalSavings)}</p><p class="mt-1 font-inter text-sm text-[#bedbff]">vs. the most expensive listings</p><div class="mt-4 flex items-center justify-between border-t border-[#2b7fff] pt-3"><span class="font-inter text-xs text-[#bedbff]">Your cart total</span><span class="font-inter text-sm font-bold">${formatPrice(totalBest)}</span></div></div>
+          <div class="border-t border-[#e5e7eb] bg-white px-5 py-5 text-[#181d25]"><p class="font-inter text-sm font-bold">Cart Summary</p><div class="mt-4 flex flex-col gap-3">${products.map(({ id, item, listings }) => { const cheapest = listings[0]; return `<div class="flex items-center gap-3"><div class="h-10 w-10 shrink-0 overflow-hidden rounded-[10px] bg-[#f3f4f6]">${item.image ? `<img src="${item.image}" alt="${item.name}" class="h-full w-full object-cover">` : ''}</div><div class="min-w-0 flex-1"><p class="truncate font-inter text-xs font-semibold">${item.name}</p><p class="truncate font-inter text-xs text-[#99a1af]">${cheapest?.name || 'Vendor'}</p></div><div class="text-right"><p class="font-inter text-xs font-bold text-[#155dfc]">${cheapest ? formatPrice(cheapest.price) : 'N/A'}</p><p class="font-inter text-[11px] text-[#2b7fff]">Best price</p></div></div>`; }).join('')}</div><div class="mt-4 flex items-center justify-between border-t border-[#f3f4f6] pt-3"><span class="font-inter text-sm text-[#6a7282]">Est. total</span><span class="font-inter text-sm font-bold">${formatPrice(totalBest)}</span></div><a href="/" class="mt-4 flex w-full items-center justify-center gap-2 rounded-[14px] border border-[#e5e7eb] px-4 py-3 font-inter text-sm font-semibold text-[#364153] hover:bg-[#f9fafb]"><i data-lucide="arrow-left" class="h-4 w-4"></i>Continue browsing</a></div>
+        </aside>
+      </div>
+    </section>
+  `;
+
+  document.querySelectorAll('.remove-compare-page-item').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = Number(btn.dataset.compareId || 0);
+      CH.compare.removeFromCompare(id);
+    });
+  });
+
+  renderIcons();
+}
+
+compareList = getCompareIds();
+
 document.addEventListener('DOMContentLoaded', () => {
+  renderComparePage();
   initSlider();
   initCategoryTabs();
   initProductCards();
@@ -801,5 +963,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initLocationModal();
   refreshCompareButtons();
   refreshWishlistButtons();
+  updateCompareBadge();
   renderIcons();
 });

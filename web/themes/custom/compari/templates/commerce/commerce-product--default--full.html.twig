@@ -1,0 +1,237 @@
+{#
+/**
+ * @file
+ * commerce-product--default--full.html.twig
+ *
+ * Full product detail page styled like the Tailwind product.html template.
+ *
+ * Variables from compari_preprocess_commerce_product():
+ *  - product_entity: The product entity.
+ *  - product_image_url: Absolute URL of the product image.
+ *  - product_category: Category term name.
+ *  - brand_name: Name of the Brand node linked to this product's store.
+ *  - brand_url: URL to the Brand page.
+ *  - product_price: Formatted best price string.
+ *  - product_variations: Array of variation data (sku, title, price, brand_name, brand_url).
+ */
+#}
+
+{% set product_title = product_entity.title.value %}
+{% set product_desc = product_description|default('') %}
+
+{# ── Mobile Header ──────────────────────────────────────────────────────────── #}
+<div class="sm:hidden fixed top-0 left-0 right-0 z-50" style="padding:12px 16px;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px)">
+  <div class="flex items-center justify-between">
+    <a href="javascript:history.back()" class="w-9 h-9 rounded-full flex items-center justify-center shrink-0" style="background:rgba(255,255,255,0.8);box-shadow:0 1px 6px rgba(0,0,0,0.1)">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#364153" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+    </a>
+    <div class="flex items-center gap-2">
+      <button class="w-9 h-9 rounded-full flex items-center justify-center shrink-0" style="background:rgba(255,255,255,0.8);box-shadow:0 1px 6px rgba(0,0,0,0.1)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#364153" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+{# ── Desktop Breadcrumbs ─────────────────────────────────────────────────────── #}
+<div class="hidden sm:flex relative z-10 h-[49px] items-center bg-white border-b border-[#f3f4f6] px-4 sm:px-8 lg:px-[120px]">
+  <div class="flex items-center gap-2">
+    <a href="/" class="font-work font-medium text-[16px] text-[#155dfc] hover:underline">Home</a>
+    <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-[#808793]"></i>
+    {% if product_category %}
+      <span class="font-work font-medium text-[16px] text-[#155dfc]">{{ product_category }}</span>
+      <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-[#808793]"></i>
+    {% endif %}
+    <span class="font-work font-medium text-[16px] text-[#808793] truncate max-w-[300px]">{{ product_title }}</span>
+  </div>
+</div>
+
+{# ── Main Content ────────────────────────────────────────────────────────────── #}
+<main class="bg-[#f9fafb]">
+  <div class="hidden sm:block" style="height:24px"></div>
+
+  {# ── Mobile Hero ───────────────────────────────────────────────────────────── #}
+  <div class="sm:hidden" style="margin-top:53px">
+    <div class="relative w-full" style="height:300px">
+      {% if product_image_url %}
+        <img src="{{ product_image_url }}" alt="{{ product_title }}" class="w-full h-full object-cover">
+      {% else %}
+        <div class="w-full h-full bg-[#f3f4f6] flex items-center justify-center">
+          <i data-lucide="image" class="w-16 h-16 text-[#d1d5db]"></i>
+        </div>
+      {% endif %}
+      {% if product_category %}
+        <div class="absolute bottom-3 left-3 bg-[#155dfc] text-white font-inter font-bold text-[10px] px-3 py-1.5 rounded-full uppercase tracking-[0.4px]">
+          {{ product_category }}
+        </div>
+      {% endif %}
+    </div>
+
+    {# Sliding white card #}
+    <div class="relative z-10 bg-white rounded-t-[28px] -mt-6 px-4 pt-5 pb-6">
+      <h1 class="font-work font-semibold text-[18px] text-[#364153] leading-tight mb-1 tracking-[-0.4px]">{{ product_title }}</h1>
+      {% if product_price %}
+        <p class="font-work font-bold text-[24px] text-[#155dfc] leading-none mb-3">{{ product_price }}</p>
+      {% endif %}
+      {% if product_desc %}
+        <p class="font-inter text-[13px] text-[#6a7282] leading-[21px] mb-4">{{ product_desc }}</p>
+      {% endif %}
+      <div class="grid grid-cols-2 gap-x-4 gap-y-2.5">
+        {% for feature in [['shield-check','Verified brands'],['truck','Fast delivery'],['package','Secure packaging'],['badge-check','Genuine products']] %}
+          <div class="flex items-center gap-2">
+            <i data-lucide="{{ feature[0] }}" class="w-3.5 h-3.5 text-[#16a34a] shrink-0"></i>
+            <span class="font-inter text-[12px] text-[#6a7282]">{{ feature[1] }}</span>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  {# ── Desktop: main two-column layout ──────────────────────────────────────── #}
+  <div class="max-w-[1290px] mx-auto px-4 sm:px-8 py-4 sm:py-8">
+
+    <a href="javascript:history.back()" class="hidden sm:inline-flex items-center gap-1.5 font-work font-medium text-[14px] text-[#5a6372] hover:text-[#155dfc] transition-colors mb-6">
+      <i data-lucide="arrow-left" class="w-4 h-4"></i> Back
+    </a>
+
+    <div class="hidden sm:flex flex-row gap-6 sm:gap-8 mb-8 sm:mb-10">
+
+      {# Left: Image panel #}
+      <div class="relative bg-white rounded-[16px] overflow-hidden shrink-0 sm:w-[460px] lg:w-[540px]" style="box-shadow:0 2px 12px rgba(0,0,0,0.08)">
+        <div class="absolute top-4 left-4 z-10 bg-[#155dfc] text-white font-work font-semibold text-[12px] px-3 py-1 rounded-full">
+          {{ product_category|default('Product') }}
+        </div>
+        <div class="flex items-center justify-center bg-[#f9fafb]" style="height:340px">
+          {% if product_image_url %}
+            <img src="{{ product_image_url }}" alt="{{ product_title }}" class="w-full h-full object-contain p-6">
+          {% else %}
+            <div class="w-full h-full flex items-center justify-center">
+              <i data-lucide="image" class="w-20 h-20 text-[#d1d5db]"></i>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      {# Right: Product info #}
+      <div class="flex-1 min-w-0">
+        <h1 class="font-work font-bold text-[28px] text-[#181d25] leading-tight mb-3">{{ product_title }}</h1>
+
+        {% if product_desc %}
+          <p class="font-work text-[14px] text-[#5a6372] leading-relaxed mb-5">{{ product_desc }}</p>
+        {% endif %}
+
+        {# Best price amber box #}
+        {% if product_price %}
+          <div class="rounded-[14px] border p-5 mb-5" style="background:#fffbeb;border-color:#fde68a">
+            <div class="flex items-center gap-1.5 mb-2">
+              <span class="text-[14px]">💰</span>
+              <span class="font-work font-semibold text-[11px] text-[#92400e] tracking-[0.7px] uppercase">Best Price Available</span>
+            </div>
+            <p class="font-work font-bold text-[32px] text-[#181d25] leading-none mb-1">{{ product_price }}</p>
+            {% if brand_name %}
+              <p class="font-work text-[13px] text-[#5a6372]">
+                from <a href="{{ brand_url }}" class="font-semibold text-[#181d25] hover:text-[#155dfc] transition-colors" style="text-decoration:none">{{ brand_name }}</a>
+              </p>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {# Feature grid #}
+        <div class="grid grid-cols-2 gap-3">
+          {% for feature in [['Verified brands'],['Fast delivery'],['Secure packaging'],['Genuine products']] %}
+            <div class="flex items-center gap-2">
+              <div class="w-6 h-6 rounded-full bg-[#dcfce7] flex items-center justify-center shrink-0">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-[#16a34a]"></i>
+              </div>
+              <span class="font-work text-[13px] text-[#364153]">{{ feature[0] }}</span>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    {# ── Compare Vendors / Variations table ─────────────────────────────────── #}
+    {% if product_variations %}
+      <div class="bg-white sm:rounded-[16px] overflow-hidden mb-4 sm:mb-6" style="box-shadow:0 2px 12px rgba(0,0,0,0.06)">
+        <div class="flex items-center justify-between px-4 sm:px-6 py-4 border-b border-[#f3f4f6]">
+          <h2 class="font-inter font-bold text-[15px] sm:text-[18px] text-[#101828]">Compare Vendors</h2>
+          <span class="bg-[#f3f4f6] text-[#99a1af] font-inter text-[11px] px-3 py-1 rounded-full">
+            {{ product_variations|length }} listing{{ product_variations|length > 1 ? 's' : '' }}
+          </span>
+        </div>
+
+        <div class="sm:divide-y sm:divide-[#f3f4f6] flex flex-col gap-3 sm:gap-0 p-4 sm:p-0">
+          {% for variation in product_variations %}
+            {% set is_cheapest = loop.first %}
+            <div class="vendor-row relative flex items-center gap-4 px-4 sm:px-6 py-4 bg-white rounded-[12px] sm:rounded-none border border-[#f3f4f6] sm:border-0" {% if is_cheapest %}style="background:#f0fdf4"{% endif %}>
+              {# Cheapest badge #}
+              {% if is_cheapest and product_variations|length > 1 %}
+                <span class="absolute top-3 right-3 sm:hidden bg-[#dcfce7] text-[#16a34a] font-inter font-bold text-[10px] px-2 py-0.5 rounded-full">Cheapest</span>
+              {% endif %}
+
+              {# Brand avatar #}
+              <div class="w-10 h-10 rounded-[10px] bg-[#f3f4f6] flex items-center justify-center shrink-0 font-work font-bold text-[15px] text-[#155dfc]">
+                {{ variation.brand_name|first|upper }}
+              </div>
+
+              <div class="flex-1 min-w-0">
+                <a href="{{ variation.brand_url }}" class="font-work font-semibold text-[14px] text-[#181d25] hover:text-[#155dfc] transition-colors block truncate" style="text-decoration:none">
+                  {{ variation.brand_name ?: variation.title }}
+                </a>
+                <p class="font-inter text-[12px] text-[#808793]">{{ variation.sku }}</p>
+              </div>
+
+              <div class="text-right shrink-0">
+                <p class="font-work font-bold text-[16px] text-[#181d25]">{{ variation.price }}</p>
+                {% if is_cheapest and product_variations|length > 1 %}
+                  <span class="hidden sm:inline bg-[#dcfce7] text-[#16a34a] font-inter font-bold text-[10px] px-2 py-0.5 rounded-full">Cheapest</span>
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+        {# Savings banner if multiple variations #}
+        {% if product_variations|length > 1 %}
+          {% set max_price = product_variations|last %}
+          {% set min_price = product_variations|first %}
+          {% if max_price.price_raw > min_price.price_raw %}
+            <div class="mx-4 sm:mx-6 my-4 rounded-[16px] border border-[#d0fae5] px-4 py-3.5 flex flex-col gap-1" style="background:#ecfdf5">
+              <p class="font-inter font-bold text-[14px] text-[#006045]">💰 Compare prices across brands</p>
+              <p class="font-inter text-[12px] text-[#009966]">Prices may vary — choose what works best for you</p>
+            </div>
+          {% endif %}
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if related_products %}
+      <section class="mb-10">
+        <div class="flex items-center justify-between mb-5">
+          <h2 class="font-work font-bold text-[18px] sm:text-[20px] text-[#181d25]">You May Check</h2>
+          <a href="/category/{{ product_category|lower|replace({' ': '-'}) }}" class="font-work font-medium text-[13px] text-[#155dfc] hover:underline flex items-center gap-1">
+            View all <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </a>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-5">
+          {% for related in related_products %}
+            <a href="/product/{{ related.id }}" class="bg-white rounded-[14px] overflow-hidden border border-[#f3f4f6] hover:shadow-md transition-shadow" style="text-decoration:none">
+              <div class="h-[150px] bg-[#f9fafb] flex items-center justify-center">
+                {% if related.image_url %}
+                  <img src="{{ related.image_url }}" alt="{{ related.title }}" class="w-full h-full object-contain p-3">
+                {% else %}
+                  <i data-lucide="image" class="w-8 h-8 text-[#d1d5db]"></i>
+                {% endif %}
+              </div>
+              <div class="p-3">
+                <p class="font-work font-semibold text-[13px] text-[#364153] truncate">{{ related.title }}</p>
+                {% if related.price %}<p class="font-work font-bold text-[15px] text-[#155dfc] mt-1">{{ related.price }}</p>{% endif %}
+              </div>
+            </a>
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
+
+  </div>
+</main>
