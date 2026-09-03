@@ -1,0 +1,7 @@
+﻿{#
+  flag--compare.html.twig
+  The outer span is REQUIRED for AJAX DOM replacement to work.
+#}
+<span class="flag-wrapper flag-{{ flag.id()|clean_class }} flag-{{ flag.id()|clean_class }}-{{ flaggable.id() }}">
+  <a{{ attributes.addClass(['compare-btn', 'w-full', 'flex', 'items-center', 'justify-center', 'use-ajax']) }} style="text-decoration:none;">{{ title }}</a>
+</span>

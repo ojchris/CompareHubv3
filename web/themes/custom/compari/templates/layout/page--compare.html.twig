@@ -1,0 +1,24 @@
+{#
+  Compare page template for /compare.
+  Mirrors the Tailwind compare UX and reads the compare list from localStorage.
+#}
+
+{% include directory ~ '/templates/includes/header.html.twig' %}
+
+<main class="min-h-screen bg-[#f9fafb] px-4 pb-20 pt-28 sm:px-8 lg:px-[111px]">
+  <div class="mx-auto max-w-[1290px]">
+    <div id="compare-page-root" class="space-y-6"></div>
+  </div>
+</main>
+
+{% include directory ~ '/templates/includes/footer.html.twig' %}
+{% include directory ~ '/templates/includes/mobile_nav.html.twig' %}
+<div id="toast"></div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    if (window.renderComparePage) {
+      window.renderComparePage();
+    }
+  });
+</script>

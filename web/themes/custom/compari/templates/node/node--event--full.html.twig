@@ -1,0 +1,131 @@
+{#
+/**
+ * @file
+ * Theme override for an event node (full view).
+ */
+#}
+{%
+  set img_uri = node.field_images.entity ? node.field_images.entity.uri.value : (node.field_image.entity ? node.field_image.entity.uri.value : null)
+%}
+{%
+  set img_url = img_uri ? file_url(img_uri) : ''
+%}
+{%
+  set event_date_ts = node.field_scheduled_date.value
+%}
+{%
+  set event_date_end_ts = node.field_scheduled_date.end_value
+%}
+{%
+  set event_day_full = event_date_ts ? event_date_ts|date('l, F jS Y') : ''
+%}
+{%
+  set event_time_start = event_date_ts ? event_date_ts|date('g:i A') : ''
+%}
+{%
+  set event_time_end = event_date_end_ts ? event_date_end_ts|date('g:i A') : ''
+%}
+{%
+  set event_time_string = event_time_start ~ (event_time_end ? ' - ' ~ event_time_end : '') ~ ' WAT'
+%}
+
+<!-- MOBILE HEADER -->
+<div class="sm:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#f3f4f6] h-[65px] shadow-soft-top" style="margin-top: 70px;">
+  <div class="flex items-center gap-3 px-4 h-full">
+    <a href="/events" class="w-9 h-9 rounded-full bg-[#f3f4f6] flex items-center justify-center shrink-0">
+      <i data-lucide="arrow-left" class="w-4 h-4 text-[#364153]" aria-hidden="true"></i>
+    </a>
+    <div class="flex-1 min-w-0">
+      <p class="font-work font-bold text-[15px] text-[#101828] leading-tight truncate">Event Details</p>
+      <p class="font-inter text-[11px] text-[#99a1af] leading-tight truncate">{{ node.label() }}</p>
+    </div>
+  </div>
+</div>
+
+<!-- BREADCRUMB (desktop only) -->
+<div class="hidden sm:flex bg-white border-b border-[#f3f4f6] px-[120px]" style="height:49px;align-items:center">
+  <div class="flex items-center gap-2">
+    <a href="/" class="font-work font-medium text-[16px] text-[#155dfc] hover:underline">Home</a>
+    <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-[#808793]" aria-hidden="true"></i>
+    <a href="/events" class="font-work font-medium text-[16px] text-[#808793] hover:text-[#155dfc]">Events</a>
+    <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-[#808793]" aria-hidden="true"></i>
+    <span class="font-work font-medium text-[14px] text-[#808793]">{{ node.label() }}</span>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<section class="sm:mt-0 mt-[65px] max-w-[1285px] mx-auto px-4 sm:px-[114px] py-8 sm:py-10">
+  <div class="flex flex-col lg:flex-row gap-10 lg:gap-[69px] items-start">
+
+    <!-- LEFT: Image + CTA -->
+    <div class="lg:w-[480px] shrink-0 flex flex-col gap-[35px] w-full">
+      <!-- Square event image -->
+      <div class="w-full rounded-[16px] overflow-hidden bg-gray-100" style="aspect-ratio:1/1">
+        {% if img_url %}
+          <img src="{{ img_url }}" alt="{{ node.label() }}" class="w-full h-full object-cover">
+        {% else %}
+          <div class="w-full h-full bg-gradient-to-br from-blue-100 to-blue-200"></div>
+        {% endif %}
+      </div>
+      <!-- CTA button -->
+      <button onclick="alert('Ticket integration pending...')" class="w-full bg-[#155dfc] text-white font-inter font-medium text-[14px] h-[42px] rounded-[8px] flex items-center justify-center hover:bg-[#1447e6] transition-colors tracking-[-0.28px]">
+        Get a Ticket
+      </button>
+    </div>
+
+    <!-- RIGHT: Event details -->
+    <div class="flex-1 flex flex-col gap-[33px] w-full">
+
+      <!-- Title + price + meta -->
+      <div class="flex flex-col gap-7">
+        <h1 class="font-work font-bold text-[24px] sm:text-[30px] text-[#364153] leading-[1.2] tracking-[-0.60px]">{{ node.label() }}</h1>
+        <p class="font-inter font-semibold text-[18px] text-[#363535] leading-[20px]">Free</p>
+
+        <!-- Details list -->
+        <div class="flex flex-col gap-8">
+          {% if event_day_full %}
+            <div class="flex items-center gap-4">
+              <i data-lucide="calendar" class="w-6 h-6 text-[#364153] shrink-0" aria-hidden="true"></i>
+              <span class="font-work text-[16px] text-[#364153]">{{ event_day_full }}</span>
+            </div>
+          {% endif %}
+          
+          {% if event_time_start %}
+            <div class="flex items-center gap-4">
+              <i data-lucide="clock" class="w-6 h-6 text-[#364153] shrink-0" aria-hidden="true"></i>
+              <span class="font-work text-[16px] text-[#364153]">{{ event_time_string }}</span>
+            </div>
+          {% endif %}
+
+          {% if node.field_host_organizer.entity %}
+            <div class="flex items-center gap-4">
+              <i data-lucide="map-pin" class="w-6 h-6 text-[#364153] shrink-0" aria-hidden="true"></i>
+              <span class="font-work text-[16px] text-[#364153]">{{ node.field_host_organizer.entity.label() }}</span>
+            </div>
+          {% endif %}
+          
+          <div class="flex items-center gap-4 cursor-pointer group" onclick="alert('Save integration pending...')">
+            <i data-lucide="bookmark" class="w-6 h-6 text-[#364153] shrink-0 group-hover:text-[#155dfc] transition-colors" aria-hidden="true"></i>
+            <span class="font-work text-[16px] text-[#364153] group-hover:text-[#155dfc] transition-colors">Save Event</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <hr class="border-[#e4e7ec]">
+
+      <!-- About this event -->
+      <div class="flex flex-col gap-6">
+        <h3 class="font-work font-medium text-[18px] text-[#2e3747] tracking-[-0.36px]">About this event</h3>
+        <div class="font-work text-[18px] text-[#364153] leading-[27px] event-description-content">
+          {% if node.field_description.value %}
+            {{ node.field_description.value|raw }}
+          {% else %}
+            Join us for this amazing event!
+          {% endif %}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

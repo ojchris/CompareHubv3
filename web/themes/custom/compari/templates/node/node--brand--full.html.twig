@@ -1,0 +1,81 @@
+{#
+/**
+ * @file
+ * node--brand--full.html.twig
+ *
+ * Full-page view of a Brand node.
+ * Styled to look like the brand/store listing page from the CompareHub Tailwind template.
+ *
+ * Available variables:
+ *  - node: The brand node entity.
+ *  - store_products: Rendered product grid passed from compari_preprocess_node.
+ *  - store_product_count: Number of products.
+ */
+#}
+
+{% set brand_name = node.label() %}
+
+{# Try to get the brand logo from field_logo #}
+{% set logo_uri = node.field_logo.entity ? node.field_logo.entity.uri.value : null %}
+{% set logo_url = logo_uri ? file_url(logo_uri) : '' %}
+
+{# Store description #}
+{% set brand_desc = '' %}
+{% set brand_body_value = '' %}
+{% if node.body.value is defined %}
+  {% set brand_body_value = node.body.value %}
+{% elseif node.body.0.value is defined %}
+  {% set brand_body_value = node.body.0.value %}
+{% endif %}
+{% if brand_body_value is iterable %}
+  {% set brand_body_value = brand_body_value.value|default(brand_body_value[0].value|default('')) %}
+{% endif %}
+{% set brand_desc = brand_body_value|default('')|striptags|trim %}
+
+{# ── Hero / Brand Header ─────────────────────────────────────────────────── #}
+<section class="bg-[#f8f9fb] border-b border-[#e4e7ec] py-8">
+  <div class="max-w-[1290px] mx-auto px-4 sm:px-6">
+    <div class="flex flex-col sm:flex-row items-start sm:items-center gap-5">
+
+      {# Brand logo avatar #}
+      <div class="w-[80px] h-[80px] rounded-[16px] overflow-hidden bg-white border border-[#e4e7ec] shrink-0 flex items-center justify-center">
+        {% if logo_url %}
+          <img src="{{ logo_url }}" alt="{{ brand_name }}" class="w-full h-full object-contain p-2">
+        {% else %}
+          <span class="font-work font-bold text-[28px] text-[#155dfc]">{{ brand_name|first|upper }}</span>
+        {% endif %}
+      </div>
+
+      {# Brand info #}
+      <div class="flex-1 min-w-0">
+        <h1 class="font-work font-bold text-[24px] sm:text-[28px] text-[#101828] leading-tight">{{ brand_name }}</h1>
+        {% if brand_desc %}
+          <p class="font-work text-[14px] text-[#6a7282] mt-1 leading-relaxed max-w-[600px]">{{ brand_desc }}</p>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{# ── Products Grid ────────────────────────────────────────────────────────── #}
+<section class="max-w-[1290px] mx-auto px-4 sm:px-6 py-8">
+  <div class="flex items-center justify-between mb-6">
+    <h2 class="font-work font-semibold text-[18px] text-[#181d25]">
+      Products
+      {% if store_product_count > 0 %}
+        <span class="font-work font-normal text-[14px] text-[#6a7282] ml-2">({{ store_product_count }})</span>
+      {% endif %}
+    </h2>
+  </div>
+
+  {% if store_products %}
+    <div class="store-products-grid">
+      {{ store_products }}
+    </div>
+  {% else %}
+    <div class="text-center py-16 bg-[#f9fafb] rounded-[16px]">
+      <p class="font-work text-[15px] text-[#6a7282]">No products found for this brand.</p>
+    </div>
+  {% endif %}
+</section>
