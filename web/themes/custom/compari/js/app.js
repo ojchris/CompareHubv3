@@ -34,6 +34,38 @@ const CH = window.CompareHub;
 const COMPARE_STORAGE_KEY = 'comparehub_compare_ids';
 const COMPARE_META_KEY = 'comparehub_compare_meta';
 
+// Vendor avatar helpers (matches compare.html Figma colours)
+const AVATAR_COLORS = [
+  { bg: '#ffe4e6', text: '#c70036' },
+  { bg: '#fef3c6', text: '#bb4d00' },
+  { bg: '#ecfcca', text: '#497d00' },
+  { bg: '#dbeafe', text: '#1447e6' },
+  { bg: '#ede9fe', text: '#6d28d9' },
+  { bg: '#d1fae5', text: '#065f46' },
+];
+const VENDOR_COLORS = {
+  'ELECTROMART': { bg: '#dcfce7', text: '#008236' },
+  'GADGETPRO':   { bg: '#ffedd4', text: '#ca3500' },
+  'TECHSTORE':   { bg: '#dbeafe', text: '#1447e6' },
+  'SMARTBUY':    { bg: '#ede9fe', text: '#6d28d9' },
+  'DIGIZONE':    { bg: '#fef3c6', text: '#bb4d00' },
+  'NAIJAFOODS':  { bg: '#d1fae5', text: '#065f46' },
+  'FOODHUB':     { bg: '#ffe4e6', text: '#c70036' },
+  'GREENFARM':   { bg: '#ecfcca', text: '#497d00' },
+};
+function vendorColor(name) {
+  if (!name) return AVATAR_COLORS[0];
+  const known = VENDOR_COLORS[name.toUpperCase()];
+  if (known) return known;
+  // Deterministic fallback based on first char code so the same vendor
+  // always gets the same colour even if not in the table above.
+  const idx = name.toUpperCase().charCodeAt(0) % AVATAR_COLORS.length;
+  return AVATAR_COLORS[idx];
+}
+function getInitials(name) {
+  return ((name || '?').trim()[0] || '?').toUpperCase();
+}
+
 function getCompareIds() {
   try {
     const ids = JSON.parse(localStorage.getItem(COMPARE_STORAGE_KEY) || '[]');
@@ -850,7 +882,46 @@ function initMobileBottomNav() {
 // INIT
 // ============================================================
 
-function renderComparePage() {
+async function loadCompareListings(ids) {
+  if (!ids.length) return {};
+
+  const listingsByProduct = {};
+  
+  await Promise.all(ids.map(async (id) => {
+    try {
+      const paths = [`/compare-listings/${id}`, `/compare-listing/${id}`];
+      let response;
+      for (const path of paths) {
+        response = await fetch(path, { headers: { Accept: 'text/html' } });
+        if (response.ok) break;
+      }
+      if (!response?.ok) return;
+
+      const documentFragment = new DOMParser().parseFromString(await response.text(), 'text/html');
+      documentFragment.querySelectorAll('.compare-listing-row').forEach(row => {
+        const productId = Number(row.dataset.productId || id);
+        const price = Number(String(row.dataset.price || '').replace(/[^\d.-]/g, ''));
+        if (!productId || !Number.isFinite(price)) return;
+
+        if (!listingsByProduct[productId]) listingsByProduct[productId] = [];
+        listingsByProduct[productId].push({
+          variationId: Number(row.dataset.variationId || 0),
+          category: row.dataset.category || '',
+          name: row.dataset.vendor || row.dataset.store || 'Vendor',
+          store: row.dataset.store || '',
+          location: row.dataset.location || 'Online',
+          price,
+        });
+      });
+    } catch (e) {
+      console.error('Failed to load listings for product', id, e);
+    }
+  }));
+  
+  return listingsByProduct;
+}
+
+async function renderComparePage() {
   const root = document.getElementById('compare-page-root');
   if (!root) return;
 
@@ -872,6 +943,8 @@ function renderComparePage() {
     return;
   }
 
+  const listingsByProduct = await loadCompareListings(ids);
+
   const formatPrice = value => {
     const amount = Number(value) || 0;
     return `₦${amount.toLocaleString('en-NG')}`;
@@ -887,6 +960,7 @@ function renderComparePage() {
   let totalHighest = 0;
   const products = ids.map(id => {
     const item = meta[id] || { id, name: `Product #${id}`, price: '', image: '', brand: 'Vendor', location: 'Online' };
+    if (listingsByProduct[id]?.length) item.listings = listingsByProduct[id];
     const listings = getListings(item).sort((a, b) => Number(a.price) - Number(b.price));
     if (listings.length) {
       totalBest += Number(listings[0].price);
@@ -901,10 +975,14 @@ function renderComparePage() {
     <section class="space-y-6">
       <div class="flex items-center gap-3 border-b border-[#f3f4f6] pb-4">
         <i data-lucide="git-compare" class="h-5 w-5 text-[#364153]"></i>
-        <div>
+        <div class="flex-1">
           <p class="font-inter text-lg font-medium text-[#101828]">Compare Cart</p>
           <p class="font-inter text-xs text-[#99a1af]">${totalListings} listing${totalListings === 1 ? '' : 's'} across ${ids.length} product${ids.length === 1 ? '' : 's'}</p>
         </div>
+        <button type="button" id="clear-all-compare" class="flex items-center gap-1.5 rounded-[10px] px-3 py-1.5 font-inter text-xs font-semibold text-[#fb2c36] hover:bg-[#fff1f2] transition-colors">
+          <i data-lucide="trash-2" class="h-3.5 w-3.5"></i>
+          Clear all
+        </button>
       </div>
       <div class="flex flex-col items-start gap-6 lg:flex-row">
         <div class="flex min-w-0 flex-1 flex-col gap-5">
@@ -913,23 +991,38 @@ function renderComparePage() {
           const highest = listings[listings.length - 1];
           const savings = listings.length > 1 ? Number(highest.price) - Number(cheapest.price) : 0;
           return `
-            <article class="overflow-hidden rounded-[16px] border border-[#f3f4f6] bg-white shadow-sm">
-              <div class="flex items-center gap-4 border-b border-[#f3f4f6] px-5 py-4">
-                <a href="/product/${id}" class="h-14 w-14 shrink-0 overflow-hidden rounded-[14px] bg-[#f3f4f6]">
-                  ${item.image ? `<img src="${item.image}" alt="${item.name}" class="h-full w-full object-cover" />` : '<span class="flex h-full items-center justify-center text-[#9ca3af]"><i data-lucide="image" class="h-6 w-6"></i></span>'}
+            <article class="overflow-hidden rounded-[16px] border border-[#f3f4f6] bg-white" style="box-shadow:0 1px 3px rgba(0,0,0,0.08)">
+              <div class="flex items-center gap-4 px-5 py-4 border-b border-[#f3f4f6]">
+                <a href="/product/${id}" class="w-14 h-14 rounded-[14px] overflow-hidden bg-[#f3f4f6] shrink-0">
+                  ${item.image ? `<img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover" />` : '<span class="flex h-full items-center justify-center text-[#9ca3af]"><i data-lucide="image" class="h-6 w-6"></i></span>'}
                 </a>
-                <div class="min-w-0 flex-1"><h2 class="truncate font-work text-lg font-semibold text-[#181d25]">${item.name}</h2><p class="font-inter text-xs text-[#808793]">${savings ? `Save up to ${formatPrice(savings)}` : 'Best available listing'}</p><p class="font-inter text-xs text-[#99a1af]">${listings.length} vendor${listings.length === 1 ? '' : 's'} carrying this item</p></div>
-                <button type="button" class="remove-compare-page-item rounded-[10px] p-2 text-[#99a1af] hover:bg-[#fff1f2] hover:text-[#fb2c36]" data-compare-id="${id}" aria-label="Remove ${item.name}"><i data-lucide="trash-2" class="h-4 w-4"></i></button>
+                <div class="flex-1 min-w-0">
+                  <p class="font-inter text-[12px] text-[#99a1af]">${cheapest?.category || 'Product'}</p>
+                  <a href="/product/${id}" class="font-inter font-bold text-[18px] text-[#101828] leading-tight hover:text-[#155dfc] transition-colors block">${item.name}</a>
+                </div>
+                <div class="flex items-center gap-2 shrink-0">
+                  ${savings > 0 ? `
+                    <div class="bg-[#eff6ff] flex items-center gap-1.5 px-3 h-[28px] rounded-[14px]">
+                      <i data-lucide="trending-down" class="w-3.5 h-3.5 text-[#1447e6]" aria-hidden="true"></i>
+                      <span class="font-inter font-semibold text-[12px] text-[#1447e6] whitespace-nowrap">Save up to ${formatPrice(savings)}</span>
+                    </div>` : ''}
+                  <div class="bg-[#f3f4f6] px-3 h-[24px] flex items-center rounded-[10px]">
+                    <span class="font-inter text-[12px] text-[#99a1af]">${listings.length} vendor${listings.length === 1 ? '' : 's'}</span>
+                  </div>
+                </div>
               </div>
-              <div class="overflow-x-auto"><table class="w-full min-w-[560px] text-left"><thead class="bg-[#f9fafb]"><tr><th class="px-5 py-3 font-inter text-[11px] font-semibold uppercase tracking-wide text-[#99a1af]">Vendor</th><th class="px-5 py-3 font-inter text-[11px] font-semibold uppercase tracking-wide text-[#99a1af]">Price</th><th class="px-5 py-3 font-inter text-[11px] font-semibold uppercase tracking-wide text-[#99a1af]">Location</th><th class="px-5 py-3 text-right font-inter text-[11px] font-semibold uppercase tracking-wide text-[#99a1af]">Action</th></tr></thead><tbody>${listings.length ? listings.map((listing, index) => `<tr class="border-t border-[#f3f4f6] ${index === 0 ? 'bg-[rgba(239,246,255,0.5)]' : ''}"><td class="px-5 py-4"><span class="font-work text-sm font-medium text-[#364153]">${listing.name || 'Vendor'}</span>${index === 0 ? '<span class="ml-2 rounded-full bg-[#e5edff] px-2 py-1 font-inter text-[10px] font-semibold text-[#155dfc]">Best price</span>' : ''}</td><td class="px-5 py-4 font-inter text-sm font-bold ${index === 0 ? 'text-[#155dfc]' : 'text-[#364153]'}">${formatPrice(listing.price)}</td><td class="px-5 py-4 font-inter text-sm text-[#6a7282]">${listing.location || 'Online'}</td><td class="px-5 py-4 text-right"><div class="inline-flex items-center gap-2"><a href="/product/${id}" class="rounded-[10px] bg-[#155dfc] px-3 py-2 font-inter text-xs font-semibold text-white hover:bg-[#1447e6]">Buy now</a><button type="button" class="remove-compare-page-item rounded-[10px] p-2 text-[#99a1af] hover:bg-[#fff1f2] hover:text-[#fb2c36]" data-compare-id="${id}" aria-label="Remove ${item.name}"><i data-lucide="x" class="h-4 w-4"></i></button></div></td></tr>`).join('') : '<tr><td colspan="4" class="px-5 py-6 text-center font-inter text-sm text-[#808793]">No vendor listings available</td></tr>'}</tbody></table></div>
+              <div class="overflow-x-auto"><table class="w-full min-w-[560px] text-left"><thead class="bg-[#f9fafb]"><tr><th class="px-5 py-3 font-inter text-[11px] font-semibold uppercase tracking-wide text-[#99a1af] w-[220px]">Vendor</th><th class="px-4 py-3 font-inter text-[11px] font-semibold uppercase tracking-wide text-[#99a1af] w-[150px]">Price</th><th class="px-4 py-3 font-inter text-[11px] font-semibold uppercase tracking-wide text-[#99a1af] w-[130px]">Location</th><th class="px-4 py-3 text-right font-inter text-[11px] font-semibold uppercase tracking-wide text-[#99a1af]">Action</th></tr></thead><tbody>${listings.length ? listings.map((listing, index) => { const col = vendorColor(listing.name); const isBest = index === 0; const diff = isBest ? null : Number(listing.price) - Number(listings[0].price); const buyBg = isBest ? '#155dfc' : '#f3f4f6'; const buyText = isBest ? 'color:white' : 'color:#364153'; return `<tr class="border-b border-[#f9fafb] ${isBest ? 'bg-[rgba(239,246,255,0.5)]' : ''}"><td class="px-5 py-4"><div class="flex items-center gap-3"><div class="vendor-avatar shrink-0" style="background:${col.bg};color:${col.text}">${getInitials(listing.name)}</div><div><p class="font-work font-medium text-[14px] text-[#364153] whitespace-nowrap">${listing.name || 'Vendor'}</p>${isBest ? '<div class="flex items-center gap-1 mt-0.5"><i data-lucide="star" class="w-3 h-3 text-[#155dfc]" style="fill:#155dfc" aria-hidden="true"></i><span class="font-inter font-medium text-[12px] text-[#155dfc]">Best price</span></div>' : `<p class="font-inter text-[12px] text-[#99a1af]">+${formatPrice(diff)} more</p>`}</div></div></td><td class="px-4 py-4 font-inter font-bold text-[14px] whitespace-nowrap" style="${isBest ? 'color:#1447e6' : 'color:#364153'}">${formatPrice(listing.price)}</td><td class="px-4 py-4 font-work text-[14px] text-[#6a7282] whitespace-nowrap">${listing.location || 'Online'}</td><td class="px-4 py-4 text-right"><div class="flex items-center gap-2 justify-end"><button type="button" class="font-inter font-semibold text-[13px] h-[36px] px-4 rounded-[14px] transition-colors whitespace-nowrap hover:opacity-90" style="background:${buyBg};${buyText}">Buy now</button><button type="button" class="remove-compare-page-item w-8 h-8 rounded-[10px] bg-[#f3f4f6] flex items-center justify-center hover:bg-[#fee2e2] transition-colors shrink-0" data-compare-id="${id}" aria-label="Remove ${item.name}"><i data-lucide="x" class="w-3.5 h-3.5 text-[#808793]"></i></button></div></td></tr>`; }).join('') : '<tr><td colspan="4" class="px-5 py-6 text-center font-inter text-sm text-[#808793]">No vendor listings available</td></tr>'}</tbody></table></div>
             </article>
           `;
         }).join('')}
         </div>
-        <aside class="w-full shrink-0 overflow-hidden rounded-[16px] bg-[#155dfc] text-white shadow-sm lg:sticky lg:top-[132px] lg:w-[320px]">
-          <div class="px-5 py-5"><p class="font-inter text-[11px] font-semibold uppercase tracking-[0.8px] text-[#dbeafe]">You're saving with CompareHub</p><p class="mt-2 font-inter text-3xl font-bold">${formatPrice(totalSavings)}</p><p class="mt-1 font-inter text-sm text-[#bedbff]">vs. the most expensive listings</p><div class="mt-4 flex items-center justify-between border-t border-[#2b7fff] pt-3"><span class="font-inter text-xs text-[#bedbff]">Your cart total</span><span class="font-inter text-sm font-bold">${formatPrice(totalBest)}</span></div></div>
-          <div class="border-t border-[#e5e7eb] bg-white px-5 py-5 text-[#181d25]"><p class="font-inter text-sm font-bold">Cart Summary</p><div class="mt-4 flex flex-col gap-3">${products.map(({ id, item, listings }) => { const cheapest = listings[0]; return `<div class="flex items-center gap-3"><div class="h-10 w-10 shrink-0 overflow-hidden rounded-[10px] bg-[#f3f4f6]">${item.image ? `<img src="${item.image}" alt="${item.name}" class="h-full w-full object-cover">` : ''}</div><div class="min-w-0 flex-1"><p class="truncate font-inter text-xs font-semibold">${item.name}</p><p class="truncate font-inter text-xs text-[#99a1af]">${cheapest?.name || 'Vendor'}</p></div><div class="text-right"><p class="font-inter text-xs font-bold text-[#155dfc]">${cheapest ? formatPrice(cheapest.price) : 'N/A'}</p><p class="font-inter text-[11px] text-[#2b7fff]">Best price</p></div></div>`; }).join('')}</div><div class="mt-4 flex items-center justify-between border-t border-[#f3f4f6] pt-3"><span class="font-inter text-sm text-[#6a7282]">Est. total</span><span class="font-inter text-sm font-bold">${formatPrice(totalBest)}</span></div><a href="/" class="mt-4 flex w-full items-center justify-center gap-2 rounded-[14px] border border-[#e5e7eb] px-4 py-3 font-inter text-sm font-semibold text-[#364153] hover:bg-[#f9fafb]"><i data-lucide="arrow-left" class="h-4 w-4"></i>Continue browsing</a></div>
-        </aside>
+        <div class="w-full shrink-0 lg:sticky lg:top-[132px] lg:w-[320px] space-y-4">
+          <aside class="overflow-hidden rounded-[16px] bg-[#155dfc] text-white" style="box-shadow:0 1px 3px rgba(0,0,0,0.08)">
+            <div class="px-5 py-5"><p class="font-inter text-[11px] font-semibold uppercase tracking-[0.8px] text-[#dbeafe]">You're saving with CompareHub</p><p class="mt-2 font-inter text-3xl font-bold">${formatPrice(totalSavings)}</p><p class="mt-1 font-inter text-sm text-[#bedbff]">vs. the most expensive listings</p><div class="mt-4 flex items-center justify-between border-t border-[#2b7fff] pt-3"><span class="font-inter text-xs text-[#bedbff]">Your cart total</span><span class="font-inter text-sm font-bold">${formatPrice(totalBest)}</span></div></div>
+            <div class="border-t border-[#e5e7eb] bg-white px-5 py-5 text-[#181d25]"><p class="font-inter text-sm font-bold">Cart Summary</p><div class="mt-4 flex flex-col gap-3">${products.map(({ id, item, listings }) => { const cheapest = listings[0]; return `<div class="flex items-center gap-3"><div class="h-10 w-10 shrink-0 overflow-hidden rounded-[10px] bg-[#f3f4f6]">${item.image ? `<img src="${item.image}" alt="${item.name}" class="h-full w-full object-cover">` : ''}</div><div class="min-w-0 flex-1"><p class="truncate font-inter text-xs font-semibold">${item.name}</p><p class="truncate font-inter text-xs text-[#99a1af]">${cheapest?.name || 'Vendor'}</p></div><div class="text-right"><p class="font-inter text-xs font-bold text-[#155dfc]">${cheapest ? formatPrice(cheapest.price) : 'N/A'}</p><p class="font-inter text-[11px] text-[#2b7fff]">Best price</p></div></div>`; }).join('')}</div><div class="mt-4 flex items-center justify-between border-t border-[#f3f4f6] pt-3"><span class="font-inter text-sm text-[#6a7282]">Est. total</span><span class="font-inter text-sm font-bold">${formatPrice(totalBest)}</span></div></div>
+          </aside>
+          <a href="/" class="flex w-full items-center justify-center gap-2 rounded-[14px] border border-[#e5e7eb] bg-white px-4 py-3 font-inter text-sm font-semibold text-[#364153] hover:bg-[#f9fafb]" style="box-shadow:0 1px 3px rgba(0,0,0,0.08)"><i data-lucide="arrow-left" class="h-4 w-4"></i>Continue browsing</a>
+        </div>
       </div>
     </section>
   `;
@@ -940,6 +1033,18 @@ function renderComparePage() {
       CH.compare.removeFromCompare(id);
     });
   });
+
+  const clearAllBtn = document.getElementById('clear-all-compare');
+  if (clearAllBtn) {
+    clearAllBtn.addEventListener('click', () => {
+      setCompareIds([]);
+      localStorage.removeItem(COMPARE_META_KEY);
+      compareList = [];
+      renderComparePage();
+      updateCompareBadge();
+      renderCompareDrawer();
+    });
+  }
 
   renderIcons();
 }

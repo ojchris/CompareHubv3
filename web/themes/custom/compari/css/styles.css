@@ -1156,3 +1156,13 @@ body .mobile-cat-tab.active {
 .messages__item {
   font-size: 12px !important;
 }
+
+/* ============================================================
+   Compare page — vendor avatar
+   ============================================================ */
+.vendor-avatar {
+  width: 36px; height: 36px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Inter', sans-serif; font-weight: 700; font-size: 13px;
+  flex-shrink: 0;
+}

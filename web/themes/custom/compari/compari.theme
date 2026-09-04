@@ -302,8 +302,8 @@ function compari_preprocess_commerce_product(array &$variables): void {
   // --- Category ---
   $variables['product_category'] = '';
   $category_id = 0;
-  if ($product->hasField('field_product_category') && !$product->get('field_product_category')->isEmpty()) {
-    $category_item = $product->get('field_product_category')->first();
+  if ($product->hasField('field_category') && !$product->get('field_category')->isEmpty()) {
+    $category_item = $product->get('field_category')->first();
     $category_id = (int) ($category_item->target_id ?? 0);
     $category = $category_item->entity;
     if (!$category && $category_id) {
@@ -367,14 +367,29 @@ function compari_preprocess_commerce_product(array &$variables): void {
     $vendor_brand_name = '';
     $vendor_brand_url = '';
     if ($variation->hasField('field_vendor_brand') && !$variation->get('field_vendor_brand')->isEmpty()) {
-      $vb = $variation->get('field_vendor_brand')->entity;
-      if ($vb) {
-        $vendor_brand_name = $vb->label();
-        $vendor_nid = $vb->id();
-        $vendor_brand_url = \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $vendor_nid);
+      $store_entity = $variation->get('field_vendor_brand')->entity;
+      if ($store_entity && $store_entity->getEntityTypeId() === 'commerce_store') {
+        $vendor_brand_name = $store_entity->label(); // Fallback name
+        
+        $brand_nids = \Drupal::entityQuery('node')
+          ->condition('type', 'brand')
+          ->condition('status', 1)
+          ->condition('field_store', $store_entity->id())
+          ->accessCheck(FALSE)
+          ->range(0, 1)
+          ->execute();
+          
+        if (!empty($brand_nids)) {
+          $brand_nid = reset($brand_nids);
+          $brand_node = \Drupal::entityTypeManager()->getStorage('node')->load($brand_nid);
+          if ($brand_node) {
+            $vendor_brand_name = $brand_node->label();
+            $vendor_brand_url = \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $brand_nid);
+          }
+        }
       }
     }
-    // Fall back to the store-derived brand if variation has no brand.
+    // Fallback to the store-derived brand if variation has no brand.
     if (!$vendor_brand_name) {
       $vendor_brand_name = $variables['brand_name'];
       $vendor_brand_url = $variables['brand_url'];
@@ -422,3 +437,68 @@ function compari_preprocess_commerce_product(array &$variables): void {
     }
   }
 }
+
+/**
+ * Implements hook_preprocess_views_view_fields().
+ */
+function compari_preprocess_views_view_fields__compare_product_variations(array &$variables): void {
+  $row = $variables['row'];
+  
+  // Try to get the variation entity from the row
+  $variation = $row->_entity ?? NULL;
+  
+  if ($variation && $variation instanceof \Drupal\commerce_product\Entity\ProductVariationInterface) {
+    // Get product category
+    $product = $variation->getProduct();
+    $category_name = '';
+    if ($product && $product->hasField('field_category') && !$product->get('field_category')->isEmpty()) {
+      $category_item = $product->get('field_category')->first();
+      $category = $category_item->entity;
+      if (!$category && !empty($category_item->target_id)) {
+        $category = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($category_item->target_id);
+      }
+      if ($category) {
+        $category_name = $category->label();
+      }
+    }
+    $variables['category'] = $category_name;
+
+    // Populate vendor and location from field_vendor_brand
+    $vendor_name = '';
+    $location_name = '';
+    
+    if ($variation->hasField('field_vendor_brand') && !$variation->get('field_vendor_brand')->isEmpty()) {
+      $store_entity = $variation->get('field_vendor_brand')->entity;
+      if ($store_entity && $store_entity->getEntityTypeId() === 'commerce_store') {
+        $vendor_name = $store_entity->label(); // Fallback name
+        
+        // Find the brand node that references this store
+        $brand_nids = \Drupal::entityQuery('node')
+          ->condition('type', 'brand')
+          ->condition('status', 1)
+          ->condition('field_store', $store_entity->id())
+          ->accessCheck(FALSE)
+          ->range(0, 1)
+          ->execute();
+          
+        if (!empty($brand_nids)) {
+          $brand_nid = reset($brand_nids);
+          $brand_node = \Drupal::entityTypeManager()->getStorage('node')->load($brand_nid);
+          if ($brand_node) {
+            $vendor_name = $brand_node->label();
+            if ($brand_node->hasField('field_location') && !$brand_node->get('field_location')->isEmpty()) {
+              $location_name = $brand_node->get('field_location')->value;
+            }
+          }
+        }
+      }
+    }
+    
+    $variables['vendor'] = $vendor_name;
+    $variables['location'] = $location_name;
+    
+    // Fallback store name just in case JS needs it
+    $variables['store'] = $vendor_name;
+  }
+}
+
