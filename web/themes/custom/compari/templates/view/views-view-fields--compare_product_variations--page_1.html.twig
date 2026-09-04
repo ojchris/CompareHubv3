@@ -1,0 +1,16 @@
+{# Machine-readable row output consumed by the compare cart page. #}
+{% set product_id = fields.product_id.content|render|striptags|trim %}
+{% set variation_id = fields.variation_id.content|render|striptags|trim %}
+{% set product_name = fields.title_1.content|render|striptags|trim %}
+{% set vendor = fields.title_2.content|render|striptags|trim %}
+{% set store = fields.field_store.content|render|striptags|trim %}
+{% set location = fields.field_location.content|render|striptags|trim %}
+{% set price = fields.price__number.content|render|striptags|trim %}
+<div class="compare-listing-row" data-product-id="{{ product_id }}" data-variation-id="{{ variation_id }}" data-product-name="{{ product_name }}" data-vendor="{{ vendor }}" data-store="{{ store }}" data-location="{{ location }}" data-price="{{ price }}">
+  <span class="compare-listing-product-id">{{ product_id }}</span>
+  <span class="compare-listing-product">{{ product_name }}</span>
+  <span class="compare-listing-vendor">{{ vendor }}</span>
+  <span class="compare-listing-store">{{ store }}</span>
+  <span class="compare-listing-location">{{ location }}</span>
+  <span class="compare-listing-price">{{ price }}</span>
+</div>
