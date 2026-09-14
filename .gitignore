@@ -46,3 +46,5 @@ drush-backups
 /web/themes/custom/compari/drupal_inline.ps1
 /web/themes/custom/compari/drupal_inline.py
 /web/themes/custom/compari/extract_includes.ps1
+/ai_agent_work_files/
+architecture.md
