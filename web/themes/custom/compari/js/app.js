@@ -175,31 +175,103 @@ function refreshCompareButtons() {
     btn.disabled = inList;
     btn.setAttribute('aria-pressed', String(inList));
     btn.classList.toggle('in-compare', inList);
+    
+    if (inList) {
+      btn.style.opacity = '0.5';
+    } else {
+      btn.style.opacity = '';
+    }
   });
 }
 
 function refreshWishlistButtons() {
-  // TODO (Drupal): Replace localStorage read with Drupal session/user data
-  const savedIds = getSavedWishlistIds();
+  // Prefer data-wishlisted attribute (set by PHP/server) when present.
+  // Fall back to drupalSettings (injected via hook_page_attachments) then localStorage.
+  const serverIds = (window.drupalSettings?.comparehub?.wishlisted_ids || []).map(Number);
+  const localIds  = getSavedWishlistIds();
+  const allIds    = serverIds.length ? serverIds : localIds;
+
   $$('.wishlist-btn').forEach(btn => {
-    // Skip icon-only wishlist buttons (e.g. product page mobile/desktop header).
-    // Those have no data-id and manage their own SVG state independently.
     if (!btn.dataset.id) return;
     const id = parseInt(btn.dataset.id, 10);
-    const inList = savedIds.includes(id);
-    btn.textContent = inList ? '♡ Saved' : '♡ Save';
-    btn.setAttribute('aria-pressed', String(inList));
+
+    // data-wishlisted is the most accurate (rendered server-side per card).
+    let inList;
+    if (btn.dataset.wishlisted !== undefined) {
+      inList = btn.dataset.wishlisted === '1';
+    } else {
+      inList = allIds.includes(id);
+    }
+
+    // CSS (.wishlist-btn.in-wishlist svg) handles icon fill/color automatically.
     btn.classList.toggle('in-wishlist', inList);
+    btn.setAttribute('aria-pressed', String(inList));
+
+    // Update text span on homepage/discover buttons.
+    const isIconOnly = btn.dataset.iconOnly === 'true';
+    if (!isIconOnly) {
+      const textSpan = btn.querySelector('.wishlist-text');
+      if (textSpan) {
+        textSpan.textContent = inList ? 'Saved' : 'Save';
+      }
+      btn.style.opacity = inList ? '0.5' : '';
+    }
   });
 }
 
-// Minimal localStorage helper — replace with Drupal AJAX in theme
+// localStorage fallback for anonymous users or when drupalSettings not yet available.
 function getSavedWishlistIds() {
   try {
-    return JSON.parse(localStorage.getItem('ch_wishlist') || '[]');
+    return JSON.parse(localStorage.getItem('ch_wishlist') || '[]').map(Number);
   } catch (e) {
     return [];
   }
+}
+
+function initProductCards() {
+  document.addEventListener('click', e => {
+    const compareBtn = e.target.closest('.compare-btn');
+    if (compareBtn) {
+      e.preventDefault();
+
+      const id = Number(compareBtn.dataset.id || compareBtn.dataset.productId || 0);
+      const product = getProductSummaryFromNode(compareBtn);
+      const existing = getCompareIds();
+      const idx = existing.indexOf(id);
+
+      if (idx > -1) {
+        existing.splice(idx, 1);
+        removeCompareMeta(id);
+        CH.ui.showToast(`"${product.name}" removed from compare`);
+      } else {
+        if (existing.length >= 4) {
+          CH.ui.showToast('⚠️ You can compare up to 4 products at a time');
+          return;
+        }
+        existing.push(id);
+        if (id && product.name) {
+          setCompareMeta(id, product);
+        }
+        CH.ui.showToast(`"${product.name}" added to compare`);
+      }
+
+      setCompareIds(existing);
+      compareList = existing;
+      refreshCompareButtons();
+      updateCompareBadge();
+      renderCompareDrawer();
+      return;
+    }
+
+    const wishlistBtn = e.target.closest('.wishlist-btn');
+    if (wishlistBtn) {
+      e.preventDefault();
+      e.stopPropagation(); // Stop parent <a> from navigating when heart badge is inside a link.
+      if (!wishlistBtn.dataset.id) return;
+// Wishlist clicks are now handled entirely by Drupal core AJAX via the Flag module's native use-ajax links.
+// We intercept Drupal's actionLinkFlash command below to trigger our custom Toast notifications.
+
+  });
 }
 
 function toggleWishlistId(id) {
@@ -703,17 +775,19 @@ function bindSearchBar(inputId, dropdownId) {
 }
 
 function initHeroSearch() {
-  bindSearchBar('hero-search', 'desktop-search-dropdown');
-  bindSearchBar('mobile-search-input', 'mobile-search-dropdown');
-
-  const btn = document.getElementById('hero-search-btn');
-  if (btn) {
-    btn.addEventListener('click', () => {
-      const q = document.getElementById('hero-search').value.trim();
-      document.getElementById('desktop-search-dropdown').classList.add('hidden');
-      navigateToSearch(q || '');
-    });
-  }
+  // JS search functionality disabled temporarily for Drupal native testing.
+  // bindSearchBar('hero-search', 'desktop-search-dropdown');
+  // bindSearchBar('mobile-search-input', 'mobile-search-dropdown');
+  //
+  // const btn = document.getElementById('hero-search-btn');
+  // if (btn) {
+  //   btn.addEventListener('click', (e) => {
+  //     // e.preventDefault();
+  //     const q = document.getElementById('hero-search').value.trim();
+  //     document.getElementById('desktop-search-dropdown').classList.add('hidden');
+  //     navigateToSearch(q || '');
+  //   });
+  // }
 }
 
 // ============================================================
@@ -1051,6 +1125,46 @@ async function renderComparePage() {
 
 compareList = getCompareIds();
 
+function initDiscoverScroll() {
+  // Only run on the /discover page when search params are present.
+  if (!window.location.pathname.startsWith('/discover')) return;
+  if (!window.location.search) return;
+
+  const target = document.getElementById('discover-results');
+  if (!target) return;
+
+  // Small delay so the page is fully painted before scrolling.
+  setTimeout(() => {
+    // Calculate position taking the sticky header (~80px) plus some padding into account.
+    const headerOffset = 110; 
+    const elementPosition = target.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth'
+    });
+  }, 200);
+}
+
+function initCompareHistorySearch() {
+  const searchInput = document.getElementById('history-search');
+  if (!searchInput) return;
+
+  searchInput.addEventListener('input', (e) => {
+    const term = e.target.value.toLowerCase();
+    const items = document.querySelectorAll('.history-item');
+    items.forEach(item => {
+      const title = item.dataset.title || '';
+      if (title.includes(term)) {
+        item.style.display = '';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   renderComparePage();
   initSlider();
@@ -1066,6 +1180,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileCategoryTabs();
   initMobileBottomNav();
   initLocationModal();
+  initCompareHistorySearch();
+  initDiscoverScroll();
   refreshCompareButtons();
   refreshWishlistButtons();
   updateCompareBadge();

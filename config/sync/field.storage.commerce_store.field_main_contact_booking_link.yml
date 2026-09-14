@@ -1,0 +1,21 @@
+uuid: 6790a14d-c9bb-4d6c-8566-6ffaa8ee9cbc
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_store
+id: commerce_store.field_main_contact_booking_link
+field_name: field_main_contact_booking_link
+entity_type: commerce_store
+type: string
+settings:
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

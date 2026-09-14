@@ -1,0 +1,20 @@
+uuid: 443e4666-d8ae-4b75-8767-ebb774492847
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_store
+    - media
+id: commerce_store.field_logo
+field_name: field_logo
+entity_type: commerce_store
+type: entity_reference
+settings:
+  target_type: media
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

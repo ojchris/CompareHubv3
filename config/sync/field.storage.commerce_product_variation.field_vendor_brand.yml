@@ -1,0 +1,20 @@
+uuid: 7c9f30b6-a835-4271-9dc8-845dd30c995a
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_product
+    - commerce_store
+id: commerce_product_variation.field_vendor_brand
+field_name: field_vendor_brand
+entity_type: commerce_product_variation
+type: entity_reference
+settings:
+  target_type: commerce_store
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

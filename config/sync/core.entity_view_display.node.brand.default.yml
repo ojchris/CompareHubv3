@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.brand.field_location
     - field.field.node.brand.field_logo
     - field.field.node.brand.field_phone_number
+    - field.field.node.brand.field_store
     - field.field.node.brand.field_top_brand
     - field.field.node.brand.field_website
     - node.type.brand
@@ -70,6 +71,14 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 106
+    region: content
+  field_store:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 109
     region: content
   field_top_brand:
     type: boolean

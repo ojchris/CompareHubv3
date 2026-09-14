@@ -1,0 +1,15 @@
+uuid: e998bce9-1bb6-4231-922a-6323d14c44b8
+langcode: en
+status: true
+dependencies:
+  config:
+    - flag.flag.save
+  module:
+    - flag
+id: flag_action.save_flag
+label: '♡ Save'
+type: commerce_product
+plugin: 'flag_action:save_flag'
+configuration:
+  flag_id: save
+  flag_action: flag

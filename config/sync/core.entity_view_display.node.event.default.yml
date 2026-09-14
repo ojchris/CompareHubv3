@@ -6,6 +6,8 @@ dependencies:
     - field.field.node.event.field_banner
     - field.field.node.event.field_brand
     - field.field.node.event.field_description
+    - field.field.node.event.field_external_sponsor
+    - field.field.node.event.field_host_organizer
     - field.field.node.event.field_image
     - field.field.node.event.field_images
     - field.field.node.event.field_scheduled_date
@@ -20,42 +22,37 @@ targetEntityType: node
 bundle: event
 mode: default
 content:
-  field_banner:
-    type: image
-    label: above
-    settings:
-      image_link: ''
-      image_style: ''
-      image_loading:
-        attribute: lazy
-    third_party_settings: {  }
-    weight: 101
-    region: content
   field_brand:
     type: entity_reference_label
     label: above
     settings:
       link: true
     third_party_settings: {  }
-    weight: 104
+    weight: 2
     region: content
   field_description:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 102
+    weight: 5
     region: content
-  field_image:
-    type: image
-    label: hidden
+  field_external_sponsor:
+    type: string
+    label: above
     settings:
-      image_link: ''
-      image_style: wide
-      image_loading:
-        attribute: eager
+      link_to_entity: false
+      link_rel: canonical
     third_party_settings: {  }
-    weight: -1
+    weight: 4
+    region: content
+  field_host_organizer:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 3
     region: content
   field_images:
     type: image
@@ -66,7 +63,7 @@ content:
       image_loading:
         attribute: lazy
     third_party_settings: {  }
-    weight: 105
+    weight: 0
     region: content
   field_scheduled_date:
     type: smartdate_default
@@ -88,11 +85,13 @@ content:
         decimals: 2
         suffix: h
     third_party_settings: {  }
-    weight: 103
+    weight: 6
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 100
+    weight: 1
     region: content
-hidden: {  }
+hidden:
+  field_banner: true
+  field_image: true

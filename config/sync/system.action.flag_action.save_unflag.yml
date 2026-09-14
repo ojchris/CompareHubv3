@@ -1,0 +1,15 @@
+uuid: 20dedde5-5b65-443f-a44b-89aab957e95a
+langcode: en
+status: true
+dependencies:
+  config:
+    - flag.flag.save
+  module:
+    - flag
+id: flag_action.save_unflag
+label: Unsave
+type: commerce_product
+plugin: 'flag_action:save_unflag'
+configuration:
+  flag_id: save
+  flag_action: unflag

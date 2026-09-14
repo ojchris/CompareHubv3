@@ -1,0 +1,29 @@
+uuid: a1df52d0-3b84-450d-9d20-1121e13ce619
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_store.commerce_store_type.online
+    - field.storage.node.field_host_organizer
+    - node.type.event
+id: node.event.field_host_organizer
+field_name: field_host_organizer
+entity_type: node
+bundle: event
+label: 'Host / Organizer'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:commerce_store'
+  handler_settings:
+    target_bundles:
+      online: online
+    sort:
+      field: changed
+      direction: ASC
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

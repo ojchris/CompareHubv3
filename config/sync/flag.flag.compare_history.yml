@@ -1,0 +1,29 @@
+uuid: f910b23a-a067-45d5-96d2-bdb56d648392
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_product
+id: compare_history
+label: 'Compare History'
+bundles: {  }
+entity_type: commerce_product
+global: false
+flag_short: 'Add to Compare History'
+flag_long: ''
+flag_message: ''
+unflag_short: 'Remove from Compare History'
+unflag_long: ''
+unflag_message: ''
+unflag_denied_text: ''
+weight: 0
+flag_type: 'entity:commerce_product'
+link_type: ajax_link
+flagTypeConfig:
+  show_in_links: {  }
+  show_as_field: true
+  show_on_form: false
+  show_contextual_link: false
+  extra_permissions:
+    owner: '0'
+linkTypeConfig: {  }

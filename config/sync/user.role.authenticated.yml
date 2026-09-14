@@ -9,9 +9,11 @@ dependencies:
     - commerce_checkout
     - commerce_order
     - commerce_product
+    - commerce_store
     - contact
     - file
     - filter
+    - flag
     - media
     - search
     - shortcut
@@ -31,10 +33,13 @@ permissions:
   - 'access site-wide contact form'
   - 'administer smart date formats'
   - 'delete own files'
+  - 'flag compare'
+  - 'flag save'
   - 'post comments'
   - 'search content'
   - 'skip comment approval'
   - 'use text format basic_html'
   - 'view commerce_product'
   - 'view media'
+  - 'view online commerce_store'
   - 'view own commerce_order'

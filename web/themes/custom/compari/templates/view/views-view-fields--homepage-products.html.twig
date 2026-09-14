@@ -63,7 +63,7 @@
 
     {# Price + Buttons #}
     <div>
-      <p class="product-price">{{ fields.price__number.content }}</p>
+      <p class="product-price">{{ cheapest_price }}</p>
       
       <div style="display:flex;gap:8px;margin-top:8px">
         
@@ -74,7 +74,8 @@
 
         {# Save / Wishlist #}
         <div style="flex:1;">
-          <button type="button" class="wishlist-btn w-full" data-id="{{ product_id }}">&#9825; Save</button>
+        <div class="wishlist-btn-wrapper">
+          {{ flag_link }}
         </div>
 
       </div>

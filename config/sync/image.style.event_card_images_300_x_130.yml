@@ -1,0 +1,15 @@
+uuid: 267326fe-b476-40f2-b0d4-21244055f51a
+langcode: en
+status: true
+dependencies: {  }
+name: event_card_images_300_x_130
+label: 'Event Card Images 300 x 130'
+effects:
+  1d7bed9c-90a3-443b-bb69-ae7fb4b54d80:
+    uuid: 1d7bed9c-90a3-443b-bb69-ae7fb4b54d80
+    id: image_scale
+    weight: 1
+    data:
+      width: 300
+      height: null
+      upscale: true

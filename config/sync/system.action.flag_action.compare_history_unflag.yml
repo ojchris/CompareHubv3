@@ -1,0 +1,15 @@
+uuid: c310d6ee-0f4f-483c-b1ff-04e1ab8bdb72
+langcode: en
+status: true
+dependencies:
+  config:
+    - flag.flag.compare_history
+  module:
+    - flag
+id: flag_action.compare_history_unflag
+label: 'Remove from Compare History'
+type: commerce_product
+plugin: 'flag_action:compare_history_unflag'
+configuration:
+  flag_id: compare_history
+  flag_action: unflag

@@ -5,6 +5,9 @@ dependencies:
   config:
     - commerce_product.commerce_product_variation_type.default
     - field.field.commerce_product_variation.default.feeds_item
+    - field.field.commerce_product_variation.default.field_brand
+    - field.field.commerce_product_variation.default.field_direct_order_link
+    - field.field.commerce_product_variation.default.field_vendor_brand
   module:
     - commerce_price
 _core:
@@ -14,6 +17,34 @@ targetEntityType: commerce_product_variation
 bundle: default
 mode: default
 content:
+  field_brand:
+    type: entity_reference_autocomplete
+    weight: 13
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_direct_order_link:
+    type: string_textfield
+    weight: 12
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_vendor_brand:
+    type: entity_reference_autocomplete
+    weight: 11
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   list_price:
     type: commerce_list_price
     weight: -1

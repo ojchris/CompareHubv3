@@ -6,6 +6,9 @@ dependencies:
     - commerce_product.commerce_product_variation_type.default
     - core.entity_view_mode.commerce_product_variation.summary
     - field.field.commerce_product_variation.default.feeds_item
+    - field.field.commerce_product_variation.default.field_brand
+    - field.field.commerce_product_variation.default.field_direct_order_link
+    - field.field.commerce_product_variation.default.field_vendor_brand
   module:
     - commerce_price
   enforced:
@@ -46,5 +49,8 @@ content:
 hidden:
   commerce_variation_cart_form: true
   feeds_item: true
+  field_brand: true
+  field_direct_order_link: true
+  field_vendor_brand: true
   price: true
   sku: true

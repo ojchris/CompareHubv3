@@ -1,0 +1,30 @@
+uuid: 239c4108-6094-4e05-84f3-622a7ce33d12
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_product
+id: compare
+label: Compare
+bundles:
+  - default
+entity_type: commerce_product
+global: false
+flag_short: '+ Compare'
+flag_long: 'Compare this product prices/features.'
+flag_message: 'Added to Compare List'
+unflag_short: '✓ Added'
+unflag_long: 'Remove this product from Compare List.'
+unflag_message: 'Item removed'
+unflag_denied_text: ''
+weight: 0
+flag_type: 'entity:commerce_product'
+link_type: ajax_link
+flagTypeConfig:
+  show_in_links: {  }
+  show_as_field: true
+  show_on_form: false
+  show_contextual_link: false
+  extra_permissions:
+    owner: '0'
+linkTypeConfig: {  }

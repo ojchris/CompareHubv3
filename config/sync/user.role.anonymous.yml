@@ -8,8 +8,10 @@ dependencies:
     - comment
     - commerce_checkout
     - commerce_product
+    - commerce_store
     - contact
     - filter
+    - flag
     - media
     - search
     - system
@@ -24,7 +26,10 @@ permissions:
   - 'access comments'
   - 'access content'
   - 'access site-wide contact form'
+  - 'flag compare'
+  - 'flag save'
   - 'search content'
   - 'use text format restricted_html'
   - 'view commerce_product'
   - 'view media'
+  - 'view online commerce_store'

@@ -1,0 +1,15 @@
+uuid: 92f2ee33-484f-4899-a373-7f840ec11502
+langcode: en
+status: true
+dependencies:
+  config:
+    - flag.flag.compare_history
+  module:
+    - flag
+id: flag_action.compare_history_flag
+label: 'Add to Compare History'
+type: commerce_product
+plugin: 'flag_action:compare_history_flag'
+configuration:
+  flag_id: compare_history
+  flag_action: flag

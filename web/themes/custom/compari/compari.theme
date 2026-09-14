@@ -131,14 +131,14 @@ function compari_preprocess_page(array &$variables): void {
  * Implements hook_form_FORM_ID_alter() for user_login_form.
  */
 function compari_form_user_login_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
-  // If the login form is rendered inside the modal on another page, force it to POST
-  // to /user/login. This ensures that on a wrong password, the user is taken to the
-  // standalone login page where the error message is visible, instead of the form
-  // failing silently in the background on the current page.
   $current_path = \Drupal::service('path.current')->getPath();
-  if ($current_path !== '/user/login') {
-    $form['#action'] = \Drupal\Core\Url::fromRoute('user.login')->toString();
-  }
+  
+  // Set the base action URL. If not on the standalone login page, force it to /user/login
+  // so error messages show up properly on failure.
+  $action = ($current_path !== '/user/login') ? \Drupal\Core\Url::fromRoute('user.login')->toString() : $form['#action'];
+  
+  // Always redirect to the /account dashboard upon successful login.
+  $form['#action'] = $action . (strpos($action, '?') !== FALSE ? '&' : '?') . 'destination=/account';
 }
 
 /**
@@ -216,34 +216,126 @@ function compari_preprocess_commerce_store(array &$variables): void {
 function compari_preprocess_views_view_fields__homepage_products(array &$variables): void {
   /** @var \Drupal\views\ResultRow $row */
   $row = $variables['row'];
-  
-  if (isset($row->_entity) && $row->_entity instanceof \Drupal\commerce_product\Entity\ProductInterface) {
-    $product = $row->_entity;
-    
-    // Get the store referenced by the product.
-    if ($product->hasField('stores') && !$product->get('stores')->isEmpty()) {
-      $store_id = $product->get('stores')->target_id;
-      
-      // Look up the Brand node that references this store.
-      $nids = \Drupal::entityQuery('node')
+
+  $product = NULL;
+
+  // The row entity can be either the product or a variation depending on
+  // how the View relationship is set up.
+  if (isset($row->_entity)) {
+    $entity = $row->_entity;
+    if ($entity instanceof \Drupal\commerce_product\Entity\ProductInterface) {
+      $product = $entity;
+    }
+    elseif ($entity instanceof \Drupal\commerce_product\Entity\ProductVariationInterface) {
+      $product = $entity->getProduct();
+    }
+  }
+
+  if (!$product) {
+    return;
+  }
+
+  // --- Find the cheapest variation and its brand ---
+  $cheapest_variation = NULL;
+  $cheapest_price = PHP_FLOAT_MAX;
+
+  foreach ($product->getVariations() as $variation) {
+    $price = $variation->getPrice();
+    if (!$price) {
+      continue;
+    }
+    $amount = (float) $price->getNumber();
+    if ($amount < $cheapest_price) {
+      $cheapest_price = $amount;
+      $cheapest_variation = $variation;
+    }
+  }
+
+  // Fallback to default variation if none have prices.
+  if (!$cheapest_variation) {
+    $cheapest_variation = $product->getDefaultVariation();
+  }
+
+  // --- Resolve brand from the cheapest variation's field_vendor_brand ---
+  $variables['brand_name'] = '';
+  $variables['brand_url'] = '';
+
+  if ($cheapest_variation && $cheapest_variation->hasField('field_vendor_brand') && !$cheapest_variation->get('field_vendor_brand')->isEmpty()) {
+    $store_entity = $cheapest_variation->get('field_vendor_brand')->entity;
+
+    if ($store_entity && $store_entity->getEntityTypeId() === 'commerce_store') {
+      // Fallback to store label.
+      $variables['brand_name'] = $store_entity->label();
+
+      // Look up the Brand node referencing this store.
+      $brand_nids = \Drupal::entityQuery('node')
         ->condition('type', 'brand')
         ->condition('status', 1)
-        ->condition('field_store', $store_id)
+        ->condition('field_store', $store_entity->id())
         ->accessCheck(FALSE)
         ->range(0, 1)
         ->execute();
-        
-      if (!empty($nids)) {
-        $brand_nid = reset($nids);
-        $brand = \Drupal\node\Entity\Node::load($brand_nid);
-        if ($brand) {
-          $variables['brand_name'] = $brand->label();
+
+      if (!empty($brand_nids)) {
+        $brand_nid = reset($brand_nids);
+        $brand_node = \Drupal\node\Entity\Node::load($brand_nid);
+        if ($brand_node) {
+          $variables['brand_name'] = $brand_node->label();
           $variables['brand_url'] = \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $brand_nid);
         }
       }
     }
   }
+
+  // Also expose the cheapest price so the Twig template can use it.
+  if ($cheapest_variation) {
+    $price = $cheapest_variation->getPrice();
+    if ($price) {
+      $variables['cheapest_price'] = \Drupal::service('commerce_price.currency_formatter')
+        ->format($price->getNumber(), $price->getCurrencyCode());
+    }
+  }
+
+  // Wishlist flag state for the ♡ Save button.
+  _compari_add_wishlist_flag_data($variables, (int) $product->id());
 }
+
+
+/**
+ * Helper: embeds flag_token + is_wishlisted for a product card.
+ * Uses a static cache so the DB is queried only once per request.
+ */
+function _compari_add_wishlist_flag_data(array &$variables, int $product_id): void {
+  static $wishlisted_map = NULL;
+
+  if ($wishlisted_map === NULL) {
+    $wishlisted_map = [];
+    $account = \Drupal::currentUser();
+    if (!$account->isAnonymous()) {
+      try {
+        $ids = \Drupal::database()
+          ->select('flagging', 'f')
+          ->fields('f', ['entity_id'])
+          ->condition('f.flag_id', 'save')
+          ->condition('f.uid', $account->id())
+          ->condition('f.entity_type', 'commerce_product')
+          ->execute()
+          ->fetchCol();
+        $wishlisted_map = array_flip(array_map('intval', $ids));
+      }
+      catch (\Exception $e) {
+        // Flag table not available yet — silently skip.
+      }
+    }
+  }
+
+  // Use Flag module's link builder to generate a lazy-built render array.
+  // This automatically handles CSRF tokens and cacheability metadata!
+  $flag_link = \Drupal::service('flag.link_builder')->build('commerce_product', $product_id, 'save');
+  $variables['flag_link'] = $flag_link;
+}
+
+
 
 /**
  * Implements hook_preprocess_commerce_product().
@@ -344,19 +436,37 @@ function compari_preprocess_commerce_product(array &$variables): void {
     }
   }
 
-  // --- Best price from default variation ---
+  // --- Best price: find the cheapest variation, not just the default ---
   $variables['product_price'] = '';
   $variables['product_price_raw'] = 0;
-  $default_variation = $product->getDefaultVariation();
-  if ($default_variation) {
-    $price = $default_variation->getPrice();
+  $cheapest_variation = NULL;
+  $lowest = PHP_FLOAT_MAX;
+
+  foreach ($product->getVariations() as $variation) {
+    $price = $variation->getPrice();
+    if (!$price) {
+      continue;
+    }
+    $amount = (float) $price->getNumber();
+    if ($amount < $lowest) {
+      $lowest = $amount;
+      $cheapest_variation = $variation;
+    }
+  }
+
+  // Fallback to default variation if no priced variation found.
+  if (!$cheapest_variation) {
+    $cheapest_variation = $product->getDefaultVariation();
+  }
+
+  if ($cheapest_variation) {
+    $price = $cheapest_variation->getPrice();
     if ($price) {
       $variables['product_price_raw'] = (float) $price->getNumber();
-      $formatted = \Drupal::service('commerce_price.currency_formatter')->format(
+      $variables['product_price'] = \Drupal::service('commerce_price.currency_formatter')->format(
         $price->getNumber(),
         $price->getCurrencyCode()
       );
-      $variables['product_price'] = $formatted;
     }
   }
 
@@ -394,13 +504,61 @@ function compari_preprocess_commerce_product(array &$variables): void {
       $vendor_brand_name = $variables['brand_name'];
       $vendor_brand_url = $variables['brand_url'];
     }
+
+    // --- Location: read from the brand node's address/city field ---
+    $location = '';
+    if (!empty($brand_node)) {
+      // Try common field names for location/city on the brand node.
+      foreach (['field_city', 'field_location', 'field_address'] as $loc_field) {
+        if ($brand_node->hasField($loc_field) && !$brand_node->get($loc_field)->isEmpty()) {
+          $loc_item = $brand_node->get($loc_field)->first();
+          // Address field (address module) stores locality in ->locality.
+          if (isset($loc_item->locality)) {
+            $location = $loc_item->locality;
+          } else {
+            $location = (string) $loc_item->value;
+          }
+          if ($location) break;
+        }
+      }
+    }
+
+    // --- Avatar colour: light bg + dark text, matching compare.html palette ---
+    $avatar_colors = [
+      ['bg' => '#ffe4e6', 'text' => '#c70036'],
+      ['bg' => '#fef3c6', 'text' => '#bb4d00'],
+      ['bg' => '#ecfcca', 'text' => '#497d00'],
+      ['bg' => '#dbeafe', 'text' => '#1447e6'],
+      ['bg' => '#ede9fe', 'text' => '#6d28d9'],
+      ['bg' => '#d1fae5', 'text' => '#065f46'],
+    ];
+    // Named vendors get consistent colours (matching Figma VENDOR_COLORS).
+    $vendor_colors = [
+      'ELECTROMART' => ['bg' => '#dcfce7', 'text' => '#008236'],
+      'GADGETPRO'   => ['bg' => '#ffedd4', 'text' => '#ca3500'],
+      'TECHSTORE'   => ['bg' => '#dbeafe', 'text' => '#1447e6'],
+      'SMARTBUY'    => ['bg' => '#ede9fe', 'text' => '#6d28d9'],
+      'DIGIZONE'    => ['bg' => '#fef3c6', 'text' => '#bb4d00'],
+    ];
+    $upper_name = mb_strtoupper($vendor_brand_name);
+    $first_char = $vendor_brand_name ? mb_strtoupper(mb_substr($vendor_brand_name, 0, 1)) : 'V';
+    if (isset($vendor_colors[$upper_name])) {
+      $color_pair = $vendor_colors[$upper_name];
+    } else {
+      $color_pair = $avatar_colors[ord($first_char) % count($avatar_colors)];
+    }
+
     $variables['product_variations'][] = [
-      'sku'        => $variation->getSku(),
-      'title'      => $variation->getTitle(),
-      'price_raw'  => $price ? (float) $price->getNumber() : 0,
-      'price'      => $price ? \Drupal::service('commerce_price.currency_formatter')->format($price->getNumber(), $price->getCurrencyCode()) : '',
-      'brand_name' => $vendor_brand_name,
-      'brand_url'  => $vendor_brand_url,
+      'sku'          => $variation->getSku(),
+      'title'        => $variation->getTitle(),
+      'price_raw'    => $price ? (float) $price->getNumber() : 0,
+      'price'        => $price ? \Drupal::service('commerce_price.currency_formatter')->format($price->getNumber(), $price->getCurrencyCode()) : '',
+      'brand_name'   => $vendor_brand_name,
+      'brand_url'    => $vendor_brand_url,
+      'location'     => $location,
+      'avatar_bg'    => $color_pair['bg'],
+      'avatar_text'  => $color_pair['text'],
+      'initial'      => $first_char,
     ];
   }
 
@@ -463,6 +621,25 @@ function compari_preprocess_views_view_fields__compare_product_variations(array 
     }
     $variables['category'] = $category_name;
 
+    // Automatically flag this product for Compare History.
+    if ($product) {
+      try {
+        $flag_service = \Drupal::service('flag');
+        $flag = $flag_service->getFlagById('compare_history');
+        $account = \Drupal::currentUser();
+        
+        if ($flag) {
+          // If already flagged, unflag first to update the timestamp to 'now'.
+          if ($flag->isFlagged($product, $account)) {
+            $flag_service->unflag($flag, $product, $account);
+          }
+          $flag_service->flag($flag, $product, $account);
+        }
+      } catch (\Exception $e) {
+        // Silently fail if flagging is not permitted.
+      }
+    }
+
     // Populate vendor and location from field_vendor_brand
     $vendor_name = '';
     $location_name = '';
@@ -501,4 +678,198 @@ function compari_preprocess_views_view_fields__compare_product_variations(array 
     $variables['store'] = $vendor_name;
   }
 }
+
+/**
+ * Implements hook_preprocess_views_view_fields__discover().
+ * Mirrors the homepage hook: cheapest price + brand from variation,
+ * plus vendor_count (number of variations = number of vendors).
+ */
+function compari_preprocess_views_view_fields__discover(array &$variables): void {
+  $row = $variables['row'];
+
+  $product = NULL;
+  if (isset($row->_entity)) {
+    $entity = $row->_entity;
+    if ($entity instanceof \Drupal\commerce_product\Entity\ProductInterface) {
+      $product = $entity;
+    }
+    elseif ($entity instanceof \Drupal\commerce_product\Entity\ProductVariationInterface) {
+      $product = $entity->getProduct();
+    }
+  }
+
+  if (!$product) {
+    return;
+  }
+
+  $variations = $product->getVariations();
+
+  // --- Vendor count ---
+  $variables['vendor_count'] = count($variations);
+
+  // --- Find cheapest variation ---
+  $cheapest_variation = NULL;
+  $lowest = PHP_FLOAT_MAX;
+  foreach ($variations as $variation) {
+    $price = $variation->getPrice();
+    if (!$price) continue;
+    $amount = (float) $price->getNumber();
+    if ($amount < $lowest) {
+      $lowest = $amount;
+      $cheapest_variation = $variation;
+    }
+  }
+  if (!$cheapest_variation) {
+    $cheapest_variation = $product->getDefaultVariation();
+  }
+
+  // --- Cheapest price ---
+  $variables['cheapest_price'] = '';
+  if ($cheapest_variation) {
+    $price = $cheapest_variation->getPrice();
+    if ($price) {
+      $variables['cheapest_price'] = \Drupal::service('commerce_price.currency_formatter')
+        ->format($price->getNumber(), $price->getCurrencyCode());
+    }
+  }
+
+  // --- Brand from cheapest variation's field_vendor_brand ---
+  $variables['brand_name'] = '';
+  $variables['brand_url']  = '';
+
+  if ($cheapest_variation && $cheapest_variation->hasField('field_vendor_brand') && !$cheapest_variation->get('field_vendor_brand')->isEmpty()) {
+    $store_entity = $cheapest_variation->get('field_vendor_brand')->entity;
+    if ($store_entity && $store_entity->getEntityTypeId() === 'commerce_store') {
+      $variables['brand_name'] = $store_entity->label();
+      $brand_nids = \Drupal::entityQuery('node')
+        ->condition('type', 'brand')
+        ->condition('status', 1)
+        ->condition('field_store', $store_entity->id())
+        ->accessCheck(FALSE)
+        ->range(0, 1)
+        ->execute();
+      if (!empty($brand_nids)) {
+        $brand_nid = reset($brand_nids);
+        $brand_node = \Drupal\node\Entity\Node::load($brand_nid);
+        if ($brand_node) {
+          $variables['brand_name'] = $brand_node->label();
+          $variables['brand_url']  = \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $brand_nid);
+        }
+      }
+    }
+  }
+
+  // Wishlist flag state for the ♡ Save button.
+  _compari_add_wishlist_flag_data($variables, (int) $product->id());
+}
+
+
+/**
+ * Implements hook_preprocess_views_view_fields__wishlist_products().
+ * Mirrors the homepage/discover hooks: cheapest price + brand from variation.
+ */
+function compari_preprocess_views_view_fields__wishlist_products(array &$variables): void {
+  $row = $variables['row'];
+
+  $product = NULL;
+  if (isset($row->_entity)) {
+    $entity = $row->_entity;
+    if ($entity instanceof \Drupal\commerce_product\Entity\ProductInterface) {
+      $product = $entity;
+    }
+    elseif ($entity instanceof \Drupal\commerce_product\Entity\ProductVariationInterface) {
+      $product = $entity->getProduct();
+    }
+  }
+
+  if (!$product) {
+    return;
+  }
+
+  $variations = $product->getVariations();
+
+  // --- Find cheapest variation ---
+  $cheapest_variation = NULL;
+  $lowest = PHP_FLOAT_MAX;
+  foreach ($variations as $variation) {
+    $price = $variation->getPrice();
+    if (!$price) continue;
+    $amount = (float) $price->getNumber();
+    if ($amount < $lowest) {
+      $lowest = $amount;
+      $cheapest_variation = $variation;
+    }
+  }
+  if (!$cheapest_variation) {
+    $cheapest_variation = $product->getDefaultVariation();
+  }
+
+  // --- Cheapest price ---
+  $variables['cheapest_price'] = '';
+  if ($cheapest_variation) {
+    $price = $cheapest_variation->getPrice();
+    if ($price) {
+      $variables['cheapest_price'] = \Drupal::service('commerce_price.currency_formatter')
+        ->format($price->getNumber(), $price->getCurrencyCode());
+    }
+  }
+
+  // --- Brand ---
+  $variables['brand_name'] = '';
+  $variables['brand_url']  = '';
+  if ($cheapest_variation && $cheapest_variation->hasField('field_vendor_brand') && !$cheapest_variation->get('field_vendor_brand')->isEmpty()) {
+    $store_entity = $cheapest_variation->get('field_vendor_brand')->entity;
+    if ($store_entity && $store_entity->getEntityTypeId() === 'commerce_store') {
+      $variables['brand_name'] = $store_entity->label();
+      $brand_nids = \Drupal::entityQuery('node')
+        ->condition('type', 'brand')
+        ->condition('status', 1)
+        ->condition('field_store', $store_entity->id())
+        ->accessCheck(FALSE)
+        ->range(0, 1)
+        ->execute();
+      if (!empty($brand_nids)) {
+        $brand_nid = reset($brand_nids);
+        $brand_node = \Drupal\node\Entity\Node::load($brand_nid);
+        if ($brand_node) {
+          $variables['brand_name'] = $brand_node->label();
+          $variables['brand_url']  = \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $brand_nid);
+        }
+      }
+    }
+  }
+
+  // Always wishlisted on this page (View only shows flagged items).
+  $variables['flag_token']   = \Drupal::csrfToken()->get('flag/' . $product->id());
+  $variables['is_wishlisted'] = TRUE;
+}
+
+
+/**
+ * Implements hook_page_attachments().
+ * Passes the current user's wishlisted product IDs to drupalSettings so JS
+ * can keep ♡ Save button states consistent across all cards on the page.
+ */
+function compari_page_attachments(array &$attachments): void {
+  $account = \Drupal::currentUser();
+  if ($account->isAnonymous()) {
+    return;
+  }
+  try {
+    $ids = \Drupal::database()
+      ->select('flagging', 'f')
+      ->fields('f', ['entity_id'])
+      ->condition('f.flag_id', 'wishlist')
+      ->condition('f.uid', $account->id())
+      ->condition('f.entity_type', 'commerce_product')
+      ->execute()
+      ->fetchCol();
+    $attachments['#attached']['drupalSettings']['comparehub']['wishlisted_ids'] =
+      array_values(array_map('intval', $ids));
+  }
+  catch (\Exception $e) {
+    // Flag table not available yet — silently skip.
+  }
+}
+
 

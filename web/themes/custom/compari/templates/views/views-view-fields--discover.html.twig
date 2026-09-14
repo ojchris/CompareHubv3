@@ -1,0 +1,84 @@
+{#
+  views-view-fields--discover.html.twig
+  Single product card for the /discover results page.
+  Matches the homepage card style + adds vendor count badge.
+#}
+
+{% set product_id = row.product_id|default(row.product_id_1|default('')) %}
+{% if product_id is iterable %}
+  {% set product_id = product_id|render|trim %}
+{% endif %}
+
+<div class="product-card" role="article" data-id="{{ product_id }}">
+
+  {# Image #}
+  {% if product_id %}
+    <a href="/product/{{ product_id }}" class="card-image block" tabindex="-1" aria-hidden="true">
+  {% else %}
+    <div class="card-image">
+  {% endif %}
+
+    {% set image_field = fields.field_image is defined ? fields.field_image : (fields.field_product_image is defined ? fields.field_product_image : null) %}
+    {% set image_content = '' %}
+    {% if image_field is not null and image_field.content is defined %}
+      {% set image_content = image_field.content is iterable ? image_field.content|render|trim : image_field.content %}
+    {% endif %}
+    {% if image_content is not empty %}
+      {{ image_field.content }}
+    {% else %}
+      <div class="w-full h-full bg-[#f3f4f6] flex items-center justify-center">
+        <i data-lucide="image" class="w-8 h-8 text-[#d1d5db]"></i>
+      </div>
+    {% endif %}
+
+    {# Vendor count badge — top-right corner of image #}
+    {% if vendor_count > 1 %}
+      <span class="absolute top-2 right-2 bg-white border border-[#e5e7eb] text-[#155dfc] font-inter font-bold text-[10px] px-2 py-0.5 rounded-full shadow-sm">
+        {{ vendor_count }} vendors
+      </span>
+    {% endif %}
+
+  {% if product_id %}
+    </a>
+  {% else %}
+    </div>
+  {% endif %}
+
+  {# Card Body #}
+  <div class="card-body">
+
+    {% if brand_name %}
+      <a href="{{ brand_url }}" class="vendor-name" style="text-decoration:none" onclick="event.stopPropagation()">{{ brand_name }}</a>
+    {% endif %}
+
+    {% if product_id %}
+      <a href="/product/{{ product_id }}" class="block" style="text-decoration:none">
+    {% else %}
+      <div>
+    {% endif %}
+
+      <p class="product-name">{{ fields.title.content }}</p>
+
+    {% if product_id %}
+      </a>
+    {% else %}
+      </div>
+    {% endif %}
+
+    {# Price + Compare & Save buttons #}
+    <div>
+      <p class="product-price">{{ cheapest_price }}</p>
+
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <div style="flex:1;">
+          <button type="button" class="compare-btn w-full" data-id="{{ product_id }}">+ Compare</button>
+        </div>
+        <div style="flex:1;">
+        <div class="wishlist-btn-wrapper">
+          {{ flag_link }}
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,23 @@
+uuid: d8353e7e-0022-4b4f-a343-d6484609213f
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_store.commerce_store_type.online
+  module:
+    - commerce_store
+id: store_pattern
+label: 'Store Pattern'
+type: 'canonical_entities:commerce_store'
+pattern: '/store/[commerce_store:name]'
+selection_criteria:
+  00c4796e-c680-405e-95da-8bdb4fd7e17b:
+    id: 'entity_bundle:commerce_store'
+    negate: false
+    context_mapping:
+      commerce_store: commerce_store
+    bundles:
+      online: online
+selection_logic: and
+weight: -5
+relationships: {  }

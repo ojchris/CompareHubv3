@@ -7,6 +7,8 @@ dependencies:
     - field.field.node.event.field_banner
     - field.field.node.event.field_brand
     - field.field.node.event.field_description
+    - field.field.node.event.field_external_sponsor
+    - field.field.node.event.field_host_organizer
     - field.field.node.event.field_image
     - field.field.node.event.field_images
     - field.field.node.event.field_scheduled_date
@@ -40,5 +42,7 @@ hidden:
   field_banner: true
   field_brand: true
   field_description: true
+  field_external_sponsor: true
+  field_host_organizer: true
   field_images: true
   field_scheduled_date: true
