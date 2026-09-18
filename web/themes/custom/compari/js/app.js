@@ -214,7 +214,8 @@ function refreshWishlistButtons() {
       if (textSpan) {
         textSpan.textContent = inList ? 'Saved' : 'Save';
       }
-      btn.style.opacity = inList ? '0.5' : '';
+
+
     }
   });
 }
@@ -266,74 +267,93 @@ function initProductCards() {
     const wishlistBtn = e.target.closest('.wishlist-btn');
     if (wishlistBtn) {
       e.preventDefault();
-      e.stopPropagation(); // Stop parent <a> from navigating when heart badge is inside a link.
+      e.stopPropagation();
       if (!wishlistBtn.dataset.id) return;
-// Wishlist clicks are now handled entirely by Drupal core AJAX via the Flag module's native use-ajax links.
-// We intercept Drupal's actionLinkFlash command below to trigger our custom Toast notifications.
 
-  });
-}
+      const id  = Number(wishlistBtn.dataset.id || 0);
+      if (!id) return;
 
-function toggleWishlistId(id) {
-  const ids = getSavedWishlistIds();
-  const idx = ids.indexOf(id);
-  if (idx > -1) {
-    ids.splice(idx, 1);
-  } else {
-    ids.push(id);
-  }
-  localStorage.setItem('ch_wishlist', JSON.stringify(ids));
-  return idx === -1; // true = was added
-}
+      const uid = window.drupalSettings?.user?.uid || 0;
 
-function initProductCards() {
-  document.addEventListener('click', e => {
-    const compareBtn = e.target.closest('.compare-btn');
-    if (compareBtn) {
-      e.preventDefault();
-
-      const id = Number(compareBtn.dataset.id || compareBtn.dataset.productId || 0);
-      const product = getProductSummaryFromNode(compareBtn);
-      const existing = getCompareIds();
-      const idx = existing.indexOf(id);
-
-      if (idx > -1) {
-        existing.splice(idx, 1);
-        removeCompareMeta(id);
-        CH.ui.showToast(`"${product.name}" removed from compare`);
-      } else {
-        if (existing.length >= 4) {
-          CH.ui.showToast('⚠️ You can compare up to 4 products at a time');
-          return;
+      // Helper to remove card from wishlist page
+      const removeCardIfOnWishlistPage = () => {
+        const card = document.querySelector(`.wishlist-item[data-id="${id}"]`);
+        if (card) {
+          card.style.transition = 'opacity 0.3s';
+          card.style.opacity    = '0';
+          setTimeout(() => card.remove(), 320);
         }
-        existing.push(id);
-        if (id && product.name) {
-          setCompareMeta(id, product);
-        }
-        CH.ui.showToast(`"${product.name}" added to compare`);
+      };
+
+      // ── Anonymous user: save to localStorage + prompt sign-in ──
+      if (!uid) {
+        const ids   = getSavedWishlistIds();
+        const idx   = ids.indexOf(id);
+        const added = idx === -1;
+        if (added) { ids.push(id); } else { ids.splice(idx, 1); }
+        localStorage.setItem('ch_wishlist', JSON.stringify(ids));
+        wishlistBtn.dataset.wishlisted = added ? '1' : '0';
+        refreshWishlistButtons();
+        CH.ui.showToast(added ? '♡ Saved! Sign in to keep across devices.' : 'Removed from wishlist');
+        if (!added) removeCardIfOnWishlistPage();
+        return;
       }
 
-      setCompareIds(existing);
-      compareList = existing;
-      refreshCompareButtons();
-      updateCompareBadge();
-      renderCompareDrawer();
-      return;
-    }
+      // ── Logged-in: use URLs pre-built by PHP with CSRF token embedded ──
+      const isWishlisted = wishlistBtn.dataset.wishlisted === '1';
+      const url          = isWishlisted
+        ? (wishlistBtn.dataset.unflagUrl || '')
+        : (wishlistBtn.dataset.flagUrl   || '');
 
-    const wishlistBtn = e.target.closest('.wishlist-btn');
-    if (wishlistBtn) {
-      e.preventDefault();
-      if (!wishlistBtn.dataset.id) return;
+      if (!url) {
+        CH.ui.showToast('Action unavailable. Please refresh the page.');
+        return;
+      }
 
-      const id = Number(wishlistBtn.dataset.id || 0);
-      const wasAdded = toggleWishlistId(id);
-      CH.ui.showToast(wasAdded ? 'Added to wishlist' : 'Removed from wishlist');
+      // Optimistic UI update first
+      wishlistBtn.dataset.wishlisted = isWishlisted ? '0' : '1';
       refreshWishlistButtons();
+      CH.ui.showToast(isWishlisted ? 'Removed from wishlist' : '♡ Saved to wishlist!');
+
+      // POST to Flag module endpoint (URL already has ?token= from PHP)
+      fetch(url, {
+        method: 'POST',
+        headers: { 'X-Requested-With': 'XMLHttpRequest' },
+        credentials: 'same-origin',
+      })
+      .then(resp => {
+        if (!resp.ok) {
+          // Revert on server failure
+          wishlistBtn.dataset.wishlisted = isWishlisted ? '1' : '0';
+          refreshWishlistButtons();
+          CH.ui.showToast('Could not update wishlist. Please try again.');
+          return;
+        }
+        // Keep drupalSettings in sync
+        if (window.drupalSettings?.comparehub?.wishlisted_ids) {
+          const sIds = window.drupalSettings.comparehub.wishlisted_ids;
+          const sIdx = sIds.indexOf(id);
+          if (!isWishlisted && sIdx === -1) sIds.push(id);
+          if (isWishlisted  && sIdx > -1)   sIds.splice(sIdx, 1);
+        }
+        // On wishlist page, fade out the removed card
+        if (isWishlisted) {
+          removeCardIfOnWishlistPage();
+        }
+      })
+      .catch(() => {
+        // Network error — revert
+        wishlistBtn.dataset.wishlisted = isWishlisted ? '1' : '0';
+        refreshWishlistButtons();
+        CH.ui.showToast('Could not connect. Please try again.');
+      });
+
       return;
     }
+
   });
 }
+
 
 // ============================================================
 // COMPARE BADGE
@@ -1125,6 +1145,18 @@ async function renderComparePage() {
 
 compareList = getCompareIds();
 
+function initDiscoverClearAll() {
+  document.addEventListener('click', e => {
+    const clearBtn = e.target.closest('.clear-discover-filters-btn');
+    if (clearBtn) {
+      e.preventDefault();
+      e.stopPropagation();
+      // Force a hard navigation to clear all query parameters, bypassing Views AJAX
+      window.location.href = window.location.pathname;
+    }
+  });
+}
+
 function initDiscoverScroll() {
   // Only run on the /discover page when search params are present.
   if (!window.location.pathname.startsWith('/discover')) return;
@@ -1181,9 +1213,21 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileBottomNav();
   initLocationModal();
   initCompareHistorySearch();
+  initDiscoverClearAll();
   initDiscoverScroll();
   refreshCompareButtons();
   refreshWishlistButtons();
   updateCompareBadge();
   renderIcons();
 });
+
+// Intercept Drupal Flag module's AJAX response to use our custom Toast notification
+// This overrides the default behavior which hides the button and injects a span.
+if (typeof Drupal !== 'undefined' && typeof Drupal.AjaxCommands !== 'undefined') {
+  Drupal.AjaxCommands.prototype.actionLinkFlash = function (ajax, response) {
+    if (typeof CH !== 'undefined' && CH.ui) {
+      CH.ui.showToast(response.message || 'Wishlist updated');
+    }
+  };
+}
+

@@ -499,78 +499,41 @@ svg.lucide.w-6  { width: 24px !important; height: 24px !important; }
   cursor: default;
 }
 
-/* Flag save link (Wishlist) */
-.wishlist-btn-wrapper .flag-save a {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  gap: 0.375rem; /* gap-1.5 */
-  height: 32px;
-  border-radius: 12px;
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  font-size: 12px;
-  transition: all 0.2s;
+/* Wishlist button on card */
+.wishlist-btn {
   background-color: var(--color-surface);
   color: var(--color-body);
   border: 1px solid var(--color-border);
-  position: relative;
-  text-decoration: none;
+  transition: all 0.2s;
 }
-.wishlist-btn-wrapper .flag-save a:hover {
+/* Heart icon — default: grey outline */
+.wishlist-btn svg {
+  fill: none;
+  stroke: #9ca3af;
+  color: #9ca3af;
+}
+.wishlist-btn:hover {
   background-color: var(--color-light);
   color: var(--color-primary);
   border-color: var(--color-primary);
 }
-/* Flag save link — Active (Saved) */
-.wishlist-btn-wrapper .flag-save.action-unflag a {
+.wishlist-btn:hover svg {
+  stroke: var(--color-primary);
+  color: var(--color-primary);
+}
+/* Wishlist button — active (saved): red filled heart */
+.wishlist-btn.in-wishlist,
+.wishlist-btn.in-wishlist:hover {
   background-color: var(--color-surface);
   color: #808793;
   border-color: #e5e7eb;
 }
-/* Inject Heart Icon via ::before */
-.wishlist-btn-wrapper .flag-save a::before {
-  content: "";
-  display: block;
-  width: 16px;
-  height: 16px;
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%239ca3af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>');
+.wishlist-btn.in-wishlist svg,
+.wishlist-btn.in-wishlist:hover svg {
+  fill: #fb2c36;
+  stroke: #fb2c36;
+  color: #fb2c36;
 }
-/* Active Heart Icon */
-.wishlist-btn-wrapper .flag-save.action-unflag a::before {
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="%23fb2c36" stroke="%23fb2c36" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>');
-}
-.wishlist-btn-wrapper .flag-save:hover.action-unflag a::before {
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="%23fb2c36" stroke="%23fb2c36" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>');
-}
-
-/* Wishlist Page - Badge Style */
-.wishlist-badge .flag-save a {
-  position: absolute;
-  top: 8px; right: 8px;
-  width: 32px; height: 32px;
-  border-radius: 50%;
-  background-color: white;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  color: transparent !important; /* Hide the text */
-  overflow: hidden;
-  border: none;
-  transition: background 0.2s;
-  display: block;
-}
-.wishlist-badge .flag-save a:hover {
-  background-color: #fff1f2;
-}
-/* Inject Active Heart Icon */
-.wishlist-badge .flag-save a::before {
-  content: "";
-  position: absolute;
-  top: 8px; left: 8px;
-  width: 16px; height: 16px;
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="%23fb2c36" stroke="%23fb2c36" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>');
-}
-
 
 /* Category tabs */
 .category-tab {
@@ -866,6 +829,7 @@ body .mobile-cat-tab.active {
 /* Labels */
 .ch-auth-form .form-item__label,
 .ch-auth-form label,
+.user-form label,
 .user-login-form label,
 .user-register-form label,
 .user-pass label,
@@ -882,8 +846,12 @@ body .mobile-cat-tab.active {
 .ch-auth-form input[type="text"],
 .ch-auth-form input[type="email"],
 .ch-auth-form input[type="password"],
+.user-form input[type="text"],
+.user-form select,
 .user-login-form input[type="text"],
+.user-form input[type="email"],
 .user-login-form input[type="email"],
+.user-form input[type="password"],
 .user-login-form input[type="password"],
 .user-register-form input[type="text"],
 .user-register-form input[type="email"],
@@ -906,7 +874,10 @@ body .mobile-cat-tab.active {
 .ch-auth-form input[type="text"]:focus,
 .ch-auth-form input[type="email"]:focus,
 .ch-auth-form input[type="password"]:focus,
+.user-form input[type="text"]:focus,
+.user-form select:focus,
 .user-login-form input[type="text"]:focus,
+.user-form input[type="password"]:focus,
 .user-login-form input[type="password"]:focus,
 .user-register-form input[type="text"]:focus,
 .user-register-form input[type="email"]:focus,
@@ -916,6 +887,7 @@ body .mobile-cat-tab.active {
 
 /* Form items spacing */
 .ch-auth-form .form-item,
+.user-form .form-item,
 .user-login-form .form-item,
 .user-register-form .form-item,
 .user-pass .form-item {
@@ -925,6 +897,7 @@ body .mobile-cat-tab.active {
 /* Field descriptions — keep small and subtle */
 .ch-auth-form .form-item__description,
 .ch-auth-form .description,
+.user-form .description,
 .user-login-form .description,
 .user-register-form .description,
 .user-pass .description {
@@ -936,12 +909,14 @@ body .mobile-cat-tab.active {
 
 /* Inline validation errors */
 .ch-auth-form .form-item--error input,
+.user-form .form-item--error input,
 .user-login-form .form-item--error input,
 .user-register-form .form-item--error input {
   border-color: #ef4444;
 }
 .ch-auth-form .form-item__error-message,
 .ch-auth-form .form-item .error,
+.user-form .error,
 .user-login-form .error,
 .user-register-form .error {
   font-size: 11px;
@@ -954,6 +929,7 @@ body .mobile-cat-tab.active {
 .ch-auth-form .form-submit,
 .ch-auth-form input[type="submit"],
 .ch-auth-form button[type="submit"],
+.user-form input[type="submit"],
 .user-login-form input[type="submit"],
 .user-register-form input[type="submit"],
 .user-pass input[type="submit"],
@@ -976,6 +952,7 @@ body .mobile-cat-tab.active {
 }
 .ch-auth-form .form-submit:hover,
 .ch-auth-form input[type="submit"]:hover,
+.user-form input[type="submit"]:hover,
 .user-login-form input[type="submit"]:hover,
 .user-register-form input[type="submit"]:hover,
 .user-pass input[type="submit"]:hover,
@@ -1007,8 +984,10 @@ body .mobile-cat-tab.active {
 }
 
 /* Hide Drupal's default fieldset wrappers on login form */
+.ch-auth-form fieldset.user-form,
 .ch-auth-form fieldset.user-login-form,
 .ch-auth-form .fieldset-wrapper,
+.user-form fieldset,
 .user-login-form fieldset,
 .user-register-form fieldset {
   border: none;
@@ -1016,6 +995,7 @@ body .mobile-cat-tab.active {
   margin: 0;
 }
 .ch-auth-form legend,
+.user-form legend,
 .user-login-form legend,
 .user-register-form legend { display: none; }
 
@@ -1038,6 +1018,17 @@ body .mobile-cat-tab.active {
 }
 
 /* Max width for standalone auth pages to match the modal look */
+
+/* User Settings Form - wider than login */
+.main-container .user-form {
+  max-width: 700px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 32px;
+  border-radius: 20px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+}
+
 .main-container .user-login-form,
 .main-container .user-register-form,
 .main-container .user-pass,
@@ -1223,4 +1214,79 @@ body .mobile-cat-tab.active {
   display: flex; align-items: center; justify-content: center;
   font-family: 'Inter', sans-serif; font-weight: 700; font-size: 13px;
   flex-shrink: 0;
+}
+
+/* Details accordion styling for user form */
+.user-form details {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  background: #f9fafb;
+}
+.user-form details > summary {
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: #101828;
+  cursor: pointer;
+  outline: none;
+  margin-bottom: 8px;
+}
+.user-form details > summary:hover {
+  color: #155dfc;
+}
+.user-form details > .details-wrapper {
+  margin-top: 12px;
+}
+
+/* User Form specific typographic overrides */
+.user-form label {
+  font-size: 13px !important;
+  color: #101828 !important;
+}
+
+.user-form .description {
+  font-size: 12px !important;
+  color: #6a7282 !important;
+  line-height: 1.5;
+}
+
+/* Fix Drupal password strength meter and suggestions */
+.user-form .password-suggestions,
+.user-form .password-strength,
+.user-form .password-strength__title,
+.user-form .password-strength__text {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 12px;
+  color: #6a7282;
+  margin-top: 8px;
+  line-height: 1.5;
+}
+.user-form .password-suggestions ul {
+  padding-left: 18px;
+  margin-top: 4px;
+}
+.user-form .password-suggestions ul li {
+  margin-bottom: 2px;
+}
+
+/* Dynamic Status Message Widths */
+/* By default, let messages take full width of their container, 
+   or a reasonable max-width for very wide pages */
+.main-container [data-drupal-messages] {
+  max-width: 900px;
+}
+
+/* If the page contains the 400px login/register forms, match the message width */
+.main-container:has(.user-login-form) [data-drupal-messages],
+.main-container:has(.user-register-form) [data-drupal-messages],
+.main-container:has(.user-pass) [data-drupal-messages],
+.main-container:has(#user-logout-confirm) [data-drupal-messages] {
+  max-width: 400px;
+}
+
+/* If the page contains the 700px user settings form, match the message width */
+.main-container:has(.user-form) [data-drupal-messages] {
+  max-width: 700px;
 }

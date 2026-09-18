@@ -74,8 +74,15 @@
           <button type="button" class="compare-btn w-full" data-id="{{ product_id }}">+ Compare</button>
         </div>
         <div style="flex:1;">
-        <div class="wishlist-btn-wrapper">
-          {{ flag_link }}
+          <button type="button"
+            class="wishlist-btn w-full flex items-center justify-center gap-1.5 {{ is_wishlisted ? 'in-wishlist' : '' }}"
+            data-id="{{ product_id }}"
+            data-flag-url="{{ flag_url }}"
+            data-unflag-url="{{ unflag_url }}"
+            data-wishlisted="{{ is_wishlisted ? '1' : '0' }}">
+            <i data-lucide="heart" class="w-4 h-4"></i>
+            <span class="wishlist-text">{{ is_wishlisted ? '♡ Saved' : '♡ Save' }}</span>
+          </button>
         </div>
       </div>
     </div>

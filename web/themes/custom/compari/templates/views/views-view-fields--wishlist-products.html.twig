@@ -32,9 +32,17 @@
       </div>
     {% endif %}
 
-    <div class="wishlist-badge" title="Remove from wishlist">
-      {{ flag_link }}
-    </div>
+    {# Red filled heart badge — click to remove from wishlist #}
+    <button type="button"
+      class="wishlist-btn in-wishlist absolute top-2 right-2 w-8 h-8 rounded-full bg-white shadow flex items-center justify-center hover:bg-[#fff1f2] transition-colors"
+      data-id="{{ id }}"
+      data-flag-url="{{ flag_url }}"
+      data-unflag-url="{{ unflag_url }}"
+      data-wishlisted="1"
+      data-icon-only="true"
+      title="Remove from wishlist">
+      <i data-lucide="heart" class="w-4 h-4"></i>
+    </button>
   </a>
 
   {# Body #}

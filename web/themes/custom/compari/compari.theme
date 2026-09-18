@@ -329,10 +329,27 @@ function _compari_add_wishlist_flag_data(array &$variables, int $product_id): vo
     }
   }
 
-  // Use Flag module's link builder to generate a lazy-built render array.
-  // This automatically handles CSRF tokens and cacheability metadata!
-  $flag_link = \Drupal::service('flag.link_builder')->build('commerce_product', $product_id, 'save');
-  $variables['flag_link'] = $flag_link;
+  $is_wishlisted = isset($wishlisted_map[$product_id]);
+  $variables['is_wishlisted'] = $is_wishlisted;
+
+  // Generate the Flag module AJAX URLs. Url::fromRoute() auto-appends ?token=
+  // for routes declared with _csrf_token: TRUE.
+  try {
+    $variables['flag_url'] = \Drupal\Core\Url::fromRoute('flag.action_link_flag', [
+      'flag'      => 'save',
+      'entity_id' => $product_id,
+      'view_mode' => 'full',
+    ])->toString();
+    $variables['unflag_url'] = \Drupal\Core\Url::fromRoute('flag.action_link_unflag', [
+      'flag'      => 'save',
+      'entity_id' => $product_id,
+      'view_mode' => 'full',
+    ])->toString();
+  }
+  catch (\Exception $e) {
+    $variables['flag_url']   = '';
+    $variables['unflag_url'] = '';
+  }
 }
 
 
@@ -840,8 +857,8 @@ function compari_preprocess_views_view_fields__wishlist_products(array &$variabl
   }
 
   // Always wishlisted on this page (View only shows flagged items).
-  $variables['flag_token']   = \Drupal::csrfToken()->get('flag/' . $product->id());
-  $variables['is_wishlisted'] = TRUE;
+  // Call the helper to generate the flag_link correctly.
+  _compari_add_wishlist_flag_data($variables, (int) $product->id());
 }
 
 
@@ -859,17 +876,24 @@ function compari_page_attachments(array &$attachments): void {
     $ids = \Drupal::database()
       ->select('flagging', 'f')
       ->fields('f', ['entity_id'])
-      ->condition('f.flag_id', 'wishlist')
+      ->condition('f.flag_id', 'save') // CORRECT FLAG ID
       ->condition('f.uid', $account->id())
       ->condition('f.entity_type', 'commerce_product')
       ->execute()
       ->fetchCol();
     $attachments['#attached']['drupalSettings']['comparehub']['wishlisted_ids'] =
       array_values(array_map('intval', $ids));
+      
+    // IMPORTANT: Cache per user, and invalidate when flags change!
+    $attachments['#cache']['contexts'][] = 'user';
+    $attachments['#cache']['tags'][] = 'flagging_list';
   }
   catch (\Exception $e) {
     // Flag table not available yet — silently skip.
   }
 }
+
+
+
 
 
