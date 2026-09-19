@@ -11,11 +11,11 @@ bundles:
 entity_type: commerce_product
 global: false
 flag_short: '♡ Save'
-flag_long: 'Save this item to your personal list to view later.'
-flag_message: 'Added to Wishlist'
-unflag_short: Unsave
-unflag_long: 'Remove this product from Wishlist.'
-unflag_message: 'Removed from your saved items.'
+flag_long: ''
+flag_message: '♡ Saved to wishlist!'
+unflag_short: '♡ Saved'
+unflag_long: ''
+unflag_message: 'Removed from wishlist'
 unflag_denied_text: ''
 weight: 0
 flag_type: 'entity:commerce_product'

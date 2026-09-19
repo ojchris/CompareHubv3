@@ -8,13 +8,10 @@ dependencies:
     - commerce_product.commerce_product_variation_type.drink
     - commerce_product.commerce_product_variation_type.food
     - commerce_product.commerce_product_variation_type.snack
-    - field.storage.node.field_location
-    - field.storage.node.field_store
   module:
     - commerce
     - commerce_price
     - commerce_product
-    - node
 id: compare_product_variations
 label: 'Compare Product Variations'
 module: views
@@ -575,9 +572,7 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
-      tags:
-        - 'config:field.storage.node.field_location'
-        - 'config:field.storage.node.field_store'
+      tags: {  }
   block_1:
     id: block_1
     display_title: Block
@@ -591,9 +586,7 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
-      tags:
-        - 'config:field.storage.node.field_location'
-        - 'config:field.storage.node.field_store'
+      tags: {  }
   page_1:
     id: page_1
     display_title: Page
@@ -609,6 +602,4 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
-      tags:
-        - 'config:field.storage.node.field_location'
-        - 'config:field.storage.node.field_store'
+      tags: {  }

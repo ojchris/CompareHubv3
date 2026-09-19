@@ -5,5 +5,5 @@ dependencies: {  }
 currencyCode: NGN
 name: 'Nigerian Naira'
 numericCode: '566'
-symbol: NGN
+symbol: ₦
 fractionDigits: 2
