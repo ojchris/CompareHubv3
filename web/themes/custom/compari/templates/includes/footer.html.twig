@@ -67,11 +67,10 @@
       <div class="space-y-4">
         <p class="font-work font-semibold text-[12px] text-[#d1d5dc] tracking-[0.6px] uppercase">Category</p>
         <nav class="flex flex-col gap-4">
-          <a href="category.html#cat=electronics" class="font-work font-medium text-[12px] text-[#99a1af] hover:text-white transition-colors">Smartphones</a>
-          <a href="category.html#cat=electronics" class="font-work font-medium text-[12px] text-[#99a1af] hover:text-white transition-colors">Laptops</a>
-          <a href="category.html#cat=electronics" class="font-work font-medium text-[12px] text-[#99a1af] hover:text-white transition-colors">Headphones</a>
-          <a href="category.html#cat=food" class="font-work font-medium text-[12px] text-[#99a1af] hover:text-white transition-colors">Food &amp; Groceries</a>
-          <a href="category.html#cat=all" class="font-work font-medium text-[12px] text-[#99a1af] hover:text-white transition-colors">Gaming</a>
+          {% for row in drupal_view_result('browse_categories', 'block_1')|slice(0, 5) %}
+            {% set term = row._entity %}
+            <a href="{{ path('entity.taxonomy_term.canonical', {'taxonomy_term': term.id()}) }}" class="font-work font-medium text-[12px] text-[#99a1af] hover:text-white transition-colors">{{ term.label() }}</a>
+          {% endfor %}
         </nav>
       </div>
       <!-- Company col -->
@@ -80,7 +79,7 @@
         <nav class="flex flex-col gap-4">
           <a href="{{ base_path ~ 'about' }}" class="font-work font-medium text-[12px] {{ active_page == '' ? 'text-white' : 'text-[#99a1af] hover:text-white' }} transition-colors">About Us</a>
           <a href="{{ base_path ~ 'how-it-works' }}" class="font-work font-medium text-[12px] {{ active_page == '' ? 'text-white' : 'text-[#99a1af] hover:text-white' }} transition-colors">How It Works</a>
-          <a href="{{ base_path ~ 'become-vendor' }}" class="font-work font-medium text-[12px] text-[#99a1af] hover:text-white transition-colors">Become a Vendor</a>
+          <a href="{{ base_path ~ 'vendor-signup' }}" class="font-work font-medium text-[12px] text-[#99a1af] hover:text-white transition-colors">Become a Vendor</a>
           <a href="{{ base_path ~ 'events' }}" class="font-work font-medium text-[12px] {{ active_page == '' ? 'text-white' : 'text-[#99a1af] hover:text-white' }} transition-colors">Events</a>
         </nav>
       </div>

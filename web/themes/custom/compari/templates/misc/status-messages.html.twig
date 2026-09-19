@@ -1,0 +1,32 @@
+<div data-drupal-messages class="mx-auto my-6">
+{% for type, messages in message_list %}
+  {%
+    set classes = [
+      'p-4 mb-4 rounded-lg border text-sm font-medium',
+      type == 'status' ? 'bg-green-50 text-green-700 border-green-200',
+      type == 'warning' ? 'bg-yellow-50 text-yellow-700 border-yellow-200',
+      type == 'error' ? 'bg-red-50 text-red-600 border-red-200',
+    ]
+  %}
+  <div role="contentinfo" aria-label="{{ status_headings[type] }}" class="{{ classes|join(' ') }}" {{ attributes|without('role', 'aria-label', 'class') }}>
+    {% if type == 'error' %}
+      <div role="alert">
+    {% endif %}
+    {% if status_headings[type] %}
+      <h2 class="sr-only visually-hidden">{{ status_headings[type] }}</h2>
+    {% endif %}
+    {% if messages|length > 1 %}
+      <ul class="list-disc pl-5">
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      {{ messages|first }}
+    {% endif %}
+    {% if type == 'error' %}
+      </div>
+    {% endif %}
+  </div>
+{% endfor %}
+</div>
