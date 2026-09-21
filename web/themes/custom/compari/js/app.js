@@ -114,10 +114,30 @@ function getProductSummaryFromNode(node) {
   return { id, name, price, image, brand, location, listings: [{ name: brand || 'Vendor', price, location }] };
 }
 
-function goToComparePage() {
+async function goToComparePage() {
   const ids = getCompareIds();
   const hash = ids.length ? `#ids=${ids.join(',')}` : '';
   const target = '/compare' + hash;
+
+  // The CSRF token is ONLY injected if the user is authenticated.
+  const token = window.drupalSettings && window.drupalSettings.compare_history_csrf_token 
+    ? window.drupalSettings.compare_history_csrf_token : null;
+  
+  if (token && ids.length > 0) {
+    try {
+      await fetch('/api/compare-history/save', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': token
+        },
+        body: JSON.stringify({ product_ids: ids })
+      });
+    } catch (e) {
+      console.error('Failed to save compare session', e);
+    }
+  }
+
   window.location.href = target;
 }
 
@@ -1070,7 +1090,7 @@ async function renderComparePage() {
       <div class="flex items-center gap-3 border-b border-[#f3f4f6] pb-4">
         <i data-lucide="git-compare" class="h-5 w-5 text-[#364153]"></i>
         <div class="flex-1">
-          <p class="font-inter text-lg font-medium text-[#101828]">Compare Cart</p>
+          <h1 class="font-work font-bold text-[22px] sm:text-[26px] text-[#101828]">Compare Cart</h1>
           <p class="font-inter text-xs text-[#99a1af]">${totalListings} listing${totalListings === 1 ? '' : 's'} across ${ids.length} product${ids.length === 1 ? '' : 's'}</p>
         </div>
         <button type="button" id="clear-all-compare" class="flex items-center gap-1.5 rounded-[10px] px-3 py-1.5 font-inter text-xs font-semibold text-[#fb2c36] hover:bg-[#fff1f2] transition-colors">
@@ -1231,3 +1251,34 @@ if (typeof Drupal !== 'undefined' && typeof Drupal.AjaxCommands !== 'undefined')
   };
 }
 
+
+CH.compare.clearHistory = async function() {
+  if (confirm('Are you sure you want to clear your entire compare history?')) {
+    const btn = document.getElementById('clear-compare-history-btn');
+    if (btn) btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Clearing...';
+    try {
+      await fetch('/api/compare-history/clear', {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': window.drupalSettings.compare_history_csrf_token || ''
+        }
+      });
+      window.location.reload();
+    } catch(e) {
+      CH.ui.showToast('Failed to clear history');
+      if (btn) btn.innerHTML = 'Clear All';
+    }
+  }
+};
+
+CH.compare.compareAgain = function(idsStr) {
+  if (!idsStr) return;
+  const ids = idsStr.split(',').map(id => Number(id.trim())).filter(id => id > 0);
+  if (ids.length > 0) {
+    setCompareIds(ids);
+    refreshCompareButtons();
+    updateCompareBadge();
+    window.location.href = '/compare';
+  }
+};
