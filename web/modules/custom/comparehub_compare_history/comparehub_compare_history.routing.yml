@@ -1,0 +1,19 @@
+comparehub_compare_history.save:
+  path: '/api/compare-history/save'
+  defaults:
+    _controller: '\Drupal\comparehub_compare_history\Controller\CompareHistoryController::save'
+  methods: [POST]
+  requirements:
+    _user_is_logged_in: 'TRUE'
+    _permission: 'record own compare history'
+    _csrf_request_header_token: 'TRUE'
+
+comparehub_compare_history.clear:
+  path: '/api/compare-history/clear'
+  defaults:
+    _controller: '\Drupal\comparehub_compare_history\Controller\CompareHistoryController::clear'
+  methods: [POST]
+  requirements:
+    _user_is_logged_in: 'TRUE'
+    _permission: 'record own compare history'
+    _csrf_request_header_token: 'TRUE'

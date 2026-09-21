@@ -1,37 +1,32 @@
-{#
-/**
- * @file
- * Theme override for a single Compare History product card.
- */
-#}
-{% set product = row._entity %}
-{% set id = product.id() %}
-{% set title = fields.title.content|striptags|trim %}
-{% set image_content = fields.field_product_image.content %}
-{% set has_image = image_content|striptags|trim is not empty %}
-{% set category = fields.field_category.content|striptags|trim %}
-{% set price = fields.price__number.content|striptags|trim %}
+{# views-view-fields--compare-history.html.twig #}
+{% set session = row._entity %}
 
-<div class="history-item bg-white rounded-[16px] border border-[#f3f4f6] overflow-hidden shadow-sm hover:shadow-md transition-shadow group cursor-pointer relative" data-title="{{ title|lower|escape('html_attr') }}" onclick="window.location.href='/product/{{ id }}'">
-  <div class="h-[140px] bg-[#f9fafb] relative p-4 flex items-center justify-center overflow-hidden">
-    {% if has_image %}
-      {{ image_content|replace({'<img': '<img class="w-full h-full object-cover"'})|raw }}
-    {% else %}
-      <i data-lucide="image" class="w-10 h-10 text-[#d1d5db]"></i>
-    {% endif %}
-  </div>
-  <div class="p-4">
-    <p class="font-inter text-[11px] font-semibold tracking-[0.5px] text-[#99a1af] uppercase mb-1">{{ category }}</p>
-    <p class="font-work font-bold text-[14px] text-[#101828] leading-tight group-hover:text-[#155dfc] transition-colors mb-2 line-clamp-2">{{ title }}</p>
-    
-    <div class="flex items-center justify-between mt-3">
-      <div>
-        <p class="font-inter text-[10px] text-[#808793] mb-0.5">Best price</p>
-        <p class="font-inter font-bold text-[14px] text-[#155dfc]">{{ price }}</p>
-      </div>
-      <button class="w-8 h-8 rounded-full bg-[#f3f4f6] flex items-center justify-center group-hover:bg-[#155dfc] group-hover:text-white transition-colors text-[#6a7282]" onclick="event.stopPropagation(); CH.compare.addToCompare({{ id }});" title="Compare">
-        <i data-lucide="git-compare" class="w-4 h-4"></i>
-      </button>
+<div class="bg-white rounded-[16px] border border-[#f3f4f6] p-5 shadow-sm flex flex-col h-full">
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2">
+      <i data-lucide="clock" class="w-4 h-4 text-[#99a1af]"></i>
+      <span class="font-inter text-[12px] text-[#6a7282]">{{ session.created.value|date('M j, Y - g:i a') }}</span>
     </div>
   </div>
+
+  <div class="space-y-3 mb-5 flex-1">
+    {% set ids_array = [] %}
+    {% for product_id, product_data in product_images %}
+      {% set ids_array = ids_array|merge([product_id]) %}
+      <div class="flex items-center gap-3">
+        <div class="w-16 h-16 rounded-[10px] bg-[#f9fafb] border border-[#f3f4f6] overflow-hidden shrink-0 flex items-center justify-center p-1.5">
+          {% if product_data.image_url %}
+            <img src="{{ product_data.image_url }}" alt="{{ product_data.label }}" class="w-full h-full object-contain">
+          {% else %}
+            <i data-lucide="image" class="w-6 h-6 text-[#d1d5dc]"></i>
+          {% endif %}
+        </div>
+        <p class="font-work font-medium text-[13px] text-[#364153] line-clamp-2 leading-snug">{{ product_data.label }}</p>
+      </div>
+    {% endfor %}
+  </div>
+
+  <button type="button" onclick="CH.compare.compareAgain('{{ ids_array|join(',') }}')" class="w-full bg-[#f9fafb] text-[#155dfc] border border-[#e5edff] font-work font-semibold text-[13px] py-2.5 rounded-[10px] hover:bg-[#155dfc] hover:text-white hover:border-[#155dfc] transition-colors flex items-center justify-center gap-2 mt-auto">
+    <i data-lucide="git-compare" class="w-4 h-4"></i> Compare Again
+  </button>
 </div>

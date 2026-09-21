@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for CompareHub Compare History module.
+ */
+
+/**
+ * Implements hook_page_attachments().
+ */
+function comparehub_compare_history_page_attachments(array &$attachments) {
+  $attachments['#cache']['contexts'][] = 'user.roles:authenticated';
+  
+  if (\Drupal::currentUser()->isAuthenticated()) {
+    $token = \Drupal::csrfToken()->get('rest');
+    $attachments['#attached']['drupalSettings']['compare_history_csrf_token'] = $token;
+  }
+}

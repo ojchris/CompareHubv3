@@ -1,42 +1,11 @@
 {#
 /**
  * @file
- * Theme override for the Compare History view.
+ * Theme override for the Compare History unformatted rows.
  */
 #}
-<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-10">
-  <div class="flex flex-col lg:flex-row gap-8 lg:gap-10">
-    {# ── Sidebar ── #}
-    {% include directory ~ '/templates/includes/account_sidebar.html.twig' with {'active_page': 'compare_history'} %}
-
-    <!-- Main Content -->
-    <div class="flex-1 min-w-0">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-        <h1 class="font-work font-bold text-[22px] sm:text-[26px] text-[#101828]">Compare History</h1>
-        <div class="relative w-full sm:w-[280px]">
-          <i data-lucide="search" class="w-4 h-4 text-[#99a1af] absolute left-3 top-1/2 -translate-y-1/2"></i>
-          <input type="text" id="history-search" placeholder="Search history..." class="w-full pl-9 pr-4 py-2.5 border border-[#e5e7eb] rounded-[10px] font-work text-[13px] text-[#364153] outline-none focus:border-[#155dfc] transition-colors bg-[#fafafa]">
-        </div>
-      </div>
-
-      {% if rows|length == 0 %}
-        <div class="py-16 text-center">
-          <div class="w-16 h-16 bg-[#f3f4f6] rounded-full flex items-center justify-center mx-auto mb-4">
-            <i data-lucide="history" class="w-8 h-8 text-[#9ca3af]"></i>
-          </div>
-          <p class="font-work font-semibold text-[16px] text-[#101828]">No compare history yet</p>
-          <p class="font-work text-[13px] text-[#6b7280] mt-1">Products you compare will appear here.</p>
-          <a href="/" class="inline-flex items-center gap-2 px-4 py-2 mt-6 rounded-[10px] bg-[#155dfc] text-white font-work text-[13px] font-semibold hover:bg-[#1447e6]">
-            Browse Products
-          </a>
-        </div>
-      {% else %}
-        <div id="compare-history-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {% for row in rows %}
-            {{ row.content }}
-          {% endfor %}
-        </div>
-      {% endif %}
-    </div>
-  </div>
-</main>
+<div id="compare-history-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 items-stretch">
+  {% for row in rows %}
+    {{ row.content }}
+  {% endfor %}
+</div>

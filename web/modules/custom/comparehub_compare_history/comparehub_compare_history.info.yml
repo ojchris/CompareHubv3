@@ -1,0 +1,8 @@
+name: CompareHub Compare History
+type: module
+description: 'Provides a custom entity to store and manage compare history sessions per user.'
+core_version_requirement: ^9 || ^10 || ^11
+package: Custom
+dependencies:
+  - drupal:user
+  - commerce:commerce_product

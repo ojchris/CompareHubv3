@@ -1,0 +1,6 @@
+record own compare history:
+  title: 'Record own compare history'
+  description: 'Allow users to save their product comparison sessions.'
+view own compare history:
+  title: 'View own compare history'
+  description: 'Allow users to view their past compare sessions.'
