@@ -892,8 +892,77 @@ function compari_page_attachments(array &$attachments): void {
     // Flag table not available yet — silently skip.
   }
 }
+/**
+ * Implements hook_preprocess_views_view_fields__compare_history().
+ * Injects a resolved image URL for each product in the compare session row.
+ */
+function compari_preprocess_views_view_fields__compare_history(array &$variables): void {
+  $row = $variables['row'];
+  if (!isset($row->_entity)) {
+    return;
+  }
 
+  $session = $row->_entity;
+  $file_url_generator = \Drupal::service('file_url_generator');
+  $product_images = [];
 
+  foreach ($session->get('product_ids') as $item) {
+    $product = $item->entity;
+    if (!$product) {
+      continue;
+    }
 
+    $image_url = NULL;
 
+    // Helper closure: resolve a file URI from a field (direct image or media reference).
+    $resolve_image = function ($entity, $field_name) use ($file_url_generator) {
+      if (!$entity->hasField($field_name) || $entity->get($field_name)->isEmpty()) {
+        return NULL;
+      }
+      $field_item = $entity->get($field_name)->first();
+      $referenced = $field_item->entity;
+      if (!$referenced) {
+        return NULL;
+      }
+      // Direct file entity.
+      if ($referenced->getEntityTypeId() === 'file') {
+        return $file_url_generator->generateString($referenced->getFileUri());
+      }
+      // Media entity — look inside it for the source file.
+      if ($referenced->getEntityTypeId() === 'media') {
+        foreach (['field_media_image', 'field_image', 'thumbnail'] as $media_field) {
+          if ($referenced->hasField($media_field) && !$referenced->get($media_field)->isEmpty()) {
+            $file = $referenced->get($media_field)->entity;
+            if ($file) {
+              return $file_url_generator->generateString($file->getFileUri());
+            }
+          }
+        }
+      }
+      return NULL;
+    };
 
+    // Try product-level image fields.
+    foreach (['field_product_image', 'field_image'] as $field) {
+      $image_url = $resolve_image($product, $field);
+      if ($image_url) break;
+    }
+
+    // Fall back to first variation's image fields.
+    if (!$image_url) {
+      foreach ($product->getVariations() as $variation) {
+        foreach (['field_product_image', 'field_image'] as $field) {
+          $image_url = $resolve_image($variation, $field);
+          if ($image_url) break 2;
+        }
+      }
+    }
+
+    $product_images[$product->id()] = [
+      'label'     => $product->label(),
+      'image_url' => $image_url,
+    ];
+  }
+
+  $variables['product_images'] = $product_images;
+}

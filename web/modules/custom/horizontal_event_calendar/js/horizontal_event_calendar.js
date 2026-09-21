@@ -78,7 +78,7 @@
         </div>
         <div id="hec-event-cards" class="epc-event-cards">
           <div class="epc-loading-msg" id="hec-initial-msg">
-            <p>Select a date above to view events.</p>
+            
           </div>
         </div>
       </div>
@@ -184,8 +184,8 @@
             <line x1="10" y1="14" x2="14" y2="14"></line>
           </svg>
         </div>
-        <p class="epc-empty-title">No events on ${fmt}</p>
-        <p class="epc-empty-desc">Try selecting another date or browse other months.</p>
+        <p class="epc-empty-title" style="color:black; font-family:'Work Sans', sans-serif; font-size: 20px; font-weight:600;">Events on <span style="color:#155dfc;">${fmt}</span></p>
+        <p class="epc-empty-desc" style="color:red; font-weight:bold; font-size:14px; margin-top:12px;">NO EVENTS FOUND FOR THIS DATE.</p>
       </div>
     `);
     scrollTo($cards);
@@ -238,9 +238,19 @@
               eventDatesMap[ev.date]++;
             });
             refreshUI(refs, state, eventDatesMap, onMonthClick, onDateClick);
+            
+            // Auto-load today's events if no date is selected
+            if (!state.selectedDate) {
+              onDateClick(TODAY_STR);
+            }
           })
           .fail(function () {
             refreshUI(refs, state, eventDatesMap, onMonthClick, onDateClick);
+            
+            // Auto-load today's events if no date is selected
+            if (!state.selectedDate) {
+              onDateClick(TODAY_STR);
+            }
           });
 
         // ── Month click ───────────────────────────────────────────────────
@@ -269,8 +279,11 @@
                 if ($header.length) {
                   var countText = $header.find('.special-branding-text-highlight').text();
                   $header.html(
-                    '<span class="hec-header-sub">' + countText + ' happening on</span>' +
-                    '<span class="hec-header-date">' + readableDate(dateKey) + '</span>'
+                    '<div style="margin-bottom: 20px;">' +
+                    '<span style="display:block; color:#6a7282; font-family:\'Inter\', sans-serif; font-size: 13px; margin-bottom: 4px;">' + countText + '</span>' +
+                    '<h2 style="color:black; font-family:\'Work Sans\', sans-serif; font-size: 20px; font-weight:600; margin: 0;">' +
+                    'Events on <span style="color:#155dfc;">' + readableDate(dateKey) + '</span></h2>' +
+                    '</div>'
                   );
                 }
                 // Wrap all .views-row elements in a grid wrapper.
