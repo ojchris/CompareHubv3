@@ -24,6 +24,7 @@ module:
   commerce_product: 0
   commerce_store: 0
   commerce_variation_cart_form: 0
+  comparehub_compare_history: 0
   config: 0
   contact: 0
   content_filter: 0

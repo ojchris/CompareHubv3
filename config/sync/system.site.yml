@@ -2,7 +2,7 @@ _core:
   default_config_hash: ijfbzDTN4CbE7Sr-6ubWzy_t1vH4OtU1doNCLssVz-4
 langcode: en
 uuid: e6454dac-0a65-48cd-865c-c732fb86ae5e
-name: 'Drush Site-Install'
+name: CompareHub
 mail: admin@comparehub.ng
 slogan: ''
 page:

@@ -10,6 +10,7 @@ dependencies:
     - commerce_order
     - commerce_product
     - commerce_store
+    - comparehub_compare_history
     - contact
     - file
     - filter
@@ -36,6 +37,7 @@ permissions:
   - 'flag compare'
   - 'flag save'
   - 'post comments'
+  - 'record own compare history'
   - 'search content'
   - 'skip comment approval'
   - 'unflag save'
@@ -44,3 +46,4 @@ permissions:
   - 'view media'
   - 'view online commerce_store'
   - 'view own commerce_order'
+  - 'view own compare history'
